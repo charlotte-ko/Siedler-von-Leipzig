@@ -6,13 +6,9 @@ public class Forester extends Buildings {
 		super("Forester", 10);
 	}
 
-	//Methode um Baumstämme zu produzieren und Inventar zuzufügen -> wie kommt man an das Inventar der Siedler??
-	private Logs makeLogs() {
-		for(Items item : inventory) {
-			if(item.equals("Axe")) {
-				inventory.add(new Logs());
-			}
-		}
+	//Methode um Baumstämme zu produzieren und Inventar zuzufügen -> Zugriff auf Siedler fehlt noch, kommt später
+	public void makeLogs() {
+		inventory.add(new Log(new Vector2D()));
 	}
 	
 	//Kontrollausgabe
