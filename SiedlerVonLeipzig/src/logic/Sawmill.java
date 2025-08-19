@@ -2,19 +2,22 @@ package logic;
 
 public class Sawmill extends Buildings {
 
+	/**
+	 * Konstruktor, übergibt Namen und Preis
+	 */
 	public Sawmill() {
 		super("Sawmill", 10);
 	}
 
-	//Methode um Planken herzustellen und ins Inventar zu packen -> Siedler Inventar überprüfen wie??
+	/**
+	 * Methode um Bretter herzustellen, Zuweisung zu Siedler fehlt noch
+	 */
 	public void makePlanks() {
-		for(Items item : inventory) {
-			if(item.equals("Saw")) {
-				inventory.add(new Plank(new Vector2D()));
-			}
-		}
+		inventory.add(new Plank(new Vector2D()));	
 	}
 	
-	//Kontrollausgabe
+	/**
+	 * Kontrollausgabe um Inventar auszugeben
+	 */
 	public void produce() {System.out.println(inventory);};
 }
