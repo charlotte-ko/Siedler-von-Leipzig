@@ -7,10 +7,10 @@ public class Sawmill extends Buildings {
 	}
 
 	//Methode um Planken herzustellen und ins Inventar zu packen -> Siedler Inventar überprüfen wie??
-	public Planks makePlanks() {
+	public void makePlanks() {
 		for(Items item : inventory) {
 			if(item.equals("Saw")) {
-				inventory.add(new Planks());
+				inventory.add(new Plank(new Vector2D()));
 			}
 		}
 	}
