@@ -4,40 +4,35 @@ import java.util.ArrayList;
 
 public class Items {
 	
-		protected static ArrayList<Items> Itemlist = new ArrayList<Items>(); //vielleicht eher in main
+		//protected static ArrayList<Items> Itemlist = new ArrayList<Items>(); //vielleicht eher in main
 		
 		protected float pos_x;
 		protected float pos_y;
+		//protected Vector2D start_pos;
 		
 		protected boolean held; //gibt an, ob ein Item im Inventar eines Siedlers ist
 		
 		protected String name;
 		
-		public Items() {
+		public Items(Vector2D pos) {
 			this.held = false;
-			pos_y = 0;
-			pos_x = 0; //für die positionen braucht man koordinaten an welcher der konstruktor aufgerufen wurde
+			pos_y = pos.y;
+			pos_x = pos.x;
+			
 		}
 		
-		public static Items createItem(String item, float x, float y) {
+		public static Items createItem(String item, float x, float y, Vector2D pos) {
 			
 			switch(item) {
 			
-			case "Hammer": return new Hammer(); //vielleicht position als paramter
-			case "Saw": return new Saw();
-			case "Log": return new Log();
-			case "Plank": return new Plank();
-			case "Tree": return new Tree(x, y);
+			case "Hammer": return new Hammer(pos); //vielleicht position als paramter
+			case "Saw": return new Saw(pos); //Axe
+			case "Axe": return new Axe(pos);
+			case "Log": return new Log(pos);
+			case "Plank": return new Plank(pos);
+			case "Tree": return new Tree(x, y); //wird seine eigene methode, weil parameter
 			default: throw new IllegalArgumentException("Unexpected Value: " + item);
 			}
-		}
-
-		public static ArrayList<Items> getItemlist() {
-			return Itemlist;
-		}
-
-		public static void setItemlist(ArrayList<Items> itemlist) {
-			Itemlist = itemlist;
 		}
 
 		public float getPos_x() {
