@@ -1,6 +1,7 @@
 package logic;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 
 public class Settlers {
@@ -9,9 +10,10 @@ public class Settlers {
 	//links fürs tragen, rechts für arbeit
 	Items rightHand,leftHand;
 	
-	//Aufgabenspeicher
-	Stack<Vector2D> taskWay;	//weg zur Aufgabe
-	Stack<SettlersAktion> task;	//aufgabe
+	private final float speed = 4.0f;
+	//Aufgabenspeicher (deque besser als stack)
+	private Deque<Vector2D> taskWay = new ArrayDeque<>(); //Weg zur Aufgabe
+	private Deque<SettlersAktion> task = new ArrayDeque<>();	//aufgabe
 	
 	public Settlers(Vector2D startPosition) {
 		this.position = startPosition;
@@ -23,11 +25,48 @@ public class Settlers {
 	 * @param delta time für ausführen zeitgekoppelter aktionen
 	 */
 	public void work(float delta) {
-		if(!isWorking) {
+		if(task.isEmpty()) {
+			this.isWorking = false;
 			return;
 		}
-		//weg
-		//task
+		this.isWorking = true;
+		
+		//got to funktion
+		switch(task.peek()) {
+			case GO_PICKUP_LEFT:
+				break;
+			case GO_PICKUP_RIGHT:
+				break;
+			case GO_BRING_LEFT:
+				break;
+			case GO_BRING_RIGHT:
+				break;
+			case GO_WORK:
+				break;
+			case GO_FREE:
+				break;
+			default:
+				break;
+		}
+	}
+	
+	/**
+	 * @brief interne methode um zum gewünschten Platz zu laufen
+	 * 
+	 * @param delta nötig für die Bewegung
+	 * @return true falls angekommen, ansonsten false
+	 */
+	private boolean goTo(float delta) {
+		Vector2D target = taskWay.peek();
+		float distance = target.getDistance(target);
+		
+		if(distance <= 1.0f) {
+			return true; //ist auf dem Punkt
+		}
+		Vector2D direction = this.position.getTwoPointVector(target).normalize();
+		this.position.x = direction.x * this.speed;
+		this.position.y = direction.y * this.speed;
+		return false;
 	}
 	
 	/**
