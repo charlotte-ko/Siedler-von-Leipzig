@@ -6,11 +6,15 @@ public class Forester extends Buildings {
 		super("Forester", 10);
 	}
 
-	//Methode um Baumstämme zu produzieren und Inventar zuzufügen -> Zugriff auf Siedler fehlt noch, kommt später
+	/**
+	 * Methode um Baumstämme zu produzieren, Bedingung und Zuweisung fehlt noch
+	 */
 	public void makeLogs() {
 		inventory.add(new Log(new Vector2D()));
 	}
 	
-	//Kontrollausgabe
+	/**
+	 * Kontrollausgabe um das aktuelle Inventar des Objektes auszugeben
+	 */
 	public void produce() {System.out.println(inventory);};
  }
