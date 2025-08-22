@@ -1,8 +1,10 @@
-package logic;
+package items;
 
 import java.util.ArrayList;
 
-public class Items {
+import logic.Vector2D;
+
+public abstract class Items implements IItems {
 	
 		//protected static ArrayList<Items> Itemlist = new ArrayList<Items>(); //vielleicht eher in main
 		
@@ -19,7 +21,7 @@ public class Items {
 			
 		}
 		
-		public static Items createItem(String item, Vector2D pos) {
+		public static IItems createItem(String item, Vector2D pos) {
 			
 			switch(item) {
 			
@@ -33,34 +35,49 @@ public class Items {
 			}
 		}
 		
-		public Items closestItem(Vector2D current_pos, Items item_1, Items item_2) {
-			if(current_pos.getDistance(item_1.position) <= current_pos.getDistance(item_2.position)) {
-				return item_1;
-			}
-			return item_2;
+		public Items closestItem(Vector2D current_pos, ArrayList<Items> ItemList, Items target) {
+			
+			float min_distance = Float.POSITIVE_INFINITY;
+			Items finalItem = null;
+			
+			for(Items item : ItemList) {
+				if(item.name != target.name) {
+					continue;
+				}
+				float distance = current_pos.getDistance(item.position);
+				if(distance < min_distance) {
+					min_distance = distance;
+					finalItem = item;
+				}
+			}return finalItem;
 		}
 
-
+		@Override
 		public Vector2D getPosition() {
 			return position;
 		}
-
+		
+		@Override
 		public void setPosition(Vector2D position) {
 			this.position = position;
 		}
-
+		
+		@Override
 		public boolean isHeld() {
 			return held;
 		}
-
+		
+		@Override
 		public void setHeld(boolean held) {
 			this.held = held;
 		}
-
+		
+		@Override
 		public String getName() {
 			return name;
 		}
-
+		
+		@Override
 		public void setName(String name) {
 			this.name = name;
 		}
