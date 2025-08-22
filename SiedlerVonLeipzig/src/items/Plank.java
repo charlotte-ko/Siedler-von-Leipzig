@@ -1,4 +1,6 @@
-package logic;
+package items;
+
+import logic.Vector2D;
 
 public class Plank extends Items{
 	
