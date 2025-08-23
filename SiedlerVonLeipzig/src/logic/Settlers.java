@@ -3,6 +3,8 @@ package logic;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
+import items.Items;
+
 
 public class Settlers {
 	Vector2D position;
