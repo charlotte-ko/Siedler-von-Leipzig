@@ -4,13 +4,13 @@ package buildings;
 import java.util.ArrayList;
 
 import items.Plank;
-import logic.Settlers;
+import settlers.ISettlers;
 import logic.Vector2D;
 
 public class Sawmill extends Buildings {
 
 	private static Vector2D spawn =  new Vector2D();
-	private static ArrayList<Settlers> hasSaw = new ArrayList<>();
+	private static ArrayList<ISettlers> hasSaw = new ArrayList<>();
 	
 	/**
 	 * Konstruktor, übergibt Namen und Preis
@@ -22,9 +22,9 @@ public class Sawmill extends Buildings {
 	/**
 	 * Methode fügt ein Brett dem Inventar zu wenn Siedler ankommt
 	 */
-	public void makePlanks(Settlers worker) {
+	public void makePlanks(ISettlers worker) {
 		
-		if(this.getPosition().getDistance(worker.getPos()) <= 1.0f) {
+		if(this.getPosition().getDistance(worker.getPosition()) <= 1.0f) {
 			inventory.add(new Plank(this.getPosition()));
 		}	
 	}
@@ -33,10 +33,10 @@ public class Sawmill extends Buildings {
 	 * Methode um nächsten Siedler mit Säge zu finden, sollte die Liste hasSaw lieber in der Methode initialisiert werden?
 	 */
 	@Override
-	public Settlers findSettler(Vector2D current_pos, ArrayList<Settlers> settlerList) {
+	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList) {
 		
-		for(Settlers s : settlerList) {
-			if(s.getItem() == "Saw") {
+		for(ISettlers s : settlerList) {
+			if(s.getItemHand(false).getName() == "Saw") {
 				hasSaw.add(s);
 			}
 		}

@@ -3,7 +3,7 @@ package buildings;
 import java.util.ArrayList;
 
 import items.Items;
-import logic.Settlers;
+import settlers.ISettlers;
 import logic.Vector2D;
 
 public abstract class Buildings implements Buildable{
@@ -52,17 +52,17 @@ public abstract class Buildings implements Buildable{
 	 * @param settlerList
 	 * @return closest Settler
 	 */
-	protected static Settlers closestSettler(Vector2D current_pos, ArrayList<Settlers> settlerList) {
+	protected static ISettlers closestSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList) {
 		
 		if(current_pos == null || settlerList == null || settlerList.isEmpty()) {
 			return null;
 		}
 		
 		float min_distance = Float.POSITIVE_INFINITY;
-		Settlers closest = null;
+		ISettlers closest = null;
 		
-		for(Settlers s : settlerList) {
-			float distance = current_pos.getDistance(s.getPos());
+		for(ISettlers s : settlerList) {
+			float distance = current_pos.getDistance(s.getPosition());
 			
 			if(distance < min_distance) {
 				min_distance = distance;
@@ -107,6 +107,6 @@ public abstract class Buildings implements Buildable{
 	 * @param position
 	 */
 	public void setPosition(Vector2D position) {
-		Buildings.position = position;
+		this.position = position;
 	}
 }

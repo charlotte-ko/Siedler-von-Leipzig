@@ -2,7 +2,7 @@ package settlers;
 
 import logic.Vector2D;
 
-import java.util.Vector;
+import java.util.ArrayList;
 
 import items.IItems;
 
@@ -26,13 +26,13 @@ public interface ISettlers {
 	 * @param item
 	 * @param leftHand true linkeHand, false rechteHand
 	 */
-	public void setItemHand(IItems item,boolean leftHand,Vector<ISettlers> settlersList);
+	public void setItemHand(IItems item,boolean leftHand,ArrayList<ISettlers> settlersList);
 	/**
 	 * @brief nimmt dem Siedler das Item aus seiner Hand
 	 * @param leftHand
 	 * @return Item welches gerade noch gehalten wurde
 	 */
-	public IItems takeItemHand(boolean leftHand,Vector<ISettlers> settlersList);
+	public IItems takeItemHand(boolean leftHand,ArrayList<ISettlers> settlersList);
 	
 	/**
 	 * @brief gebe einen Siedler eine Aufgabe in seine Aufgabenliste
