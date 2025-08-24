@@ -3,11 +3,11 @@ package logic;
 public class Vector2D {
 	float x,y;
 	
-	Vector2D(float startX,float startY){
+	public Vector2D(float startX,float startY){
 		this.x = startX;
 		this.y = startY;
 	}
-	Vector2D(float startX){
+	public Vector2D(float startX){
 		this.x = startX;
 		this.y = 0.0f;
 	}
