@@ -3,8 +3,8 @@ package settlers;
 import logic.Vector2D;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
-import java.util.Vector;
 
 import items.IItems;
 
@@ -38,7 +38,7 @@ public abstract class ASettlers implements ISettlers {
 	 * @brief ändert Siedler Type
 	 * @param settlersList Liste mit allen Siedlern (um richtigen Eintrag zu ändern)
 	 */
-	protected void changeSettlerType(Vector<ISettlers>settlersList,String settlerType) {
+	protected void changeSettlerType(ArrayList<ISettlers>settlersList,String settlerType) {
 		for(int i = 0; i < settlersList.size();i++) {
 			if(settlersList.get(i) != this) {
 				continue;
@@ -80,7 +80,7 @@ public abstract class ASettlers implements ISettlers {
 			return this.rightHand;
 		}
 	}
-	public void setItemHand(IItems item,boolean leftHand,Vector<ISettlers> settlersList) {
+	public void setItemHand(IItems item,boolean leftHand,ArrayList<ISettlers> settlersList) {
 		if(leftHand) {
 			this.leftHand = item;
 			return;
@@ -94,7 +94,7 @@ public abstract class ASettlers implements ISettlers {
 		}
 		this.changeSettlerType(settlersList, newType);
 	}
-	public IItems takeItemHand(boolean leftHand,Vector<ISettlers> settlersList) {
+	public IItems takeItemHand(boolean leftHand,ArrayList<ISettlers> settlersList) {
 		if(leftHand) {
 			IItems ret = this.leftHand;
 			this.leftHand = null;

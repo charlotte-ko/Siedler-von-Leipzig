@@ -2,7 +2,8 @@ package buildings;
 
 import java.util.ArrayList;
 
-import logic.Settlers;
+import settlers.ISettlers;
+import settlers.ASettlers;
 import logic.Vector2D;
 
 public class House extends Buildings {
@@ -12,7 +13,7 @@ public class House extends Buildings {
 	/**
 	 * Vector, welcher alle Siedler des Hauses speichert
 	 */
-	public ArrayList<Settlers> sInventory = new ArrayList<>();
+	public ArrayList<ISettlers> sInventory = new ArrayList<>();
 	
 	/**
 	 * Konstruktor des Wohnhauses, übergibt Namen und Preis an Super
@@ -25,7 +26,11 @@ public class House extends Buildings {
 	 * Methode um Siedler zu produzieren und dem Inventar zuzufügen
 	 */
 	public void makeSettlers() {
-		sInventory.add(new Settlers(new Vector2D()));
+		//sInventory.add(new ISettlers(new Vector2D()));
+		/**
+		 * Position muss prezieser angegeben werden !!!
+		 */
+		sInventory.add(ASettlers.createSettler("NormalSettler",new Vector2D()));
 	}
 	
 	/**
@@ -46,7 +51,7 @@ public class House extends Buildings {
 	}
 
 	@Override
-	public Settlers findSettler(Vector2D current_pos, ArrayList<Settlers> settlerList) {
+	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList) {
 		// TODO Auto-generated method stub
 		return null;
 	}
