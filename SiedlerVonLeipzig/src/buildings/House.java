@@ -7,11 +7,9 @@ import settlers.ASettlers;
 import logic.Vector2D;
 
 public class House extends Buildings {
-	
-	private static Vector2D spawn = new Vector2D();
 
 	/**
-	 * Vector, welcher alle Siedler des Hauses speichert
+	 * Vector, welcher alle Siedler des Hauses speichert, brauchen wir nicht, weil das in der globalen Liste steht
 	 */
 	public ArrayList<ISettlers> sInventory = new ArrayList<>();
 	
@@ -19,30 +17,22 @@ public class House extends Buildings {
 	 * Konstruktor des Wohnhauses, übergibt Namen und Preis an Super
 	 */
 	public House(Vector2D pos) {
-		super("House", 10, spawn);
+		super("House", 10, pos);
 	}
 	
 	/**
-	 * Methode um Siedler zu produzieren und dem Inventar zuzufügen
+	 * Methode um Siedler zu produzieren und dem Inventar zuzufügen, gibt zuletzt produzierten S
 	 */
-	public void makeSettlers() {
-		//sInventory.add(new ISettlers(new Vector2D()));
-		/**
-		 * Position muss prezieser angegeben werden !!!
-		 */
-		sInventory.add(ASettlers.createSettler("NormalSettler",new Vector2D()));
-	}
+	public ISettlers makeSettlers(ArrayList<ISettlers> settlerList) {
 	
-	/**
-	 * Kontrollausgabe um Inventar auszugeben
-	 */
-	public void produce() {
-		if(sInventory.isEmpty()) {
-			System.out.println("Nix im Vektor");
-			return;
-		}
-		
-		System.out.println("Inventar: " + this.sInventory.toString() + " Position: " + spawn.toString());}
+		if(counter < 10) {
+			settlerList.add(ASettlers.createSettler("NormalSettler", this.getPosition()));
+			counter++;
+			
+			isFull(10);
+		} 
+		return settlerList.get(settlerList.size() - 1);
+	}
 
 	@Override
 	public void createBuilding() {
@@ -51,8 +41,8 @@ public class House extends Buildings {
 	}
 
 	@Override
-	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList) {
+	public void produce() {
 		// TODO Auto-generated method stub
-		return null;
+		
 	}
 }

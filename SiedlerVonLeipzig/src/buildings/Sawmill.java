@@ -1,46 +1,34 @@
 package buildings;
 
-
 import java.util.ArrayList;
 
 import items.Plank;
 import settlers.ISettlers;
+import settlers.SettlersAktion;
 import logic.Vector2D;
 
 public class Sawmill extends Buildings {
-
-	private static Vector2D spawn =  new Vector2D();
-	private static ArrayList<ISettlers> hasSaw = new ArrayList<>();
 	
 	/**
 	 * Konstruktor, übergibt Namen und Preis
 	 */
 	public Sawmill(Vector2D pos) {
-		super("Sawmill", 10, spawn);
+		super("Sawmill", 10, pos);
 	}
 
 	/**
-	 * Methode fügt ein Brett dem Inventar zu wenn Siedler ankommt
+	 * Methode erstellt Brett mit gelagertem Log, gibt Brett dem Siedler mit
 	 */
-	public void makePlanks(ISettlers worker) {
+	public void makePlanks(ArrayList<ISettlers> settlerList) {
 		
-		if(this.getPosition().getDistance(worker.getPosition()) <= 1.0f) {
-			inventory.add(new Plank(this.getPosition()));
-		}	
-	}
-	
-	/**
-	 * Methode um nächsten Siedler mit Säge zu finden, sollte die Liste hasSaw lieber in der Methode initialisiert werden?
-	 */
-	@Override
-	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList) {
+		ISettlers worker = null;
 		
-		for(ISettlers s : settlerList) {
-			if(s.getItemHand(false).getName() == "Saw") {
-				hasSaw.add(s);
-			}
+		if(!inventory.isEmpty()) {
+			worker = findSettler(this.getPosition(), settlerList, "Saw");
+			worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_WORK);
+			inventory.remove(inventory.size() - 1);
+			worker.setItemHand(new Plank(worker.getPosition()), true, settlerList);
 		}
-		return closestSettler(current_pos, hasSaw);
 	}
 	
 	/**
@@ -55,8 +43,8 @@ public class Sawmill extends Buildings {
 	}
 
 	@Override
-	public void makeSettlers() {
+	public ISettlers makeSettlers(ArrayList<ISettlers> settlerList) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 }

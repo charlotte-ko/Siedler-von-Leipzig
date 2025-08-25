@@ -6,16 +6,17 @@ import items.Items;
 import settlers.ISettlers;
 import logic.Vector2D;
 
-public abstract class Buildings implements Buildable{
+public abstract class Buildings implements IBuildings{
 	
 	/**
 	 * Attribute
 	 */
 	protected final String name;
 	private Vector2D position;
-	public static ArrayList<Items> inventory = new ArrayList<>(); 
+	protected ArrayList<Items> inventory = new ArrayList<>(); 
 	private final int price; //Ich weiß nicht mehr ob das in die GUI reinkommt oder hier
-	private boolean state = false; //Ist erstmal nicht voll, ich weiß noch nicht, ob das wichtig ist und was die Bedingung zum Überprüfen ist
+	protected boolean state = false; //Ist erstmal nicht voll, ich weiß noch nicht, ob das wichtig ist und was die Bedingung zum Überprüfen ist
+	protected int counter = 0;
 	
 	/**
 	 * Konstruktor
@@ -37,7 +38,7 @@ public abstract class Buildings implements Buildable{
 	 * @return eine Instanz des erstellten Buildings
 	 * @throws IllegalArgumentsException wenn der erstellte Gebäudetyp nicht existiert (sollte eiegntlich nicht passieren, aber sicher ist sicher)
 	 */
-	public static Buildable createBuilding(String building, Vector2D pos) {
+	public static IBuildings createBuilding(String building, Vector2D pos) {
 		switch(building) {
 		case "House" : return new House(pos);
 		case "Forester" : return new Forester(pos);
@@ -70,6 +71,32 @@ public abstract class Buildings implements Buildable{
 			}
 		}
 		return closest;
+	}
+	
+	/**
+	 * Methode um nächsten Siedler mit Säge zu finden
+	 */
+	@Override
+	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList, String name) {
+		
+		ArrayList<ISettlers> toolList = new ArrayList<>();
+		
+		for(ISettlers s : settlerList) {
+			if(s.getItemHand(false).getName().equals(name)) {
+				toolList.add(s);
+			}
+		}
+		return closestSettler(current_pos, toolList);
+	}
+	
+	/**
+	 * Methode zur Bestimmung ob ein Gebäude voll ist, nimmt individuelles maximum als Parameter
+	 * @param max
+	 */
+	protected void isFull(int max) {
+		if(counter >= max) {
+			state = true;
+		}
 	}
 	
 	/**
