@@ -6,6 +6,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 
+import buildings.IBuildings;
 import items.IItems;
 
 public abstract class ASettlers implements ISettlers {
@@ -17,6 +18,24 @@ public abstract class ASettlers implements ISettlers {
 	//Aufgabenspeicher (deque besser als stack)
 	private Deque<Vector2D> taskWay = new ArrayDeque<>(); //Weg zur Aufgabe
 	private Deque<SettlersAktion> task = new ArrayDeque<>();	//aufgabe
+	
+	
+	private Deque<IItems> taskTarget = new ArrayDeque<>();
+	
+	public IItems getItem(boolean leftHand) {
+		if(leftHand) {
+			return this.leftHand;
+		}else {
+			return this.rightHand;
+		}
+	}
+	public void setItem(boolean leftHand,IItems tem) {
+		if(leftHand) {
+			this.leftHand = tem;
+		}else {
+			this.rightHand = tem;
+		}
+	}
 	
 	/**
 	 * @brief hilfs Factory Methode zum erstellen von einem Siedler
@@ -54,21 +73,26 @@ public abstract class ASettlers implements ISettlers {
 	/**
 	 * @brief ändert Siedler Type
 	 * @param settlersList Liste mit allen Siedlern (um richtigen Eintrag zu ändern)
+	 * @pram settlerType Type in wen er verwandelt werden soll
 	 */
 	protected void changeSettlerType(ArrayList<ISettlers>settlersList,String settlerType) {
+		ISettlers s = null;
 		for(int i = 0; i < settlersList.size();i++) {
 			if(settlersList.get(i) != this) {
 				continue;
 			}
 			settlersList.set(i, createSettler(settlerType,this.position));
-			//mgl items übertragen
-			ISettlers s = settlersList.get(i);
-			s.setItemHand(this.getItemHand(true), true,settlersList);
-			s.setItemHand(this.getItemHand(false), false,settlersList);
-			while(!this.task.isEmpty()) {
-				s.giveSettlerTask(this.taskWay.pop(), this.task.pop());
-			}
-			break;
+			s = settlersList.get(i);
+		}
+		if(s == null) {
+			return;
+		}
+		//items übertragen
+		s.setItem(true, this.getItem(true));
+		s.setItem(false, this.getItem(false));
+		//Aufgaben übertragen
+		while(!this.task.isEmpty()) {
+			s.giveSettlerTask(this.taskWay.pollFirst(), this.task.pollFirst(),this.taskTarget.pollFirst());
 		}
 	}
 	
@@ -97,34 +121,96 @@ public abstract class ASettlers implements ISettlers {
 			return this.rightHand;
 		}
 	}
+	
+
 	public void setItemHand(IItems item,boolean leftHand,ArrayList<ISettlers> settlersList) {
 		if(leftHand) {
 			this.leftHand = item;
 			return;
 		}
-		String newType = "NormalSettler";
-		/*
-		 * Hier muss noch hinzugefügt werden welches Item welchen Siedler erzeugt
-		 */
-		switch(item.getName()) {
-			default:break;
-		}
-		this.changeSettlerType(settlersList, newType);
+		this.changeSettlerType(settlersList, ASettlers.getJobFromItem(item));
 	}
+	
 	public IItems takeItemHand(boolean leftHand,ArrayList<ISettlers> settlersList) {
 		if(leftHand) {
 			IItems ret = this.leftHand;
 			this.leftHand = null;
 			return ret;
 		}
-		this.changeSettlerType(settlersList, "NormalSettler");
+		
 		IItems ret = this.rightHand;
 		this.rightHand = null;
+		this.changeSettlerType(settlersList, "NormalSettler");
 		return ret;
 	}
-	public void giveSettlerTask(Vector2D punkt,SettlersAktion aufgabe) {
-		this.taskWay.push(punkt);
-		this.task.push(aufgabe);
+	
+
+	public void giveSettlerTask(Vector2D punkt,SettlersAktion aufgabe,IItems target) {
+		this.taskWay.addLast(punkt);
+		this.task.addLast(aufgabe);
+		this.taskTarget.addLast(target);
+	}
+	
+	public void update(float delta,ArrayList<IItems> itemList,ArrayList<IBuildings> buildingList,ArrayList<ISettlers> settlerList) {
+		if(this.task.isEmpty()) {
+			this.working = false;
+			return;
+		}
+		if(this.position.getDistance(this.taskWay.peekFirst()) > 1.0f) {
+			walk(delta,this.taskWay.peekFirst());
+			return;
+		}
+		this.taskWay.pollFirst();
+		IItems target = this.taskTarget.pollFirst();
+		switch(this.task.pollFirst()) {
+			case GO_PICKUP_LEFT:
+				this.setItemHand(target, true, settlerList);
+				break;
+			case GO_PICKUP_RIGHT:
+				this.setItemHand(target, false, settlerList);
+				break;
+			case GO_BRING_LEFT:
+				this.takeItemHand(true, settlerList);
+				break;
+			case GO_BRING_RIGHT:
+				this.takeItemHand(false, settlerList);
+				break;
+			case GO_WORK:
+				this.work(delta);
+				break;
+			case GO_FREE://tut nix
+				break;
+			default:
+				break;
+		}
+	}
+	/**
+	 * @brief geht in die gewünschte richtung
+	 * @param delta
+	 * @param target wo es hingehen soll
+	 */
+	private void walk(float delta,Vector2D target) {
+		Vector2D direction = this.position.getTwoPointVector(target);
+		direction = direction.normalize();
+		direction = direction.scale(this.getSpeed()*delta);
+		this.position = this.position.add(direction);
+	}
+	/**
+	 * @brief gibt Job zurück welches zum Item passt
+	 * @param tem (undertail anspielung)
+	 * @return
+	 */
+	private static String getJobFromItem(IItems tem) {
+		switch(tem.getName()) {
+			case "Hammer":
+				return "Builder";
+			case "Saw":
+				return "Sawyer";
+			case "Axe":
+				return "Woodcutter";
+			default:
+				return "NormalSettler";
+		}
 	}
 	
 	protected abstract void work(float delta);
