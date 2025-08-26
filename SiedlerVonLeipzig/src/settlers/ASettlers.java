@@ -64,7 +64,7 @@ public abstract class ASettlers implements ISettlers {
 	 * @note Es sollten nur einfache Siedler (ohne Arbeits Item) erstellt werden
 	 * Siedler können durch Items ihren Job bekommen.
 	 */
-	public static ISettlers createSettlerInList(ArrayList<ISettlers> settlerList,String settlerType,Vector2D position) {
+	public static ISettlers createSettlerInList(ArrayList<ISettlers> settlerList, String settlerType, Vector2D position) {
 		ISettlers newSettler = createSettler(settlerType,position);
 		settlerList.add(newSettler);
 		return newSettler;
@@ -145,13 +145,13 @@ public abstract class ASettlers implements ISettlers {
 	}
 	
 
-	public void giveSettlerTask(Vector2D punkt,SettlersAktion aufgabe,IItems target) {
+	public void giveSettlerTask(Vector2D punkt, SettlersAktion aufgabe, IItems target) {
 		this.taskWay.addLast(punkt);
 		this.task.addLast(aufgabe);
 		this.taskTarget.addLast(target);
 	}
 	
-	public void update(float delta,ArrayList<IItems> itemList,ArrayList<IBuildings> buildingList,ArrayList<ISettlers> settlerList) {
+	public void update(float delta, ArrayList<IItems> itemList, ArrayList<IBuildings> buildingList, ArrayList<ISettlers> settlerList) {
 		if(this.task.isEmpty()) {
 			this.working = false;
 			return;
