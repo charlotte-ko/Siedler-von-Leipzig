@@ -81,4 +81,20 @@ public abstract class Items implements IItems {
 		public void setName(String name) {
 			this.name = name;
 		}
+		
+		/**
+		 * @brief löscht ein spezifisches Item aus der itemList
+		 * @param target Item welches gelöscht werden soll
+		 * @param itemList
+		 */
+		public static void dellItemFromList(IItems target,ArrayList<IItems> itemList) {
+			for(int i = 0; i < itemList.size();i++) {
+				if(target != itemList.get(i)) {
+					continue;
+				}
+				itemList.remove(i);
+				break;
+			}
+			return;
+		}
 }

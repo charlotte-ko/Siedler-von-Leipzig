@@ -50,4 +50,11 @@ public class Vector2D {
 	public float length() {
 		return (float)Math.abs(Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2)));
 	}
+	
+	public Vector2D scale(float scalar) {
+		return new Vector2D(this.x*scalar,this.y*scalar);
+	}
+	public Vector2D add(Vector2D b) {
+		return new Vector2D(this.x+b.x,this.y+b.y);
+	}
 }
