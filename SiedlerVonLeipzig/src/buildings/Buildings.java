@@ -2,7 +2,7 @@ package buildings;
 
 import java.util.ArrayList;
 
-import items.Items;
+import items.IItems;
 import settlers.ISettlers;
 import logic.Vector2D;
 
@@ -13,7 +13,8 @@ public abstract class Buildings implements IBuildings{
 	 */
 	protected final String name;
 	private Vector2D position;
-	protected ArrayList<Items> inventory = new ArrayList<>(); 
+	protected ArrayList<IItems> input_inventory = new ArrayList<>(); 
+	protected ArrayList<IItems> output_inventory = new ArrayList<>();
 	private final int price; //Ich weiß nicht mehr ob das in die GUI reinkommt oder hier
 	protected boolean state = false; //Ist erstmal nicht voll, ich weiß noch nicht, ob das wichtig ist und was die Bedingung zum Überprüfen ist
 	protected int counter = 0;
@@ -128,7 +129,38 @@ public abstract class Buildings implements IBuildings{
 	public Vector2D getPosition() {
 		return position;
 	}
-
+	
+	/**
+	 * Getter Methode für das Input_Inventar des Gebäudes
+	 * @return inventory
+	 */
+	public ArrayList<IItems> getInput_Inventory() {
+		return input_inventory;
+	}
+	
+	/**
+	 * Getter für Output_Inventar
+	 * @return inventory
+	 */
+	public ArrayList<IItems> getOutput_Inventory() {
+		return output_inventory;
+	}
+	
+	/**
+	 * Setter Methode für das Input_Inventar eines Gebäudes zu bestimmen
+	 * @param inventory
+	 */
+	public void setInventory(ArrayList<IItems> input_inventory) {
+		this.input_inventory = input_inventory;
+	}
+	
+	/**
+	 * Setter für Output_Inventar
+	 * @param output_inventory
+	 */
+	public void setOutput_Inventory(ArrayList<IItems> output_inventory) {
+		this.output_inventory = output_inventory;
+	}
 	/**
 	 * Setter Methode um die Position eines Objektes zu bestimmen
 	 * @param position
