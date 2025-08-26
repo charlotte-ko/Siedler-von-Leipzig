@@ -19,21 +19,38 @@ public abstract class ASettlers implements ISettlers {
 	private Deque<SettlersAktion> task = new ArrayDeque<>();	//aufgabe
 	
 	/**
-	 * @brief Factory Methode zum erstellen von Siedlern
+	 * @brief hilfs Factory Methode zum erstellen von einem Siedler
 	 * @param settlerType
 	 * @param position
 	 * @return ISettlers
-	 * 
-	 * @note Achtung spezielle Siedler benötigen auch ihre spezifischen Items!!!
 	 */
-	public static ISettlers createSettler(String settlerType,Vector2D position) {
+	private static ISettlers createSettler(String settlerType,Vector2D position) {
+		ISettlers newSettler;
 		switch(settlerType) {
 			case "NormalSettler":
-				return (ISettlers)new NormalSettler(position);
+				newSettler = new NormalSettler(position);
+				break;
 			default:
-				return (ISettlers)new NormalSettler(position);
+				newSettler = new NormalSettler(position);
+				break;
 		}
+		return newSettler;
 	}
+	/**
+	 * @brief Factory Methode zum Erstellen von Siedlern, welche direkt in die globale settlerList gespeichert werden.
+	 * @param settlerList
+	 * @param settlerType
+	 * @param position
+	 * @return erstelltes Objekt wird zurückgegeben (steht aber auch in der liste)
+	 * @note Es sollten nur einfache Siedler (ohne Arbeits Item) erstellt werden
+	 * Siedler können durch Items ihren Job bekommen.
+	 */
+	public static ISettlers createSettlerInList(ArrayList<ISettlers> settlerList,String settlerType,Vector2D position) {
+		ISettlers newSettler = createSettler(settlerType,position);
+		settlerList.add(newSettler);
+		return newSettler;
+	}
+	
 	/**
 	 * @brief ändert Siedler Type
 	 * @param settlersList Liste mit allen Siedlern (um richtigen Eintrag zu ändern)
