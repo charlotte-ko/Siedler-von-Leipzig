@@ -90,8 +90,10 @@ public class Game extends JFrame {
 		shop.setBackground(lightbrown);
 		delete.setPreferredSize(new Dimension(50, 50));
 		delete.setBackground(lightbrown);
+		
 		inventory.setPreferredSize(new Dimension(50, 50));
 		inventory.setBackground(lightbrown);
+		inventory.addActionListener(e -> new GameInv());
 		
 		end.setPreferredSize(new Dimension(50, 50));
 		end.setBackground(lightbrown);
