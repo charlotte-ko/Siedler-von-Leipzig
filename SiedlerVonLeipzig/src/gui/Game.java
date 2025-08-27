@@ -18,7 +18,8 @@ public class Game extends JFrame {
 	private JPanel menubar;
 	
 	//Alle Farben
-	private Color brown = new Color(182,114,103);
+	private Color brown = new Color(247, 181, 138);
+	Color lightbrown = new Color(251, 216, 193);
 	
 	//Alle Buttons
 	JButton shop = new JButton("Shop");
@@ -63,6 +64,7 @@ public class Game extends JFrame {
 		
 		GridBagConstraints axis = new GridBagConstraints();
 		axis.insets = new Insets(10, 20, 10, 20);
+		axis.fill = GridBagConstraints.HORIZONTAL;
 		
 		setButtons();
 		
@@ -85,9 +87,17 @@ public class Game extends JFrame {
 	private void setButtons() {
 		
 		shop.setPreferredSize(new Dimension(50, 50));
+		shop.setBackground(lightbrown);
 		delete.setPreferredSize(new Dimension(50, 50));
+		delete.setBackground(lightbrown);
+		
 		inventory.setPreferredSize(new Dimension(50, 50));
+		inventory.setBackground(lightbrown);
+		inventory.addActionListener(e -> new GameInv());
+		
 		end.setPreferredSize(new Dimension(50, 50));
+		end.setBackground(lightbrown);
+		end.addActionListener(e -> new Exit());
 		
 	}
 }

@@ -39,7 +39,7 @@ public abstract class Items implements IItems {
 			
 			float min_distance = Float.POSITIVE_INFINITY;
 			Items finalItem = null;
-			
+			//darf nicht gehalten werden
 			for(Items item : ItemList) {
 				if(item.name != target.name) {
 					continue;
