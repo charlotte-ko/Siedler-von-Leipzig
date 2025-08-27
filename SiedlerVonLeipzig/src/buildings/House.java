@@ -21,7 +21,7 @@ public class House extends Buildings {
 	}
 	
 	/**
-	 * Methode um Siedler zu produzieren und dem Inventar zuzufügen, gibt zuletzt produzierten S
+	 * Methode um Siedler zu produzieren und dem Inventar zuzufügen, gibt zuletzt produzierten Siedler zurück
 	 */
 	public ISettlers makeSettlers(ArrayList<ISettlers> settlerList) {
 	

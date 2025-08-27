@@ -87,6 +87,11 @@ public abstract class Buildings implements IBuildings{
 				toolList.add(s);
 			}
 		}
+		
+		if(toolList.isEmpty()) {
+			settlerWithoutItem(settlerList);
+		}
+		
 		return closestSettler(current_pos, toolList);
 	}
 	
@@ -98,6 +103,13 @@ public abstract class Buildings implements IBuildings{
 		if(counter >= max) {
 			state = true;
 		}
+	}
+	
+	protected ISettlers settlerWithoutItem(ArrayList<ISettlers> settlerList) {
+		
+		ArrayList<ISettlers> toolless = new ArrayList<>();
+		
+		
 	}
 	
 	/**

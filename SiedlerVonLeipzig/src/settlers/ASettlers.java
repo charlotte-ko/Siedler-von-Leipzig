@@ -43,7 +43,7 @@ public abstract class ASettlers implements ISettlers {
 	 * @param position
 	 * @return ISettlers
 	 */
-	private static ISettlers createSettler(String settlerType,Vector2D position) {
+	public static ISettlers createSettler(String settlerType, Vector2D position) {
 		ISettlers newSettler;
 		switch(settlerType) {
 			case "NormalSettler":

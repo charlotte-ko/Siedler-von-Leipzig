@@ -23,12 +23,17 @@ public class Sawmill extends Buildings {
 		
 		ISettlers worker = null;
 		
-		if(!inventory.isEmpty()) {
+		if(!input_inventory.isEmpty()) {
 			worker = findSettler(this.getPosition(), settlerList, "Saw");
 			worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_WORK);
-			inventory.remove(inventory.size() - 1);
+			input_inventory.remove(input_inventory.size() - 1);
 			worker.setItemHand(new Plank(worker.getPosition()), true, settlerList);
 		}
+	}
+	
+	public void getLogs() {
+		
+		ISettlers worker = getSe
 	}
 	
 	/**
