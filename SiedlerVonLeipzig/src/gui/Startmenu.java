@@ -6,6 +6,9 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,10 +28,13 @@ public class Startmenu extends JFrame{
 	Color foresty = new Color(0, 153, 76);
 	Color pine = new Color(0, 51, 25);
 	
+	String player_name; //soll dann key für unser Speichersystem sein, weiß nicht, ob das dann in Main gehört
+	
 	public Startmenu() {
 		
 		super("Startmenue");
 		
+		//Basics für Fenster
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
@@ -41,6 +47,7 @@ public class Startmenu extends JFrame{
 		this.add(button2);
 		this.add(button3);
 		this.add(button4);
+		this.add(button5);
 		
 		setVisible(true);
 	}
@@ -48,14 +55,32 @@ public class Startmenu extends JFrame{
 	private void openNewGame() {
 		
 		JFrame NewFrame = new JFrame("Neues Spiel");
+		
 		NewFrame.setSize(600,200);
 		NewFrame.setLocationRelativeTo(null);
 		NewFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		NewFrame.setLayout(new GridBagLayout());
+		NewFrame.getContentPane().setBackground(new Color(42, 158, 58));
 		
 		JLabel name = new JLabel("Name:");
+		name.setForeground(pine);
+		
 		JTextField field_name = new JTextField(20);
+		field_name.setBackground(pine);
+		field_name.setForeground(foresty);
+		
 		JButton confirm = new JButton("Bestätigen");
+		confirm.addActionListener(e -> {
+			
+			player_name = field_name.getText();
+			new Game();
+			NewFrame.dispose();
+			this.dispose();
+		});
+		
+		confirm.setBackground(pine);
+		confirm.setForeground(foresty);
+		
 		
 		GridBagConstraints axis = new GridBagConstraints();
 		axis.insets = new Insets(5, 5, 5, 5);
@@ -113,6 +138,10 @@ public class Startmenu extends JFrame{
 		button5.setForeground(foresty);
 		button5.setOpaque(true);
 		button5.setBorderPainted(false);
-		this.add(button5);
+		button5.addActionListener(e -> System.exit(0));
+	}
+	
+	public String getName() {
+		return this.player_name;
 	}
 }
