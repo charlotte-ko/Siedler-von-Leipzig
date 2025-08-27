@@ -3,7 +3,9 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -32,7 +34,6 @@ public class Game extends JFrame {
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setLayout(new BorderLayout());
-		this.setVisible(true);
 		
 		//Einzelnen Komponenten
 		field = createField();
@@ -41,6 +42,8 @@ public class Game extends JFrame {
 		
 		this.add(field, BorderLayout.CENTER);
 		this.add(menubar, BorderLayout.SOUTH);
+		
+		this.setVisible(true);
 	}
 	
 	private JPanel createField() {
@@ -53,23 +56,30 @@ public class Game extends JFrame {
 	
 	private JPanel createMenuBar() {
 		
-		JPanel complete = new JPanel();
-		complete.setOpaque(false);
-		complete.setLayout(new BorderLayout());
-		
-		JPanel panel = new JPanel();
+		JPanel panel = new JPanel(new GridBagLayout());
 		panel.setBackground(brown);
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER));
+		panel.setOpaque(true);
 		panel.setPreferredSize(new Dimension(800, 90));
+		
+		GridBagConstraints axis = new GridBagConstraints();
+		axis.insets = new Insets(10, 20, 10, 20);
+		
 		setButtons();
-		panel.add(shop);
-		panel.add(delete);
-		panel.add(inventory);
-		panel.add(end);
 		
-		complete.add(panel, BorderLayout.CENTER);
+		axis.gridy = 0;
+		axis.gridx = 0;
+		panel.add(shop, axis);
 		
-		return complete;
+		axis.gridx = 1;
+		panel.add(delete, axis);
+		
+		axis.gridx = 2;
+		panel.add(inventory, axis);
+		
+		axis.gridx = 3;
+		panel.add(end, axis);
+		
+		return panel;
 	}
 	
 	private void setButtons() {
