@@ -49,6 +49,15 @@ public abstract class ASettlers implements ISettlers {
 			case "NormalSettler":
 				newSettler = new NormalSettler(position);
 				break;
+			case "Builder":
+				newSettler = new Builder(position);
+				break;
+			case "Sawyer":
+				newSettler = new Sawyer(position);
+				break;
+			case "Woodcutter":
+				newSettler = new Woodcutter(position);
+				break;
 			default:
 				newSettler = new NormalSettler(position);
 				break;
@@ -158,6 +167,11 @@ public abstract class ASettlers implements ISettlers {
 		}
 		if(this.position.getDistance(this.taskWay.peekFirst()) > 1.0f) {
 			walk(delta,this.taskWay.peekFirst());
+			//items mit bewegen
+			if(this.leftHand != null)
+				this.leftHand.setPosition(this.getPosition());
+			if(this.rightHand != null)
+				this.rightHand.setPosition(this.getPosition());
 			return;
 		}
 		this.taskWay.pollFirst();
@@ -165,15 +179,19 @@ public abstract class ASettlers implements ISettlers {
 		switch(this.task.pollFirst()) {
 			case GO_PICKUP_LEFT:
 				this.setItemHand(target, true, settlerList);
+				target.setHeld(true);
 				break;
 			case GO_PICKUP_RIGHT:
 				this.setItemHand(target, false, settlerList);
+				target.setHeld(true);
 				break;
 			case GO_BRING_LEFT:
 				this.takeItemHand(true, settlerList);
+				target.setHeld(false);
 				break;
 			case GO_BRING_RIGHT:
 				this.takeItemHand(false, settlerList);
+				target.setHeld(false);
 				break;
 			case GO_WORK:
 				this.work(delta);
