@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import items.IItems;
 import settlers.ISettlers;
+import settlers.SettlersAktion;
 import logic.Vector2D;
 
 public abstract class Buildings implements IBuildings{
@@ -18,6 +19,7 @@ public abstract class Buildings implements IBuildings{
 	private final int price; //Ich weiß nicht mehr ob das in die GUI reinkommt oder hier
 	protected boolean state = false; //Ist erstmal nicht voll, ich weiß noch nicht, ob das wichtig ist und was die Bedingung zum Überprüfen ist
 	protected int counter = 0;
+	protected int task_counter = 0;
 	
 	/**
 	 * Konstruktor
@@ -75,24 +77,26 @@ public abstract class Buildings implements IBuildings{
 	}
 	
 	/**
-	 * Methode um nächsten Siedler mit Säge zu finden
+	 * Methode sucht einen Siedler mit gebrauchtem Job, gibt es keinen Siedler mit diesem Job,
+	 * geben wir einem Normalem Siedler einen Job, indem wir ihm sagen -> Hol Item für Job
 	 */
 	@Override
-	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList, String name) {
-		
-		ArrayList<ISettlers> toolList = new ArrayList<>();
+	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job, IItems target) {
+		ArrayList<ISettlers> wanted = new ArrayList<>();
 		
 		for(ISettlers s : settlerList) {
-			if(s.getItemHand(false).getName().equals(name)) {
-				toolList.add(s);
+			if(s.getJob().equals(job)) {
+				wanted.add(s);
 			}
 		}
 		
-		if(toolList.isEmpty()) {
-			settlerWithoutItem(settlerList);
+		if(wanted.isEmpty()) {
+			ISettlers jobless = findSettler(settlerList, "Normal");
+			jobless.giveSettlerTask(jobless.closestItem(jobless.getPosition()), SettlersAktion.GO_PICKUP_RIGHT, target);
+			return jobless;
 		}
 		
-		return closestSettler(current_pos, toolList);
+		return closestSettler(this.getPosition(), wanted);
 	}
 	
 	/**
@@ -103,13 +107,6 @@ public abstract class Buildings implements IBuildings{
 		if(counter >= max) {
 			state = true;
 		}
-	}
-	
-	protected ISettlers settlerWithoutItem(ArrayList<ISettlers> settlerList) {
-		
-		ArrayList<ISettlers> toolless = new ArrayList<>();
-		
-		
 	}
 	
 	/**
