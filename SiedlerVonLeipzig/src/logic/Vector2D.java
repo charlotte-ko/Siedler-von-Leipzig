@@ -1,5 +1,7 @@
 package logic;
 
+import java.util.ArrayList;
+
 public class Vector2D {
 	float x,y;
 	
@@ -56,5 +58,34 @@ public class Vector2D {
 	}
 	public Vector2D add(Vector2D b) {
 		return new Vector2D(this.x+b.x,this.y+b.y);
+	}
+	
+	/**
+	 * 
+	 * @param centre Mittelpunkt, also meistens ein Gebäude
+	 * @param radius 
+	 * @return eine Liste an Punkten, die sich innerhalb eines gewünschten Radius befinden
+	 */
+	public ArrayList<Vector2D> genPos(Vector2D centre, float radius) {
+		
+		ArrayList<Vector2D> pos_in_rad = new ArrayList<Vector2D>();
+		Vector2D pos = new Vector2D();
+		
+		for(float i = 0.0f; i <= (centre.x + radius); i += 0.2f) {
+			for(float j = 0.0f; j <= (centre.y + radius); y += 0.2f) {
+				pos.x = i;
+				pos.y = j;
+				if(isInRadius(pos, centre, radius)) {pos_in_rad.add(pos);}
+			}
+		}
+		return pos_in_rad;
+	} 
+	
+	public boolean isInRadius(Vector2D point, Vector2D centre, float radius) {
+		
+		if((Math.pow(2,(point.x - centre.x))) + (Math.pow(2, (point.y - centre.y))) <= Math.pow(2, radius)) {
+			return true;
+		}
+		return false;
 	}
 }

@@ -23,6 +23,8 @@ public abstract class ASettlers implements ISettlers {
 	
 	private Deque<IItems> taskTarget = new ArrayDeque<>();
 	
+	protected String job;
+	
 	public IItems getItem(boolean leftHand) {
 		if(leftHand) {
 			return this.leftHand;
@@ -130,6 +132,14 @@ public abstract class ASettlers implements ISettlers {
 		}else {
 			return this.rightHand;
 		}
+	}
+	
+	public String getJob() {
+		return this.job;
+	}
+	
+	public void setJob(String job) {
+		this.job = job;
 	}
 	
 

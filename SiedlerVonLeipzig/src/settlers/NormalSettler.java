@@ -8,17 +8,11 @@ public class NormalSettler extends ASettlers{
 		this.setSpeed(4.0f);
 		this.setPosition(position);
 		this.setIsWorking(false);
-		this.job = "Normal";
+		this.setJob("Normal");
 	}
 
 	@Override
 	protected void work(float delta) {
 		//tut noch nicht wirklich etwas
-	}
-
-	@Override
-	public Vector2D closestItem(Vector2D position) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }
