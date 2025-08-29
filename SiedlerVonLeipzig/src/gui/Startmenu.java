@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
@@ -8,28 +7,24 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
-public class Startmenu extends JFrame{
+public class Startmenu extends BaseGUI{
 
 	private static final long serialVersionUID = 1L;
+	
 	JButton button1 = new JButton("Neues Spiel");
 	JButton button2 = new JButton("Weiterspielen");
 	JButton button3 = new JButton("Debug Modus");
 	JButton button4 = new JButton("Einstellungen");
 	JButton button5 = new JButton("Beenden");
 	
-	Color foresty = new Color(0, 153, 76);
-	Color pine = new Color(0, 51, 25);
+	JButton[] buttons = {button1, button2, button3, button4, button5};
 	
 	String player_name; //soll dann key für unser Speichersystem sein, weiß nicht, ob das dann in Main gehört
 	
@@ -37,11 +32,9 @@ public class Startmenu extends JFrame{
 		
 		super("Startmenue");
 		
-		//Basics für Fenster
+		setWindowBase(this,800, 600, null, foresty);
+		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(800, 600);
-		this.setLocationRelativeTo(null);
-		this.getContentPane().setBackground(new Color(42, 158, 58));
 		this.setLayout(new GridBagLayout());
 		
 		setButtons();
@@ -50,69 +43,18 @@ public class Startmenu extends JFrame{
 		setVisible(true);
 	}
 	
-	private void openNewGame() {
-		
-		JFrame NewFrame = new JFrame("Neues Spiel");
-		
-		NewFrame.setSize(600,200);
-		NewFrame.setLocationRelativeTo(null);
-		NewFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		NewFrame.setLayout(new GridBagLayout());
-		NewFrame.getContentPane().setBackground(new Color(42, 158, 58));
-		
-		JLabel name = new JLabel("Name:");
-		name.setForeground(pine);
-		name.setFont(new Font("Arial", Font.BOLD, 18 ));
-		
-		JTextField field_name = new JTextField(20);
-		field_name.setBackground(pine);
-		field_name.setForeground(foresty);
-		
-		JButton confirm = new JButton("Bestätigen");
-		confirm.addActionListener(e -> {
-			
-			player_name = field_name.getText();
-			new Game();
-			NewFrame.dispose();
-			this.dispose();
-		});
-		
-		confirm.setBackground(pine);
-		confirm.setForeground(foresty);
-		
-		NewGameLayout(NewFrame, name, field_name, confirm);
-		
-		NewFrame.setVisible(true);
-		
-	}
-	
 	private void setButtons() {
 		
-		button1.setBackground(pine);
-		button1.setForeground(foresty);
-		button1.setOpaque(true);
-		button1.setBorderPainted(false);
+		for(JButton b : buttons) {
+			
+			b.setBackground(pine);
+			b.setForeground(foresty);
+			b.setOpaque(true);
+			b.setBorderPainted(false);
+		}
+	
 		button1.addActionListener(e -> openNewGame());
 		
-		button2.setBackground(pine);
-		button2.setForeground(foresty);
-		button2.setOpaque(true);
-		button2.setBorderPainted(false);
-		
-		button3.setBackground(pine);
-		button3.setForeground(foresty);
-		button3.setOpaque(true);
-		button3.setBorderPainted(false);
-		
-		button4.setBackground(pine);
-		button4.setForeground(foresty);
-		button4.setOpaque(true);
-		button4.setBorderPainted(false);
-		
-		button5.setBackground(pine);
-		button5.setForeground(foresty);
-		button5.setOpaque(true);
-		button5.setBorderPainted(false);
 		button5.addActionListener(e -> System.exit(0));
 	}
 	
@@ -166,6 +108,46 @@ public class Startmenu extends JFrame{
 		
 	}
 	
+	private void openNewGame() {
+		
+		JFrame NewFrame = new JFrame("Neues Spiel");
+		
+		setWindowBase(NewFrame, 600, 200, this, foresty);
+		
+		NewFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		NewFrame.setLayout(new GridBagLayout());
+
+		
+		JLabel name = new JLabel("Name:");
+		
+		name.setForeground(pine);
+		name.setFont(new Font("Arial", Font.BOLD, 18 ));
+		
+		JTextField field_name = new JTextField(20);
+		
+		field_name.setBackground(pine);
+		field_name.setForeground(foresty);
+		
+		JButton confirm = new JButton("Bestätigen");
+		
+		confirm.setBackground(pine);
+		confirm.setForeground(foresty);
+		
+		confirm.addActionListener(e -> {
+			
+			
+			player_name = field_name.getText();
+			new Game();
+			NewFrame.dispose();
+			this.dispose();
+		});
+		
+		NewGameLayout(NewFrame, name, field_name, confirm);
+		
+		NewFrame.setVisible(true);
+		
+	}
+	
 	private void NewGameLayout(Container e, JLabel name, JTextField field, JButton confirm) {
 		
 		GridBagConstraints axis = new GridBagConstraints();
@@ -183,6 +165,10 @@ public class Startmenu extends JFrame{
 		//axis.ipady = 10;
 		field.setPreferredSize(new Dimension(100, 30));
 		e.add(field, axis);
+		
+		axis.gridx = 2;
+		axis.weightx = 0.2;
+		e.add(Box.createHorizontalGlue(), axis);
 		
 		axis.gridx = 1;
 		axis.gridy = 1;

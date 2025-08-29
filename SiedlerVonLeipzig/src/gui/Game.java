@@ -14,34 +14,28 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Game extends JFrame {
+public class Game extends BaseGUI {
 	
 	//Alle einzelnen Container
 	private JPanel field;
 	private JPanel menubar;
 	
-	//Alle Farben
-	private Color brown = new Color(247, 181, 138);
-	Color lightbrown = new Color(251, 216, 193);
-	
 	//Image erstellProzess muss noch eine eigene Methode werden, die die Buttons, dann überschreibt
-	URL image_hammer = getClass().getResource("/resources/Hammer.png");
-	ImageIcon hammer = new ImageIcon(image_hammer);
-	
-	Image scale = hammer.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
-	ImageIcon scaledHammer = new ImageIcon(scale);
+
 	
 	//Alle Buttons
 	JButton shop = new JButton("Shop");
-	JButton delete = new JButton(scaledHammer);
+	JButton delete = new JButton(createIcon("Hammer.png", 40, 40));
 	JButton inventory = new JButton("Inventar");
 	JButton end = new JButton("Beenden");
 	
+	JButton[] buttons = {shop, delete, inventory, end};
+	
 	public Game() {
 		
+		super("Sielder");
 		//Basics von jedem Window
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setTitle("Siedler");
 		this.setSize(800, 600);
 		this.setLocationRelativeTo(null);
 		this.setLayout(new BorderLayout());
@@ -96,18 +90,16 @@ public class Game extends JFrame {
 	
 	private void setButtons() {
 		
-		shop.setPreferredSize(new Dimension(50, 50));
-		shop.setBackground(lightbrown);
-		delete.setPreferredSize(new Dimension(50, 50));
-		delete.setBackground(lightbrown);
-		
-		inventory.setPreferredSize(new Dimension(50, 50));
-		inventory.setBackground(lightbrown);
+		for(JButton b : buttons) {
+			
+			b.setPreferredSize(new Dimension(50,50));
+			b.setBackground(lightsalmon);
+			b.setOpaque(true);
+			b.setBorderPainted(false);
+		}
+	
 		inventory.addActionListener(e -> new GameInv());
-		
-		end.setPreferredSize(new Dimension(50, 50));
-		end.setBackground(lightbrown);
+	
 		end.addActionListener(e -> new Exit());
-		
 	}
 }
