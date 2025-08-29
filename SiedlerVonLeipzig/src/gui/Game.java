@@ -5,8 +5,11 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -21,9 +24,16 @@ public class Game extends JFrame {
 	private Color brown = new Color(247, 181, 138);
 	Color lightbrown = new Color(251, 216, 193);
 	
+	//Image erstellProzess muss noch eine eigene Methode werden, die die Buttons, dann überschreibt
+	URL image_hammer = getClass().getResource("/resources/Hammer.png");
+	ImageIcon hammer = new ImageIcon(image_hammer);
+	
+	Image scale = hammer.getImage().getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+	ImageIcon scaledHammer = new ImageIcon(scale);
+	
 	//Alle Buttons
 	JButton shop = new JButton("Shop");
-	JButton delete = new JButton("Abreißen");
+	JButton delete = new JButton(scaledHammer);
 	JButton inventory = new JButton("Inventar");
 	JButton end = new JButton("Beenden");
 	

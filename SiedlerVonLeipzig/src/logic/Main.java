@@ -1,7 +1,5 @@
 package logic;
 
-import gui.Exit;
-import gui.Game;
 import gui.Startmenu;
 
 public class Main {
