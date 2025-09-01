@@ -1,14 +1,16 @@
 package logic;
 
+import java.util.ArrayList;
+
 import gui.Startmenu;
 
-public class Main {
+class Main {
 	
 	public static void main(String[] args) {
 		
-		new Startmenu();
+		//new Startmenu();
 		//new Game();
 		//new Exit();
 	}
-
 }
+
