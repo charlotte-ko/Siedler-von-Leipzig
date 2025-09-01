@@ -20,7 +20,7 @@ public class Forester extends Buildings {
 	public void plantTree(ISettlers worker) {
 		
 		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_PICKUP_LEFT, this.output_inventory.get(output_inventory.size() - 1));
-		worker.giveSettlerTask(this.getPosition().generatePos(5), SettlersAktion.GO_WORK, null);
+		worker.giveSettlerTask(this.getPosition().genPos(5), SettlersAktion.GO_WORK, null);
 	}
 
 	@Override

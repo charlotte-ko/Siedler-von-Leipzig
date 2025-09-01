@@ -2,8 +2,10 @@ package buildings;
 
 import java.util.ArrayList;
 
+
 import items.IItems;
 import settlers.ISettlers;
+import settlers.ASettlers;
 import settlers.SettlersAktion;
 import logic.Vector2D;
 
@@ -80,8 +82,7 @@ public abstract class Buildings implements IBuildings{
 	 * Methode sucht einen Siedler mit gebrauchtem Job, gibt es keinen Siedler mit diesem Job,
 	 * geben wir einem Normalem Siedler einen Job, indem wir ihm sagen -> Hol Item für Job
 	 */
-	@Override
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job, IItems target) {
+	public ISettlers findSettler(ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, String job, IItems target) {
 		ArrayList<ISettlers> wanted = new ArrayList<>();
 		
 		for(ISettlers s : settlerList) {
@@ -92,7 +93,7 @@ public abstract class Buildings implements IBuildings{
 		
 		if(wanted.isEmpty()) {
 			ISettlers jobless = findSettler(settlerList, "Normal");
-			jobless.giveSettlerTask(jobless.closestItem(jobless.getPosition()), SettlersAktion.GO_PICKUP_RIGHT, target);
+			jobless.giveSettlerTask(jobless.closestItem(jobless.getPosition(), ItemList ,target).getPosition(), SettlersAktion.GO_PICKUP_RIGHT, target);
 			return jobless;
 		}
 		

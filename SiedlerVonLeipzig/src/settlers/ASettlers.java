@@ -171,12 +171,12 @@ public abstract class ASettlers implements ISettlers {
 		this.taskTarget.addLast(target);
 	}
 	
-	public IItems closestItem(Vector2D current_pos, ArrayList<Items> ItemList, Items target) {
+	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, IItems target) {
 		
 		float min_distance = Float.POSITIVE_INFINITY;
-		Items finalItem = null;
+		IItems finalItem = null;
 		//darf nicht gehalten werden
-		for(Items item : ItemList) {
+		for(IItems item : ItemList) {
 			if(item.getName() != target.getName()) {
 				continue;
 			}

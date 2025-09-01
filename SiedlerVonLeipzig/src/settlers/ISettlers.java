@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import buildings.IBuildings;
 import items.IItems;
+import items.Items;
 
 public interface ISettlers {
 	public Vector2D getPosition();
@@ -50,6 +51,10 @@ public interface ISettlers {
 	 */
 	public IItems takeItemHand(boolean leftHand,ArrayList<ISettlers> settlersList);
 	
+	public String getJob();
+	
+	public void setJob(String job);
+	
 	/**
 	 * @brief gibt einem Siedler eine weitere Aufgabe
 	 * @param punkt wo der Siedler die Aufgabe machen soll
@@ -69,4 +74,6 @@ public interface ISettlers {
 	 * @param settlerList
 	 */
 	public void update(float delta,ArrayList<IItems> itemList,ArrayList<IBuildings> buildingList,ArrayList<ISettlers> settlerList);
+	
+	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, IItems target);
 }

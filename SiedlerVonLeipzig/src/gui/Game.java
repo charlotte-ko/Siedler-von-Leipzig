@@ -15,14 +15,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 public class Game extends BaseGUI {
-	
-	//Alle einzelnen Container
-	private JPanel field;
-	private JPanel menubar;
-	
-	//Image erstellProzess muss noch eine eigene Methode werden, die die Buttons, dann überschreibt
-
-	
+		
 	//Alle Buttons
 	JButton shop = new JButton("Shop");
 	JButton delete = new JButton(createIcon("Hammer.png", 40, 40));
@@ -34,15 +27,14 @@ public class Game extends BaseGUI {
 	public Game() {
 		
 		super("Sielder");
-		//Basics von jedem Window
+		
+		setWindowBase(this, 800, 600, null, brown);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(800, 600);
-		this.setLocationRelativeTo(null);
 		this.setLayout(new BorderLayout());
 		
 		//Einzelnen Komponenten
-		field = createField();
-		menubar = createMenuBar();
+		JPanel field = createField();
+		JPanel menubar = createMenuBar();
 
 		
 		this.add(field, BorderLayout.CENTER);
