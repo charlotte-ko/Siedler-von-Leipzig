@@ -75,5 +75,5 @@ public interface ISettlers {
 	 */
 	public void update(float delta,ArrayList<IItems> itemList,ArrayList<IBuildings> buildingList,ArrayList<ISettlers> settlerList);
 	
-	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, IItems target);
+	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, String target);
 }

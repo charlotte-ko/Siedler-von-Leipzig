@@ -120,12 +120,7 @@ public abstract class ASettlers implements ISettlers {
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
-	public void setJob(String job) {
-		this.job = job;
-	}
-	public String getJob() {
-		return job;
-	}
+	
 	public boolean isWorking() {
 		return this.working;
 	}
@@ -177,13 +172,13 @@ public abstract class ASettlers implements ISettlers {
 		this.taskTarget.addLast(target);
 	}
 	
-	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, IItems target) {
+	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, String target) {
 		
 		float min_distance = Float.POSITIVE_INFINITY;
 		IItems finalItem = null;
 		//darf nicht gehalten werden
 		for(IItems item : ItemList) {
-			if(item.getName() != target.getName()) {
+			if(item.getName().equals(target)) {
 				continue;
 			}
 			float distance = current_pos.getDistance(item.getPosition());

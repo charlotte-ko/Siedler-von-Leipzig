@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import items.IItems;
-import items.Log;
 import items.Tree;
 import logic.Vector2D;
 import settlers.ISettlers;
@@ -84,9 +83,9 @@ public class Forester extends Buildings {
 	}
 
 	@Override
-	public void produce() {
+	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job, IItems target) {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
 	
 	

@@ -10,8 +10,6 @@ public interface IBuildings {
 
 	public void createBuilding();
 	
-	public void produce();
-	
 	public ISettlers makeSettlers(ArrayList<ISettlers> settlerList);
 
 	/**

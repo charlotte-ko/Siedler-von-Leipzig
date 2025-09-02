@@ -20,7 +20,6 @@ public abstract class Buildings implements IBuildings{
 	protected ArrayList<IItems> output_inventory = new ArrayList<>();
 	private final int price; //Ich weiß nicht mehr ob das in die GUI reinkommt oder hier
 	protected boolean state = false; //Ist erstmal nicht voll, ich weiß noch nicht, ob das wichtig ist und was die Bedingung zum Überprüfen ist
-	protected int counter = 0;
 	protected int task_counter = 0;
 	
 	/**
@@ -82,7 +81,7 @@ public abstract class Buildings implements IBuildings{
 	 * Methode sucht einen Siedler mit gebrauchtem Job, gibt es keinen Siedler mit diesem Job,
 	 * geben wir einem Normalem Siedler einen Job, indem wir ihm sagen -> Hol Item für Job
 	 */
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, String job, IItems target) {
+	public ISettlers findSettler(ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, String job, String target) {
 		ArrayList<ISettlers> wanted = new ArrayList<>();
 		
 		for(ISettlers s : settlerList) {
@@ -99,22 +98,6 @@ public abstract class Buildings implements IBuildings{
 		
 		return closestSettler(this.getPosition(), wanted);
 	}
-	
-	/**
-	 * Methode zur Bestimmung ob ein Gebäude voll ist, nimmt individuelles maximum als Parameter
-	 * @param max
-	 */
-	protected void isFull(int max) {
-		if(counter >= max) {
-			state = true;
-		}
-	}
-	
-	/**
-	 * Hilfsmethode zur Produktion von Gebäuden, kann später evtl. gelöscht werden
-	 */
-	public abstract void produce();
-
 	
 	/**
 	 * Getter Methode um den Preis eines Objektes zu bekommen

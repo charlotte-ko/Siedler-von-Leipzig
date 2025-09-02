@@ -2,6 +2,7 @@ package buildings;
 
 import java.util.ArrayList;
 
+import items.IItems;
 import settlers.ISettlers;
 import settlers.ASettlers;
 import logic.Vector2D;
@@ -25,11 +26,8 @@ public class House extends Buildings {
 	 */
 	public ISettlers makeSettlers(ArrayList<ISettlers> settlerList) {
 	
-		if(counter < 10) {
+		if(sInventory.size() < 10) {
 			settlerList.add(ASettlers.createSettler("NormalSettler", this.getPosition()));
-			counter++;
-			
-			isFull(10);
 		} 
 		return settlerList.get(settlerList.size() - 1);
 	}
@@ -41,8 +39,20 @@ public class House extends Buildings {
 	}
 
 	@Override
-	public void produce() {
+	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList, String name) {
 		// TODO Auto-generated method stub
-		
+		return null;
+	}
+
+	@Override
+	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job, IItems target) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }
