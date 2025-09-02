@@ -66,10 +66,10 @@ public class Vector2D {
 	 * @param radius 
 	 * @return eine Liste an Punkten, die sich innerhalb eines gewünschten Radius befinden
 	 */
-	public static ArrayList<Vector2D> genPos(Vector2D centre, float radius) {
+	public ArrayList<Vector2D> genPos(float radius) {
 		
 		ArrayList<Vector2D> pos_in_rad = new ArrayList<Vector2D>();
-	
+		Vector2D centre = this;
 		for(float i = centre.x-radius; i <= (centre.x + radius); i += 1.0f) {
 			for(float j = centre.y-radius; j <= (centre.y + radius); j += 1.0f) {
 				
