@@ -5,40 +5,36 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.net.URL;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class Game extends JFrame {
-	
-	//Alle einzelnen Container
-	private JPanel field;
-	private JPanel menubar;
-	
-	//Alle Farben
-	private Color brown = new Color(247, 181, 138);
-	Color lightbrown = new Color(251, 216, 193);
-	
+public class Game extends BaseGUI {
+		
 	//Alle Buttons
 	JButton shop = new JButton("Shop");
-	JButton delete = new JButton("Abreißen");
+	JButton delete = new JButton(createIcon("Hammer.png", 40, 40));
 	JButton inventory = new JButton("Inventar");
 	JButton end = new JButton("Beenden");
 	
+	JButton[] buttons = {shop, delete, inventory, end};
+	
 	public Game() {
 		
-		//Basics von jedem Window
+		super("Sielder");
+		
+		setWindowBase(this, 800, 600, null, brown);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setTitle("Siedler");
-		this.setSize(800, 600);
-		this.setLocationRelativeTo(null);
 		this.setLayout(new BorderLayout());
 		
 		//Einzelnen Komponenten
-		field = createField();
-		menubar = createMenuBar();
+		JPanel field = createField();
+		JPanel menubar = createMenuBar();
 
 		
 		this.add(field, BorderLayout.CENTER);
@@ -86,18 +82,16 @@ public class Game extends JFrame {
 	
 	private void setButtons() {
 		
-		shop.setPreferredSize(new Dimension(50, 50));
-		shop.setBackground(lightbrown);
-		delete.setPreferredSize(new Dimension(50, 50));
-		delete.setBackground(lightbrown);
-		
-		inventory.setPreferredSize(new Dimension(50, 50));
-		inventory.setBackground(lightbrown);
+		for(JButton b : buttons) {
+			
+			b.setPreferredSize(new Dimension(50,50));
+			b.setBackground(lightsalmon);
+			b.setOpaque(true);
+			b.setBorderPainted(false);
+		}
+	
 		inventory.addActionListener(e -> new GameInv());
-		
-		end.setPreferredSize(new Dimension(50, 50));
-		end.setBackground(lightbrown);
+	
 		end.addActionListener(e -> new Exit());
-		
 	}
 }

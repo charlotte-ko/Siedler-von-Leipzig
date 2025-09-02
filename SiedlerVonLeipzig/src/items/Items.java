@@ -35,22 +35,6 @@ public abstract class Items implements IItems {
 			}
 		}
 		
-		public Items closestItem(Vector2D current_pos, ArrayList<Items> ItemList, Items target) {
-			
-			float min_distance = Float.POSITIVE_INFINITY;
-			Items finalItem = null;
-			//darf nicht gehalten werden
-			for(Items item : ItemList) {
-				if(item.name != target.name) {
-					continue;
-				}
-				float distance = current_pos.getDistance(item.position);
-				if(distance < min_distance) {
-					min_distance = distance;
-					finalItem = item;
-				}
-			}return finalItem;
-		}
 
 		@Override
 		public Vector2D getPosition() {

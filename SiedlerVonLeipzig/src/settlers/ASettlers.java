@@ -8,6 +8,7 @@ import java.util.Deque;
 
 import buildings.IBuildings;
 import items.IItems;
+import items.Items;
 
 public abstract class ASettlers implements ISettlers {
 	private Vector2D position;
@@ -21,6 +22,8 @@ public abstract class ASettlers implements ISettlers {
 	
 	
 	private Deque<IItems> taskTarget = new ArrayDeque<>();
+	
+	protected String job;
 	
 	public IItems getItem(boolean leftHand) {
 		if(leftHand) {
@@ -137,6 +140,14 @@ public abstract class ASettlers implements ISettlers {
 		}
 	}
 	
+	public String getJob() {
+		return this.job;
+	}
+	
+	public void setJob(String job) {
+		this.job = job;
+	}
+	
 
 	public void setItemHand(IItems item,boolean leftHand,ArrayList<ISettlers> settlersList) {
 		if(leftHand) {
@@ -164,6 +175,23 @@ public abstract class ASettlers implements ISettlers {
 		this.taskWay.addLast(punkt);
 		this.task.addLast(aufgabe);
 		this.taskTarget.addLast(target);
+	}
+	
+	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, IItems target) {
+		
+		float min_distance = Float.POSITIVE_INFINITY;
+		IItems finalItem = null;
+		//darf nicht gehalten werden
+		for(IItems item : ItemList) {
+			if(item.getName() != target.getName()) {
+				continue;
+			}
+			float distance = current_pos.getDistance(item.getPosition());
+			if(distance < min_distance) {
+				min_distance = distance;
+				finalItem = item;
+			}
+		}return finalItem;
 	}
 	
 	public void update(float delta, ArrayList<IItems> itemList, ArrayList<IBuildings> buildingList, ArrayList<ISettlers> settlerList) {
