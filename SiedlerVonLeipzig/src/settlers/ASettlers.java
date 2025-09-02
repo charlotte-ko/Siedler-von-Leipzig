@@ -117,6 +117,12 @@ public abstract class ASettlers implements ISettlers {
 	public void setSpeed(float speed) {
 		this.speed = speed;
 	}
+	public void setJob(String job) {
+		this.job = job;
+	}
+	public String getJob() {
+		return job;
+	}
 	public boolean isWorking() {
 		return this.working;
 	}
