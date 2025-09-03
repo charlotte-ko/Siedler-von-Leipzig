@@ -24,6 +24,8 @@ public abstract class ASettlers implements ISettlers {
 	
 	protected Deque<IItems> taskTarget = new ArrayDeque<>();
 	
+	protected IJob job;
+
 	public Deque<Vector2D> getTaskWay() {
 		return taskWay;
 	}
@@ -43,7 +45,6 @@ public abstract class ASettlers implements ISettlers {
 		this.taskTarget = taskTarget;
 	}
 
-	protected String job;
 	
 	public IItems getItem(boolean leftHand) {
 		if(leftHand) {
@@ -60,65 +61,21 @@ public abstract class ASettlers implements ISettlers {
 		}
 	}
 	
-	/**
-	 * @brief hilfs Factory Methode zum erstellen von einem Siedler
-	 * @param settlerType
-	 * @param position
-	 * @return ISettlers
-	 */
-	public static ISettlers createSettler(String settlerType, Vector2D position) {
-		ISettlers newSettler;
-		switch(settlerType) {
-			case "NormalSettler":
-				newSettler = new NormalSettler(position);
-				break;
-			case "Builder":
-				newSettler = new Builder(position);
-				break;
-			case "Sawyer":
-				newSettler = new Sawyer(position);
-				break;
-			case "Woodcutter":
-				newSettler = new Woodcutter(position);
-				break;
-			default:
-				newSettler = new NormalSettler(position);
-				break;
-		}
-		return newSettler;
-	}
+	
 	/**
 	 * @brief Factory Methode zum Erstellen von Siedlern, welche direkt in die globale settlerList gespeichert werden.
 	 * @param settlerList
-	 * @param settlerType
 	 * @param position
 	 * @return erstelltes Objekt wird zurückgegeben (steht aber auch in der liste)
-	 * @note Es sollten nur einfache Siedler (ohne Arbeits Item) erstellt werden
-	 * Siedler können durch Items ihren Job bekommen.
+	 * @note Es wird nur ein Settler erstellt. Job muss direkt oder indirekt vergeben werden.
 	 */
-	public static ISettlers createSettlerInList(ArrayList<ISettlers> settlerList, String settlerType, Vector2D position) {
-		ISettlers newSettler = createSettler(settlerType,position);
+	public static ISettlers createSettlerInList(ArrayList<ISettlers> settlerList, Vector2D position) {
+		ISettlers newSettler = new Settler(position);
 		settlerList.add(newSettler);
 		return newSettler;
 	}
 	
-	/**
-	 * @brief ändert Siedler Type
-	 * @param settlersList Liste mit allen Siedlern (um richtigen Eintrag zu ändern)
-	 * @pram settlerType Type in wen er verwandelt werden soll
-	 */
-	protected void changeSettlerType(ArrayList<ISettlers>settlersList,String settlerType) {
-		ISettlers s = null;
-		for(int i = 0; i < settlersList.size();i++) {
-			if(settlersList.get(i) != this) {
-				continue;
-			}
-			settlersList.set(i, createSettler(settlerType,this.position));
-			s = settlersList.get(i);
-		}
-		if(s == null) {
-			return;
-		}
+		/*
 		//items übertragen
 		s.setItem(true, this.getItem(true));
 		s.setItem(false, this.getItem(false));
@@ -126,7 +83,7 @@ public abstract class ASettlers implements ISettlers {
 		while(!this.task.isEmpty()) {
 			s.giveSettlerTask(this.taskWay.pollFirst(), this.task.pollFirst(),this.taskTarget.pollFirst());
 		}
-	}
+		*/
 	
 	public Vector2D getPosition() {
 		return this.position;
@@ -156,11 +113,11 @@ public abstract class ASettlers implements ISettlers {
 	}
 	
 	public String getJob() {
-		return this.job;
+		return this.job.getJobName();
 	}
 	
-	public void setJob(String job) {
-		this.job = job;
+	public void setJob(String jobName) {
+		this.job = AJob.creatJob(jobName);
 	}
 	
 
@@ -169,7 +126,7 @@ public abstract class ASettlers implements ISettlers {
 			this.leftHand = item;
 			return;
 		}
-		this.changeSettlerType(settlersList, ASettlers.getJobFromItem(item));
+		//Job abfrage und falls nötig neu vergeben
 	}
 	
 	public IItems takeItemHand(boolean leftHand,ArrayList<ISettlers> settlersList) {
@@ -181,7 +138,7 @@ public abstract class ASettlers implements ISettlers {
 		
 		IItems ret = this.rightHand;
 		this.rightHand = null;
-		this.changeSettlerType(settlersList, "NormalSettler");
+		//Job wegnehmen
 		return ret;
 	}
 	
@@ -189,7 +146,11 @@ public abstract class ASettlers implements ISettlers {
 	public void giveSettlerTask(Vector2D punkt, SettlersAktion aufgabe, IItems target) {
 		this.taskWay.addLast(punkt);
 		this.task.addLast(aufgabe);
-		this.taskTarget.addLast(target);
+		if(target == null) {
+			this.taskTarget.addLast(Items.createItem("Axe", new Vector2D()));
+		}else{
+			this.taskTarget.addLast(target);
+		}
 	}
 	
 	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, String target) {
@@ -209,13 +170,13 @@ public abstract class ASettlers implements ISettlers {
 		}return finalItem;
 	}
 	
-	public void update(float delta, ArrayList<IItems> itemList, ArrayList<IBuildings> buildingList, ArrayList<ISettlers> settlerList) {
+	public void update(double delta, ArrayList<IItems> itemList, ArrayList<IBuildings> buildingList, ArrayList<ISettlers> settlerList) {
 		if(this.task.isEmpty()) {
 			this.working = false;
 			return;
 		}
 		if(this.position.getDistance(this.taskWay.peekFirst()) > 1.0f) {
-			walk(delta,this.taskWay.peekFirst());
+			walk((float)delta,this.taskWay.peekFirst());
 			//items mit bewegen
 			if(this.leftHand != null)
 				this.leftHand.setPosition(this.getPosition());
@@ -246,7 +207,7 @@ public abstract class ASettlers implements ISettlers {
 				target.setHeld(false);
 				break;
 			case GO_WORK:
-				this.work(delta);
+				this.job.work(this); //ruft job auf
 				break;
 			case GO_FREE://tut nix
 				break;
@@ -269,6 +230,8 @@ public abstract class ASettlers implements ISettlers {
 	 * @brief gibt Job zurück welches zum Item passt
 	 * @param tem (undertail anspielung)
 	 * @return
+	 * 
+	 * AUF JOBS ANPASSEN
 	 */
 	private static String getJobFromItem(IItems tem) {
 		switch(tem.getName()) {
@@ -279,9 +242,7 @@ public abstract class ASettlers implements ISettlers {
 			case "Axe":
 				return "Woodcutter";
 			default:
-				return "NormalSettler";
+				return "Normal";
 		}
 	}
-	
-	protected abstract void work(float delta);
 }

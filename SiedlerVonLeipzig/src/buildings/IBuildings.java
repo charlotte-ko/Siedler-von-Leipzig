@@ -1,5 +1,6 @@
 package buildings;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import items.IItems;
@@ -27,6 +28,10 @@ public interface IBuildings {
 	 */
 	ISettlers findSettler(ArrayList<ISettlers> settlerList, String job, IItems target);
 	
+
+	public void draw(Graphics2D g2,int tileSize);
+	//public void update(double delta);
+
 	public String getName();
 	
 	public void getLogs(ISettlers worker, ArrayList<IItems> itemList);

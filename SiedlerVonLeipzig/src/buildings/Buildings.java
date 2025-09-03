@@ -1,5 +1,7 @@
 package buildings;
 
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 
@@ -162,7 +164,16 @@ public abstract class Buildings implements IBuildings{
 		this.position = position;
 	}
 	
+	public void draw(Graphics2D g2,int tileSize) {
+		//g2.drawRect((int)this.position.x, (int)this.position.y, 8, 8);
+		g2.setColor(Color.white);
+		g2.fillRect((int)this.position.x, (int)this.position.y, tileSize,tileSize);
+	}
+	
+	public void update(double delta) {}
+
 	public String getName() {
 		return this.name;
 	}
+
 }

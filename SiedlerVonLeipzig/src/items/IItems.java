@@ -1,5 +1,7 @@
 package items;
 
+import java.awt.Graphics2D;
+
 import logic.Vector2D;
 
 public interface IItems {
@@ -15,4 +17,6 @@ public interface IItems {
 	public String getName();
 
 	public void setName(String name);
+	
+	public void draw(Graphics2D g2,int tileSize);
 }

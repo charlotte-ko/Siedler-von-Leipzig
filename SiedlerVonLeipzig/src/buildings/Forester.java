@@ -37,6 +37,11 @@ public class Forester extends Buildings {
 		Random rnd = new Random();
 		int index = rnd.nextInt(this.positionList.size()-1);
 		
+		/**
+		 * Das ist schon mal gut nur muss alles andere in den Siedler geschrieben werden.
+		 * (Kann ich machen)
+		 * Die zufällige Punkt generierung ist scheiße. Muss übarbeitet werden.
+		 */
 		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_PICKUP_LEFT, this.output_inventory.get(output_inventory.size() - 1));
 		
 		worker.giveSettlerTask(this.positionList.get(index), SettlersAktion.GO_WORK, null);
