@@ -92,6 +92,12 @@ public class Forester extends Buildings {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public void getLogs(ISettlers worker, ArrayList<IItems> itemList) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
  }

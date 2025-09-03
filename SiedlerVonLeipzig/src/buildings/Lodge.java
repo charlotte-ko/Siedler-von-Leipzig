@@ -52,5 +52,11 @@ public class Lodge extends Buildings{
 		
 	}
 
+	@Override
+	public void update(ArrayList<ISettlers> settlerList, ArrayList<IItems> itemList) {
+		// TODO Auto-generated method stub
+		
+	}
+
 	
 }
