@@ -49,8 +49,9 @@ public class Sawmill extends Buildings {
 		if(output_inventory.size() < 10) {
 			IItems log = worker.closestItem(this.getPosition(), itemList, "Log");
 			worker.giveSettlerTask(log.getPosition(), SettlersAktion.GO_PICKUP_LEFT, log);
-			worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, worker.getItemHand(true));
+			worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, log);
 			output_inventory.add(log);
+			//attribute regeln
 		}
 	}
 
