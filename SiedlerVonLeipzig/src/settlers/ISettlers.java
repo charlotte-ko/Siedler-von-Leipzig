@@ -2,11 +2,11 @@ package settlers;
 
 import logic.Vector2D;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import buildings.IBuildings;
 import items.IItems;
-import items.Items;
 
 public interface ISettlers {
 	public Vector2D getPosition();
@@ -73,7 +73,9 @@ public interface ISettlers {
 	 * @param buildingList
 	 * @param settlerList
 	 */
-	public void update(float delta,ArrayList<IItems> itemList,ArrayList<IBuildings> buildingList,ArrayList<ISettlers> settlerList);
+	public void update(double delta,ArrayList<IItems> itemList,ArrayList<IBuildings> buildingList,ArrayList<ISettlers> settlerList);
 	
 	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, String target);
+
+	public void draw(Graphics2D g2,int tileSize);
 }

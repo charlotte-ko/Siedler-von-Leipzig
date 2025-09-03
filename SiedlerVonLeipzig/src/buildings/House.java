@@ -27,7 +27,8 @@ public class House extends Buildings {
 	public ISettlers makeSettlers(ArrayList<ISettlers> settlerList) {
 	
 		if(sInventory.size() < 10) {
-			settlerList.add(ASettlers.createSettler("NormalSettler", this.getPosition()));
+			ASettlers.createSettlerInList(settlerList, getPosition());
+			//settlerList.add(ASettlers.createSettler("NormalSettler", this.getPosition()));
 		} 
 		return settlerList.get(settlerList.size() - 1);
 	}

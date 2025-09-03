@@ -1,5 +1,7 @@
 package items;
 
+import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import logic.Vector2D;
@@ -14,6 +16,8 @@ public abstract class Items implements IItems {
 		protected boolean held; //gibt an, ob ein Item im Inventar eines Siedlers ist
 		
 		protected String name;
+		
+		protected BufferedImage img;
 		
 		public Items(Vector2D pos) {
 			this.held = false;
@@ -80,5 +84,9 @@ public abstract class Items implements IItems {
 				break;
 			}
 			return;
+		}
+		
+		public void draw(Graphics2D g2,int tileSize) {
+			g2.drawImage(img, (int)position.x, (int)position.y, tileSize,tileSize,null);
 		}
 }

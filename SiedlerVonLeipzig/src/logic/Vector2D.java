@@ -3,7 +3,7 @@ package logic;
 import java.util.ArrayList;
 
 public class Vector2D {
-	float x,y;
+	public float x,y;
 	
 	public Vector2D(float startX,float startY){
 		this.x = startX;
