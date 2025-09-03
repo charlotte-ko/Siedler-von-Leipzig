@@ -26,4 +26,15 @@ public interface IBuildings {
 	 * Methode um nächsten Siedler mit gewünschtem Item zu finden
 	 */
 	ISettlers findSettler(ArrayList<ISettlers> settlerList, String job, IItems target);
+	
+	public String getName();
+	
+	public void getLogs(ISettlers worker, ArrayList<IItems> itemList);
+	
+	public ArrayList<IItems> getOutput_Inventory();
+	
+	public ArrayList<IItems> getInput_Inventory();
+	
+	public Vector2D getPosition();
+	
 }

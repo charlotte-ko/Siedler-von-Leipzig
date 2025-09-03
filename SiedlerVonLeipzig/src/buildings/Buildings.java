@@ -81,7 +81,7 @@ public abstract class Buildings implements IBuildings{
 	 * Methode sucht einen Siedler mit gebrauchtem Job, gibt es keinen Siedler mit diesem Job,
 	 * geben wir einem Normalem Siedler einen Job, indem wir ihm sagen -> Hol Item für Job
 	 */
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, String job, String target) {
+	public ISettlers findSettler(ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, String job, IItems target) {
 		ArrayList<ISettlers> wanted = new ArrayList<>();
 		
 		for(ISettlers s : settlerList) {
@@ -92,7 +92,7 @@ public abstract class Buildings implements IBuildings{
 		
 		if(wanted.isEmpty()) {
 			ISettlers jobless = findSettler(settlerList, "Normal");
-			jobless.giveSettlerTask(jobless.closestItem(jobless.getPosition(), ItemList ,target).getPosition(), SettlersAktion.GO_PICKUP_RIGHT, target);
+			jobless.giveSettlerTask(jobless.closestItem(jobless.getPosition(), ItemList ,target.getName()).getPosition(), SettlersAktion.GO_PICKUP_RIGHT, target);
 			return jobless;
 		}
 		
@@ -160,5 +160,9 @@ public abstract class Buildings implements IBuildings{
 	 */
 	public void setPosition(Vector2D position) {
 		this.position = position;
+	}
+	
+	public String getName() {
+		return this.name;
 	}
 }
