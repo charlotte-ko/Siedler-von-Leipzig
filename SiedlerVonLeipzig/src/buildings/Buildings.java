@@ -91,7 +91,7 @@ public abstract class Buildings implements IBuildings{
 		}
 		
 		if(wanted.isEmpty()) {
-			ISettlers jobless = findSettler(settlerList, "Normal");
+			ISettlers jobless = findSettler(settlerList, "NormalSettler", null);
 			jobless.giveSettlerTask(jobless.closestItem(jobless.getPosition(), ItemList ,target.getName()).getPosition(), SettlersAktion.GO_PICKUP_RIGHT, target);
 			return jobless;
 		}

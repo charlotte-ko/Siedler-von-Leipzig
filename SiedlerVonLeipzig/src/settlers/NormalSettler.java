@@ -8,7 +8,7 @@ public class NormalSettler extends ASettlers{
 		this.setSpeed(4.0f);
 		this.setPosition(position);
 		this.setIsWorking(false);
-		this.setJob("Normal");
+		this.setJob("NormalSettler");
 	}
 
 	@Override

@@ -49,10 +49,10 @@ public class Forester extends Buildings {
 			this.output_inventory.add(new Tree(this.getPosition()));
 		}
 		
-		ISettlers worker = this.findSettler(settlerList, ItemList, "Normal", null);
+		ISettlers worker = this.findSettler(settlerList, ItemList, "NormalSettler", null);
 		
 		if(!worker.isWorking()) {
-			plantTree(worker);
+			this.plantTree(worker);
 		}
 	}
 	

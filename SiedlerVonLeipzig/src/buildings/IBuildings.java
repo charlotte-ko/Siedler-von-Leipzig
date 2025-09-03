@@ -37,4 +37,6 @@ public interface IBuildings {
 	
 	public Vector2D getPosition();
 	
+	public void update(ArrayList<ISettlers> settlerList, ArrayList<IItems> itemList);
+	
 }

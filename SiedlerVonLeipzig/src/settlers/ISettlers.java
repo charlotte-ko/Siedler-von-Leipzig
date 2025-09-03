@@ -3,6 +3,7 @@ package settlers;
 import logic.Vector2D;
 
 import java.util.ArrayList;
+import java.util.Deque;
 
 import buildings.IBuildings;
 import items.IItems;
@@ -76,4 +77,10 @@ public interface ISettlers {
 	public void update(float delta,ArrayList<IItems> itemList,ArrayList<IBuildings> buildingList,ArrayList<ISettlers> settlerList);
 	
 	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, String target);
+	
+	public Deque<IItems> getTaskTarget();
+	
+	public Deque<SettlersAktion> getTask();
+	
+	public Deque<Vector2D> getTaskWay();
 }
