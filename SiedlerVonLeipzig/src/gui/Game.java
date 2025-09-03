@@ -20,7 +20,7 @@ public class Game extends BaseGUI {
 	JButton shop = new JButton(createIcon("Coin.png", 40, 40));
 	JButton delete = new JButton(createIcon("Hammer.png", 40, 40));
 	JButton inventory = new JButton("Inventar");
-	JButton end = new JButton("Beenden");
+	JButton end = new JButton(createIcon("Cross.png", 40, 40));
 	
 	JButton[] buttons = {shop, delete, inventory, end};
 	
