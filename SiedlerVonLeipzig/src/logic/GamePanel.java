@@ -100,7 +100,7 @@ public class GamePanel extends JPanel implements Runnable{
 		//Update funktion der Siedler und Gebäude durchgehen
 		//player.update();
 		for(IBuildings b : buildingList) {
-			b.update(delta); //warscheinlich noch anzupassen wie bei den Siedlern
+			b.update(settlerList, itemList);
 		}
 		for(ISettlers s : settlerList) {
 			s.update(delta, itemList, buildingList, settlerList);
