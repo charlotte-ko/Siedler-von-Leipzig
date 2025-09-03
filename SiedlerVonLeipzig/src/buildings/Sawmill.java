@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 
 import items.IItems;
-import items.Log;
 import items.Plank;
-import items.Saw;
 import settlers.ISettlers;
 import settlers.SettlersAktion;
 import logic.Vector2D;
@@ -29,14 +27,12 @@ public class Sawmill extends Buildings {
 		
 		ISettlers worker = null;
 		
-		if(input_inventory.size() < 10) {
 			worker = findSettler(this.getPosition(), settlerList, "Saw");
 			worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_WORK, worker.getItemHand(false));
 			output_inventory.remove(input_inventory.size() - 1);
 			worker.setItemHand(new Plank(worker.getPosition()), true, settlerList);
 			worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, worker.getItemHand(true));
 			input_inventory.add(worker.getItemHand(true));
-		}
 	}
 	
 	/**
@@ -46,14 +42,24 @@ public class Sawmill extends Buildings {
 	 */
 	public void getLogs(ISettlers worker, ArrayList<IItems> itemList) {
 		
-		if(output_inventory.size() < 10) {
 			IItems log = worker.closestItem(this.getPosition(), itemList, "Log");
 			worker.giveSettlerTask(log.getPosition(), SettlersAktion.GO_PICKUP_LEFT, log);
-			worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, worker.getItemHand(true));
+			worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, log);
 			output_inventory.add(log);
-		}
+			//attribute regeln
 	}
 
+	public void update(ArrayList<ISettlers> settlerList, ArrayList<IItems> itemList) {
+		if(this.input_inventory.size() < 10) {
+			this.makePlanks(settlerList);
+		}
+		
+		if(this.output_inventory.size() < 10) {
+			ISettlers worker = findSettler(settlerList, itemList, "NormalSettler", null);
+			this.getLogs(worker, itemList);
+		}
+	}
+	
 	@Override
 	public void createBuilding() {
 		// TODO Auto-generated method stub

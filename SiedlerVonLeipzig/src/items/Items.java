@@ -42,7 +42,7 @@ public abstract class Items implements IItems {
 
 		@Override
 		public Vector2D getPosition() {
-			return position;
+			return this.position;
 		}
 		
 		@Override

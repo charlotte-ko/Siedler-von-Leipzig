@@ -4,6 +4,7 @@ import logic.Vector2D;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+import java.util.Deque;
 
 import buildings.IBuildings;
 import items.IItems;
@@ -77,5 +78,12 @@ public interface ISettlers {
 	
 	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, String target);
 
+
 	public void draw(Graphics2D g2,int tileSize);
+	
+	public Deque<IItems> getTaskTarget();
+	
+	public Deque<SettlersAktion> getTask();
+	
+	public Deque<Vector2D> getTaskWay();
 }

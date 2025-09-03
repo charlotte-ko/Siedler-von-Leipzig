@@ -5,6 +5,7 @@ import logic.Vector2D;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
+import java.util.LinkedList;
 
 import buildings.IBuildings;
 import items.IItems;
@@ -21,9 +22,29 @@ public abstract class ASettlers implements ISettlers {
 	private Deque<SettlersAktion> task = new ArrayDeque<>();	//aufgabe
 	
 	
-	private Deque<IItems> taskTarget = new ArrayDeque<>();
+	protected Deque<IItems> taskTarget = new ArrayDeque<>();
 	
 	protected IJob job;
+
+	public Deque<Vector2D> getTaskWay() {
+		return taskWay;
+	}
+	public void setTaskWay(Deque<Vector2D> taskWay) {
+		this.taskWay = taskWay;
+	}
+	public Deque<SettlersAktion> getTask() {
+		return task;
+	}
+	public void setTask(Deque<SettlersAktion> task) {
+		this.task = task;
+	}
+	public Deque<IItems> getTaskTarget() {
+		return taskTarget;
+	}
+	public void setTaskTarget(Deque<IItems> taskTarget) {
+		this.taskTarget = taskTarget;
+	}
+
 	
 	public IItems getItem(boolean leftHand) {
 		if(leftHand) {
@@ -138,7 +159,7 @@ public abstract class ASettlers implements ISettlers {
 		IItems finalItem = null;
 		//darf nicht gehalten werden
 		for(IItems item : ItemList) {
-			if(item.getName().equals(target)) {
+			if(!item.getName().equals(target)) {
 				continue;
 			}
 			float distance = current_pos.getDistance(item.getPosition());
@@ -162,7 +183,10 @@ public abstract class ASettlers implements ISettlers {
 			if(this.rightHand != null)
 				this.rightHand.setPosition(this.getPosition());
 			return;
+			
 		}
+		
+		
 		this.taskWay.pollFirst();
 		IItems target = this.taskTarget.pollFirst();
 		switch(this.task.pollFirst()) {
