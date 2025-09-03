@@ -17,7 +17,7 @@ import javax.swing.JPanel;
 public class Game extends BaseGUI {
 		
 	//Alle Buttons
-	JButton shop = new JButton("Shop");
+	JButton shop = new JButton(createIcon("Coin.png", 40, 40));
 	JButton delete = new JButton(createIcon("Hammer.png", 40, 40));
 	JButton inventory = new JButton("Inventar");
 	JButton end = new JButton("Beenden");
