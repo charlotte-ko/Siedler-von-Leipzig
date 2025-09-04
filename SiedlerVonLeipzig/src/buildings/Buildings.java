@@ -77,6 +77,14 @@ public abstract class Buildings implements IBuildings{
 		}
 		return closest;
 	}
+	/**
+	 * 
+	 * @param settlerList
+	 * @return einen Siedler, der sein Werkzeug abgelegt hat, also jetzt Normal ist, und für andere Zwecke verwendet werden kann
+	 * 
+	 * es wird irgendein Siedler gesucht, der gerade nichts zu tun hat.
+	 * Dieser wird dann gezwungen sein Werkzeug abzulegen, sodass er neue Job annehmen kann, also für andere Gebäude verfügbar wird
+	 */
 	public ISettlers findSettler(ArrayList<ISettlers> settlerList) {
 		
 		ISettlers available;
