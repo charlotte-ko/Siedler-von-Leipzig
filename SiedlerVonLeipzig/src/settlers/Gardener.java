@@ -6,7 +6,10 @@ import logic.Settlers;
 import logic.Vector2D;
 
 public class Gardener extends AJob implements Assignable {
-
+	
+	protected Forester workplace;
+	protected boolean assigned;
+	
 	public Gardener(String job) {
 		this.jobName = job;
 	}
@@ -20,11 +23,19 @@ public class Gardener extends AJob implements Assignable {
 		worker.giveSettlerTask(workspace.getPosition(), SettlersAktion.GO_FREE, null);
 	}
 	
-	public void bound(Forester workspace) {
-	
+	/**
+	 * gibt true zurück, wenn ein Gardener einen Arbeitsplatz hat
+	 * gibt ein false zurück, wenn ein Gardener keinen Arbeitsplatz hat
+	 */
+	public boolean bound() {
+		return(!(workplace==null));
 	}
 	
-	//noch diese findGardener dings fertig machen
+	public void bind(Forester workspace) {
+		this.workplace = workspace;
+		this.assigned = true;
+	}
+	
 	//bound
 	//employee initialisieren
 }

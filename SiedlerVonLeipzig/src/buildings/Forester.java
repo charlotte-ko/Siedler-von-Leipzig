@@ -15,11 +15,12 @@ import settlers.SettlersAktion;
 public class Forester extends Buildings implements Assignable {
 
 	protected ISettlers employee;
+	protected boolean hasEmployee;
 	
-	public Forester(Vector2D pos, ArrayList<ISettlers> settlerList, ArrayList<IItems> itemList) {
+	public Forester(Vector2D pos) {
 		super("Forester", 10, pos);
-		this.bind(findSettler(settlerList, itemList, "Gardener", null));
 	}
+	
 	
 
 	/**
@@ -31,26 +32,43 @@ public class Forester extends Buildings implements Assignable {
 	
 	public void update(double Delta, ArrayList<ISettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> ItemList) {
 		
+		if(!this.bound() || !((Gardener) employee).bound()) {
+			this.bind(findGardener(settlerList));
+		}
+		
 		if(this.getOutput_Inventory().size() < 10) {
 			this.output_inventory.add(new Tree(this.getPosition()));
 		}
 		
-		ISettlers worker = this.findSettler(settlerList, ItemList, "Gardener", null);
 		Vector2D plantPos = new Vector2D();
 		do {
 			plantPos = this.getPosition().genPos(5.0f);
 		}while(!plantPos.testPos(BuildingsList, ItemList));
 		
-		
-		if(!worker.isWorking()) {
-			this.plantTree(worker, plantPos);
-		}
+		this.plantTree(employee, plantPos);
 	}
 	
 	public void bind(ISettlers worker) {
-		this.employee.equals(worker);
+		this.employee = worker;
+		this.hasEmployee = true;
+		
+		if(employee instanceof Gardener) {
+			((Gardener) employee).bind(this);
+		}
+		
 	}
 	
+	public boolean bound() {
+		return this.hasEmployee;
+	}
+	
+	/**
+	 * 
+	 * @param settlerList
+	 * @return einen neuen Gardener für genau dieses Förstergebäude
+	 * Sucht zuerst einen Siedler, der bereits Gardener ist und an noch kein Förstergebäude gebunden ist
+	 * Falls keiner vorhanden ist, wird ein anderer Siedler genommen
+	 */
 	private ISettlers findGardener(ArrayList<ISettlers> settlerList) {
 		
 		for(ISettlers s : settlerList) {
@@ -59,7 +77,8 @@ public class Forester extends Buildings implements Assignable {
 				return s;
 			}
 		}
-		
+		ISettlers newGardener = findSettler(settlerList);
+		return newGardener;
 	}
 
 	@Override
