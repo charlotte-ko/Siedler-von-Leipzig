@@ -8,6 +8,7 @@ import items.Items;
 import items.Tree;
 import logic.Vector2D;
 import settlers.Assignable;
+import settlers.Gardener;
 import settlers.ISettlers;
 import settlers.SettlersAktion;
 
@@ -53,8 +54,8 @@ public class Forester extends Buildings implements Assignable {
 	private ISettlers findGardener(ArrayList<ISettlers> settlerList) {
 		
 		for(ISettlers s : settlerList) {
-			if(s.getJob().equals("Gardener") && !s.accesJob().bound()) {
-				
+			if(s.getJob().equals("Gardener") && ((Gardener) s).bound()) {
+				return s;
 			}
 		}
 	}
