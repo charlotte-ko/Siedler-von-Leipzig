@@ -7,13 +7,17 @@ import items.IItems;
 import items.Items;
 import items.Tree;
 import logic.Vector2D;
+import settlers.Assignable;
 import settlers.ISettlers;
 import settlers.SettlersAktion;
 
-public class Forester extends Buildings {
+public class Forester extends Buildings implements Assignable {
 
-	public Forester(Vector2D pos) {
+	protected ISettlers employee;
+	
+	public Forester(Vector2D pos, ArrayList<ISettlers> settlerList, ArrayList<IItems> itemList) {
 		super("Forester", 10, pos);
+		this.bind(findSettler(settlerList, itemList, "Gardener", null));
 	}
 	
 
@@ -24,13 +28,13 @@ public class Forester extends Buildings {
 		worker.accesJob().work(this, worker, plantPos);
 	}
 	
-	public void update(ArrayList<ISettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
+	public void update(double Delta, ArrayList<ISettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> ItemList) {
 		
-		if(this.getOutput_Inventory().size() < 5) {
+		if(this.getOutput_Inventory().size() < 10) {
 			this.output_inventory.add(new Tree(this.getPosition()));
 		}
 		
-		ISettlers worker = this.findSettler(settlerList, ItemList, "NormalSettler", null);
+		ISettlers worker = this.findSettler(settlerList, ItemList, "Gardener", null);
 		Vector2D plantPos = new Vector2D();
 		do {
 			plantPos = this.getPosition().genPos(5.0f);
@@ -40,10 +44,20 @@ public class Forester extends Buildings {
 		if(!worker.isWorking()) {
 			this.plantTree(worker, plantPos);
 		}
-		//zeitliche aspekt fehlt noch
 	}
 	
-	//ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, String job, IItems target
+	public void bind(ISettlers worker) {
+		this.employee.equals(worker);
+	}
+	
+	private ISettlers findGardener(ArrayList<ISettlers> settlerList) {
+		
+		for(ISettlers s : settlerList) {
+			if(s.getJob().equals("Gardener") && !s.accesJob().bound()) {
+				
+			}
+		}
+	}
 
 	@Override
 	public void createBuilding() {
@@ -58,25 +72,14 @@ public class Forester extends Buildings {
 	}
 
 	@Override
-	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList, String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job, IItems target) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
 	public void getLogs(ISettlers worker, ArrayList<IItems> itemList) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+	@Override
+	public void update(ArrayList<ISettlers> settlerList, ArrayList<IItems> itemList) {
 		// TODO Auto-generated method stub
 		
 	}

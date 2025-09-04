@@ -7,7 +7,6 @@ import java.util.ArrayList;
 
 import items.IItems;
 import settlers.ISettlers;
-import settlers.ASettlers;
 import settlers.SettlersAktion;
 import logic.Vector2D;
 
@@ -93,7 +92,7 @@ public abstract class Buildings implements IBuildings{
 		}
 		
 		if(wanted.isEmpty()) {
-			ISettlers jobless = findSettler(settlerList, "NormalSettler", null);
+			ISettlers jobless = findSettler(settlerList, ItemList, "Normal", null);
 			
 			jobless.giveSettlerTask(jobless.closestItem(jobless.getPosition(), ItemList ,target.getName()).getPosition(), SettlersAktion.GO_PICKUP_RIGHT, target);
 			return jobless;

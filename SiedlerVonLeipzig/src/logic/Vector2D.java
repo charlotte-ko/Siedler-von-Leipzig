@@ -3,6 +3,7 @@ package logic;
 import java.util.ArrayList;
 
 import buildings.Buildings;
+import items.IItems;
 import items.Items;
 
 public class Vector2D {
@@ -90,12 +91,12 @@ public class Vector2D {
 		return false;
 	}
 	
-	public boolean testPos(ArrayList<Buildings> BuildingList, ArrayList<Items> ItemList) {
+	public boolean testPos(ArrayList<Buildings> BuildingList, ArrayList<IItems> ItemList) {
 		
 		for(Buildings b : BuildingList) {
 			if(this.getDistance(b.getPosition()) < 2.0f) {return false;}
 		}
-		for(Items i : ItemList) {
+		for(IItems i : ItemList) {
 			if(this.getDistance(i.getPosition()) < 2.0f) {return false;}
 		}
 		return true;

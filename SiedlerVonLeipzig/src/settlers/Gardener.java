@@ -1,10 +1,11 @@
 package settlers;
 
 import buildings.Buildings;
+import buildings.Forester;
 import logic.Settlers;
 import logic.Vector2D;
 
-public class Gardener extends AJob {
+public class Gardener extends AJob implements Assignable {
 
 	public Gardener(String job) {
 		this.jobName = job;
@@ -17,7 +18,9 @@ public class Gardener extends AJob {
 		worker.giveSettlerTask(workspace.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, workspace.getOutput_Inventory().get(workspace.getOutput_Inventory().size() - 1));
 		worker.giveSettlerTask(plantpos, SettlersAktion.GO_BRING_RIGHT, null);
 		worker.giveSettlerTask(workspace.getPosition(), SettlersAktion.GO_FREE, null);
-		
-		super.work(worker);
+	}
+	
+	public void bound(Forester workspace) {
+	
 	}
 }
