@@ -6,7 +6,7 @@ public class Normal extends AJob{
 		this.jobName = job;
 	}
 	
-	@Override
+	
 	public void work(ISettlers siedler) {
 		// TODO Auto-generated method stub
 		

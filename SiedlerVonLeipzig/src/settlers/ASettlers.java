@@ -24,7 +24,7 @@ public abstract class ASettlers implements ISettlers {
 	
 	protected Deque<IItems> taskTarget = new ArrayDeque<>();
 	
-	protected IJob job;
+	protected AJob job;
 
 	public Deque<Vector2D> getTaskWay() {
 		return taskWay;
@@ -117,7 +117,7 @@ public abstract class ASettlers implements ISettlers {
 	}
 	
 	public void setJob(String jobName) {
-		this.job = AJob.creatJob(jobName);
+		this.job = AJob.createJob(jobName);
 	}
 	
 

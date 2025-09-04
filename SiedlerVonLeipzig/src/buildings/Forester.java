@@ -29,10 +29,7 @@ public class Forester extends Buildings {
 		 * (Kann ich machen)
 		 * Die zufällige Punkt generierung ist scheiße. Muss übarbeitet werden.
 		 */
-		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_PICKUP_LEFT, this.output_inventory.get(output_inventory.size() - 1));
 		
-		worker.giveSettlerTask(this.positionList.get(index), SettlersAktion.GO_WORK, null);
-		this.changePositionList(index);
 		//muss dann noch zum Häuschen zurück
 	}
 	
