@@ -24,7 +24,7 @@ public abstract class ASettlers implements ISettlers {
 	
 	protected Deque<IItems> taskTarget = new ArrayDeque<>();
 	
-	protected AJob job;
+	protected Jobbable job;
 
 	public Deque<Vector2D> getTaskWay() {
 		return taskWay;
@@ -120,6 +120,9 @@ public abstract class ASettlers implements ISettlers {
 		this.job = AJob.createJob(jobName);
 	}
 	
+	public Jobbable accesJob() {
+		return this.job;
+	}
 
 	public void setItemHand(IItems item,boolean leftHand,ArrayList<ISettlers> settlersList) {
 		if(leftHand) {

@@ -1,6 +1,6 @@
 package settlers;
 
-public abstract class AJob {
+public abstract class AJob implements Jobbable{
 	
 	protected String jobName;
 	
@@ -8,7 +8,7 @@ public abstract class AJob {
 		return jobName;
 	}
 	
-	public static AJob createJob(String job) {
+	public static Jobbable createJob(String job) {
 		switch(job) {
 			case "Normal":
 				return new Normal(job);
@@ -17,9 +17,5 @@ public abstract class AJob {
 			default:
 				return new Normal("Normal");
 		}
-	}
-	
-	public void work(ISettlers worker) {
-		
 	}
 }

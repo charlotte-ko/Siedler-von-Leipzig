@@ -21,7 +21,7 @@ public class Forester extends Buildings {
 	 * Wir brauchen noch eine Methode die eine random Position in einem Umkreis zurückgibt, wo der Siedler den Baum pflanzt
 	 */
 	public void plantTree(ISettlers worker, Vector2D plantPos) {
-		worker.job;
+		worker.accesJob().work(this, worker, plantPos);
 	}
 	
 	public void update(ArrayList<ISettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {

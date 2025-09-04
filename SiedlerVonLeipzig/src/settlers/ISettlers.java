@@ -78,7 +78,8 @@ public interface ISettlers {
 	
 	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, String target);
 
-
+	public Jobbable accesJob();
+	
 	public void draw(Graphics2D g2,int tileSize);
 	
 	public Deque<IItems> getTaskTarget();
