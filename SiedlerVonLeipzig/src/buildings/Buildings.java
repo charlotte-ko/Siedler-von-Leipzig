@@ -58,9 +58,9 @@ public abstract class Buildings implements IBuildings{
 	 * @param settlerList
 	 * @return closest Settler
 	 */
-	protected static ISettlers closestSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList) {
+	protected ISettlers closestSettler(ArrayList<ISettlers> settlerList) {
 		
-		if(current_pos == null || settlerList == null || settlerList.isEmpty()) {
+		if(settlerList.isEmpty()) {
 			return null;
 		}
 		
@@ -68,7 +68,7 @@ public abstract class Buildings implements IBuildings{
 		ISettlers closest = null;
 		
 		for(ISettlers s : settlerList) {
-			float distance = current_pos.getDistance(s.getPosition());
+			float distance = this.getPosition().getDistance(s.getPosition());
 			
 			if(distance < min_distance) {
 				min_distance = distance;
@@ -77,12 +77,27 @@ public abstract class Buildings implements IBuildings{
 		}
 		return closest;
 	}
+	public ISettlers findSettler(ArrayList<ISettlers> settlerList) {
+		
+		ISettlers available;
+		
+		do {
+			
+			 available = closestSettler(settlerList);
+			 
+		}while(!available.getJob().isEmpty());
+		
+		available.giveSettlerTask(available.getPosition(), SettlersAktion.GO_BRING_RIGHT, available.getItemHand(false));
+		return available;
+	}
 	
 	/**
 	 * Methode sucht einen Siedler mit gebrauchtem Job, gibt es keinen Siedler mit diesem Job,
 	 * geben wir einem Normalem Siedler einen Job, indem wir ihm sagen -> Hol Item für Job
+	 * 
 	 */
 	public ISettlers findSettler(ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, String job, IItems target) {
+		
 		ArrayList<ISettlers> wanted = new ArrayList<>();
 		
 		for(ISettlers s : settlerList) {
@@ -90,15 +105,16 @@ public abstract class Buildings implements IBuildings{
 				wanted.add(s);
 			}
 		}
+		if(!wanted.isEmpty()) {return closestSettler(wanted);}
 		
-		if(wanted.isEmpty()) {
-			ISettlers jobless = findSettler(settlerList, ItemList, "Normal", null);
+		ISettlers jobless = findSettler(settlerList, ItemList, "Normal", null);
 			
+		if(jobless == null) {
+			
+			jobless = findSettler(settlerList);
 			jobless.giveSettlerTask(jobless.closestItem(jobless.getPosition(), ItemList ,target.getName()).getPosition(), SettlersAktion.GO_PICKUP_RIGHT, target);
-			return jobless;
-		}
-		
-		return closestSettler(this.getPosition(), wanted);
+			
+		}return jobless;
 	}
 	
 	/**

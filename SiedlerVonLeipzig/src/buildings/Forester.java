@@ -54,10 +54,12 @@ public class Forester extends Buildings implements Assignable {
 	private ISettlers findGardener(ArrayList<ISettlers> settlerList) {
 		
 		for(ISettlers s : settlerList) {
-			if(s.getJob().equals("Gardener") && ((Gardener) s).bound()) {
+			
+			if(s.getJob().equals("Gardener") && !((Gardener) s).bound()) {
 				return s;
 			}
 		}
+		
 	}
 
 	@Override

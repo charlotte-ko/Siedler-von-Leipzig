@@ -23,4 +23,8 @@ public class Gardener extends AJob implements Assignable {
 	public void bound(Forester workspace) {
 	
 	}
+	
+	//noch diese findGardener dings fertig machen
+	//bound
+	//employee initialisieren
 }
