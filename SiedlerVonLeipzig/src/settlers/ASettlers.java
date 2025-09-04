@@ -206,9 +206,6 @@ public abstract class ASettlers implements ISettlers {
 				this.takeItemHand(false, settlerList);
 				target.setHeld(false);
 				break;
-			case GO_WORK:
-				this.job.work(this); //ruft job auf
-				break;
 			case GO_FREE://tut nix
 				break;
 			default:

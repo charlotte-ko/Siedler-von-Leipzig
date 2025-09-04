@@ -17,5 +17,7 @@ public class Gardener extends AJob {
 		worker.giveSettlerTask(workspace.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, workspace.getOutput_Inventory().get(workspace.getOutput_Inventory().size() - 1));
 		worker.giveSettlerTask(plantpos, SettlersAktion.GO_BRING_RIGHT, null);
 		worker.giveSettlerTask(workspace.getPosition(), SettlersAktion.GO_FREE, null);
+		
+		super.work(worker);
 	}
 }

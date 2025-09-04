@@ -1,6 +1,7 @@
 package settlers;
 
 public abstract class AJob {
+	
 	protected String jobName;
 	
 	public String getJobName() {
@@ -16,5 +17,9 @@ public abstract class AJob {
 			default:
 				return new Normal("Normal");
 		}
+	}
+	
+	public void work(ISettlers worker) {
+		
 	}
 }

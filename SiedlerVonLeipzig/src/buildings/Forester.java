@@ -21,16 +21,7 @@ public class Forester extends Buildings {
 	 * Wir brauchen noch eine Methode die eine random Position in einem Umkreis zurückgibt, wo der Siedler den Baum pflanzt
 	 */
 	public void plantTree(ISettlers worker, Vector2D plantPos) {
-		
-		//Hier muss jetzt sowas wie worker.work hin oder sowas.
-		
-		/**
-		 * Das ist schon mal gut nur muss alles andere in den Siedler geschrieben werden.
-		 * (Kann ich machen)
-		 * Die zufällige Punkt generierung ist scheiße. Muss übarbeitet werden.
-		 */
-		
-		//muss dann noch zum Häuschen zurück
+		worker.job;
 	}
 	
 	public void update(ArrayList<ISettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
