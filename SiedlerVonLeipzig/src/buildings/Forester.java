@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import items.IItems;
+import items.Items;
 import items.Tree;
 import logic.Vector2D;
 import settlers.ISettlers;
@@ -15,27 +16,13 @@ public class Forester extends Buildings {
 		super("Forester", 10, pos);
 	}
 	
-	private ArrayList<Vector2D> positionList = this.getPosition().genPos(4.0f);
-	
-	public void changePositionList(int used) {
-		ArrayList<Vector2D> List = this.positionList;
-		for(int i = 0; i < List.size(); i++) {
-			
-			if(List.get(used).getDistance(List.get(i)) <= 2.0f) {
-				List.remove(i);
-			}
-		}
-		List.remove(used);
-		
-	}
 
 	/**
 	 * Wir brauchen noch eine Methode die eine random Position in einem Umkreis zurückgibt, wo der Siedler den Baum pflanzt
 	 */
-	public void plantTree(ISettlers worker) {
+	public void plantTree(ISettlers worker, Vector2D plantPos) {
 		
-		Random rnd = new Random();
-		int index = rnd.nextInt(this.positionList.size()-1);
+		//Hier muss jetzt sowas wie worker.work hin oder sowas.
 		
 		/**
 		 * Das ist schon mal gut nur muss alles andere in den Siedler geschrieben werden.
@@ -46,19 +33,26 @@ public class Forester extends Buildings {
 		
 		worker.giveSettlerTask(this.positionList.get(index), SettlersAktion.GO_WORK, null);
 		this.changePositionList(index);
+		//muss dann noch zum Häuschen zurück
 	}
 	
-	public void update(ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList) {
+	public void update(ArrayList<ISettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
 		
 		if(this.getOutput_Inventory().size() < 5) {
 			this.output_inventory.add(new Tree(this.getPosition()));
 		}
 		
 		ISettlers worker = this.findSettler(settlerList, ItemList, "NormalSettler", null);
+		Vector2D plantPos = new Vector2D();
+		do {
+			plantPos = this.getPosition().genPos(5.0f);
+		}while(!plantPos.testPos(BuildingsList, ItemList));
+		
 		
 		if(!worker.isWorking()) {
-			this.plantTree(worker);
+			this.plantTree(worker, plantPos);
 		}
+		//zeitliche aspekt fehlt noch
 	}
 	
 	//ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, String job, IItems target

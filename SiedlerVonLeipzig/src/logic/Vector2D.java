@@ -2,6 +2,9 @@ package logic;
 
 import java.util.ArrayList;
 
+import buildings.Buildings;
+import items.Items;
+
 public class Vector2D {
 	public float x,y;
 	
@@ -66,18 +69,17 @@ public class Vector2D {
 	 * @param radius 
 	 * @return eine Liste an Punkten, die sich innerhalb eines gewünschten Radius befinden
 	 */
-	public ArrayList<Vector2D> genPos(float radius) {
+	public Vector2D genPos(float radius) {
 		
-		ArrayList<Vector2D> pos_in_rad = new ArrayList<Vector2D>();
 		Vector2D centre = this;
+		
 		for(float i = centre.x-radius; i <= (centre.x + radius); i += 1.0f) {
 			for(float j = centre.y-radius; j <= (centre.y + radius); j += 1.0f) {
 				
 				Vector2D pos = new Vector2D(i,j);
-				if(isInRadius(pos, centre, radius)) {pos_in_rad.add(pos);}
+				if(isInRadius(pos, centre, radius)) {return pos;}
 			}
-		}
-		return pos_in_rad;
+		} return this.genPos(2*radius);
 	} 
 	
 	public static boolean isInRadius(Vector2D point, Vector2D centre, float radius) {
@@ -86,5 +88,16 @@ public class Vector2D {
 			return true;
 		}
 		return false;
+	}
+	
+	public boolean testPos(ArrayList<Buildings> BuildingList, ArrayList<Items> ItemList) {
+		
+		for(Buildings b : BuildingList) {
+			if(this.getDistance(b.getPosition()) < 2.0f) {return false;}
+		}
+		for(Items i : ItemList) {
+			if(this.getDistance(i.getPosition()) < 2.0f) {return false;}
+		}
+		return true;
 	}
 }
