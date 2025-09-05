@@ -98,9 +98,8 @@ public abstract class ASettlers{
 	 * @return erstelltes Objekt wird zurückgegeben (steht aber auch in der liste)
 	 * @note Es wird nur ein Settler erstellt. Job muss direkt oder indirekt vergeben werden.
 	 */
-	public static ISettlers createSettlerInList(ArrayList<ISettlers> settlerList, Vector2D position) {
-		ISettlers newSettler = new Settler(position);
-		settlerList.add(newSettler);
+	public static ASettlers createSettler(Vector2D position) {
+		ASettlers newSettler = new Settler(position);
 		return newSettler;
 	}
 	
