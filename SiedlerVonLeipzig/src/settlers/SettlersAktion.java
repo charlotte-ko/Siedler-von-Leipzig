@@ -7,4 +7,5 @@ public enum SettlersAktion {
 	GO_BRING_RIGHT,	//Bringt Item aus der rechten Hand (Achtung Beruf geht verloren)
 	GO_WORK,		//Geht zum Punkt und führt speziefische Arbeit durch
 	GO_FREE,		//geht zum Punkt und tut nichts
+	GO_WAIT,		//geht zum Punkt und wartet
 }

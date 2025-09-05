@@ -50,10 +50,13 @@ public class Sawmill extends Buildings {
 	}
 
 	public void update(ArrayList<ISettlers> settlerList, ArrayList<IItems> itemList) {
+		//suche arbeiter
 		if(this.input_inventory.size() < 10) {
 			this.makePlanks(settlerList);
 		}
-		
+		//hole arbeiter mit säge
+		//alle 12 sek. ein ding sägen
+		//falls 
 		if(this.output_inventory.size() < 10) {
 			ISettlers worker = findSettler(settlerList, itemList, "NormalSettler", null);
 			this.getLogs(worker, itemList);

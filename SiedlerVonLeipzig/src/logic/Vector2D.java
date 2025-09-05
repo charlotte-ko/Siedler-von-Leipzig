@@ -73,7 +73,9 @@ public class Vector2D {
 	public Vector2D genPos(float radius) {
 		
 		Vector2D centre = this;
-		
+		//center -> 0,radius
+		//zufalls winkel a
+		//rotiere vector um centre um winkel
 		for(float i = centre.x-radius; i <= (centre.x + radius); i += 1.0f) {
 			for(float j = centre.y-radius; j <= (centre.y + radius); j += 1.0f) {
 				

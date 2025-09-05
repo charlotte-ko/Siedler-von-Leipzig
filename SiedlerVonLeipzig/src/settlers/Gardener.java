@@ -35,6 +35,12 @@ public class Gardener extends AJob implements Assignable {
 		this.workplace = workspace;
 		this.assigned = true;
 	}
+
+	@Override
+	public void bind(ISettlers worker) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	//bound
 	//employee initialisieren
