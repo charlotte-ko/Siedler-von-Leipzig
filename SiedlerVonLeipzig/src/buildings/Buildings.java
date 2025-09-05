@@ -1,13 +1,9 @@
 package buildings;
 
-import java.awt.Color;
-import java.awt.Graphics2D;
+
 import java.util.ArrayList;
-
-
 import items.IItems;
-import settlers.ISettlers;
-import settlers.SettlersAktion;
+import settlers.ASettlers;
 import settlers.SettlersJobs;
 import logic.Vector2D;
 
@@ -17,12 +13,10 @@ public abstract class Buildings {
 	 * Attribute
 	 */
 	protected final String name;
-	private Vector2D position;
+	protected Vector2D position;
 	protected ArrayList<IItems> input_inventory = new ArrayList<>(); 
 	protected ArrayList<IItems> output_inventory = new ArrayList<>();
 	private final int price; //Ich weiß nicht mehr ob das in die GUI reinkommt oder hier
-	protected boolean state = false; //Ist erstmal nicht voll, ich weiß noch nicht, ob das wichtig ist und was die Bedingung zum Überprüfen ist
-	protected int task_counter = 0;
 	
 	/**
 	 * Konstruktor
@@ -33,8 +27,7 @@ public abstract class Buildings {
 	public Buildings(String name, int price, Vector2D pos) {
 		this.name = name;
 		this.price = price;	
-		position = pos;
-		this.setPosition(new Vector2D());
+		this.position = pos;
 	}
 	
 	/**
@@ -48,6 +41,7 @@ public abstract class Buildings {
 		switch(building) {
 		case "House" : return new House(pos);
 		case "Forester" : return new Forester(pos);
+		case "Lodge" : return new Lodge(pos);
 		case "Sawmill" : return new Sawmill(pos);
 		default: throw new IllegalArgumentException("Unexpected Value: " + building);
 		}
@@ -59,16 +53,16 @@ public abstract class Buildings {
 	 * @param settlerList
 	 * @return closest Settler
 	 */
-	protected ISettlers closestSettler(ArrayList<ISettlers> settlerList) {
+	public ASettlers closestSettler(ArrayList<ASettlers> settlerList) {
 		
 		if(settlerList.isEmpty()) {
 			return null;
 		}
 		
 		float min_distance = Float.POSITIVE_INFINITY;
-		ISettlers closest = null;
+		ASettlers closest = null;
 		
-		for(ISettlers s : settlerList) {
+		for(ASettlers s : settlerList) {
 			float distance = this.getPosition().getDistance(s.getPosition());
 			
 			if(distance < min_distance) {
@@ -78,136 +72,35 @@ public abstract class Buildings {
 		}
 		return closest;
 	}
+	
+	
 	/**
 	 * 
 	 * @param settlerList
-	 * @return einen Siedler, der sein Werkzeug abgelegt hat, also jetzt Normal ist, und für andere Zwecke verwendet werden kann
-	 * 
-	 * es wird irgendein Siedler gesucht, der gerade nichts zu tun hat.
-	 * Dieser wird dann gezwungen sein Werkzeug abzulegen, sodass er neue Job annehmen kann, also für andere Gebäude verfügbar wird
-	 */
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList) {
-		
-		ISettlers available;
-		
-		do {
-			//gibt sehr warscheinlich immer nur den gleichen Siedler zurück
-			 available = closestSettler(settlerList);
-			 
-		}while(!available.getJob().isEmpty());
-		
-		/*
-		 * wenn der Siedler keinen Job hat, hatt er warscheinlich auch kein Item in der rechten Hand
-		 * Man würde also null übergeben, was aktuell zu einen fehler führen sollte
-		 */
-		available.giveSettlerTask(available.getPosition(), SettlersAktion.GO_BRING_RIGHT, available.getItemHand(false));
-		return available;
-	}
-	
-	/**
-	 * Methode sucht einen Siedler mit gebrauchtem Job, gibt es keinen Siedler mit diesem Job,
-	 * geben wir einem Normalem Siedler einen Job, indem wir ihm sagen -> Hol Item für Job
-	 * 
-	 * IITem target kann weg !!!
+	 * @param ItemList
+	 * @param job gewünschter Job
+	 * @return einen Siedler mit gewünschtem Job oder einen normalen Siedler
 	 * 
 	 */
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
+	public ASettlers findSettler(ArrayList<ASettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
 		
-		ArrayList<ISettlers> wanted = new ArrayList<>();
+		ArrayList<ASettlers> wanted = new ArrayList<>();
 		
-		for(ISettlers s : settlerList) {
-			if(s.getJob().equals(job)) {
+		for(ASettlers s : settlerList) {
+			if(s.getJobName().equals(job)) {
 				wanted.add(s);
 			}
 		}
 		
 		if(!wanted.isEmpty()) {return closestSettler(wanted);}
 		
-		//Das könnte zu einer unendlich schleife führen.
-		//Gennerell ist rekursion immer gefährlich
-		ISettlers jobless = findSettler(settlerList, ItemList, SettlersJobs.JOB_NORMAL);
-			
-		if(jobless == null) {
-			
-			jobless = findSettler(settlerList);
-			jobless.giveSettlerTask(jobless.closestItem(jobless.getPosition(), ItemList ,target.getName()).getPosition(), SettlersAktion.GO_PICKUP_RIGHT, target);
-			
-		}return jobless;
+		ASettlers jobless = findSettler(settlerList, ItemList, SettlersJobs.JOB_NORMAL);
+		
+		if(jobless != null) {return jobless;}
+		else {return null;}
 	}
 	
-	/**
-	 * Getter Methode um den Preis eines Objektes zu bekommen
-	 * @return price
-	 */
-	public int getPrice() {
-		return price;
-	}
-	
-	/**
-	 * Getter Methode um den Zustand eines Objektes zu bekommen
-	 * @return state
-	 */
-	public boolean getState() {
-		return state;
-	}
-
-	/**
-	 * Getter Methode um die Position eines Objektes zu bekommen
-	 * @return Vector2D  position 
-	 */
 	public Vector2D getPosition() {
-		return position;
+		return this.position;
 	}
-	
-	/**
-	 * Getter Methode für das Input_Inventar des Gebäudes
-	 * @return inventory
-	 */
-	public ArrayList<IItems> getInput_Inventory() {
-		return input_inventory;
-	}
-	
-	/**
-	 * Getter für Output_Inventar
-	 * @return inventory
-	 */
-	public ArrayList<IItems> getOutput_Inventory() {
-		return output_inventory;
-	}
-	
-	/**
-	 * Setter Methode für das Input_Inventar eines Gebäudes zu bestimmen
-	 * @param inventory
-	 */
-	public void setInventory(ArrayList<IItems> input_inventory) {
-		this.input_inventory = input_inventory;
-	}
-	
-	/**
-	 * Setter für Output_Inventar
-	 * @param output_inventory
-	 */
-	public void setOutput_Inventory(ArrayList<IItems> output_inventory) {
-		this.output_inventory = output_inventory;
-	}
-	/**
-	 * Setter Methode um die Position eines Objektes zu bestimmen
-	 * @param position
-	 */
-	public void setPosition(Vector2D position) {
-		this.position = position;
-	}
-	
-	public void draw(Graphics2D g2,int tileSize) {
-		//g2.drawRect((int)this.position.x, (int)this.position.y, 8, 8);
-		g2.setColor(Color.white);
-		g2.fillRect((int)this.position.x, (int)this.position.y, tileSize,tileSize);
-	}
-	
-	public void update(double delta) {}
-
-	public String getName() {
-		return this.name;
-	}
-
 }
