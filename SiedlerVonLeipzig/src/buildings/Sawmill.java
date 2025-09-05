@@ -5,7 +5,6 @@ import java.util.ArrayList;
 
 import items.IItems;
 import items.Plank;
-import settlers.ISettlers;
 import settlers.SettlersAktion;
 import logic.Vector2D;
 
