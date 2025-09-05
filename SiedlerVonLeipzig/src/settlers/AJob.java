@@ -1,5 +1,9 @@
 package settlers;
 
+import java.util.ArrayList;
+
+import items.IItems;
+
 public abstract class AJob implements Jobbable{
 	
 	protected String jobName;
@@ -17,5 +21,10 @@ public abstract class AJob implements Jobbable{
 			default:
 				return new Normal("Normal");
 		}
+	}
+	
+	public ArrayList<IItems> returnList(ArrayList<IItems> inventory, int index) {
+		inventory.remove(index);
+		return inventory;
 	}
 }
