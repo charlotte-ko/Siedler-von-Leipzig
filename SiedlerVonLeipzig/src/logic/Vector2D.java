@@ -70,12 +70,10 @@ public class Vector2D {
 	 * @param radius 
 	 * @return eine Liste an Punkten, die sich innerhalb eines gewünschten Radius befinden
 	 */
-	public Vector2D genPos(float radius) {
+	public Vector2D genPos(float radius) { //Julis Idee umsetzen
 		
 		Vector2D centre = this;
-		//center -> 0,radius
-		//zufalls winkel a
-		//rotiere vector um centre um winkel
+		
 		for(float i = centre.x-radius; i <= (centre.x + radius); i += 1.0f) {
 			for(float j = centre.y-radius; j <= (centre.y + radius); j += 1.0f) {
 				

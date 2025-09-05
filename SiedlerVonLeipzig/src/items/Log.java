@@ -8,4 +8,5 @@ public class Log extends Items {
 		super(pos);
 		this.name = "Log";
 	}
+	
 }

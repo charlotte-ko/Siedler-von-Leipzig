@@ -4,59 +4,39 @@ import java.util.ArrayList;
 
 import items.IItems;
 import logic.Vector2D;
+import settlers.ASettlers;
 import settlers.ISettlers;
+import settlers.SettlersJobs;
 
 public class Lodge extends Buildings{
-
+	
+	protected ASettlers employee;
+	protected boolean hasEmployee;
+	
 	public Lodge(Vector2D pos) {
 		super("Lumberjack", 10, pos);
 	}
 
-	private void getLogs() {
+	public void getLogs() {
 		
 	}
 	
-	@Override
-	public void createBuilding() {
-		// TODO Auto-generated method stub
+	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> ItemList) {
 		
-	}
-
-	@Override
-	public ISettlers makeSettlers(ArrayList<ISettlers> settlerList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList, String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job, IItems target) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void getLogs(ISettlers worker, ArrayList<IItems> itemList) {
-		// TODO Auto-generated method stub
+		if(!hasEmployee) {
+			
+			this.employee = this.findEmployee(settlerList, ItemList, SettlersJobs.JOB_LUMBERJACK);
+			
+			if(employee == null) {
+				return;
+			}
+			//this.employee.giveSettlerTask(getPosition(), null, null);//komm zum 
+		}
 		
+		if(this.getInput_Inventory().size() < 10) {
+			
+		}
 	}
-
-	@Override
-	public void update(ArrayList<ISettlers> settlerList, ArrayList<IItems> itemList) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	
 	
 }

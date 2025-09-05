@@ -1,15 +1,11 @@
 package buildings;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import items.IItems;
-import items.Items;
 import items.Tree;
 import logic.Vector2D;
-import settlers.Assignable;
-import settlers.Gardener;
-import settlers.ISettlers;
+import settlers.ASettlers;
 import settlers.SettlersAktion;
 import settlers.SettlersJobs;
 
@@ -17,10 +13,7 @@ import settlers.SettlersJobs;
  * Förster Gebäude.
  * Pflanzt Bäume.
  */
-public class Forester extends Buildings implements Assignable {
-
-	protected ISettlers employee;	//Pro gebäude nur ein Arbeiter
-	protected boolean hasEmployee;
+public class Forester extends Buildings {
 	
 	public Forester(Vector2D pos) {
 		super("Forester", 10, pos);
@@ -33,8 +26,10 @@ public class Forester extends Buildings implements Assignable {
 	 * @param worker
 	 * @param plantPos
 	 */
-	public void plantTree(ISettlers worker, Vector2D plantPos) {
-		worker.accesJob().work(this, worker, plantPos);
+	public void plantTree(ASettlers worker, Vector2D plantPos) {
+		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, this.getOutput_Inventory().get(this.getOutput_Inventory().size()-1));
+		worker.giveSettlerTask(plantPos, SettlersAktion.GO_BRING_RIGHT, null);
+		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_FREE, null);
 	}
 	
 	/**
@@ -45,28 +40,24 @@ public class Forester extends Buildings implements Assignable {
 	 * @param BuildingsList
 	 * @param ItemList
 	 */
-	public void update(double Delta, ArrayList<ISettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> ItemList) {
+	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> ItemList) {
 		
 		//---suche nach employee---
-		if(!this.hasEmployee) {//Arbeiter muss erst gefunden werden
-			this.employee = this.findSettler(settlerList, ItemList, SettlersJobs.JOB_GARDENER, null);
-			if(this.employee == null) {
-				this.employee = this.findSettler(settlerList, ItemList, "Normall", null);
-				if(this.employee == null) {
-					return;	//fehlende Siedler
-				}
-				//gib dem employee passenden job
+		if(!hasEmployee) {
+			
+			this.employee = this.findEmployee(settlerList, ItemList, SettlersJobs.JOB_GARDENER);
+			
+			if(employee == null) {
+				return;
 			}
-			this.hasEmployee = true;
-			this.employee.giveSettlerTask(getPosition(), null, null);//komm zum 
+			//this.employee.giveSettlerTask(getPosition(), null, null);//komm zum 
 		}
-		
-		
-		//---Inventar füllen
+
 		if(this.getOutput_Inventory().size() < 10) {
 			this.output_inventory.add(new Tree(this.getPosition()));
 		}
-		//position von nächsten Baum gesucht
+		
+		//muss auf jeden Fall noch geändert werden
 		Vector2D plantPos = new Vector2D();
 		do {
 			plantPos = this.getPosition().genPos(5.0f);
@@ -75,37 +66,24 @@ public class Forester extends Buildings implements Assignable {
 		//beauftrage Siedler zum 
 		this.plantTree(employee, plantPos);
 	}
-	
-	public void bind(ISettlers worker) {
-		this.employee = worker;
-		this.hasEmployee = true;
-		
-		if(employee instanceof Gardener) {
-			((Gardener) employee).bind(this);
-		}
-		
-	}
-	
-	public boolean bound() {
-		return this.hasEmployee;
-	}
-	
+
 	/**
 	 * 
 	 * @param settlerList
-	 * @return einen neuen Gardener für genau dieses Förstergebäude
-	 * Sucht zuerst einen Siedler, der bereits Gardener ist und an noch kein Förstergebäude gebunden ist
-	 * Falls keiner vorhanden ist, wird ein anderer Siedler genommen
+	 * @param ItemList
+	 * @return einen Siedler, der bereits Gärtner war pder jetzt zu einem umgewandelt wurde oder null
 	 */
-	private ISettlers findGardener(ArrayList<ISettlers> settlerList) {
+	/*private ASettlers findGardener(ArrayList<ASettlers> settlerList, ArrayList<IItems> ItemList) {
 		
-		for(ISettlers s : settlerList) {
-			
-			if(s.getJob().equals("Gardener") && !((Gardener) s).bound()) {
-				return s;
-			}
+		this.employee = this.findSettler(settlerList, ItemList, SettlersJobs.JOB_GARDENER);
+		
+		if(this.employee == null) {
+			return null;
 		}
-		ISettlers newGardener = findSettler(settlerList);
-		return newGardener;
-	}
+		else if(this.employee.getJobName().equals(SettlersJobs.JOB_NORMAL)) {
+			this.employee.setJobName(SettlersJobs.JOB_GARDENER);
+		}
+		this.hasEmployee = true;
+		return employee;
+	}*/
  }

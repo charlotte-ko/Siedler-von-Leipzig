@@ -23,7 +23,7 @@ public abstract class AJob implements Jobbable{
 		}
 	}
 	
-	public ArrayList<IItems> returnList(ArrayList<IItems> inventory, int index) {
+	public static ArrayList<IItems> returnList(ArrayList<IItems> inventory, int index) {
 		inventory.remove(index);
 		return inventory;
 	}

@@ -18,6 +18,9 @@ public abstract class Buildings {
 	protected ArrayList<IItems> output_inventory = new ArrayList<>();
 	private final int price; //Ich weiß nicht mehr ob das in die GUI reinkommt oder hier
 	
+	protected ASettlers employee;
+	protected boolean hasEmployee;
+	
 	/**
 	 * Konstruktor
 	 * @param name
@@ -100,7 +103,37 @@ public abstract class Buildings {
 		else {return null;}
 	}
 	
+	protected ASettlers findEmployee(ArrayList<ASettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
+		
+		this.employee = this.findSettler(settlerList, ItemList, job);
+		
+		if(this.employee == null) {
+			return null;
+		}
+		else if(this.employee.getJobName().equals(SettlersJobs.JOB_NORMAL)) {
+			this.employee.setJobName(job);
+		}
+		this.hasEmployee = true;
+		return employee;
+	}
+	
 	public Vector2D getPosition() {
 		return this.position;
+	}
+	
+	public ArrayList<IItems> getOutput_Inventory() {
+		return this.output_inventory;
+	}
+	
+	public void setOutput_Inventory(ArrayList<IItems> newInventory) {
+		this.output_inventory = newInventory;
+	}
+	
+	public ArrayList<IItems> getInput_Inventory() {
+		return this.input_inventory;
+	}
+	
+	public void setInput_Inventory(ArrayList<IItems> newInventory) {
+		this.input_inventory = newInventory;
 	}
 }
