@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import items.IItems;
 import settlers.ISettlers;
 import settlers.SettlersAktion;
+import settlers.SettlersJobs;
 import logic.Vector2D;
 
 public abstract class Buildings {
@@ -90,11 +91,15 @@ public abstract class Buildings {
 		ISettlers available;
 		
 		do {
-			
+			//gibt sehr warscheinlich immer nur den gleichen Siedler zurück
 			 available = closestSettler(settlerList);
 			 
 		}while(!available.getJob().isEmpty());
 		
+		/*
+		 * wenn der Siedler keinen Job hat, hatt er warscheinlich auch kein Item in der rechten Hand
+		 * Man würde also null übergeben, was aktuell zu einen fehler führen sollte
+		 */
 		available.giveSettlerTask(available.getPosition(), SettlersAktion.GO_BRING_RIGHT, available.getItemHand(false));
 		return available;
 	}
@@ -103,8 +108,10 @@ public abstract class Buildings {
 	 * Methode sucht einen Siedler mit gebrauchtem Job, gibt es keinen Siedler mit diesem Job,
 	 * geben wir einem Normalem Siedler einen Job, indem wir ihm sagen -> Hol Item für Job
 	 * 
+	 * IITem target kann weg !!!
+	 * 
 	 */
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, String job, IItems target) {
+	public ISettlers findSettler(ArrayList<ISettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
 		
 		ArrayList<ISettlers> wanted = new ArrayList<>();
 		
@@ -113,9 +120,12 @@ public abstract class Buildings {
 				wanted.add(s);
 			}
 		}
+		
 		if(!wanted.isEmpty()) {return closestSettler(wanted);}
 		
-		ISettlers jobless = findSettler(settlerList, ItemList, "Normal", null);
+		//Das könnte zu einer unendlich schleife führen.
+		//Gennerell ist rekursion immer gefährlich
+		ISettlers jobless = findSettler(settlerList, ItemList, SettlersJobs.JOB_NORMAL);
 			
 		if(jobless == null) {
 			

@@ -11,21 +11,35 @@ import buildings.IBuildings;
 import items.IItems;
 import items.Items;
 
-public abstract class ASettlers implements ISettlers {
+
+
+/**
+ * setJob methode ist nötig !!!
+ * 
+ * GO_WAIT implimentieren !!!
+ * 
+ * take item hadn updaten etc...
+ * 
+ * ISettlers raus nehmen
+ */
+
+public abstract class ASettlers{
 	private Vector2D position;
 	private float speed;
-	private boolean working;
+	protected boolean working;
+	protected boolean employed;
+	
+	SettlersJobs jobName;
+	
 	private IItems rightHand;
 	private IItems leftHand;
+	
 	//Aufgabenspeicher (deque besser als stack)
 	private Deque<Vector2D> taskWay = new ArrayDeque<>(); //Weg zur Aufgabe
 	private Deque<SettlersAktion> task = new ArrayDeque<>();	//aufgabe
-	
-	
 	protected Deque<IItems> taskTarget = new ArrayDeque<>();
 	
-	protected Jobbable job;
-
+	//nötigkeit prüfen!!!
 	public Deque<Vector2D> getTaskWay() {
 		return taskWay;
 	}
@@ -45,6 +59,13 @@ public abstract class ASettlers implements ISettlers {
 		this.taskTarget = taskTarget;
 	}
 
+	public SettlersJobs getJobName() {
+		return this.jobName;
+	}
+	
+	public void setJobName(SettlersJobs newJob) {
+		this.jobName = newJob;
+	}
 	
 	public IItems getItem(boolean leftHand) {
 		if(leftHand) {
@@ -59,6 +80,14 @@ public abstract class ASettlers implements ISettlers {
 		}else {
 			this.rightHand = tem;
 		}
+	}
+	
+	public void setEmployed(boolean isEmployed) {
+		this.employed = isEmployed;
+	}
+	
+	public boolean getEmployed() {
+		return this.employed;
 	}
 	
 	
@@ -104,59 +133,19 @@ public abstract class ASettlers implements ISettlers {
 	protected void setIsWorking(boolean working) {
 		this.working = working;
 	}
-	public IItems getItemHand(boolean leftHand) {
-		if(leftHand) {
-			return this.leftHand;
-		}else {
-			return this.rightHand;
-		}
-	}
 	
-	public String getJob() {
-		return this.job.getJobName();
-	}
-	
-	public void setJob(String jobName) {
-		this.job = AJob.createJob(jobName);
-	}
-	
-	public Jobbable accesJob() {
-		return this.job;
-	}
-
-	public void setItemHand(IItems item,boolean leftHand,ArrayList<ISettlers> settlersList) {
-		if(leftHand) {
-			this.leftHand = item;
-			return;
-		}
-		//Job abfrage und falls nötig neu vergeben
-	}
-	
-	public IItems takeItemHand(boolean leftHand,ArrayList<ISettlers> settlersList) {
-		if(leftHand) {
-			IItems ret = this.leftHand;
-			this.leftHand = null;
-			return ret;
-		}
-		
-		IItems ret = this.rightHand;
-		this.rightHand = null;
-		//Job wegnehmen
-		return ret;
-	}
-	
-
 	public void giveSettlerTask(Vector2D punkt, SettlersAktion aufgabe, IItems target) {
 		this.taskWay.addLast(punkt);
 		this.task.addLast(aufgabe);
 		if(target == null) {
+			//dummy item wechseln
 			this.taskTarget.addLast(Items.createItem("Axe", new Vector2D()));
 		}else{
 			this.taskTarget.addLast(target);
 		}
 	}
 	
-	public IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, String target) {
+	public static IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, String target) {
 		
 		float min_distance = Float.POSITIVE_INFINITY;
 		IItems finalItem = null;
@@ -178,6 +167,7 @@ public abstract class ASettlers implements ISettlers {
 			this.working = false;
 			return;
 		}
+		//bewege dich methode
 		if(this.position.getDistance(this.taskWay.peekFirst()) > 1.0f) {
 			walk((float)delta,this.taskWay.peekFirst());
 			//items mit bewegen
@@ -185,11 +175,8 @@ public abstract class ASettlers implements ISettlers {
 				this.leftHand.setPosition(this.getPosition());
 			if(this.rightHand != null)
 				this.rightHand.setPosition(this.getPosition());
-			return;
-			
+			return;	
 		}
-		
-		
 		this.taskWay.pollFirst();
 		IItems target = this.taskTarget.pollFirst();
 		switch(this.task.pollFirst()) {
@@ -225,24 +212,5 @@ public abstract class ASettlers implements ISettlers {
 		direction = direction.normalize();
 		direction = direction.scale(this.getSpeed()*delta);
 		this.position = this.position.add(direction);
-	}
-	/**
-	 * @brief gibt Job zurück welches zum Item passt
-	 * @param tem (undertail anspielung)
-	 * @return
-	 * 
-	 * AUF JOBS ANPASSEN
-	 */
-	private static String getJobFromItem(IItems tem) {
-		switch(tem.getName()) {
-			case "Hammer":
-				return "Builder";
-			case "Saw":
-				return "Sawyer";
-			case "Axe":
-				return "Woodcutter";
-			default:
-				return "Normal";
-		}
 	}
 }
