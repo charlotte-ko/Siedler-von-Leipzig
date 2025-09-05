@@ -4,5 +4,6 @@ public interface Assignable {
 
 	boolean bound();
 	
-	void bind();
+	void bind(ISettlers worker);
+	
 }

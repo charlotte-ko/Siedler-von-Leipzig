@@ -59,34 +59,4 @@ public class Sawmill extends Buildings {
 			this.getLogs(worker, itemList);
 		}
 	}
-	
-	@Override
-	public void createBuilding() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	@Override
-	public ISettlers makeSettlers(ArrayList<ISettlers> settlerList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList, String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job, IItems target) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

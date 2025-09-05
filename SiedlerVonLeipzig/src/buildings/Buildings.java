@@ -10,7 +10,7 @@ import settlers.ISettlers;
 import settlers.SettlersAktion;
 import logic.Vector2D;
 
-public abstract class Buildings implements IBuildings{
+public abstract class Buildings {
 	
 	/**
 	 * Attribute
@@ -43,7 +43,7 @@ public abstract class Buildings implements IBuildings{
 	 * @return eine Instanz des erstellten Buildings
 	 * @throws IllegalArgumentsException wenn der erstellte Gebäudetyp nicht existiert (sollte eiegntlich nicht passieren, aber sicher ist sicher)
 	 */
-	public static IBuildings createBuilding(String building, Vector2D pos) {
+	public static Buildings createBuilding(String building, Vector2D pos) {
 		switch(building) {
 		case "House" : return new House(pos);
 		case "Forester" : return new Forester(pos);

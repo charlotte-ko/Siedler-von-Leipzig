@@ -24,36 +24,15 @@ public class House extends Buildings {
 	/**
 	 * Methode um Siedler zu produzieren und dem Inventar zuzufügen, gibt zuletzt produzierten Siedler zurück
 	 */
-	public ISettlers makeSettlers(ArrayList<ISettlers> settlerList) {
+	public void makeSettlers(ArrayList<ISettlers> settlerList) {
 	
-		if(sInventory.size() < 10) {
-			ASettlers.createSettlerInList(settlerList, getPosition());
-			//settlerList.add(ASettlers.createSettler("NormalSettler", this.getPosition()));
-		} 
-		return settlerList.get(settlerList.size() - 1);
+		settlerList.add(ASettlers.createSettlerInList(settlerList, this.getPosition()));
 	}
-
-	@Override
-	public void createBuilding() {
-		// TODO Auto-generated method stub
+	
+	public void update(ArrayList<ISettlers> settlerList) {
 		
-	}
-
-	@Override
-	public ISettlers findSettler(Vector2D current_pos, ArrayList<ISettlers> settlerList, String name) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public ISettlers findSettler(ArrayList<ISettlers> settlerList, String job, IItems target) {
-		// TODO Auto-generated method stub
-		return null;
+		if(sInventory.size() < 10) {
+			makeSettlers(settlerList);
+		}
 	}
 }

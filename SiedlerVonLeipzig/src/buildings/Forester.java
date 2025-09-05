@@ -80,31 +80,4 @@ public class Forester extends Buildings implements Assignable {
 		ISettlers newGardener = findSettler(settlerList);
 		return newGardener;
 	}
-
-	@Override
-	public void createBuilding() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public ISettlers makeSettlers(ArrayList<ISettlers> settlerList) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void getLogs(ISettlers worker, ArrayList<IItems> itemList) {
-		// TODO Auto-generated method stub
-		
-	}
-
-
-	@Override
-	public void update(ArrayList<ISettlers> settlerList, ArrayList<IItems> itemList) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
  }
