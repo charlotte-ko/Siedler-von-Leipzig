@@ -30,7 +30,7 @@ public class Lodge extends Buildings{
 			if(employee == null) {
 				return;
 			}
-			//this.employee.giveSettlerTask(getPosition(), null, null);//komm zum 
+			//this.employee.giveSettlerTask(getPosition(), null, null);//komm zum //
 		}
 		
 		if(this.getInput_Inventory().size() < 10) {
