@@ -103,7 +103,7 @@ public abstract class Buildings {
 		else {return null;}
 	}
 	
-	protected ASettlers findEmployee(ArrayList<ASettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
+	public ASettlers findEmployee(ArrayList<ASettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
 		
 		this.employee = this.findSettler(settlerList, ItemList, job);
 		
