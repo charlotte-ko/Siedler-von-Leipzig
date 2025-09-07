@@ -1,6 +1,7 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import buildings.Buildings;
 import items.IItems;
@@ -62,25 +63,6 @@ public class Vector2D {
 	}
 	public Vector2D add(Vector2D b) {
 		return new Vector2D(this.x+b.x,this.y+b.y);
-	}
-	
-	/**
-	 * 
-	 * @param centre Mittelpunkt, also meistens ein Gebäude
-	 * @param radius 
-	 * @return eine Liste an Punkten, die sich innerhalb eines gewünschten Radius befinden
-	 */
-	public Vector2D genPos(float radius) { //Julis Idee umsetzen
-		
-		Vector2D centre = this;
-		
-		for(float i = centre.x-radius; i <= (centre.x + radius); i += 1.0f) {
-			for(float j = centre.y-radius; j <= (centre.y + radius); j += 1.0f) {
-				
-				Vector2D pos = new Vector2D(i,j);
-				if(isInRadius(pos, centre, radius)) {return pos;}
-			}
-		} return this.genPos(2*radius);
 	} 
 	
 	public static boolean isInRadius(Vector2D point, Vector2D centre, float radius) {
@@ -89,6 +71,22 @@ public class Vector2D {
 			return true;
 		}
 		return false;
+	}
+	
+	public Vector2D genPos(float radius) {
+		
+		Vector2D centre = this;
+		Random rnd = new Random();
+		
+		Vector2D temporary = new Vector2D(centre.x + (rnd.nextFloat() * radius), centre.y);
+		int angle = rnd.nextInt(360);
+	
+		float newX = (float) (temporary.x * Math.cos(angle) - temporary.y * Math.sin(angle));
+		float newY = (float) (temporary.x * Math.sin(angle) + temporary.y * Math.cos(angle));
+		
+		Vector2D finalPoint = new Vector2D (newX, newY);
+		
+		return finalPoint;
 	}
 	
 	public boolean testPos(ArrayList<Buildings> BuildingList, ArrayList<IItems> ItemList) {

@@ -4,6 +4,7 @@ package buildings;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import items.IItems;
+import items.Items;
 import settlers.ASettlers;
 import settlers.SettlersJobs;
 import logic.Vector2D;
@@ -59,23 +60,29 @@ public abstract class Buildings {
 	 * @note es findet keine prüfung statt ob der Siedler schon verwendet wird
 	 */
 	public ASettlers closestSettler(ArrayList<ASettlers> settlerList) {
+		ArrayList<ASettlers> availableSettlers = new ArrayList<>();
 		
-		if(settlerList.isEmpty()) {
-			return null;
-		}
+		if(settlerList.isEmpty()) return null;
 		
 		float min_distance = Float.POSITIVE_INFINITY;
 		ASettlers closest = null;
 		
 		for(ASettlers s : settlerList) {
+			
+			if(!s.getEmployed() && !s.isWorking()) {
+				availableSettlers.add(closest);
+			}
+		}
+		if(availableSettlers.isEmpty()) return null;
+		
+		for(ASettlers s : availableSettlers) {
 			float distance = this.getPosition().getDistance(s.getPosition());
 			
 			if(distance < min_distance) {
 				min_distance = distance;
 				closest = s;
 			}
-		}
-		return closest;
+		} return closest;
 	}
 	
 	
@@ -85,28 +92,24 @@ public abstract class Buildings {
 	 * @param job gewünschter Job
 	 * @return einen Siedler mit gewünschtem Job oder einen normalen Siedler
 	 */
-	public ASettlers findSettler(ArrayList<ASettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
+	public ASettlers findSettler(ArrayList<ASettlers> settlerList, ArrayList<Items> ItemList, SettlersJobs job) {
 		
 		ArrayList<ASettlers> wanted = new ArrayList<>();
 		
 		for(ASettlers s : settlerList) {
-			if(s.getJobName().equals(job)) {
+			if(s.getJobName().equals(job) && !s.getEmployed() && !s.isWorking()) {
 				wanted.add(s);
 			}
 		}
 		
-		
-		//Hier muss eine Prüfung statt finden ob der Siedler arbeitet oder employeed ist.
-		if(!wanted.isEmpty()) {return closestSettler(wanted);}
-		
-		//Wenn es auch kein normalen Siedler gibt ist eine unendlich schleife
-		ASettlers jobless = findSettler(settlerList, ItemList, SettlersJobs.JOB_NORMAL);
-		
-		if(jobless != null) {return jobless;}
-		else {return null;}
+		if(!wanted.isEmpty()) {
+			return this.closestSettler(wanted);
+		}
+	
+		else return null;
 	}
-	//prüfen
-	protected ASettlers findEmployee(ArrayList<ASettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
+	
+	public ASettlers findEmployee(ArrayList<ASettlers> settlerList, ArrayList<Items> ItemList, SettlersJobs job) {
 		
 		this.employee = this.findSettler(settlerList, ItemList, job);
 		

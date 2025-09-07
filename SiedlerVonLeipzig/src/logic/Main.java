@@ -22,7 +22,8 @@ class Main {
 		
 		gamePanel.startGameThread();*/
 		
-		new Startmenu();
+		//new Startmenu();
+		
 	}
 }
 
