@@ -59,36 +59,25 @@ public abstract class Buildings {
 	 * @return closest (Settler), oder null bei nicht finden
 	 */
 	public ASettlers closestSettler(ArrayList<ASettlers> settlerList) {
-		ArrayList<ASettlers> availableSettlers = new ArrayList<>();
-		
 		if(settlerList.isEmpty()) return null;
 		
 		float min_distance = Float.POSITIVE_INFINITY;
 		ASettlers closest = null;
 		
 		for(ASettlers s : settlerList) {
-			
-			if(!s.getEmployed() && !s.isWorking()) {
-				availableSettlers.add(closest);
-			}
-		}
-		if(availableSettlers.isEmpty()) return null;
-		
-		for(ASettlers s : availableSettlers) {
 			float distance = this.getPosition().getDistance(s.getPosition());
-			
-			if(distance < min_distance) {
-				min_distance = distance;
+			if(!s.getEmployed() && !s.isWorking() && distance <= min_distance) {
 				closest = s;
 			}
-		} return closest;
+		}
+		return closest;
 	}
 	
 	/**
-	 * @brief sucht nächsten Settler mit Job
+	 * @brief sucht nächsten Settler mit passenden Job
 	 * @param settlerList
 	 * @param job (gesuchter)
-	 * @return Settler mit Job oder normalen Settler
+	 * @return Settler mit Job, oder null
 	 * @note verwendet closestSettler()
 	 */
 	public ASettlers findSettler(ArrayList<ASettlers> settlerList, SettlersJobs job) {
@@ -103,9 +92,8 @@ public abstract class Buildings {
 		
 		if(!wanted.isEmpty()) {
 			return this.closestSettler(wanted);
-		}
-	
-		else return null;
+		} 
+		return null;
 	}
 	
 	/**
