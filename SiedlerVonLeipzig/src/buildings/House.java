@@ -1,6 +1,9 @@
 package buildings;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
+
+import items.Items;
 import settlers.ASettlers;
 import logic.Vector2D;
 
@@ -35,5 +38,24 @@ public class House extends Buildings {
 		if(this.counter < 10) {
 			makeSettlers(settlerList);
 		}
+	}
+
+	/**
+	 * @note muss noch angepasst werden
+	 */
+	@Override
+	public void draw(Graphics2D g2, int tileSize) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @note muss noch angepasst werden
+	 */
+	@Override
+	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList,
+			ArrayList<Items> itemList) {
+		// TODO Auto-generated method stub
+		
 	}
 }

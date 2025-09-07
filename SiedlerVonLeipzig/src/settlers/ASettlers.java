@@ -2,6 +2,7 @@ package settlers;
 
 import logic.Vector2D;
 
+import java.awt.Graphics2D;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -15,13 +16,9 @@ import items.Items;
 
 
 /**
- * setJob methode ist nötig !!!
- * 
  * GO_WAIT implimentieren !!!
  * 
- * take item hadn updaten etc...
- * 
- * ISettlers raus nehmen
+ * take item updaten etc...
  */
 
 public abstract class ASettlers{
@@ -145,7 +142,27 @@ public abstract class ASettlers{
 		}
 	}
 	
+<<<<<<< HEAD
 	public void update(double delta, ArrayList<Items> itemList, ArrayList<Buildings> buildingList, ArrayList<ASettlers> settlerList) {
+=======
+	public static IItems closestItem(Vector2D current_pos, ArrayList<Items> ItemList, String target) {
+		
+		float min_distance = Float.POSITIVE_INFINITY;
+		IItems finalItem = null;
+		//darf nicht gehalten werden
+		for(IItems item : ItemList) {
+			if(!item.getName().equals(target)) {
+				continue;
+			}
+			float distance = current_pos.getDistance(item.getPosition());
+			if(distance < min_distance) {
+				min_distance = distance;
+				finalItem = item;
+			}
+		}return finalItem;
+	}
+	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList){
+>>>>>>> 24dd4f7e75384710b39fb1f0fa9115b51726de4e
 		if(this.task.isEmpty()) {
 			this.working = false;
 			return;
@@ -195,5 +212,9 @@ public abstract class ASettlers{
 		direction = direction.normalize();
 		direction = direction.scale(this.getSpeed()*delta);
 		this.position = this.position.add(direction);
+	}
+	public void draw(Graphics2D g2, int tileSize) {
+		// TODO Auto-generated method stub
+		
 	}
 }

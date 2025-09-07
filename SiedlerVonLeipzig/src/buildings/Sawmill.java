@@ -1,7 +1,7 @@
 package buildings;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
-
 
 import items.Items;
 import settlers.ASettlers;
@@ -82,6 +82,7 @@ public class Sawmill extends Buildings {
 			}
 			else this.hasEmployee = true;
 		}
+
 		if(this.input_inventory.size() < 10) {
 			getLogs(itemList, settlerList);
 		}
@@ -89,5 +90,24 @@ public class Sawmill extends Buildings {
 			makePlanks();
 		}
 		else getSaw(itemList);
+	}
+
+	/**
+	 * @note muss noch angepasst werden
+	 */
+	@Override
+	public void draw(Graphics2D g2, int tileSize) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	/**
+	 * @note muss noch angepasst werden
+	 */
+	@Override
+	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList,
+			ArrayList<Items> itemList) {
+		// TODO Auto-generated method stub
+		
 	}
 }

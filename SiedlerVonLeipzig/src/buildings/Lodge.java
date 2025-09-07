@@ -1,6 +1,7 @@
 
 package buildings;
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 
 import items.Items;
@@ -77,5 +78,14 @@ public class Lodge extends Buildings{
 			this.getLogs(employee, ItemList);
 		}
 		else this.getAxe(ItemList);
+	}
+
+	/**
+	 * @note muss noch angepasst werden
+	 */
+	@Override
+	public void draw(Graphics2D g2, int tileSize) {
+		// TODO Auto-generated method stub
+		
 	}
 }
