@@ -3,6 +3,7 @@ package buildings;
 
 import java.util.ArrayList;
 import items.IItems;
+import items.Items;
 import settlers.ASettlers;
 import settlers.SettlersJobs;
 import logic.Vector2D;
@@ -56,26 +57,30 @@ public abstract class Buildings {
 	 * @param settlerList
 	 * @return closest Settler
 	 */
-	public ArrayList<ASettlers> closestSettler(ArrayList<ASettlers> settlerList) {
-		ArrayList<ASettlers> sortedSettlers = new ArrayList<>();
+	public ASettlers closestSettler(ArrayList<ASettlers> settlerList) {
+		ArrayList<ASettlers> availableSettlers = new ArrayList<>();
 		
-		if(settlerList.isEmpty()) {
-			return null;
-		}
+		if(settlerList.isEmpty()) return null;
 		
 		float min_distance = Float.POSITIVE_INFINITY;
 		ASettlers closest = null;
 		
-		while(sortedSettlers.size() < settlerList.size()) {
-			for(ASettlers s : settlerList) {
-				float distance = this.getPosition().getDistance(s.getPosition());
-				
-				if(distance < min_distance) {
-					min_distance = distance;
-					closest = s;
-				}
-			} sortedSettlers.add(closest);
-		} return sortedSettlers;
+		for(ASettlers s : settlerList) {
+			
+			if(!s.getEmployed() && !s.isWorking()) {
+				availableSettlers.add(closest);
+			}
+		}
+		if(availableSettlers.isEmpty()) return null;
+		
+		for(ASettlers s : availableSettlers) {
+			float distance = this.getPosition().getDistance(s.getPosition());
+			
+			if(distance < min_distance) {
+				min_distance = distance;
+				closest = s;
+			}
+		} return closest;
 	}
 	
 	
@@ -87,10 +92,9 @@ public abstract class Buildings {
 	 * @return einen Siedler mit gewünschtem Job oder einen normalen Siedler
 	 * 
 	 */
-	public ASettlers findSettler(ArrayList<ASettlers> settlerList, SettlersJobs job) {
+	public ASettlers findSettler(ArrayList<ASettlers> settlerList, ArrayList<Items> ItemList, SettlersJobs job) {
 		
 		ArrayList<ASettlers> wanted = new ArrayList<>();
-		ArrayList<ASettlers> sortedSettlers = new ArrayList<>();
 		
 		for(ASettlers s : settlerList) {
 			if(s.getJobName().equals(job) && !s.getEmployed() && !s.isWorking()) {
@@ -99,15 +103,15 @@ public abstract class Buildings {
 		}
 		
 		if(!wanted.isEmpty()) {
-			sortedSettlers = closestSettler(wanted);
-			return sortedSettlers.get(0);
+			return this.closestSettler(wanted);
 		}
-		else {return null;}	
+	
+		else return null;
 	}
 	
-	public ASettlers findEmployee(ArrayList<ASettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
+	public ASettlers findEmployee(ArrayList<ASettlers> settlerList, ArrayList<Items> ItemList, SettlersJobs job) {
 		
-		this.employee = this.findSettler(settlerList, job);
+		this.employee = this.findSettler(settlerList, ItemList, job);
 		
 		if(this.employee == null) {
 			return null;

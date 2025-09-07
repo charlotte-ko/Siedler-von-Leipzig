@@ -3,10 +3,10 @@ package buildings;
 
 import java.util.ArrayList;
 
-import items.IItems;
+import items.Items;
+import items.Tree;
 import logic.Vector2D;
 import settlers.ASettlers;
-import settlers.ISettlers;
 import settlers.SettlersJobs;
 
 public class Lodge extends Buildings{
@@ -18,7 +18,7 @@ public class Lodge extends Buildings{
 		super("Lumberjack", 10, pos);
 	}
 
-	public void getLogs() {
+	public void getLogs(ASettlers worker) {
 		
 	}
 	
@@ -39,5 +39,14 @@ public class Lodge extends Buildings{
 		}
 	}
 	
-	
+	public Items getNearestTree(ArrayList<Items> itemList, ASettlers worker) {
+		
+		ArrayList<Items> treeList = new ArrayList<>();
+		for(Items i : itemList) {
+			if(i instanceof Tree) {
+				treeList.add(i);
+			}
+		}
+		worker.closestItem(worker.getPosition(), treeList, "Tree");
+	}
 }

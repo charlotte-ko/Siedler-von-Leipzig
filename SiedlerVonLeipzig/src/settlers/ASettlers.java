@@ -144,7 +144,7 @@ public abstract class ASettlers{
 		}
 	}
 	
-	public static IItems closestItem(Vector2D current_pos, ArrayList<IItems> ItemList, String target) {
+	public static IItems closestItem(Vector2D current_pos, ArrayList<Items> ItemList, String target) {
 		
 		float min_distance = Float.POSITIVE_INFINITY;
 		IItems finalItem = null;
