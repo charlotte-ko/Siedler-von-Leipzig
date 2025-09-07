@@ -39,6 +39,7 @@ public abstract class Items {
 			}
 		}
 		
+		//Wir müssen noch anpassen, dass wir nur Items aus output Inventaren nehmen (sonst nehmen wir aus eigenem)
 		public static Items closestItem(Vector2D current_pos, ArrayList<Items> ItemList, String target) {
 			
 			float min_distance = Float.POSITIVE_INFINITY;

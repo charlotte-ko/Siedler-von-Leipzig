@@ -34,7 +34,7 @@ public class Sawmill extends Buildings {
 	 * @brief nimmt den nächsten Settler und schickt ihn nächsten Log holen, Log wird auch gebracht
 	 * @param itemList
 	 * @param settlerList
-	 * @note hier müssen wir evtl. noch anpassen, damit der Settler nicht nem anderen Settler den Log klaut
+	 * @note müssen noch prüfen ob employee auf dem Weg ist
 	 */
 	public void getLogs(ArrayList<Items> itemList, ArrayList<ASettlers> settlerList) {
 		ASettlers worker = this.closestSettler(settlerList);
@@ -50,6 +50,7 @@ public class Sawmill extends Buildings {
 	/**
 	 * @brief schickt Settler die nächste Saw holen, hält er schon ein Item wird das fallengelassen
 	 * @param ItemList
+	 * @note müssen noch prüfen ob employee auf dem Weg ist
 	 */
 	protected void getSaw(ArrayList<Items> ItemList) {
 		Items saw = Items.closestItem(employee.getPosition(), ItemList, "Saw");

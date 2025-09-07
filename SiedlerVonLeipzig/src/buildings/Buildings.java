@@ -41,7 +41,7 @@ public abstract class Buildings {
 	 * @brief Factory Methode, erstellt Buildings nach Typ
 	 * @param building
 	 * @param pos
-	 * @return
+	 * @return House, Forester, Lodge, Sawmill
 	 */
 	public static Buildings createBuilding(String building, Vector2D pos) {
 		switch(building) {

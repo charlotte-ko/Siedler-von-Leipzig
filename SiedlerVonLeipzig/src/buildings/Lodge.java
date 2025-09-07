@@ -20,7 +20,7 @@ public class Lodge extends Buildings{
 	 * @param pos
 	 */
 	public Lodge(Vector2D pos) {
-		super("Lumberjack", 10, pos);
+		super("Lodge", 10, pos);
 	}
 
 	/**
@@ -64,6 +64,7 @@ public class Lodge extends Buildings{
 	 */
 	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
 		
+		//Diesen Teil eventuell auslagern
 		if(!hasEmployee) {
 			
 			this.employee = this.findEmployee(settlerList, SettlersJobs.JOB_LUMBERJACK);
