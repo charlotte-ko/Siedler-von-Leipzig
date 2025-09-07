@@ -28,6 +28,7 @@ public class GamePanel extends JPanel implements Runnable{
 	final int screenHeight = tileSize * maxScreenRow;//576pxl
 	
 	int FPS = 60;
+	double drawIntervalNanos = 1_000_000_000.0 /FPS;
 	
 	//Später hinzufügen für die Kamera Steuerung
 	//KeyHandler keyH = new KeyHandler();
@@ -58,12 +59,15 @@ public class GamePanel extends JPanel implements Runnable{
 		double delta = 0;
 		long lastTime = System.nanoTime();
 		long currentTime;
-		long timer = 0;
+		double frameAcc = 0;
+		long secAccNanos = 0;
 		int drawCount = 0;
 		
 		//prepare
 		for(int i = 0; i < 30;i++) {
-			itemList.add(Items.createItem("Axe", new Vector2D(tileSize*i,tileSize*2)));
+			for(int j = 0; j < 30;j++) {
+				itemList.add(Items.createItem("Axe", new Vector2D(tileSize*i,tileSize*j)));
+			}
 		}
 		/*
 		buildingList.add(Buildings.createBuilding("Forester",new Vector2D(0,0)));
@@ -76,23 +80,24 @@ public class GamePanel extends JPanel implements Runnable{
 		//game loop
 		while(gameThread != null) {
 			currentTime = System.nanoTime();
-			
-			delta += (currentTime - lastTime) / drawInterval;
-			timer += (currentTime - lastTime);
+			long frameNanos = currentTime - lastTime;
 			lastTime = currentTime;
 			
-			if(delta >= 1) {
-				//1. UPDATE (calc)
-				update(delta);
-				//2. DRAW
+			frameAcc += frameNanos / drawIntervalNanos;
+			secAccNanos += frameNanos;
+			
+			double deltaSec = frameNanos / 1_000_000_000.0;
+			
+			if(frameAcc >= 1) {
+				update(deltaSec);
 				repaint(); //ruft paintComponent auf
-				delta--;
+				frameAcc -= 1.0;
 				drawCount++;
 			}
-			if(timer >= 1000000000) {
-				System.out.println("FPS:"+drawCount+"delta:"+delta);
+			if(secAccNanos >= 1_000_000_000) {
+				System.out.println("FPS:"+drawCount+"dt(ms):"+(deltaSec*1000.0));
 				drawCount = 0;
-				timer = 0;
+				secAccNanos = 0;
 			}
 		}
 	}
@@ -117,18 +122,27 @@ public class GamePanel extends JPanel implements Runnable{
 		//g2.fillRect(0, 0, tileSize, tileSize);
 		
 		//Draw funktion der Gebäude, Siedler und Items. Sowie terrain
-		//player.draw(g2);
-		for(IItems i : itemList) {
+		
+		ArrayList<IItems> itemListSnap;
+		ArrayList<Buildings> buildingListSnap;
+		ArrayList<ASettlers> settlerListSnap;
+		synchronized(itemList) {itemListSnap = new ArrayList<>(itemList);}
+		synchronized(buildingList) {buildingListSnap = new ArrayList<>(buildingList);}
+		synchronized(settlerList) {settlerListSnap = new ArrayList<>(settlerList);}
+		
+		
+		//tile size muss noch angepasst werden
+		for(IItems i : itemListSnap) {
 			i.draw(g2,tileSize);
 		}
-		for(ASettlers s: settlerList) {
+		for(ASettlers s: settlerListSnap) {
 			s.draw(g2,tileSize);
 		}
-		for(Buildings b : buildingList) {
+		for(Buildings b : buildingListSnap) {
 			
 			b.draw(g2,tileSize);
 		}
 		
-		g2.dispose();//nicht wirklich nötig
+		//g2.dispose();//nicht wirklich nötig
 	}
 }
