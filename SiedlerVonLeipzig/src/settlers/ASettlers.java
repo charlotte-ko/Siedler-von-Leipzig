@@ -2,6 +2,7 @@ package settlers;
 
 import logic.Vector2D;
 
+import java.awt.Graphics2D;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -14,13 +15,9 @@ import items.Items;
 
 
 /**
- * setJob methode ist nötig !!!
- * 
  * GO_WAIT implimentieren !!!
  * 
- * take item hadn updaten etc...
- * 
- * ISettlers raus nehmen
+ * take item updaten etc...
  */
 
 public abstract class ASettlers{
@@ -211,5 +208,9 @@ public abstract class ASettlers{
 		direction = direction.normalize();
 		direction = direction.scale(this.getSpeed()*delta);
 		this.position = this.position.add(direction);
+	}
+	public void draw(Graphics2D g2, int tileSize) {
+		// TODO Auto-generated method stub
+		
 	}
 }

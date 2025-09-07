@@ -38,8 +38,8 @@ public class GamePanel extends JPanel implements Runnable{
 	//init Siedler,Häuser,Items etc.
 	//Player player = new Player(this,keyH);
 	ArrayList<IItems> itemList = new ArrayList<>();
-	ArrayList<IBuildings> buildingList = new ArrayList<>();
-	ArrayList<ISettlers> settlerList = new ArrayList<>();
+	ArrayList<Buildings> buildingList = new ArrayList<>();
+	ArrayList<ASettlers> settlerList = new ArrayList<>();
 	
 	
 	public GamePanel() {
@@ -67,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable{
 		//ein gebäude bauen
 		buildingList.add(Buildings.createBuilding("Forester",new Vector2D(0,0)));
 		itemList.add(Items.createItem("Axe", new Vector2D(tileSize*2,tileSize*2)));
-		ASettlers.createSettlerInList(settlerList, new Vector2D(tileSize*3,tileSize*2));
+		settlerList.add(ASettlers.createSettler(new Vector2D(tileSize*3,tileSize*2)));
 		settlerList.get(0).giveSettlerTask(new Vector2D(tileSize*10,tileSize*10), SettlersAktion.GO_FREE, null);
 		settlerList.get(0).giveSettlerTask(itemList.get(0).getPosition(), SettlersAktion.GO_PICKUP_LEFT, itemList.get(0));
 		settlerList.get(0).giveSettlerTask(new Vector2D(tileSize*10,tileSize*10), SettlersAktion.GO_FREE, null);
@@ -99,10 +99,11 @@ public class GamePanel extends JPanel implements Runnable{
 	public void update(double delta) {
 		//Update funktion der Siedler und Gebäude durchgehen
 		//player.update();
-		for(IBuildings b : buildingList) {
+		for(Buildings b : buildingList) {
+			
 			b.update(settlerList, itemList);
 		}
-		for(ISettlers s : settlerList) {
+		for(ASettlers s : settlerList) {
 			s.update(delta, itemList, buildingList, settlerList);
 		}
 	}
@@ -120,10 +121,11 @@ public class GamePanel extends JPanel implements Runnable{
 		for(IItems i : itemList) {
 			i.draw(g2,tileSize);
 		}
-		for(ISettlers s: settlerList) {
+		for(ASettlers s: settlerList) {
 			s.draw(g2,tileSize);
 		}
-		for(IBuildings b : buildingList) {
+		for(Buildings b : buildingList) {
+			
 			b.draw(g2,tileSize);
 		}
 		
