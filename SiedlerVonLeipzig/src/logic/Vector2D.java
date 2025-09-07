@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import buildings.Buildings;
-import items.IItems;
 import items.Items;
 
 public class Vector2D {
@@ -89,12 +88,12 @@ public class Vector2D {
 		return finalPoint;
 	}
 	
-	public boolean testPos(ArrayList<Buildings> BuildingList, ArrayList<IItems> ItemList) {
+	public boolean testPos(ArrayList<Buildings> BuildingList, ArrayList<Items> ItemList) {
 		
 		for(Buildings b : BuildingList) {
 			if(this.getDistance(b.getPosition()) < 2.0f) {return false;}
 		}
-		for(IItems i : ItemList) {
+		for(Items i : ItemList) {
 			if(this.getDistance(i.getPosition()) < 2.0f) {return false;}
 		}
 		return true;

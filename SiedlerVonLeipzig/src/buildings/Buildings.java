@@ -3,7 +3,6 @@ package buildings;
 
 import java.awt.Graphics2D;
 import java.util.ArrayList;
-import items.IItems;
 import items.Items;
 import settlers.ASettlers;
 import settlers.SettlersJobs;
@@ -16,12 +15,15 @@ public abstract class Buildings {
 	 */
 	protected final String name;
 	protected Vector2D position;
-	protected ArrayList<IItems> input_inventory = new ArrayList<>(); 
-	protected ArrayList<IItems> output_inventory = new ArrayList<>();
+	protected ArrayList<Items> input_inventory = new ArrayList<>(); 
+	protected ArrayList<Items> output_inventory = new ArrayList<>();
 	private final int price; //Ich weiß nicht mehr ob das in die GUI reinkommt oder hier
 	
 	protected ASettlers employee;
 	protected boolean hasEmployee;
+	
+	public abstract void draw(Graphics2D g2, int tileSize);
+	public abstract void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList);
 	
 	/**
 	 * @brief Konstruktor
@@ -36,11 +38,10 @@ public abstract class Buildings {
 	}
 	
 	/**
-	 * Methode welche Objekte vom Typ Building durch das Factory Pattern erstellt
-	 * 
-	 * @param Buildings
-	 * @return eine Instanz des erstellten Buildings
-	 * @throws IllegalArgumentsException wenn der erstellte Gebäudetyp nicht existiert (sollte eiegntlich nicht passieren, aber sicher ist sicher)
+	 * @brief Factory Methode, erstellt Buildings nach Typ
+	 * @param building
+	 * @param pos
+	 * @return
 	 */
 	public static Buildings createBuilding(String building, Vector2D pos) {
 		switch(building) {
@@ -53,11 +54,9 @@ public abstract class Buildings {
 	}
 	
 	/**
-	 * @brief Sucht aus einer Liste den nähst gelegenen Siedler
-	 * @param current_pos	von der aus gesucht wird
+	 * @brief sucht nächsten freien Settler und gibt ihn zurück
 	 * @param settlerList
-	 * @return closest Settler oder null bei nicht finden
-	 * @note es findet keine prüfung statt ob der Siedler schon verwendet wird
+	 * @return closest (Settler), oder null bei nicht finden
 	 */
 	public ASettlers closestSettler(ArrayList<ASettlers> settlerList) {
 		ArrayList<ASettlers> availableSettlers = new ArrayList<>();
@@ -85,19 +84,19 @@ public abstract class Buildings {
 		} return closest;
 	}
 	
-	
 	/**
+	 * @brief sucht nächsten Settler mit Job
 	 * @param settlerList
-	 * @param ItemList
-	 * @param job gewünschter Job
-	 * @return einen Siedler mit gewünschtem Job oder einen normalen Siedler
+	 * @param job (gesuchter)
+	 * @return Settler mit Job oder normalen Settler
+	 * @note verwendet closestSettler()
 	 */
-	public ASettlers findSettler(ArrayList<ASettlers> settlerList, ArrayList<Items> ItemList, SettlersJobs job) {
+	public ASettlers findSettler(ArrayList<ASettlers> settlerList, SettlersJobs job) {
 		
 		ArrayList<ASettlers> wanted = new ArrayList<>();
 		
 		for(ASettlers s : settlerList) {
-			if(s.getJobName().equals(job) && !s.getEmployed() && !s.isWorking()) {
+			if(s.getJobName().equals(job)) {
 				wanted.add(s);
 			}
 		}
@@ -109,40 +108,66 @@ public abstract class Buildings {
 		else return null;
 	}
 	
-	public ASettlers findEmployee(ArrayList<ASettlers> settlerList, ArrayList<Items> ItemList, SettlersJobs job) {
+	/**
+	 * @brief weist einem Building einen employee zu, falls Job nicht vorhanden wird normaler Settler gesucht,
+	 * 		  falls kein Settler vorhanden wird der nächste freie genommen
+	 * @param settlerList
+	 * @param job
+	 * @return employee (Settler)
+	 * @note nutzt closestSettler() und findSettler()
+	 */
+	public ASettlers findEmployee(ArrayList<ASettlers> settlerList, SettlersJobs job) {
 		
-		this.employee = this.findSettler(settlerList, ItemList, job);
+		this.employee = this.findSettler(settlerList, job);
 		
 		if(this.employee == null) {
-			return null;
+			this.employee = this.findSettler(settlerList, SettlersJobs.JOB_NORMAL);
 		}
-		else if(this.employee.getJobName().equals(SettlersJobs.JOB_NORMAL)) {
-			this.employee.setJobName(job);
+		
+		if(this.employee == null) {
+			this.employee = this.closestSettler(settlerList);
 		}
-		this.hasEmployee = true;
+	
 		return employee;
 	}
 	
+	/**
+	 * @brief Getter für Building Position
+	 * @return this.position
+	 */
 	public Vector2D getPosition() {
 		return this.position;
 	}
 	
-	public ArrayList<IItems> getOutput_Inventory() {
+	/**
+	 * @brief Getter für Building output_inventory
+	 * @return this.output_inventory
+	 */
+	public ArrayList<Items> getOutput_Inventory() {
 		return this.output_inventory;
 	}
 	
-	public void setOutput_Inventory(ArrayList<IItems> newInventory) {
-		this.output_inventory = newInventory;
-	}
-	
-	public ArrayList<IItems> getInput_Inventory() {
+	/**
+	 * @brief Getter für Building input_inventory
+	 * @return this.input_inventory
+	 */
+	public ArrayList<Items> getInput_Inventory() {
 		return this.input_inventory;
 	}
 	
-	public void setInput_Inventory(ArrayList<IItems> newInventory) {
+	/**
+	 * @brief Setter für Building output_inventory
+	 * @param newInventory
+	 */
+	public void setOutput_Inventory(ArrayList<Items> newInventory) {
+		this.output_inventory = newInventory;
+	}
+	
+	/**
+	 * Setter für Building input_inventory
+	 * @param newInventory
+	 */
+	public void setInput_Inventory(ArrayList<Items> newInventory) {
 		this.input_inventory = newInventory;
 	}
-
-	public abstract void draw(Graphics2D g2, int tileSize);
-	public abstract void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList);
 }

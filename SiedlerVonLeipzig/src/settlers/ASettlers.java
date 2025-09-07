@@ -29,13 +29,13 @@ public abstract class ASettlers{
 	
 	SettlersJobs jobName;
 	
-	private IItems rightHand;
-	private IItems leftHand;
+	private Items rightHand;
+	private Items leftHand;
 	
 	//Aufgabenspeicher (deque besser als stack)
 	private Deque<Vector2D> taskWay = new ArrayDeque<>(); //Weg zur Aufgabe
 	private Deque<SettlersAktion> task = new ArrayDeque<>();	//aufgabe
-	protected Deque<IItems> taskTarget = new ArrayDeque<>();
+	protected Deque<Items> taskTarget = new ArrayDeque<>();
 	
 	//nötigkeit prüfen!!!
 	public Deque<Vector2D> getTaskWay() {
@@ -50,10 +50,10 @@ public abstract class ASettlers{
 	public void setTask(Deque<SettlersAktion> task) {
 		this.task = task;
 	}
-	public Deque<IItems> getTaskTarget() {
+	public Deque<Items> getTaskTarget() {
 		return taskTarget;
 	}
-	public void setTaskTarget(Deque<IItems> taskTarget) {
+	public void setTaskTarget(Deque<Items> taskTarget) {
 		this.taskTarget = taskTarget;
 	}
 
@@ -65,14 +65,14 @@ public abstract class ASettlers{
 		this.jobName = newJob;
 	}
 	
-	public IItems getItem(boolean leftHand) {
+	public Items getItem(boolean leftHand) {
 		if(leftHand) {
 			return this.leftHand;
 		}else {
 			return this.rightHand;
 		}
 	}
-	public void setItem(boolean leftHand,IItems tem) {
+	public void setItem(boolean leftHand,Items tem) {
 		if(leftHand) {
 			this.leftHand = tem;
 		}else {
@@ -131,7 +131,7 @@ public abstract class ASettlers{
 		this.working = working;
 	}
 	
-	public void giveSettlerTask(Vector2D punkt, SettlersAktion aufgabe, IItems target) {
+	public void giveSettlerTask(Vector2D punkt, SettlersAktion aufgabe, Items target) {
 		this.taskWay.addLast(punkt);
 		this.task.addLast(aufgabe);
 		if(target == null) {
@@ -142,6 +142,9 @@ public abstract class ASettlers{
 		}
 	}
 	
+<<<<<<< HEAD
+	public void update(double delta, ArrayList<Items> itemList, ArrayList<Buildings> buildingList, ArrayList<ASettlers> settlerList) {
+=======
 	public static IItems closestItem(Vector2D current_pos, ArrayList<Items> ItemList, String target) {
 		
 		float min_distance = Float.POSITIVE_INFINITY;
@@ -159,6 +162,7 @@ public abstract class ASettlers{
 		}return finalItem;
 	}
 	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList){
+>>>>>>> 24dd4f7e75384710b39fb1f0fa9115b51726de4e
 		if(this.task.isEmpty()) {
 			this.working = false;
 			return;
@@ -174,7 +178,7 @@ public abstract class ASettlers{
 			return;	
 		}
 		this.taskWay.pollFirst();
-		IItems target = this.taskTarget.pollFirst();
+		Items target = this.taskTarget.pollFirst();
 		switch(this.task.pollFirst()) {
 			case GO_PICKUP_LEFT:
 				this.setItemHand(target, true, settlerList);
