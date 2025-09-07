@@ -8,4 +8,5 @@ public enum SettlersAktion {
 	GO_WORK,		//Geht zum Punkt und führt speziefische Arbeit durch
 	GO_FREE,		//geht zum Punkt und tut nichts
 	GO_WAIT,		//geht zum Punkt und wartet
+	GO_MAKE,		//macht altes Item zu neuem Item
 }

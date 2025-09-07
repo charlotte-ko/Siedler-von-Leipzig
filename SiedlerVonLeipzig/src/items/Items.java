@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 import logic.Vector2D;
 
-public abstract class Items implements IItems {
+public abstract class Items {
 	
 		//protected static ArrayList<Items> Itemlist = new ArrayList<Items>(); //vielleicht eher in main
 		
@@ -25,7 +25,7 @@ public abstract class Items implements IItems {
 			
 		}
 		
-		public static IItems createItem(String item, Vector2D pos) {
+		public static Items createItem(String item, Vector2D pos) {
 			
 			switch(item) {
 			
@@ -39,33 +39,43 @@ public abstract class Items implements IItems {
 			}
 		}
 		
+		public static Items closestItem(Vector2D current_pos, ArrayList<Items> ItemList, String target) {
+			
+			float min_distance = Float.POSITIVE_INFINITY;
+			Items finalItem = null;
+		
+			for(Items item : ItemList) {
+				if(!item.getName().equals(target) && !item.isHeld()) {
+					continue;
+				}
+				float distance = current_pos.getDistance(item.getPosition());
+				if(distance < min_distance) {
+					min_distance = distance;
+					finalItem = item;
+				}
+			}return finalItem;
+		}
 
-		@Override
 		public Vector2D getPosition() {
 			return this.position;
 		}
 		
-		@Override
 		public void setPosition(Vector2D position) {
 			this.position = position;
 		}
 		
-		@Override
 		public boolean isHeld() {
 			return held;
 		}
 		
-		@Override
 		public void setHeld(boolean held) {
 			this.held = held;
 		}
 		
-		@Override
 		public String getName() {
 			return name;
 		}
 		
-		@Override
 		public void setName(String name) {
 			this.name = name;
 		}
@@ -75,7 +85,7 @@ public abstract class Items implements IItems {
 		 * @param target Item welches gelöscht werden soll
 		 * @param itemList
 		 */
-		public static void dellItemFromList(IItems target,ArrayList<IItems> itemList) {
+		public static void dellItemFromList(Items target,ArrayList<Items> itemList) {
 			for(int i = 0; i < itemList.size();i++) {
 				if(target != itemList.get(i)) {
 					continue;
