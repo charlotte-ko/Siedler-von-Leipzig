@@ -56,7 +56,8 @@ public abstract class Buildings {
 	 * @param settlerList
 	 * @return closest Settler
 	 */
-	public ASettlers closestSettler(ArrayList<ASettlers> settlerList) {
+	public ArrayList<ASettlers> closestSettler(ArrayList<ASettlers> settlerList) {
+		ArrayList<ASettlers> sortedSettlers = new ArrayList<>();
 		
 		if(settlerList.isEmpty()) {
 			return null;
@@ -65,15 +66,16 @@ public abstract class Buildings {
 		float min_distance = Float.POSITIVE_INFINITY;
 		ASettlers closest = null;
 		
-		for(ASettlers s : settlerList) {
-			float distance = this.getPosition().getDistance(s.getPosition());
-			
-			if(distance < min_distance) {
-				min_distance = distance;
-				closest = s;
-			}
-		}
-		return closest;
+		while(sortedSettlers.size() < settlerList.size()) {
+			for(ASettlers s : settlerList) {
+				float distance = this.getPosition().getDistance(s.getPosition());
+				
+				if(distance < min_distance) {
+					min_distance = distance;
+					closest = s;
+				}
+			} sortedSettlers.add(closest);
+		} return sortedSettlers;
 	}
 	
 	
@@ -85,27 +87,27 @@ public abstract class Buildings {
 	 * @return einen Siedler mit gewünschtem Job oder einen normalen Siedler
 	 * 
 	 */
-	public ASettlers findSettler(ArrayList<ASettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
+	public ASettlers findSettler(ArrayList<ASettlers> settlerList, SettlersJobs job) {
 		
 		ArrayList<ASettlers> wanted = new ArrayList<>();
+		ArrayList<ASettlers> sortedSettlers = new ArrayList<>();
 		
 		for(ASettlers s : settlerList) {
-			if(s.getJobName().equals(job)) {
+			if(s.getJobName().equals(job) && !s.getEmployed() && !s.isWorking()) {
 				wanted.add(s);
 			}
 		}
 		
-		if(!wanted.isEmpty()) {return closestSettler(wanted);}
-		
-		ASettlers jobless = findSettler(settlerList, ItemList, SettlersJobs.JOB_NORMAL);
-		
-		if(jobless != null) {return jobless;}
-		else {return null;}
+		if(!wanted.isEmpty()) {
+			sortedSettlers = closestSettler(wanted);
+			return sortedSettlers.get(0);
+		}
+		else {return null;}	
 	}
 	
 	public ASettlers findEmployee(ArrayList<ASettlers> settlerList, ArrayList<IItems> ItemList, SettlersJobs job) {
 		
-		this.employee = this.findSettler(settlerList, ItemList, job);
+		this.employee = this.findSettler(settlerList, job);
 		
 		if(this.employee == null) {
 			return null;
