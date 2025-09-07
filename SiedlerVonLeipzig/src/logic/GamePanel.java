@@ -9,11 +9,8 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import buildings.Buildings;
-import items.IItems;
 import items.Items;
 import settlers.ASettlers;
-import settlers.SettlersAktion;
-
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -36,7 +33,7 @@ public class GamePanel extends JPanel implements Runnable{
 	
 	//init Siedler,Häuser,Items etc.
 	//Player player = new Player(this,keyH);
-	ArrayList<IItems> itemList = new ArrayList<>();
+	ArrayList<Items> itemList = new ArrayList<>();
 	ArrayList<Buildings> buildingList = new ArrayList<>();
 	ArrayList<ASettlers> settlerList = new ArrayList<>();
 	
@@ -64,8 +61,8 @@ public class GamePanel extends JPanel implements Runnable{
 		int drawCount = 0;
 		
 		//prepare
-		for(int i = 0; i < 30;i++) {
-			for(int j = 0; j < 30;j++) {
+		for(int i = 0; i < 300;i++) {
+			for(int j = 0; j < 300;j++) {
 				itemList.add(Items.createItem("Axe", new Vector2D(tileSize*i,tileSize*j)));
 			}
 		}
@@ -123,7 +120,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		//Draw funktion der Gebäude, Siedler und Items. Sowie terrain
 		
-		ArrayList<IItems> itemListSnap;
+		ArrayList<Items> itemListSnap;
 		ArrayList<Buildings> buildingListSnap;
 		ArrayList<ASettlers> settlerListSnap;
 		synchronized(itemList) {itemListSnap = new ArrayList<>(itemList);}
@@ -132,7 +129,7 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		
 		//tile size muss noch angepasst werden
-		for(IItems i : itemListSnap) {
+		for(Items i : itemListSnap) {
 			i.draw(g2,tileSize);
 		}
 		for(ASettlers s: settlerListSnap) {
