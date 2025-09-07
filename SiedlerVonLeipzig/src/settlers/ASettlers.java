@@ -2,11 +2,13 @@ package settlers;
 
 import logic.Vector2D;
 
+import java.awt.Graphics2D;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import buildings.Buildings;
 import buildings.IBuildings;
 import items.IItems;
 import items.Items;
@@ -14,13 +16,9 @@ import items.Items;
 
 
 /**
- * setJob methode ist nötig !!!
- * 
  * GO_WAIT implimentieren !!!
  * 
- * take item hadn updaten etc...
- * 
- * ISettlers raus nehmen
+ * take item updaten etc...
  */
 
 public abstract class ASettlers{
@@ -160,8 +158,7 @@ public abstract class ASettlers{
 			}
 		}return finalItem;
 	}
-	
-	public void update(double delta, ArrayList<IItems> itemList, ArrayList<IBuildings> buildingList, ArrayList<ISettlers> settlerList) {
+	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList){
 		if(this.task.isEmpty()) {
 			this.working = false;
 			return;
@@ -211,5 +208,9 @@ public abstract class ASettlers{
 		direction = direction.normalize();
 		direction = direction.scale(this.getSpeed()*delta);
 		this.position = this.position.add(direction);
+	}
+	public void draw(Graphics2D g2, int tileSize) {
+		// TODO Auto-generated method stub
+		
 	}
 }

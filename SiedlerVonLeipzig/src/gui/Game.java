@@ -14,6 +14,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import logic.GamePanel;
+
 public class Game extends BaseGUI {
 		
 	//Alle Buttons
@@ -46,9 +48,12 @@ public class Game extends BaseGUI {
 	private JPanel createField() {
 		
 		JPanel panel = new JPanel();
-		panel.setBackground(Color.BLACK);
+		GamePanel gPanel = new GamePanel();
+		//panel.setBackground(Color.BLACK);
 		//hier muss dann halt das Spiel eingefügt werden
-		return panel;
+		gPanel.startGameThread();
+		
+		return gPanel;
 	}
 	
 	private JPanel createMenuBar() {

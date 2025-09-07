@@ -1,6 +1,7 @@
 package buildings;
 
 
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import items.IItems;
 import items.Items;
@@ -23,7 +24,7 @@ public abstract class Buildings {
 	protected boolean hasEmployee;
 	
 	/**
-	 * Konstruktor
+	 * @brief Konstruktor
 	 * @param name
 	 * @param price
 	 * @param position
@@ -52,10 +53,11 @@ public abstract class Buildings {
 	}
 	
 	/**
-	 * Methode um aus einer Liste von Siedlern den nächsten zu finden
-	 * @param current_pos
+	 * @brief Sucht aus einer Liste den nähst gelegenen Siedler
+	 * @param current_pos	von der aus gesucht wird
 	 * @param settlerList
-	 * @return closest Settler
+	 * @return closest Settler oder null bei nicht finden
+	 * @note es findet keine prüfung statt ob der Siedler schon verwendet wird
 	 */
 	public ASettlers closestSettler(ArrayList<ASettlers> settlerList) {
 		ArrayList<ASettlers> availableSettlers = new ArrayList<>();
@@ -85,12 +87,10 @@ public abstract class Buildings {
 	
 	
 	/**
-	 * 
 	 * @param settlerList
 	 * @param ItemList
 	 * @param job gewünschter Job
 	 * @return einen Siedler mit gewünschtem Job oder einen normalen Siedler
-	 * 
 	 */
 	public ASettlers findSettler(ArrayList<ASettlers> settlerList, ArrayList<Items> ItemList, SettlersJobs job) {
 		
@@ -142,4 +142,7 @@ public abstract class Buildings {
 	public void setInput_Inventory(ArrayList<IItems> newInventory) {
 		this.input_inventory = newInventory;
 	}
+
+	public abstract void draw(Graphics2D g2, int tileSize);
+	public abstract void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList);
 }
