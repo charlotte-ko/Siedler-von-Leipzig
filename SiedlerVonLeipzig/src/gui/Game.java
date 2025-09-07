@@ -48,10 +48,10 @@ public class Game extends BaseGUI {
 	private JPanel createField() {
 		
 		JPanel panel = new JPanel();
-		JPanel gPanel = new GamePanel();
+		GamePanel gPanel = new GamePanel();
 		//panel.setBackground(Color.BLACK);
 		//hier muss dann halt das Spiel eingefügt werden
-		
+		gPanel.startGameThread();
 		
 		return gPanel;
 	}

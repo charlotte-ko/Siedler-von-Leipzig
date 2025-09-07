@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import buildings.Buildings;
 import buildings.IBuildings;
 import items.IItems;
 import items.Items;
@@ -157,8 +158,7 @@ public abstract class ASettlers{
 			}
 		}return finalItem;
 	}
-	
-	public void update(double delta, ArrayList<IItems> itemList, ArrayList<IBuildings> buildingList, ArrayList<ISettlers> settlerList) {
+	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList){
 		if(this.task.isEmpty()) {
 			this.working = false;
 			return;

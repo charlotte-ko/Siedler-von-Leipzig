@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import items.IItems;
 import items.Plank;
+import settlers.ASettlers;
 import settlers.SettlersAktion;
 import logic.Vector2D;
 
@@ -48,7 +49,7 @@ public class Sawmill extends Buildings {
 			//attribute regeln
 	}
 
-	public void update(ArrayList<ISettlers> settlerList, ArrayList<IItems> itemList) {
+	public void update(ArrayList<ASettlers> settlerList, ArrayList<IItems> itemList) {
 		//suche arbeiter
 		if(this.input_inventory.size() < 10) {
 			this.makePlanks(settlerList);

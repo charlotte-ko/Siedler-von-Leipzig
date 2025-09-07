@@ -143,5 +143,6 @@ public abstract class Buildings {
 		this.input_inventory = newInventory;
 	}
 
-	protected abstract void draw(Graphics2D g2, int tileSize);
+	public abstract void draw(Graphics2D g2, int tileSize);
+	public abstract void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList);
 }

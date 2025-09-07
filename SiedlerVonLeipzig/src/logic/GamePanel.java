@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import buildings.Buildings;
-import buildings.IBuildings;
 import items.IItems;
 import items.Items;
 import settlers.ASettlers;
-import settlers.ISettlers;
 import settlers.SettlersAktion;
 
 
@@ -64,14 +62,17 @@ public class GamePanel extends JPanel implements Runnable{
 		int drawCount = 0;
 		
 		//prepare
-		//ein gebäude bauen
+		for(int i = 0; i < 30;i++) {
+			itemList.add(Items.createItem("Axe", new Vector2D(tileSize*i,tileSize*2)));
+		}
+		/*
 		buildingList.add(Buildings.createBuilding("Forester",new Vector2D(0,0)));
 		itemList.add(Items.createItem("Axe", new Vector2D(tileSize*2,tileSize*2)));
 		settlerList.add(ASettlers.createSettler(new Vector2D(tileSize*3,tileSize*2)));
 		settlerList.get(0).giveSettlerTask(new Vector2D(tileSize*10,tileSize*10), SettlersAktion.GO_FREE, null);
 		settlerList.get(0).giveSettlerTask(itemList.get(0).getPosition(), SettlersAktion.GO_PICKUP_LEFT, itemList.get(0));
 		settlerList.get(0).giveSettlerTask(new Vector2D(tileSize*10,tileSize*10), SettlersAktion.GO_FREE, null);
-		
+		*/
 		//game loop
 		while(gameThread != null) {
 			currentTime = System.nanoTime();
@@ -100,11 +101,10 @@ public class GamePanel extends JPanel implements Runnable{
 		//Update funktion der Siedler und Gebäude durchgehen
 		//player.update();
 		for(Buildings b : buildingList) {
-			
-			b.update(settlerList, itemList);
+			//b.update(delta, settlerList, buildingList, itemList);
 		}
 		for(ASettlers s : settlerList) {
-			s.update(delta, itemList, buildingList, settlerList);
+			//s.update(delta, settlerList, buildingList, itemList);
 		}
 	}
 	
