@@ -97,6 +97,6 @@ public abstract class Items {
 		}
 		
 		public void draw(Graphics2D g2,int tileSize) {
-			g2.drawImage(img, (int)position.x, (int)position.y, tileSize,tileSize,null);
+			g2.drawImage(img, (int)(position.x*tileSize), (int)(position.y*tileSize), tileSize,tileSize,null);
 		}
 }
