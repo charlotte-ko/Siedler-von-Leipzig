@@ -3,6 +3,7 @@ package settlers;
 import logic.Vector2D;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -213,8 +214,13 @@ public abstract class ASettlers{
 		direction = direction.scale(this.getSpeed()*delta);
 		this.position = this.position.add(direction);
 	}
-	public void draw(Graphics2D g2, int tileSize) {
-		// TODO Auto-generated method stub
+	
+	protected BufferedImage img;
+	public void draw(Graphics2D g2, int tileSize,Vector2D camPos) {
+		int posX = (int)((position.x-camPos.x)*tileSize);
+		int posY = (int)((position.y-camPos.y)*tileSize);
+		
+		g2.drawImage(img, posX, posY, tileSize,tileSize,null);
 		
 	}
 }

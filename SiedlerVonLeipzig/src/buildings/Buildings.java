@@ -2,6 +2,7 @@ package buildings;
 
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import items.Items;
 import settlers.ASettlers;
@@ -21,8 +22,13 @@ public abstract class Buildings {
 	
 	protected ASettlers employee;
 	protected boolean hasEmployee;
-	
-	public abstract void draw(Graphics2D g2, int tileSize);
+	protected BufferedImage img;
+	public void draw(Graphics2D g2, int tileSize,Vector2D camPos) {
+		int posX = (int)((position.x-camPos.x)*tileSize);
+		int posY = (int)((position.y-camPos.y)*tileSize);
+		
+		g2.drawImage(img, posX, posY, tileSize,tileSize,null);
+	}
 	public abstract void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList);
 	
 	/**

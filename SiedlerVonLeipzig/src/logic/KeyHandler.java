@@ -5,6 +5,7 @@ import java.awt.event.KeyListener;
 
 public class KeyHandler implements KeyListener{
 	public boolean upPressed, downPressed, leftPressed, rightPressed;
+	public boolean zoomIn, zoomOut;
 	@Override
 	public void keyTyped(KeyEvent e) {
 	}
@@ -25,6 +26,12 @@ public class KeyHandler implements KeyListener{
 		if(code == KeyEvent.VK_D) {
 			rightPressed = true;
 		}
+		if(code == KeyEvent.VK_Q) {
+			zoomIn = true;
+		}
+		if(code == KeyEvent.VK_E) {
+			zoomOut = true;
+		}
 	}
 
 	@Override
@@ -41,6 +48,12 @@ public class KeyHandler implements KeyListener{
 		}
 		if(code == KeyEvent.VK_D) {
 			rightPressed = false;
+		}
+		if(code == KeyEvent.VK_Q) {
+			zoomIn = false;
+		}
+		if(code == KeyEvent.VK_E) {
+			zoomOut = false;
 		}
 	}
 
