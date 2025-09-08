@@ -111,6 +111,7 @@ public class Game extends BaseGUI {
 			b.setBorderPainted(false);
 		}
 	
+		shop.addActionListener(e -> new GameShop());
 		inventory.addActionListener(e -> new GameInv());
 		
 		delete.addActionListener(e -> {
