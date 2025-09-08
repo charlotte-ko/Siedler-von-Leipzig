@@ -2,22 +2,32 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
+import java.awt.Point;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import logic.GamePanel;
 
 public class Game extends BaseGUI {
-		
+	
+	private ImageIcon hammerIcon = createIcon("Hammer.png", 40, 40);
+	private boolean hammerActive = false;
+	private JLabel hammerLabel;
+	private Container glassPane = (Container) getGlassPane();
+	
 	//Alle Buttons
 	JButton shop = new JButton(createIcon("Coin.png", 40, 40));
 	JButton delete = new JButton(createIcon("Hammer.png", 40, 40));
@@ -34,9 +44,20 @@ public class Game extends BaseGUI {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		
+		addMouseMotionListener(new MouseMotionAdapter() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				if(hammerActive && hammerLabel != null) {
+					hammerLabel.setLocation(e.getX() - 15, e.getY() - 15);
+				}
+			}
+		});
+		
 		//Einzelnen Komponenten
 		JPanel field = createField();
 		JPanel menubar = createMenuBar();
+		
 
 		
 		this.add(field, BorderLayout.CENTER);
@@ -91,7 +112,39 @@ public class Game extends BaseGUI {
 		}
 	
 		inventory.addActionListener(e -> new GameInv());
-	
+		
+		delete.addActionListener(e -> {
+			
+			hammerActive = !hammerActive;
+			
+			if(hammerActive) {
+				attachHammer();
+			}else {
+				removeHammer();
+			}
+		});
 		end.addActionListener(e -> new Exit());
+	}
+	
+	private void attachHammer() {
+		
+		if(hammerLabel != null) {
+			glassPane.remove(hammerLabel);
+		}
+		
+		hammerLabel = new JLabel(hammerIcon);
+		hammerLabel.setSize(hammerIcon.getIconWidth(), hammerIcon.getIconWidth());
+		
+		glassPane.setLayout(null);
+	    glassPane.add(hammerLabel);
+	    glassPane.setVisible(true);
+	}
+	
+	private void removeHammer() {
+	    if (hammerLabel != null) {
+	        glassPane.remove(hammerLabel);
+	        glassPane.setVisible(false);
+	        hammerLabel = null;
+	    }
 	}
 }
