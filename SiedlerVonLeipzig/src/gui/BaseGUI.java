@@ -43,5 +43,15 @@ public abstract class BaseGUI extends JFrame {
 		
 		return finishedImage;
 	};
+	
+	protected ImageIcon createSettlerIcon(String png, int width, int height) {
+		
+		URL path = this.getClass().getResource("/Settler/" + png);
+		ImageIcon placeholder = new ImageIcon(path);
+		Image scale = placeholder.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
+		ImageIcon finishedImage = new ImageIcon(scale);
+		
+		return finishedImage;
+	}
 	//protected void setButtonsBase(JButton[] buttonList, )
 }
