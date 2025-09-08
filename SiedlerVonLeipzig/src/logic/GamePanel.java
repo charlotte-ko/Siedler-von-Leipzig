@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 
 import buildings.Buildings;
 import items.Items;
+import main.KeyHandler;
 import settlers.ASettlers;
 
 
@@ -18,12 +19,14 @@ public class GamePanel extends JPanel implements Runnable{
 	final int originalTileSize = 16; //16x16 Size
 	final int scale = 3;
 	
-	public final int tileSize = originalTileSize * scale; //48x48
+	public int tileSize = originalTileSize * scale; //48x48
 	final int maxScreenCol = 16;
 	final int maxScreenRow = 12;
 	final int screenWidth = tileSize * maxScreenCol;//768pxl
 	final int screenHeight = tileSize * maxScreenRow;//576pxl
 	
+	public int grid_zoom = 8;
+	KeyHandler keyH = new KeyHandler();
 	int FPS = 60;
 	double drawIntervalNanos = 1_000_000_000.0 /FPS;
 	
@@ -42,7 +45,7 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setPreferredSize(new Dimension(screenWidth,screenHeight));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
-		//this.addKeyListener(keyH);
+		this.addKeyListener(keyH);
 		this.setFocusable(true);
 	}
 
@@ -61,9 +64,9 @@ public class GamePanel extends JPanel implements Runnable{
 		int drawCount = 0;
 		
 		//prepare
-		for(int i = 0; i < 300;i++) {
-			for(int j = 0; j < 300;j++) {
-				itemList.add(Items.createItem("Axe", new Vector2D(tileSize*i,tileSize*j)));
+		for(int i = 0; i < 30;i++) {
+			for(int j = 0; j < 30;j++) {
+				itemList.add(Items.createItem("Axe", new Vector2D(i,j)));
 			}
 		}
 		/*
@@ -100,6 +103,19 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	
 	public void update(double delta) {
+		if(this.keyH.upPressed) {
+			this.grid_zoom++;
+		}
+		if(this.keyH.downPressed) {
+			this.grid_zoom--;
+		}
+		if(grid_zoom <= 0) {
+			grid_zoom = 1;
+		}
+		if(grid_zoom > 30) {
+			grid_zoom = 30;
+		}
+		
 		//Update funktion der Siedler und Gebäude durchgehen
 		//player.update();
 		for(Buildings b : buildingList) {
@@ -115,8 +131,8 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		Graphics2D g2 = (Graphics2D)g;
 		
-		//g2.setColor(Color.white);
-		//g2.fillRect(0, 0, tileSize, tileSize);
+		//Tile size ermitteln
+		tileSize = (int)((float)Math.min(this.getWidth(), this.getHeight())/(float)grid_zoom);
 		
 		//Draw funktion der Gebäude, Siedler und Items. Sowie terrain
 		
