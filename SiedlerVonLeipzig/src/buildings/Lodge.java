@@ -21,6 +21,7 @@ public class Lodge extends Buildings{
 	 */
 	public Lodge(Vector2D pos) {
 		super("Lodge", 10, pos);
+		this.hasEmployee = false;
 	}
 
 	/**

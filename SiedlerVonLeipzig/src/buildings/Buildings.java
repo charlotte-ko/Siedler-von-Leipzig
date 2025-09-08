@@ -2,6 +2,7 @@ package buildings;
 
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import items.Items;
 import settlers.ASettlers;
@@ -21,8 +22,13 @@ public abstract class Buildings {
 	
 	protected ASettlers employee;
 	protected boolean hasEmployee;
-	
-	public abstract void draw(Graphics2D g2, int tileSize);
+	protected BufferedImage img;
+	public void draw(Graphics2D g2, int tileSize,Vector2D camPos) {
+		int posX = (int)((position.x-camPos.x)*tileSize);
+		int posY = (int)((position.y-camPos.y)*tileSize);
+		
+		g2.drawImage(img, posX, posY, tileSize,tileSize,null);
+	}
 	public abstract void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList);
 	
 	/**
@@ -59,36 +65,25 @@ public abstract class Buildings {
 	 * @return closest (Settler), oder null bei nicht finden
 	 */
 	public ASettlers closestSettler(ArrayList<ASettlers> settlerList) {
-		ArrayList<ASettlers> availableSettlers = new ArrayList<>();
-		
 		if(settlerList.isEmpty()) return null;
 		
 		float min_distance = Float.POSITIVE_INFINITY;
 		ASettlers closest = null;
 		
 		for(ASettlers s : settlerList) {
-			
-			if(!s.getEmployed() && !s.isWorking()) {
-				availableSettlers.add(closest);
-			}
-		}
-		if(availableSettlers.isEmpty()) return null;
-		
-		for(ASettlers s : availableSettlers) {
 			float distance = this.getPosition().getDistance(s.getPosition());
-			
-			if(distance < min_distance) {
-				min_distance = distance;
+			if(!s.getEmployed() && !s.isWorking() && distance <= min_distance) {
 				closest = s;
 			}
-		} return closest;
+		}
+		return closest;
 	}
 	
 	/**
-	 * @brief sucht nächsten Settler mit Job
+	 * @brief sucht nächsten Settler mit passenden Job
 	 * @param settlerList
 	 * @param job (gesuchter)
-	 * @return Settler mit Job oder normalen Settler
+	 * @return Settler mit Job, oder null
 	 * @note verwendet closestSettler()
 	 */
 	public ASettlers findSettler(ArrayList<ASettlers> settlerList, SettlersJobs job) {
@@ -103,9 +98,8 @@ public abstract class Buildings {
 		
 		if(!wanted.isEmpty()) {
 			return this.closestSettler(wanted);
-		}
-	
-		else return null;
+		} 
+		return null;
 	}
 	
 	/**

@@ -41,11 +41,12 @@ public class Forester extends Buildings {
 	 */
 	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
 	
-		if(!hasEmployee) {
-			
+		if(!hasEmployee) {			
 			this.employee = this.findEmployee(settlerList, SettlersJobs.JOB_GARDENER);
 			if(employee == null) return;
 			else this.hasEmployee = true;
+			this.employee.setEmployed(true);
+			this.employee.setJobName(SettlersJobs.JOB_GARDENER);
 		}
 
 		if(this.getOutput_Inventory().size() < 10) {
@@ -53,8 +54,10 @@ public class Forester extends Buildings {
 		}
 		
 		Vector2D plantPos = new Vector2D();
+		float moreRange = 0.0f;
 		do {
-			plantPos = this.getPosition().genPos(5.0f);
+			plantPos = this.getPosition().genPos(5.0f+moreRange);
+			moreRange += 0.2;
 		}while(!plantPos.testPos(BuildingsList, ItemList));
 		
 		this.plantTree(employee, plantPos);

@@ -10,7 +10,7 @@ import settlers.SettlersJobs;
 import logic.Vector2D;
 
 public class Sawmill extends Buildings {
-	
+	private double workeTime = 0.0;
 	/**
 	 * @brief Konstruktor für Sawmill, zersägt Logs und erstellt Planks
 	 * @param pos
@@ -24,10 +24,20 @@ public class Sawmill extends Buildings {
 	 * @brief stellt Planks her, nimmt dazu einen Log aus dem Inventar
 	 * @note Inventar evtl. noch zu Deque ändern, ist simpler
 	 */
-	public void makePlanks() {
-		Items log = this.input_inventory.get(input_inventory.size() - 1);
-		employee.giveSettlerTask(this.getPosition(), SettlersAktion.GO_PICKUP_LEFT, log);
-		employee.giveSettlerTask(this.getPosition(), SettlersAktion.GO_MAKE, null);
+	public void makePlanks(double delta,ArrayList<Items> itemList) {
+		workeTime += delta;
+		if(workeTime >= 12.0) {
+			//ein log rausnehmen und "umwandeln"
+			ArrayList<Items> tems = this.getInput_Inventory();
+			tems.removeLast();
+			this.setInput_Inventory(tems);
+			tems = this.getOutput_Inventory();
+			itemList.add(Items.createItem("Plank", this.position));
+			tems.addLast(itemList.getLast());
+			this.setOutput_Inventory(tems);
+			
+			workeTime = 0.0;
+		}
 	}
 	
 	/**
@@ -37,10 +47,11 @@ public class Sawmill extends Buildings {
 	 * @note müssen noch prüfen ob employee auf dem Weg ist
 	 */
 	public void getLogs(ArrayList<Items> itemList, ArrayList<ASettlers> settlerList) {
-		ASettlers worker = this.closestSettler(settlerList);
+		ASettlers worker = this.closestSettler(settlerList);//Zeitarbeiter
+		
 		Items log = Items.closestItem(this.getPosition(), itemList, "Log");
 		
-		if(log != null) {
+		if(log != null && worker != null) {
 			worker.giveSettlerTask(log.getPosition(), SettlersAktion.GO_PICKUP_LEFT, log);
 			worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, log);
 		}
@@ -57,12 +68,12 @@ public class Sawmill extends Buildings {
 		if (saw == null){
 			return;
 		}
-		else if (this.employee.getJobName().equals(SettlersJobs.JOB_NORMAL)){
-			employee.giveSettlerTask(saw.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, saw);
-		}
-		else {
-			employee.giveSettlerTask(employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, employee.getItem(false));
-			employee.giveSettlerTask(saw.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, saw);
+		if(!employee.isWorking()) {
+			if (this.employee.getJobName().equals(SettlersJobs.JOB_NORMAL)){
+				employee.giveSettlerTask(saw.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, saw);
+			}else {
+				employee.giveSettlerTask(employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, employee.getItem(false));
+			}
 		}
 	}
 	
@@ -72,7 +83,7 @@ public class Sawmill extends Buildings {
 	 * @param itemList
 	 * @note der zeitliche Aspekt fehlt hier noch, Marie und ich wissen nicht genau wie wir das einbauen sollen
 	 */
-	public void update(ArrayList<ASettlers> settlerList, ArrayList<Items> itemList) {
+	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList){
 		
 		if(!hasEmployee) {
 			
@@ -87,8 +98,9 @@ public class Sawmill extends Buildings {
 		if(this.input_inventory.size() < 10) {
 			getLogs(itemList, settlerList);
 		}
-		if(this.employee.getJobName().equals(SettlersJobs.JOB_SAWYER) && this.output_inventory.size() < 10) {
-			makePlanks();
+		//prüfe ob siedler im Gebäude ist
+		if(this.employee.getJobName().equals(SettlersJobs.JOB_SAWYER) && this.output_inventory.size() < 10 && this.input_inventory.size() > 0) {
+			makePlanks(delta);
 		}
 		else getSaw(itemList);
 	}
@@ -98,16 +110,6 @@ public class Sawmill extends Buildings {
 	 */
 	@Override
 	public void draw(Graphics2D g2, int tileSize) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @note muss noch angepasst werden
-	 */
-	@Override
-	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList,
-			ArrayList<Items> itemList) {
 		// TODO Auto-generated method stub
 		
 	}
