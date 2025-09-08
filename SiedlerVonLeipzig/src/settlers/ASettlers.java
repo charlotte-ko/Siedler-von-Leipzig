@@ -143,11 +143,12 @@ public abstract class ASettlers{
 		}
 	}
 	
+
 	public static IItems closestItem(Vector2D current_pos, ArrayList<Items> ItemList, String target) {
 		float min_distance = Float.POSITIVE_INFINITY;
-		IItems finalItem = null;
+		Items finalItem = null;
 		//darf nicht gehalten werden
-		for(IItems item : ItemList) {
+		for(Items item : ItemList) {
 			if(!item.getName().equals(target)) {
 				continue;
 			}
@@ -159,7 +160,7 @@ public abstract class ASettlers{
 		}return finalItem;
 	}
 	
-	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList){
+	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList)
 		if(this.task.isEmpty()) {
 			this.working = false;
 			return;
@@ -178,19 +179,19 @@ public abstract class ASettlers{
 		Items target = this.taskTarget.pollFirst();
 		switch(this.task.pollFirst()) {
 			case GO_PICKUP_LEFT:
-				this.setItemHand(target, true, settlerList);
+				this.setItem(true, target);
 				target.setHeld(true);
 				break;
 			case GO_PICKUP_RIGHT:
-				this.setItemHand(target, false, settlerList);
+				this.setItem(false, target);
 				target.setHeld(true);
 				break;
 			case GO_BRING_LEFT:
-				this.takeItemHand(true, settlerList);
+				this.getItem(true);
 				target.setHeld(false);
 				break;
 			case GO_BRING_RIGHT:
-				this.takeItemHand(false, settlerList);
+				this.getItem(false);
 				target.setHeld(false);
 				break;
 			case GO_FREE://tut nix

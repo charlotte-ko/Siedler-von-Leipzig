@@ -21,14 +21,20 @@ public class GameInv extends BaseGUI {
 	
 	ImageIcon log = createIcon("Log.png", 40,40);
 	ImageIcon plank = createIcon("Plank.png", 40, 40);
-	ImageIcon tree = createIcon("Tree.png", 60,60);
+	ImageIcon tree = createIcon("Tree.png", 40,40);
 	ImageIcon axe = createIcon("Axe.png", 40, 40);
 	ImageIcon hammer = createIcon("Hammer.png", 40, 40);
 	ImageIcon saw = createIcon("Saw.png", 40, 40);
+	
 	ImageIcon forester = createIcon("Forester.png", 60, 60);
 	ImageIcon house = createIcon("House.png", 60, 60);
 	ImageIcon lodge = createIcon("Lodge.png", 60, 60);
 	ImageIcon sawmill = createIcon("Sawmill.png", 60, 60);
+	
+	ImageIcon gardener = createSettlerIcon("Gardener_1.png", 40, 40);
+	ImageIcon normal = createSettlerIcon("Normal_1.png", 40, 40);
+	ImageIcon lumberjack = createSettlerIcon("Lumberjack_1.png", 40, 40);
+	ImageIcon sawyer = createSettlerIcon("Sawyer_1.png", 40, 40);
 	
 	public GameInv() {
 		super("Inventar");
@@ -111,6 +117,19 @@ public class GameInv extends BaseGUI {
 		axis.gridy = 4;
 		this.add(combine(lodge, 0), axis);
 		
+		axis.gridx = 3;
+		axis.gridy = 1;
+		this.add(combine(normal, 0), axis);
+		
+		axis.gridy = 2;
+		this.add(combine(gardener, 0), axis);
+		
+		axis.gridy = 3;
+		this.add(combine(lumberjack, 0), axis);
+		
+		axis.gridy = 4;
+		this.add(combine(sawyer, 0), axis);
+		
 	}
 	
 	private JPanel combine(ImageIcon image, int counter) {
@@ -129,30 +148,4 @@ public class GameInv extends BaseGUI {
 		
 		return panel;
 	}
-	/*
-	private JPanel setImages() {
-		
-		JPanel panel = new JPanel();
-		BoxLayout layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-		
-		panel.setLayout(layout);
-		
-		panel.setBackground(brown);
-		panel.add(new JLabel(log));
-		panel.add(new JLabel(plank));
-		panel.add(new JLabel(tree));
-		panel.add(new JLabel(axe));
-		panel.add(new JLabel(hammer));
-		panel.add(new JLabel(saw));
-		
-		return panel;
-	}
-	
-	private void setCounter() {
-		
-		JPanel panel = new JPanel(); 
-		BoxLayout layout = new BoxLayout(panel, BoxLayout.Y_AXIS);
-		
-		panel.setLayout(layout);
-	}*/ //vielleicht als alternative 
 }
