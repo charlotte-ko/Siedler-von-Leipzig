@@ -11,22 +11,20 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
-public class Exit extends JFrame {
+public class Exit extends BaseGUI {
 	
 	JButton save = new JButton("Speichern");
 	JButton end = new JButton("Beenden");
 	JButton send = new JButton("Speichern & Beenden");
-	
-	Color lightbrown = new Color(251, 216, 193);
-	
+
 	public Exit() {
+		super("Speichern & Beenden");
 		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setTitle("Speichern & Beenden");
 		this.setSize(new Dimension(400, 600));
 		this.setLocationRelativeTo(null);
 		this.setLayout(new GridBagLayout());
-		this.getContentPane().setBackground(new Color(247, 181, 138));
+		this.getContentPane().setBackground(brown);
 		
 		setButtons();
 		buttonLayout(this);
@@ -55,13 +53,16 @@ public class Exit extends JFrame {
 	private void setButtons() {
 		
 		save.setPreferredSize(new Dimension(150, 60));
-		save.setBackground(lightbrown);
+		save.setBackground(lightsalmon);
+		save.setBorderPainted(false);
 		
 		send.setPreferredSize(new Dimension(150, 60));
-		send.setBackground(lightbrown);
+		send.setBackground(lightsalmon);
+		send.setBorderPainted(false);
 		
 		end.setPreferredSize(new Dimension(150,60));
-		end.setBackground(lightbrown);
+		end.setBackground(lightsalmon);
+		end.setBorderPainted(false);
 		end.addActionListener(e -> System.exit(0));
 	}
 }
