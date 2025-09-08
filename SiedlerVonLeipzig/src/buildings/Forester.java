@@ -12,6 +12,7 @@ import settlers.SettlersJobs;
 
 public class Forester extends Buildings {
 	
+	private double passtime = 0.0;
 	/**
 	 * @brief Konstruktor für Forester, pflanzt Trees
 	 * @param pos
@@ -40,7 +41,7 @@ public class Forester extends Buildings {
 	 * @param ItemList
 	 */
 	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
-	
+		
 		if(!hasEmployee) {			
 			this.employee = this.findEmployee(settlerList, SettlersJobs.JOB_GARDENER);
 			if(employee == null) return;
@@ -50,7 +51,11 @@ public class Forester extends Buildings {
 		}
 
 		if(this.getOutput_Inventory().size() < 10) {
-			this.output_inventory.add(new Tree(this.getPosition()));
+			passtime += Delta;
+			if(passtime >= 6.0) {
+				this.output_inventory.add(new Tree(this.getPosition()));
+				passtime = 0.0;
+			}
 		}
 		
 		Vector2D plantPos = new Vector2D();
