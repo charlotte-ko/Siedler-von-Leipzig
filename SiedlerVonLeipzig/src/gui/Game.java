@@ -38,7 +38,7 @@ public class Game extends BaseGUI {
 	
 	public Game() {
 		
-		super("Sielder");
+		super("Siedler von Leipzig");
 		
 		setWindowBase(this, 800, 600, null, brown);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
