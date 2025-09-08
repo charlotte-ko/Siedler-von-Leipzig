@@ -8,7 +8,7 @@ import settlers.ASettlers;
 import logic.Vector2D;
 
 public class House extends Buildings {
-
+	private double spawntime = 0.0;
 	private int counter = 0;
 	
 	/**
@@ -26,6 +26,7 @@ public class House extends Buildings {
 	public void makeSettlers(ArrayList<ASettlers> settlerList) {
 	
 		settlerList.add(ASettlers.createSettler(this.getPosition()));
+		spawntime = 0.0;
 	}
 	
 	/**
@@ -33,10 +34,14 @@ public class House extends Buildings {
 	 * @param settlerList
 	 * @note zeitlicher Aspekt fehlt noch
 	 */
-	public void update(ArrayList<ASettlers> settlerList) {
+	public void update(double delta, ArrayList<ASettlers> settlerList) {
 		
-		if(this.counter < 10) {
-			makeSettlers(settlerList);
+		while(this.counter < 10) {
+			spawntime += delta;
+			if(spawntime <= 20.0) {
+				makeSettlers(settlerList);
+			}
+			
 		}
 	}
 
