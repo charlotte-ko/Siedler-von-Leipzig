@@ -3,6 +3,7 @@ package gui;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Image;
 import java.awt.Window;
 import java.net.URL;
@@ -19,6 +20,8 @@ public abstract class BaseGUI extends JFrame {
 	protected final static Color pine = new Color(0, 51, 25);
 	protected final static Color brown = new Color(139, 87, 66);
 	protected final static Color lightsalmon = new Color(205, 129, 98);
+	
+	protected final static Font big = new Font("Arial", Font.BOLD, 16);
 	
 	public BaseGUI(String title) {
 		super(title);
