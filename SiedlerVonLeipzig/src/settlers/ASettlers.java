@@ -4,23 +4,17 @@ import logic.Vector2D;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.LinkedList;
 
+import javax.imageio.ImageIO;
+
 import buildings.Buildings;
-import buildings.IBuildings;
-import items.IItems;
 import items.Items;
 
-
-
-/**
- * GO_WAIT implimentieren !!!
- * 
- * take item updaten etc...
- */
 
 public abstract class ASettlers{
 	private Vector2D position;
@@ -38,25 +32,8 @@ public abstract class ASettlers{
 	private Deque<SettlersAktion> task = new ArrayDeque<>();	//aufgabe
 	protected Deque<Items> taskTarget = new ArrayDeque<>();
 	
-	//nötigkeit prüfen!!!
-	public Deque<Vector2D> getTaskWay() {
-		return taskWay;
-	}
-	public void setTaskWay(Deque<Vector2D> taskWay) {
-		this.taskWay = taskWay;
-	}
-	public Deque<SettlersAktion> getTask() {
-		return task;
-	}
-	public void setTask(Deque<SettlersAktion> task) {
-		this.task = task;
-	}
-	public Deque<Items> getTaskTarget() {
-		return taskTarget;
-	}
-	public void setTaskTarget(Deque<Items> taskTarget) {
-		this.taskTarget = taskTarget;
-	}
+	protected BufferedImage img;
+	
 
 	public SettlersJobs getJobName() {
 		return this.jobName;
@@ -143,24 +120,8 @@ public abstract class ASettlers{
 		}
 	}
 	
-
-	public static IItems closestItem(Vector2D current_pos, ArrayList<Items> ItemList, String target) {
-		float min_distance = Float.POSITIVE_INFINITY;
-		Items finalItem = null;
-		//darf nicht gehalten werden
-		for(Items item : ItemList) {
-			if(!item.getName().equals(target)) {
-				continue;
-			}
-			float distance = current_pos.getDistance(item.getPosition());
-			if(distance < min_distance) {
-				min_distance = distance;
-				finalItem = item;
-			}
-		}return finalItem;
-	}
-	
-	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList)
+	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList) {
+		update_img(delta);
 		if(this.task.isEmpty()) {
 			this.working = false;
 			return;
@@ -200,6 +161,9 @@ public abstract class ASettlers{
 				break;
 		}
 	}
+	protected abstract void update_img(double delta);
+	
+	
 	/**
 	 * @brief geht in die gewünschte richtung
 	 * @param delta
@@ -212,7 +176,6 @@ public abstract class ASettlers{
 		this.position = this.position.add(direction);
 	}
 	
-	protected BufferedImage img;
 	public void draw(Graphics2D g2, int tileSize,Vector2D camPos) {
 		int posX = (int)((position.x-camPos.x)*tileSize);
 		int posY = (int)((position.y-camPos.y)*tileSize);
