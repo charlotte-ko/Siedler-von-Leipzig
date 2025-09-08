@@ -4,13 +4,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 import buildings.Buildings;
 import items.Items;
-import main.KeyHandler;
 import settlers.ASettlers;
 
 
@@ -31,16 +33,15 @@ public class GamePanel extends JPanel implements Runnable{
 	int FPS = 60;
 	double drawIntervalNanos = 1_000_000_000.0 /FPS;
 	
-	//Später hinzufügen für die Kamera Steuerung
-	//KeyHandler keyH = new KeyHandler();
 	Thread gameThread;
 	
-	//init Siedler,Häuser,Items etc.
-	//Player player = new Player(this,keyH);
 	ArrayList<Items> itemList = new ArrayList<>();
 	ArrayList<Buildings> buildingList = new ArrayList<>();
 	ArrayList<ASettlers> settlerList = new ArrayList<>();
 	
+	private BufferedImage backgroundImg1;
+	private BufferedImage backgroundImg2;
+	private BufferedImage backgroundImg;
 	
 	public GamePanel() {
 		this.setPreferredSize(new Dimension(screenWidth,screenHeight));
@@ -48,6 +49,8 @@ public class GamePanel extends JPanel implements Runnable{
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
+		
+		this.loadBackgroundImg();
 	}
 
 	public void startGameThread() {
@@ -139,6 +142,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void update(double delta) {
 		zoomManager();
 		cameraManager(delta);
+		updateBackGroundImg(delta);
 		
 		//Update funktion der Siedler und Gebäude durchgehen
 		//player.update();
@@ -167,8 +171,8 @@ public class GamePanel extends JPanel implements Runnable{
 		synchronized(buildingList) {buildingListSnap = new ArrayList<>(buildingList);}
 		synchronized(settlerList) {settlerListSnap = new ArrayList<>(settlerList);}
 		
-		
-		//tile size muss noch angepasst werden
+		//hintergrund zeichnen
+		this.drawbackGround(g2, tileSize, camPos, 1);
 		for(Items i : itemListSnap) {
 			i.draw(g2,tileSize,camPos);
 		}
@@ -179,7 +183,34 @@ public class GamePanel extends JPanel implements Runnable{
 			
 			b.draw(g2,tileSize,camPos);
 		}
-		
-		//g2.dispose();//nicht wirklich nötig
+	}
+	private void loadBackgroundImg() {
+		try {
+			this.backgroundImg1 = ImageIO.read(getClass().getResourceAsStream("/resources/Grass_1.png"));
+			this.backgroundImg2 = ImageIO.read(getClass().getResourceAsStream("/resources/Grass_2.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	private double backgroundTimer = 0.0;
+	
+	private void updateBackGroundImg(double delta) {
+		backgroundTimer += delta;
+		if(backgroundTimer > 0.5) {
+			backgroundImg = backgroundImg1;
+		}else {
+			backgroundImg = backgroundImg2;
+		}
+		backgroundTimer %= 1.0;
+	}
+	
+	private void drawbackGround(Graphics2D g2,int tileSize,Vector2D camPos,double delta) {
+		for(int i = -1; i < this.getWidth()/tileSize+2;i++) {
+			for(int j = -1; j < this.getHeight()/tileSize+2;j++) {
+				int posX = (int)((i-camPos.x%1.0)*(float)tileSize);
+				int posY = (int)((j-camPos.y%1.0)*(float)tileSize);
+				g2.drawImage(this.backgroundImg, posX, posY, tileSize,tileSize,null);
+			}
+		}
 	}
 }
