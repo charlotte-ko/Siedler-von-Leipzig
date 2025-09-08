@@ -19,6 +19,10 @@ public class GameShop extends BaseGUI {
 
 	ImageIcon log = createIcon("Log.png", 40, 40);
 	ImageIcon plank = createIcon("Plank.png", 40, 40);
+	ImageIcon house = createIcon("House.png", 80, 80);
+	ImageIcon forester = createIcon("Forester.png", 80, 80);
+	ImageIcon lodge = createIcon("Lodge.png", 80, 80);
+	ImageIcon sawmill = createIcon("Sawmill.png", 80, 80);
 	
 	public GameShop() {
 		super("Shop");
@@ -32,13 +36,35 @@ public class GameShop extends BaseGUI {
 		JPanel menubar = createTopBar();
 		
 		this.add(menubar, BorderLayout.NORTH);
-		setLayout();
+		this.add(setLayout());
 		
 		this.setVisible(true);
 	}
 	
-	private void setLayout() {
+	private JPanel setLayout() {
 		
+		JLabel label1 = new JLabel(house);
+		JLabel label2 = createLabel("Haus:", 100, 30);
+		JLabel label3 = new JLabel(forester);
+		JLabel label4 = createLabel("Försterei:", 100, 30);
+		JLabel label5 = new JLabel(lodge);
+		JLabel label6 = createLabel("Lodge:", 100, 30);
+		JLabel label7 = new JLabel(sawmill);
+		JLabel label8 = createLabel("Sägemühle:", 100, 30);
+		
+		JPanel container = new JPanel(new GridBagLayout());
+		GridBagConstraints g = new GridBagConstraints();
+		
+		container.setOpaque(false);
+		
+		JLabel[] labels = {label1, label2, label3, label4, label5, label6, label7, label8};
+		
+		for(int i = 0; i < labels.length; i++) {
+			g.gridy = i;
+			g.weighty = 1.0;
+			container.add(labels[i], g);
+		}
+		return container;
 	}
 
 	private JLabel createLabel(String name, int width, int height) {
