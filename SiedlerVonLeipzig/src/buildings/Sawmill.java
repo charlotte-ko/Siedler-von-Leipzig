@@ -22,19 +22,18 @@ public class Sawmill extends Buildings {
 
 	/**
 	 * @brief stellt Planks her, nimmt dazu einen Log aus dem Inventar
-	 * @note Inventar evtl. noch zu Deque ändern, ist simpler
+	 * @note können wir einfach das letzte Item removen? Löscht das eventuell nicht andere Items?
 	 */
-	public void makePlanks(double delta,ArrayList<Items> itemList) {
+	public void makePlanks(double delta, ArrayList<Items> itemList) {
 		workeTime += delta;
 		if(workeTime >= 12.0) {
-			//ein log rausnehmen und "umwandeln"
-			ArrayList<Items> tems = this.getInput_Inventory();
-			tems.removeLast();
-			this.setInput_Inventory(tems);
-			tems = this.getOutput_Inventory();
+			ArrayList<Items> inventory = this.getInput_Inventory();
+			inventory.remove(inventory.size() - 1);
+			this.setInput_Inventory(inventory);
+			inventory = this.getOutput_Inventory();
 			itemList.add(Items.createItem("Plank", this.position));
-			tems.addLast(itemList.getLast());
-			this.setOutput_Inventory(tems);
+			inventory.add(itemList.get(itemList.size() - 1));
+			this.setOutput_Inventory(inventory);
 			
 			workeTime = 0.0;
 		}
@@ -100,7 +99,7 @@ public class Sawmill extends Buildings {
 		}
 		//prüfe ob siedler im Gebäude ist
 		if(this.employee.getJobName().equals(SettlersJobs.JOB_SAWYER) && this.output_inventory.size() < 10 && this.input_inventory.size() > 0) {
-			makePlanks(delta);
+			makePlanks(delta, itemList);
 		}
 		else getSaw(itemList);
 	}

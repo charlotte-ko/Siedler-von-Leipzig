@@ -4,6 +4,7 @@ package buildings;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
+
 import items.Items;
 import settlers.ASettlers;
 import settlers.SettlersJobs;
@@ -23,12 +24,14 @@ public abstract class Buildings {
 	protected ASettlers employee;
 	protected boolean hasEmployee;
 	protected BufferedImage img;
+	
 	public void draw(Graphics2D g2, int tileSize,Vector2D camPos) {
 		int posX = (int)((position.x-camPos.x)*tileSize);
 		int posY = (int)((position.y-camPos.y)*tileSize);
 		
 		g2.drawImage(img, posX, posY, tileSize,tileSize,null);
 	}
+	
 	public abstract void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList);
 	
 	/**
@@ -163,5 +166,12 @@ public abstract class Buildings {
 	 */
 	public void setInput_Inventory(ArrayList<Items> newInventory) {
 		this.input_inventory = newInventory;
+	}
+	/**
+	 * @note muss noch angepasst werden
+	 */
+	public void draw(Graphics2D g2, int tileSize) {
+		// TODO Auto-generated method stub
+		
 	}
 }
