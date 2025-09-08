@@ -26,6 +26,7 @@ public class GamePanel extends JPanel implements Runnable{
 	final int screenHeight = tileSize * maxScreenRow;//576pxl
 	
 	public int grid_zoom = 8;
+	public Vector2D camPos = new Vector2D();
 	KeyHandler keyH = new KeyHandler();
 	int FPS = 60;
 	double drawIntervalNanos = 1_000_000_000.0 /FPS;
@@ -55,13 +56,15 @@ public class GamePanel extends JPanel implements Runnable{
 	}
 	@Override
 	public void run() {
-		double drawInterval = 1000000000/FPS;
-		double delta = 0;
 		long lastTime = System.nanoTime();
 		long currentTime;
 		double frameAcc = 0;
 		long secAccNanos = 0;
 		int drawCount = 0;
+		
+		long lastFrame = System.nanoTime();
+		long currentFrame;
+		double delta = 0.0;
 		
 		//prepare
 		for(int i = 0; i < 30;i++) {
@@ -86,35 +89,56 @@ public class GamePanel extends JPanel implements Runnable{
 			frameAcc += frameNanos / drawIntervalNanos;
 			secAccNanos += frameNanos;
 			
-			double deltaSec = frameNanos / 1_000_000_000.0;
 			
 			if(frameAcc >= 1) {
-				update(deltaSec);
+				currentFrame = System.nanoTime();
+				delta = (currentFrame - lastFrame)/1_000_000_000.0;
+				lastFrame = currentFrame;
+				update(delta);
 				repaint(); //ruft paintComponent auf
 				frameAcc -= 1.0;
 				drawCount++;
 			}
 			if(secAccNanos >= 1_000_000_000) {
-				System.out.println("FPS:"+drawCount+"dt(ms):"+(deltaSec*1000.0));
+				System.out.println("FPS:"+drawCount+"dt(ms):"+(delta*1000.0));
+				System.out.println(camPos.x + "/" + camPos.y);
 				drawCount = 0;
 				secAccNanos = 0;
 			}
 		}
 	}
 	
-	public void update(double delta) {
-		if(this.keyH.upPressed) {
-			this.grid_zoom++;
-		}
-		if(this.keyH.downPressed) {
+	private boolean zoomInBlock = false;
+	private boolean zoomOutBlock = false;
+	private void zoomManager() {
+		
+		if(this.keyH.zoomIn && !zoomInBlock) {
 			this.grid_zoom--;
+			zoomInBlock = true;
 		}
-		if(grid_zoom <= 0) {
-			grid_zoom = 1;
+		if(this.keyH.zoomOut && !zoomOutBlock) {
+			this.grid_zoom++;
+			zoomOutBlock = true;
 		}
-		if(grid_zoom > 30) {
-			grid_zoom = 30;
-		}
+		
+		if(this.grid_zoom < 1)this.grid_zoom = 1;
+		if(this.grid_zoom > 30)this.grid_zoom = 30;
+	
+		if(!this.keyH.zoomIn)zoomInBlock = false;
+		if(!this.keyH.zoomOut)zoomOutBlock = false;
+	}
+	
+	float cameraSpeed = 4.0f;
+	private void cameraManager(double delta) {
+		if(this.keyH.upPressed)camPos.y -= delta * cameraSpeed;
+		if(this.keyH.downPressed)camPos.y += delta * cameraSpeed;
+		if(this.keyH.rightPressed)camPos.x += delta * cameraSpeed;
+		if(this.keyH.leftPressed)camPos.x -= delta * cameraSpeed;
+	}
+	
+	public void update(double delta) {
+		zoomManager();
+		cameraManager(delta);
 		
 		//Update funktion der Siedler und Gebäude durchgehen
 		//player.update();
@@ -146,14 +170,14 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		//tile size muss noch angepasst werden
 		for(Items i : itemListSnap) {
-			i.draw(g2,tileSize);
+			i.draw(g2,tileSize,camPos);
 		}
 		for(ASettlers s: settlerListSnap) {
-			s.draw(g2,tileSize);
+			s.draw(g2,tileSize,camPos);
 		}
 		for(Buildings b : buildingListSnap) {
 			
-			b.draw(g2,tileSize);
+			b.draw(g2,tileSize,camPos);
 		}
 		
 		//g2.dispose();//nicht wirklich nötig
