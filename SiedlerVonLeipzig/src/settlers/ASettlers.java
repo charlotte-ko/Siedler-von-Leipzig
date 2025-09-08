@@ -143,11 +143,7 @@ public abstract class ASettlers{
 		}
 	}
 	
-<<<<<<< HEAD
-	public void update(double delta, ArrayList<Items> itemList, ArrayList<Buildings> buildingList, ArrayList<ASettlers> settlerList) {
-=======
 	public static IItems closestItem(Vector2D current_pos, ArrayList<Items> ItemList, String target) {
-		
 		float min_distance = Float.POSITIVE_INFINITY;
 		IItems finalItem = null;
 		//darf nicht gehalten werden
@@ -162,8 +158,8 @@ public abstract class ASettlers{
 			}
 		}return finalItem;
 	}
+	
 	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<IItems> itemList){
->>>>>>> 24dd4f7e75384710b39fb1f0fa9115b51726de4e
 		if(this.task.isEmpty()) {
 			this.working = false;
 			return;
