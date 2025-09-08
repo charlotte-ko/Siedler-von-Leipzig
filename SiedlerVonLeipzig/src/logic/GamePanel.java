@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import buildings.Buildings;
 import items.Items;
 import settlers.ASettlers;
+import settlers.SettlersAktion;
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -75,6 +76,8 @@ public class GamePanel extends JPanel implements Runnable{
 				itemList.add(Items.createItem("Axe", new Vector2D(i,j)));
 			}
 		}
+		settlerList.add(ASettlers.createSettler(new Vector2D()));
+		settlerList.get(0).giveSettlerTask(new Vector2D(tileSize*10,tileSize*10), SettlersAktion.GO_FREE, null);
 		/*
 		buildingList.add(Buildings.createBuilding("Forester",new Vector2D(0,0)));
 		itemList.add(Items.createItem("Axe", new Vector2D(tileSize*2,tileSize*2)));
@@ -150,7 +153,7 @@ public class GamePanel extends JPanel implements Runnable{
 			//b.update(delta, settlerList, buildingList, itemList);
 		}
 		for(ASettlers s : settlerList) {
-			//s.update(delta, settlerList, buildingList, itemList);
+			s.update(delta, settlerList, buildingList, itemList);
 		}
 	}
 	
