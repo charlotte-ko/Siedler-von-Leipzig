@@ -3,10 +3,14 @@ package buildings;
 
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import items.Items;
 import settlers.ASettlers;
+import settlers.Settler;
 import settlers.SettlersJobs;
 import logic.Vector2D;
 
@@ -26,13 +30,16 @@ public abstract class Buildings {
 	protected BufferedImage img;
 	
 	public void draw(Graphics2D g2, int tileSize,Vector2D camPos) {
-		int posX = (int)((position.x-camPos.x)*tileSize);
-		int posY = (int)((position.y-camPos.y)*tileSize);
+		//eins nach oben eins nach links
+		int posX = (int)((position.x-camPos.x)*tileSize) - tileSize;
+		int posY = (int)((position.y-camPos.y)*tileSize) - tileSize*2;
 		
-		g2.drawImage(img, posX, posY, tileSize,tileSize,null);
+		//gebäude nimmt 4 tiles ein
+		
+		g2.drawImage(img, posX, posY, tileSize*4,tileSize*4,null);
 	}
 	
-	public abstract void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList);
+	public abstract void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList);
 	
 	/**
 	 * @brief Konstruktor
@@ -167,11 +174,5 @@ public abstract class Buildings {
 	public void setInput_Inventory(ArrayList<Items> newInventory) {
 		this.input_inventory = newInventory;
 	}
-	/**
-	 * @note muss noch angepasst werden
-	 */
-	public void draw(Graphics2D g2, int tileSize) {
-		// TODO Auto-generated method stub
-		
-	}
+
 }

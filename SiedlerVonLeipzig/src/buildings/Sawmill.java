@@ -1,7 +1,11 @@
 package buildings;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import items.Items;
 import settlers.ASettlers;
@@ -10,6 +14,17 @@ import settlers.SettlersJobs;
 import logic.Vector2D;
 
 public class Sawmill extends Buildings {
+	private static BufferedImage sawmillImg1;
+	private static BufferedImage sawmillImg2;
+	
+	static {
+		try {
+			sawmillImg1 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Sawmill.png"));
+			sawmillImg2 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Sawmill_!.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	private double workeTime = 0.0;
 	/**
 	 * @brief Konstruktor für Sawmill, zersägt Logs und erstellt Planks
@@ -18,6 +33,7 @@ public class Sawmill extends Buildings {
 	public Sawmill(Vector2D pos) {
 		super("Sawmill", 10, pos); 
 		this.hasEmployee = false;
+		img = sawmillImg1;
 	}
 
 	/**
@@ -102,14 +118,5 @@ public class Sawmill extends Buildings {
 			makePlanks(delta, itemList);
 		}
 		else getSaw(itemList);
-	}
-
-	/**
-	 * @note muss noch angepasst werden
-	 */
-	@Override
-	public void draw(Graphics2D g2, int tileSize) {
-		// TODO Auto-generated method stub
-		
 	}
 }

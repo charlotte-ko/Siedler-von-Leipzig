@@ -1,6 +1,10 @@
 package items;
 
+import java.awt.Graphics2D;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import logic.Vector2D;
 
@@ -10,6 +14,11 @@ public class Tree extends Items {
 		super(pos);
 		this.name = "Tree";
 		//image muss in GUI auf die Position gesetzt werden
+		try {
+			this.img = ImageIO.read(getClass().getResourceAsStream("/resources/Tree.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static Tree FindTree(Vector2D current_pos, ArrayList<Items> ItemList) {
@@ -35,6 +44,14 @@ public class Tree extends Items {
 			return true;
 		}
 		return false;
+	}
+	
+	public void draw(Graphics2D g2,int tileSize,Vector2D camPos) {
+		//normal
+		int posX = (int)((position.x)*(float)tileSize) - (int)((camPos.x)*(float)tileSize);
+		int posY = (int)((position.y)*(float)tileSize) - (int)((camPos.y)*(float)tileSize);
+		
+		g2.drawImage(img, posX, posY, tileSize,tileSize,null);
 	}
 }
 
