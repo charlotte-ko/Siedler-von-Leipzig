@@ -76,7 +76,8 @@ public class Settler extends ASettlers{
 		if(updateImgTimer > 0.33 && updateImgTimer <= 0.66)frameCounter = 1;
 		if(updateImgTimer > 0.66 && updateImgTimer <= 1.0)frameCounter = 2;
 		
-		//nach oben gehen +3
+		if(this.isGoingUp)frameCounter += 3;
+		
 		switch(this.jobName) {
 			case JOB_NORMAL:
 				this.img = this.settlerNormalImg[frameCounter];

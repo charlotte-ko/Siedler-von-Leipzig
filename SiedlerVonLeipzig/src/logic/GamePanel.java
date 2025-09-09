@@ -15,6 +15,7 @@ import buildings.Buildings;
 import items.Items;
 import settlers.ASettlers;
 import settlers.SettlersAktion;
+import settlers.SettlersJobs;
 
 
 public class GamePanel extends JPanel implements Runnable{
@@ -78,6 +79,9 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 		settlerList.add(ASettlers.createSettler(new Vector2D()));
 		settlerList.get(0).giveSettlerTask(new Vector2D(tileSize*10,tileSize*10), SettlersAktion.GO_FREE, null);
+		settlerList.add(ASettlers.createSettler(new Vector2D()));
+		settlerList.get(1).setJobName(SettlersJobs.JOB_SAWYER);
+		settlerList.get(1).giveSettlerTask(new Vector2D(-tileSize*10,-tileSize*10), SettlersAktion.GO_FREE, null);
 		/*
 		buildingList.add(Buildings.createBuilding("Forester",new Vector2D(0,0)));
 		itemList.add(Items.createItem("Axe", new Vector2D(tileSize*2,tileSize*2)));

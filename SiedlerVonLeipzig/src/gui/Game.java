@@ -43,6 +43,13 @@ public class Game extends BaseGUI {
 		this.add(menubar, BorderLayout.SOUTH);
 		
 		this.setVisible(true);
+		
+		//gibt den focus wieder dem field
+		addWindowFocusListener(new java.awt.event.WindowAdapter() {
+            @Override public void windowGainedFocus(java.awt.event.WindowEvent e) {
+                field.requestFocusInWindow();
+            }
+        });
 	}
 	
 	private JPanel createField() {
@@ -88,6 +95,7 @@ public class Game extends BaseGUI {
 			b.setBackground(lightsalmon);
 			b.setOpaque(true);
 			b.setBorderPainted(false);
+			b.setFocusable(false); 			//Ich hoffe das macht kein problem
 		}
 	
 		inventory.addActionListener(e -> new GameInv());
