@@ -23,12 +23,14 @@ public class GameShop extends BaseGUI {
 	ImageIcon forester = createIcon("Forester.png", 80, 80);
 	ImageIcon lodge = createIcon("Lodge.png", 80, 80);
 	ImageIcon sawmill = createIcon("Sawmill.png", 80, 80);
+	ImageIcon axe = createIcon("Axe.png", 40, 40);
+	ImageIcon saw = createIcon("Saw.png", 40, 40);
 	
 	public GameShop() {
 		super("Shop");
 		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setSize(new Dimension(500, 500));
+		this.setSize(new Dimension(500, 550));
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setBackground(brown);
 		this.setLayout(new BorderLayout());
@@ -36,33 +38,47 @@ public class GameShop extends BaseGUI {
 		JPanel menubar = createTopBar();
 		
 		this.add(menubar, BorderLayout.NORTH);
-		this.add(setLayout());
+		this.add(chartLayout());
 		
 		this.setVisible(true);
 	}
 	
-	private JPanel setLayout() {
+	private JPanel chartLayout() {
 		
 		JLabel label1 = new JLabel(house);
 		JLabel label2 = createLabel("Haus:", 100, 30);
 		JLabel label3 = new JLabel(forester);
 		JLabel label4 = createLabel("Försterei:", 100, 30);
 		JLabel label5 = new JLabel(lodge);
-		JLabel label6 = createLabel("Lodge:", 100, 30);
+		JLabel label6 = createLabel("Lodge:", 100, 30); 
 		JLabel label7 = new JLabel(sawmill);
 		JLabel label8 = createLabel("Sägemühle:", 100, 30);
+		JLabel label9 = new JLabel(axe);
+		JLabel label10 = createLabel("Axt:", 100, 30);
+		JLabel label11 = new JLabel(saw);
+		JLabel label12 = createLabel("Säge:", 100, 30);
 		
 		JPanel container = new JPanel(new GridBagLayout());
 		GridBagConstraints g = new GridBagConstraints();
 		
 		container.setOpaque(false);
 		
-		JLabel[] labels = {label1, label2, label3, label4, label5, label6, label7, label8};
-		
-		for(int i = 0; i < labels.length; i++) {
+		JLabel[] leftlabels = {label1, label2, label3, label4, label5, label6, label7, label8};
+		for(int i = 0; i < leftlabels.length; i++) {
+			g.gridx = 0;
 			g.gridy = i;
 			g.weighty = 1.0;
-			container.add(labels[i], g);
+			g.insets = new Insets(0, 10, 0, 100);
+			container.add(leftlabels[i], g);
+		}
+		
+		JLabel[] rightlabels = {label9, label10, label11, label12};
+		for(int i = 0; i < rightlabels.length; i++) {
+			g.gridx = 1;
+			g.gridy = i;
+			g.weighty = 1.0;
+			g.insets = new Insets(0, 100, 0, 100);
+			container.add(rightlabels[i], g);
 		}
 		return container;
 	}
