@@ -33,6 +33,7 @@ public abstract class ASettlers{
 	protected Deque<Items> taskTarget = new ArrayDeque<>();
 	
 	protected BufferedImage img;
+	protected boolean isGoingUp; //nur für die animation
 	
 
 	public SettlersJobs getJobName() {
@@ -169,10 +170,14 @@ public abstract class ASettlers{
 	 * @param delta
 	 * @param target wo es hingehen soll
 	 */
-	private void walk(float delta,Vector2D target) {
+	private void walk(double delta,Vector2D target) {
 		Vector2D direction = this.position.getTwoPointVector(target);
 		direction = direction.normalize();
-		direction = direction.scale(this.getSpeed()*delta);
+		direction = direction.scale(this.getSpeed()*(float)delta);
+		
+		if(direction.y < 0.0)this.isGoingUp = true;
+		else this.isGoingUp = false;
+		
 		this.position = this.position.add(direction);
 	}
 	
