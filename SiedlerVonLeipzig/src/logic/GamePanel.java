@@ -72,9 +72,15 @@ public class GamePanel extends JPanel implements Runnable{
 		double delta = 0.0;
 		
 		//prepare
-		for(int i = 0; i < 30;i++) {
-			for(int j = 0; j < 30;j++) {
+		for(int i = 0; i < 10;i++) {
+			for(int j = 0; j < 10;j++) {
 				itemList.add(Items.createItem("Axe", new Vector2D(i,j)));
+				itemList.add(Items.createItem("Hammer", new Vector2D(i+10,j)));
+				itemList.add(Items.createItem("Log", new Vector2D(i,j+10)));
+				//itemList.add(Items.createItem("Nothing", new Vector2D(i*2,j*2)));
+				itemList.add(Items.createItem("Plank", new Vector2D(i+10,j+10)));
+				itemList.add(Items.createItem("Saw", new Vector2D(i+20,j)));
+				itemList.add(Items.createItem("Tree", new Vector2D(i+20,j+10)));
 			}
 		}
 		settlerList.add(ASettlers.createSettler(new Vector2D()));
@@ -82,14 +88,23 @@ public class GamePanel extends JPanel implements Runnable{
 		settlerList.add(ASettlers.createSettler(new Vector2D()));
 		settlerList.get(1).setJobName(SettlersJobs.JOB_SAWYER);
 		settlerList.get(1).giveSettlerTask(new Vector2D(-tileSize*10,-tileSize*10), SettlersAktion.GO_FREE, null);
-		/*
-		buildingList.add(Buildings.createBuilding("Forester",new Vector2D(0,0)));
-		itemList.add(Items.createItem("Axe", new Vector2D(tileSize*2,tileSize*2)));
-		settlerList.add(ASettlers.createSettler(new Vector2D(tileSize*3,tileSize*2)));
-		settlerList.get(0).giveSettlerTask(new Vector2D(tileSize*10,tileSize*10), SettlersAktion.GO_FREE, null);
-		settlerList.get(0).giveSettlerTask(itemList.get(0).getPosition(), SettlersAktion.GO_PICKUP_LEFT, itemList.get(0));
-		settlerList.get(0).giveSettlerTask(new Vector2D(tileSize*10,tileSize*10), SettlersAktion.GO_FREE, null);
-		*/
+		
+		buildingList.add(Buildings.createBuilding("Forester",new Vector2D(0.0f,0.0f)));
+		buildingList.add(Buildings.createBuilding("Forester",new Vector2D(3.0f,0.0f)));
+		buildingList.add(Buildings.createBuilding("Forester",new Vector2D(-3.0f,0.0f)));
+		
+		buildingList.add(Buildings.createBuilding("Sawmill",new Vector2D(0.0f,2.5f)));
+		buildingList.add(Buildings.createBuilding("Sawmill",new Vector2D(3.0f,2.5f)));
+		buildingList.add(Buildings.createBuilding("Sawmill",new Vector2D(-3.0f,2.5f)));
+		
+		buildingList.add(Buildings.createBuilding("Lodge",new Vector2D(0.0f,-2.5f)));
+		buildingList.add(Buildings.createBuilding("Lodge",new Vector2D(3.0f,-2.5f)));
+		buildingList.add(Buildings.createBuilding("Lodge",new Vector2D(-3.0f,-2.5f)));
+		
+		buildingList.add(Buildings.createBuilding("House",new Vector2D(0.0f,5.0f)));
+		buildingList.add(Buildings.createBuilding("House",new Vector2D(3.0f,5.0f)));
+		buildingList.add(Buildings.createBuilding("House",new Vector2D(-3.0f,5.0f)));
+		
 		//game loop
 		while(gameThread != null) {
 			currentTime = System.nanoTime();

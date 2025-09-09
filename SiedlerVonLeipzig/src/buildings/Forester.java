@@ -1,7 +1,11 @@
 package buildings;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import items.Items;
 import items.Tree;
@@ -11,6 +15,17 @@ import settlers.SettlersAktion;
 import settlers.SettlersJobs;
 
 public class Forester extends Buildings {
+	private static BufferedImage foresterImg1;
+	private static BufferedImage foresterImg2;
+	
+	static {
+		try {
+			foresterImg1 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Forester.png"));
+			foresterImg2 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Forester_!.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	private double passtime = 0.0;
 	/**
@@ -20,6 +35,7 @@ public class Forester extends Buildings {
 	public Forester(Vector2D pos) {
 		super("Forester", 10, pos);
 		this.hasEmployee = false;
+		img = foresterImg1;
 	}
 	
 	/**
@@ -66,14 +82,5 @@ public class Forester extends Buildings {
 		}while(!plantPos.testPos(BuildingsList, ItemList));
 		
 		this.plantTree(employee, plantPos);
-	}
-
-	/**
-	 * @note muss noch angepasst werden
-	 */
-	@Override
-	public void draw(Graphics2D g2, int tileSize) {
-		// TODO Auto-generated method stub
-		
 	}
  }

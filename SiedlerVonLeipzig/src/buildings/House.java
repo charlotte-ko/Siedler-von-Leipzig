@@ -1,13 +1,29 @@
 package buildings;
 
-import java.awt.Graphics2D;
+
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import items.Items;
 import settlers.ASettlers;
 import logic.Vector2D;
 
 public class House extends Buildings {
+	private static BufferedImage houseImg1;
+	private static BufferedImage houseImg2;
+	
+	static {
+		try {
+			houseImg1 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/House.png"));
+			houseImg2 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/House_!.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	private double spawntime = 0.0;
 	private int counter = 0;
 	
@@ -17,6 +33,7 @@ public class House extends Buildings {
 	 */
 	public House(Vector2D pos) {
 		super("House", 10, pos);
+		img = houseImg1;
 	}
 	
 	/**
@@ -34,7 +51,7 @@ public class House extends Buildings {
 	 * @param settlerList
 	 * @note zeitlicher Aspekt fehlt noch
 	 */
-	public void update(double delta, ArrayList<ASettlers> settlerList) {
+	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList){
 		
 		while(this.counter < 10) {
 			spawntime += delta;
@@ -43,24 +60,5 @@ public class House extends Buildings {
 			}
 			
 		}
-	}
-
-	/**
-	 * @note muss noch angepasst werden
-	 */
-	@Override
-	public void draw(Graphics2D g2, int tileSize) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	/**
-	 * @note muss noch angepasst werden
-	 */
-	@Override
-	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList,
-			ArrayList<Items> itemList) {
-		// TODO Auto-generated method stub
-		
 	}
 }

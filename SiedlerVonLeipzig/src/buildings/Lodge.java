@@ -2,7 +2,11 @@
 package buildings;
 
 import java.awt.Graphics2D;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.imageio.ImageIO;
 
 import items.Items;
 import logic.Vector2D;
@@ -11,6 +15,17 @@ import settlers.SettlersAktion;
 import settlers.SettlersJobs;
 
 public class Lodge extends Buildings{
+	private static BufferedImage lodgeImg1;
+	private static BufferedImage lodgeImg2;
+	
+	static {
+		try {
+			lodgeImg1 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Lodge.png"));
+			lodgeImg2 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Lodge_!.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	protected ASettlers employee;
 	protected boolean hasEmployee;
@@ -22,6 +37,7 @@ public class Lodge extends Buildings{
 	public Lodge(Vector2D pos) {
 		super("Lodge", 10, pos);
 		this.hasEmployee = false;
+		img = lodgeImg1;
 	}
 
 	/**
@@ -80,14 +96,5 @@ public class Lodge extends Buildings{
 			this.getLogs(employee, ItemList);
 		}
 		else this.getAxe(ItemList);
-	}
-
-	/**
-	 * @note muss noch angepasst werden
-	 */
-	@Override
-	public void draw(Graphics2D g2, int tileSize) {
-		// TODO Auto-generated method stub
-		
 	}
 }

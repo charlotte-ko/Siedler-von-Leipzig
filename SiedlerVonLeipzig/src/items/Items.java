@@ -98,9 +98,10 @@ public abstract class Items {
 		}
 		
 		public void draw(Graphics2D g2,int tileSize,Vector2D camPos) {
-			int posX = (int)((position.x)*(float)tileSize) - (int)((camPos.x)*(float)tileSize);
-			int posY = (int)((position.y)*(float)tileSize) - (int)((camPos.y)*(float)tileSize);
+			//0.5 groß
+			int posX = (int)((position.x)*(float)tileSize) - (int)((camPos.x)*(float)tileSize) +(tileSize/2);
+			int posY = (int)((position.y)*(float)tileSize) - (int)((camPos.y)*(float)tileSize) +(tileSize/2);
 			
-			g2.drawImage(img, posX, posY, tileSize,tileSize,null);
+			g2.drawImage(img, posX, posY, tileSize/2,tileSize/2,null);
 		}
 }
