@@ -55,8 +55,9 @@ public class House extends Buildings {
 		
 		while(this.counter < 10) {
 			spawntime += delta;
-			if(spawntime <= 20.0) {
+			if(spawntime >= 20.0) {
 				makeSettlers(settlerList);
+				this.counter++;
 			}
 			
 		}

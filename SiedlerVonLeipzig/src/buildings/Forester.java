@@ -44,6 +44,7 @@ public class Forester extends Buildings {
 	 * @param plantPos
 	 */
 	public void plantTree(ASettlers worker, Vector2D plantPos) {
+		if(this.getOutput_Inventory().isEmpty())return;
 		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, this.getOutput_Inventory().get(this.getOutput_Inventory().size()-1));
 		worker.giveSettlerTask(plantPos, SettlersAktion.GO_BRING_RIGHT, null);
 		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_FREE, null);
