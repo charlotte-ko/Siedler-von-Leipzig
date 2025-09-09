@@ -14,6 +14,8 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 
+import presenter.StartPresenter;
+
 public class Startmenu extends BaseGUI{
 
 	private static final long serialVersionUID = 1L;
@@ -28,8 +30,9 @@ public class Startmenu extends BaseGUI{
 	
 	String player_name; //soll dann key für unser Speichersystem sein, weiß nicht, ob das dann in Main gehört
 	
+	private StartPresenter presenter;
+	
 	public Startmenu() {
-		
 		super("Startmenue");
 		
 		setWindowBase(this,800, 600, null, foresty);
@@ -39,8 +42,9 @@ public class Startmenu extends BaseGUI{
 		
 		setButtons();
 		ButtonLayout(this);
-		
-		setVisible(true);
+	}
+	public void setPresenter(StartPresenter presenter) {
+		this.presenter = presenter;
 	}
 	
 	private void setButtons() {
@@ -53,7 +57,7 @@ public class Startmenu extends BaseGUI{
 			b.setBorderPainted(false);
 		}
 	
-		button1.addActionListener(e -> openNewGame());
+		button1.addActionListener(e -> presenter.buttonStartNewGame());
 		
 		button5.addActionListener(e -> System.exit(0));
 	}
@@ -108,7 +112,7 @@ public class Startmenu extends BaseGUI{
 		
 	}
 	
-	private void openNewGame() {
+	public void openNewGame() {
 		
 		JFrame NewFrame = new JFrame("Neues Spiel");
 		
@@ -133,13 +137,19 @@ public class Startmenu extends BaseGUI{
 		confirm.setBackground(pine);
 		confirm.setForeground(foresty);
 		
+		//Bestetigen !!!
+		/*
 		confirm.addActionListener(e -> {
-			
-			
 			player_name = field_name.getText();
 			new Game();
 			NewFrame.dispose();
 			this.dispose();
+		});
+		*/
+		confirm.addActionListener(e -> {
+			presenter.setPlayerName(player_name);
+			NewFrame.dispose();
+			presenter.makeNewGame();
 		});
 		
 		NewGameLayout(NewFrame, name, field_name, confirm);
