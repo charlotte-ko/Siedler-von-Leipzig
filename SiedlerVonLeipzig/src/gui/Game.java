@@ -20,6 +20,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import logic.GamePanel;
+import presenter.GamePresenter;
 
 public class Game extends BaseGUI {
 	
@@ -35,7 +36,8 @@ public class Game extends BaseGUI {
 	JButton end = new JButton(createIcon("Cross.png", 40, 40));
 	
 	JButton[] buttons = {shop, delete, inventory, end};
-	
+	GamePresenter presenter;
+
 	public Game() {
 		
 		super("Siedler von Leipzig");
@@ -73,10 +75,20 @@ public class Game extends BaseGUI {
         });
 	}
 	
+	public void setPresenter(GamePresenter presenter) {
+		this.presenter = presenter;
+		gPanel.setPresenter(presenter);
+	}
+	
+	GamePanel gPanel;
 	private JPanel createField() {
-		GamePanel gPanel = new GamePanel();
-		gPanel.startGameThread();
+		gPanel = new GamePanel();
+		//gPanel.startGameThread();
 		return gPanel;
+	}
+	
+	public void startGameLoop() {
+		gPanel.startGameThread();
 	}
 	
 	private JPanel createMenuBar() {
