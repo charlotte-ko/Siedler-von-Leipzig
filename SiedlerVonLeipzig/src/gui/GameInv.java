@@ -112,39 +112,39 @@ public class GameInv extends BaseGUI {
 		this.add(combine(tree, counter[2]), axis);
 		
 		axis.gridy = 4;
-		this.add(combine(axe, counter[2]), axis);
+		this.add(combine(axe, counter[3]), axis);
 		
 		axis.gridy = 5;
-		this.add(combine(hammer, counter[3]), axis);
+		this.add(combine(hammer, counter[4]), axis);
 		
 		axis.gridy = 6;
-		this.add(combine(saw, counter[4]), axis);
+		this.add(combine(saw, counter[5]), axis);
 		
 		axis.gridx = 2;
 		axis.gridy = 1;
-		this.add(combine(forester, counter[5]), axis);
+		this.add(combine(forester, counter[6]), axis);
 		
 		axis.gridy = 2;
-		this.add(combine(house, counter[6]), axis);
+		this.add(combine(house, counter[7]), axis);
 		
 		axis.gridy = 3;
-		this.add(combine(sawmill, counter[7]), axis);
+		this.add(combine(sawmill, counter[8]), axis);
 		
 		axis.gridy = 4;
-		this.add(combine(lodge, counter[8]), axis);
+		this.add(combine(lodge, counter[9]), axis);
 		
 		axis.gridx = 3;
 		axis.gridy = 1;
-		this.add(combine(normal, counter[9]), axis);
+		this.add(combine(normal, counter[10]), axis);
 		
 		axis.gridy = 2;
-		this.add(combine(gardener, counter[10]), axis);
+		this.add(combine(gardener, counter[11]), axis);
 		
 		axis.gridy = 3;
-		this.add(combine(lumberjack, counter[11]), axis);
+		this.add(combine(lumberjack, counter[12]), axis);
 		
 		axis.gridy = 4;
-		this.add(combine(sawyer, counter[12]), axis);
+		this.add(combine(sawyer, counter[13]), axis);
 		
 	}
 	
