@@ -26,7 +26,7 @@ public class GameModel {
 	 * @param position
 	 */
 	public void constructBuilding(String buildingName,Vector2D position) {
-		buildingList.add(Buildings.createBuilding(buildingName, position));
+		synchronized(buildingList){buildingList.add(Buildings.createBuilding(buildingName, position));}
 	}
 	/**
 	 * @brief erstellt Item auf Spielfeld
@@ -34,14 +34,14 @@ public class GameModel {
 	 * @param position
 	 */
 	public void contructItem(String itemName,Vector2D position) {
-		itemList.add(Items.createItem(itemName, position));
+		synchronized(itemList) {itemList.add(Items.createItem(itemName, position));}
 	}
 	/**
 	 * @brief erstellt Settler auf Spielfeld
 	 * @param position
 	 */
 	public void contructSettler(Vector2D position) {
-		settlerList.add(ASettlers.createSettler(position));
+		synchronized(settlerList) {settlerList.add(ASettlers.createSettler(position));}
 	}
 	
 	public void setupGameField() {

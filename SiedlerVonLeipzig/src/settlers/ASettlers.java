@@ -79,16 +79,7 @@ public abstract class ASettlers{
 		ASettlers newSettler = new Settler(position);
 		return newSettler;
 	}
-	
-		/*
-		//items übertragen
-		s.setItem(true, this.getItem(true));
-		s.setItem(false, this.getItem(false));
-		//Aufgaben übertragen
-		while(!this.task.isEmpty()) {
-			s.giveSettlerTask(this.taskWay.pollFirst(), this.task.pollFirst(),this.taskTarget.pollFirst());
-		}
-		*/
+
 	
 	public Vector2D getPosition() {
 		return this.position;
@@ -115,46 +106,50 @@ public abstract class ASettlers{
 		this.task.addLast(aufgabe);
 		if(target == null) {
 			//dummy item wechseln
-			this.taskTarget.addLast(Items.createItem("Axe", new Vector2D()));
+			this.taskTarget.addLast(Items.createItem("Nothing", new Vector2D()));
 		}else{
+			target.setTargeted(true);
 			this.taskTarget.addLast(target);
 		}
 	}
 	
-	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList) {
+	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> buildingList, ArrayList<Items> itemList) {
 		update_img(delta);
+		
 		if(this.task.isEmpty()) {
 			this.working = false;
 			return;
 		}
-		//bewege dich methode
-		if(this.position.getDistance(this.taskWay.peekFirst()) > 1.0f) {
-			walk((float)delta,this.taskWay.peekFirst());
-			//items mit bewegen
-			if(this.leftHand != null)
-				this.leftHand.setPosition(this.getPosition());
-			if(this.rightHand != null)
-				this.rightHand.setPosition(this.getPosition());
-			return;	
-		}
-		this.taskWay.pollFirst();
+	
+		if(!move(delta,buildingList))return;
+		
 		Items target = this.taskTarget.pollFirst();
 		switch(this.task.pollFirst()) {
 			case GO_PICKUP_LEFT:
 				this.setItem(true, target);
 				target.setHeld(true);
+				target.setTargeted(false);
+				if(target.isInInventory())takeFromBuilding(target.getPosition(),buildingList,target);
+				target.setInInventory(false);
 				break;
 			case GO_PICKUP_RIGHT:
 				this.setItem(false, target);
 				target.setHeld(true);
+				target.setTargeted(false);
+				if(target.isInInventory())takeFromBuilding(target.getPosition(),buildingList,target);
+				target.setInInventory(false);
 				break;
 			case GO_BRING_LEFT:
 				this.getItem(true);
 				target.setHeld(false);
+				target.setTargeted(false);
+				giveBuilding(target,buildingList);
 				break;
 			case GO_BRING_RIGHT:
 				this.getItem(false);
 				target.setHeld(false);
+				target.setTargeted(false);
+				giveBuilding(target,buildingList);
 				break;
 			case GO_FREE://tut nix
 				break;
@@ -162,8 +157,45 @@ public abstract class ASettlers{
 				break;
 		}
 	}
+	
 	protected abstract void update_img(double delta);
 	
+	private void takeFromBuilding(Vector2D position,ArrayList<Buildings> buildingList,Items target) {
+		Buildings b = Buildings.findBuilding(target.getPosition(), buildingList);
+		if(b == null)return;
+		ArrayList<Items> inventar = b.getOutput_Inventory();
+		inventar.remove(target);
+		b.setOutput_Inventory(inventar);
+	}
+	
+	private void giveBuilding(Items target,ArrayList<Buildings>buildingList) {
+		Buildings b = Buildings.findBuilding(target.getPosition(), buildingList);
+		if(b == null)return;
+		ArrayList<Items> inventar = b.getInput_Inventory();
+		inventar.add(target);
+		b.setInput_Inventory(inventar);
+	}
+	
+	/**
+	 * @brief berechnet und bewegt die Siedler zu seinem Ziel
+	 * @param delta
+	 * @param buildingList
+	 * @return true = angekommen, false = noch nicht da
+	 */
+	private boolean move(double delta,ArrayList<Buildings> buildingList) {
+		Vector2D targetPosition = this.taskWay.peekFirst();
+		if(this.position.getDistance(targetPosition) < 1.0f) {
+			this.taskWay.pollFirst();
+			return true;
+		}
+		
+		walk((float)delta,targetPosition);
+		
+		//items mit bewegen
+		if(this.leftHand != null)this.leftHand.setPosition(this.getPosition());
+		if(this.rightHand != null)this.rightHand.setPosition(this.getPosition());
+		return false;
+	}
 	
 	/**
 	 * @brief geht in die gewünschte richtung

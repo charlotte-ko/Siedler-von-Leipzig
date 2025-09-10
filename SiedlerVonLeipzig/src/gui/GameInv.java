@@ -36,6 +36,11 @@ public class GameInv extends BaseGUI {
 	ImageIcon lumberjack = createSettlerIcon("Lumberjack_1.png", 40, 40);
 	ImageIcon sawyer = createSettlerIcon("Sawyer_1.png", 40, 40);
 	
+	int[] counter = presenter.getCounter();
+	
+	InventoryPresenter presenter;
+	
+	
 	public GameInv() {
 		super("Inventar");
 		
@@ -48,6 +53,14 @@ public class GameInv extends BaseGUI {
 		setLayout();
 		
 		this.setVisible(true);
+	}
+	
+	public void setPresenter(InventoryPresenter presenter) {
+		this.presenter = presenter;
+	}
+	
+	public void setCounter(int[] inventoryCounter) {
+		this.counter = inventoryCounter;
 	}
 	
 	private void setLayout() {
@@ -87,48 +100,48 @@ public class GameInv extends BaseGUI {
 	private void setImages(GridBagConstraints axis) {
 		
 		axis.gridx = 1;
-		this.add(combine(log, 0), axis);
+		this.add(combine(log, counter[0]), axis);
 		
 		axis.gridy = 2;
-		this.add(combine(plank, 0), axis);
+		this.add(combine(plank, counter[1]), axis);
 		
 		axis.gridy = 3;
-		this.add(combine(tree, 0), axis);
+		this.add(combine(tree, counter[2]), axis);
 		
 		axis.gridy = 4;
-		this.add(combine(axe, 0), axis);
+		this.add(combine(axe, counter[2]), axis);
 		
 		axis.gridy = 5;
-		this.add(combine(hammer, 0), axis);
+		this.add(combine(hammer, counter[3]), axis);
 		
 		axis.gridy = 6;
-		this.add(combine(saw, 0), axis);
+		this.add(combine(saw, counter[4]), axis);
 		
 		axis.gridx = 2;
 		axis.gridy = 1;
-		this.add(combine(forester, 0), axis);
+		this.add(combine(forester, counter[5]), axis);
 		
 		axis.gridy = 2;
-		this.add(combine(house, 0), axis);
+		this.add(combine(house, counter[6]), axis);
 		
 		axis.gridy = 3;
-		this.add(combine(sawmill, 0), axis);
+		this.add(combine(sawmill, counter[7]), axis);
 		
 		axis.gridy = 4;
-		this.add(combine(lodge, 0), axis);
+		this.add(combine(lodge, counter[8]), axis);
 		
 		axis.gridx = 3;
 		axis.gridy = 1;
-		this.add(combine(normal, 0), axis);
+		this.add(combine(normal, counter[9]), axis);
 		
 		axis.gridy = 2;
-		this.add(combine(gardener, 0), axis);
+		this.add(combine(gardener, counter[10]), axis);
 		
 		axis.gridy = 3;
-		this.add(combine(lumberjack, 0), axis);
+		this.add(combine(lumberjack, counter[11]), axis);
 		
 		axis.gridy = 4;
-		this.add(combine(sawyer, 0), axis);
+		this.add(combine(sawyer, counter[12]), axis);
 		
 	}
 	
@@ -137,14 +150,10 @@ public class GameInv extends BaseGUI {
 		JPanel panel = new JPanel();
 		panel.setBackground(brown);
 		
-		JLabel num = new JLabel("" + counter);
+		//JLabel num = new JLabel("" + counter);
 		//vielleicht später noch farbe ändern
 		
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 5));
-		
-		panel.add(new JLabel(image));
-		panel.add(num);
-		
 		
 		return panel;
 	}
