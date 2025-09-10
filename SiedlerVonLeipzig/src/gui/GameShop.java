@@ -192,7 +192,7 @@ public class GameShop extends BaseGUI {
 			b.setFocusable(false); 			
 		}
 		
-		house.addActionListener(e -> presenter.onClick());
+		house.addActionListener(e -> presenter.onClick("House"));
 	}
 	/*
 	public void attach() {

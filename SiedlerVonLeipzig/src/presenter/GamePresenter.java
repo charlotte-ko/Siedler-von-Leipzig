@@ -3,10 +3,12 @@ package presenter;
 import gui.Game;
 import gui.GameShop;
 import logic.GameModel;
+import logic.Vector2D;
 
 public class GamePresenter {
 	public GameModel model;
 	public Game view;
+	public boolean waiting;
 	
 	GamePresenter(GameModel model, Game view){
 		this.model = model;
@@ -22,9 +24,29 @@ public class GamePresenter {
 	
 	public void openShop() {
 		GameShop shop = new GameShop();
-		ShopPresenter presenter = new ShopPresenter(model, shop);
+		ShopPresenter presenter = new ShopPresenter(model, shop, this, view);
 		
 		presenter.start();
+	}
+	
+	public void savePos(Vector2D pos) {
+		model.Position = pos;
+	}
+	
+	public void changeMode() {
+		view.placementmode = !view.placementmode;
+		
+	}
+	
+	public void isWaiting() {
+		if(view.placementmode) {
+			waiting = true;
+		}
+	}
+ 	
+	public void place(String building) {
+		
+		model.constructBuilding(building, model.Position);
 	}
 	
 	public void toggleHammer() {

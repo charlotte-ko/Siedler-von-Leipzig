@@ -14,6 +14,7 @@ public class GameModel {
 	public ArrayList<ASettlers> settlerList = new ArrayList<>();
 	
 	public String playerName;
+	public Vector2D Position;
 	
 	GameModel(){
 		this.setupGameField();
