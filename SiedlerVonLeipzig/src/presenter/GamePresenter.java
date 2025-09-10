@@ -26,4 +26,17 @@ public class GamePresenter {
 		
 		presenter.start();
 	}
+	
+	public void toggleHammer() {
+		 {
+				
+				view.hammerActive = !view.hammerActive;
+				
+				if(view.hammerActive) {
+					view.attachHammer();
+				}else {
+					view.removeHammer();
+				}
+			}
+	}
 }

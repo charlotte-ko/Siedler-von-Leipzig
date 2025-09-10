@@ -34,6 +34,9 @@ public class GameShop extends BaseGUI {
 	JButton axe = new JButton(createIcon("Axe.png", 40, 40));
 	JButton saw = new JButton(createIcon("Saw.png", 40, 40));
 	
+	JButton[] leftbuttons = {house, forester, lodge, sawmill};
+	JButton[] rightbuttons = {axe ,saw};
+	
 	ImageIcon logC = createIcon("Log.png", 40, 40);
 	ImageIcon plankC = createIcon("Plank.png", 40, 40);
 	ImageIcon houseC = createIcon("House.png", 80, 80);
@@ -51,11 +54,9 @@ public class GameShop extends BaseGUI {
 		this.getContentPane().setBackground(brown);
 		this.setLayout(new BorderLayout());
 		
-		JPanel menubar = createTopBar();
-		
-		this.add(menubar, BorderLayout.NORTH);
-		this.add(chartLayout());
-		glassPane.setLayout(null);
+
+		setButtons(leftbuttons);
+		setButtons(rightbuttons);
 		
 		addMouseMotionListener(new MouseMotionAdapter() {
 			
@@ -63,11 +64,15 @@ public class GameShop extends BaseGUI {
 			public void mouseMoved(MouseEvent e) {
 				if(active && clickable != null) {
 					clickable.setLocation(e.getX() - 15, e.getY() - 15);
-					glassPane.repaint();
 				}
 			} 
 		});
 		
+
+		JPanel menubar = createTopBar();
+		
+		this.add(menubar, BorderLayout.NORTH);
+		this.add(chartLayout());
 		this.setVisible(true);
 	}
 	
@@ -92,7 +97,6 @@ public class GameShop extends BaseGUI {
 		int index = 0;
 		int index2 = 0;
 		JLabel[] leftlabels = {label1, label2, label3, label4};
-		JButton[] leftbuttons = {house, forester, lodge, sawmill};
 		for(int i = 0; i < 8; i++) {
 			g.gridx = 0;
 			g.gridy = i;
@@ -108,10 +112,7 @@ public class GameShop extends BaseGUI {
 			}
 		}
 		
-		setButtons(leftbuttons);
-		
 		JLabel[] rightlabels = {label5, label6};
-		JButton[] rightbuttons = {axe ,saw};
 		
 		index = 0;
 		index2 = 0;
@@ -129,7 +130,6 @@ public class GameShop extends BaseGUI {
 				index2++;
 			}
 		}
-		setButtons(rightbuttons);
 		return container;
 	}
 
@@ -192,16 +192,18 @@ public class GameShop extends BaseGUI {
 			b.setFocusable(false); 			
 		}
 		
-		house.addActionListener(e -> presenter.onClick(houseC));
+		house.addActionListener(e -> presenter.onClick());
 	}
-
-	public void attach(ImageIcon icon) {
+	/*
+	public void attach() {
 		
 		if(clickable != null) {
 			glassPane.remove(clickable);
 		}
-		clickable = new JLabel(icon);
-		clickable.setSize(icon.getIconWidth(), icon.getIconHeight());
+		
+		ImageIcon image = createIcon("House.png", 40,40);
+		clickable = new JLabel(image);
+		clickable.setSize(image.getIconWidth(), image.getIconHeight());
 		
 		glassPane.setLayout(null);
 		glassPane.add(clickable);
@@ -214,5 +216,5 @@ public class GameShop extends BaseGUI {
 			glassPane.setVisible(false);
 			clickable = null;
 		}
-	}
+	}*/
 }
