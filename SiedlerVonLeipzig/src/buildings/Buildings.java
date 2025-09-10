@@ -16,9 +16,6 @@ import logic.Vector2D;
 
 public abstract class Buildings {
 	
-	/**
-	 * Attribute
-	 */
 	protected final String name;
 	protected Vector2D position;
 	protected ArrayList<Items> input_inventory = new ArrayList<>(); 
