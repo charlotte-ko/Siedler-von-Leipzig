@@ -9,6 +9,7 @@ import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.net.URL;
@@ -20,6 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import logic.GamePanel;
+import logic.Vector2D;
 import presenter.GamePresenter;
 
 public class Game extends BaseGUI {
@@ -37,6 +39,8 @@ public class Game extends BaseGUI {
 	
 	JButton[] buttons = {shop, delete, inventory, end};
 	GamePresenter presenter;
+	
+	public boolean placementmode = false;
 
 	public Game() {
 		
@@ -45,6 +49,22 @@ public class Game extends BaseGUI {
 		setWindowBase(this, 800, 600, null, brown);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new BorderLayout());
+		
+		addMouseListener(new MouseAdapter() {
+			
+			@Override
+			public void mouseClicked(MouseEvent e ) {
+				float x = e.getX();
+				float y = e.getY();
+				
+				presenter.savePos(new Vector2D(x,y));
+				presenter.waiting = false;
+			}
+		});
+		
+		if(placementmode) {
+			
+		}
 		
 		addMouseMotionListener(new MouseMotionAdapter() {
 			

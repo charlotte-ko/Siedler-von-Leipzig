@@ -3,17 +3,24 @@ package presenter;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import gui.Game;
 import gui.GameShop;
 import logic.GameModel;
+import logic.Vector2D;
 
 public class ShopPresenter {
 
 	GameShop view;
+	Game game;
 	GameModel model;
+	GamePresenter presenter;
 	
-	ShopPresenter(GameModel model, GameShop view) {
+	
+	ShopPresenter(GameModel model, GameShop view, GamePresenter presenter, Game game) {
 		this.model = model;
 		this.view = view;
+		this.presenter = presenter;
+		this.game = game;
 		view.setPresenter(this);
 	}
 	
@@ -21,11 +28,16 @@ public class ShopPresenter {
 		view.setVisible(true);
 	}
 	
-	public void onClick() {
+	public void onClick(String building) {
 		
-		System.out.println(view.active);
-		view.active = !view.active;
-		System.out.println(view.active);
+		view.dispose();
+		presenter.changeMode();
+		
+		while(game.placementmode) {
+			if(!presenter.waiting) {
+				presenter.place(building);
+			}
+		}
 	}
 		/*
 		if(view.active) {
