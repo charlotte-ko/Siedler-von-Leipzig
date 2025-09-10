@@ -46,6 +46,9 @@ public class GameModel {
 	
 	public void setupGameField() {
 		//prepare
+		
+		//System.out.println("Aufruf von: " + java.util.Arrays.toString(Thread.currentThread().getStackTrace())); -> ganz nützliche Ausgabe, bitte drin lassen fürs debugging
+		
 				for(int i = 0; i < 10;i++) {
 					for(int j = 0; j < 10;j++) {
 						itemList.add(Items.createItem("Axe", new Vector2D(i,j)));
@@ -88,7 +91,7 @@ public class GameModel {
 	public int[] inventarCounter() {
 		int[] count = new int[14];
 		
-		for(int i = 0; i < 14; i ++) {
+		for(int i = 0; i < 13; i ++) {
 			count[i] = 0;
 		}
 		for(Items i : itemList) {
