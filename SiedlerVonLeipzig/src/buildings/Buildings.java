@@ -172,4 +172,18 @@ public abstract class Buildings {
 		this.input_inventory = newInventory;
 	}
 
+	/**
+	 * @brief gibt Building an der Position zurück oder null
+	 * @param position
+	 * @param buildingList
+	 * @return
+	 */
+	public static Buildings findBuilding(Vector2D position, ArrayList<Buildings> buildingList) {
+		for(Buildings b : buildingList) {
+			if(b.getPosition().same(position)) {
+				return b;
+			}
+		}
+		return null;
+	}
 }

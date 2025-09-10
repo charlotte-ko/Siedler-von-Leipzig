@@ -38,18 +38,23 @@ public class Sawmill extends Buildings {
 
 	/**
 	 * @brief stellt Planks her, nimmt dazu einen Log aus dem Inventar
-	 * @note können wir einfach das letzte Item removen? Löscht das eventuell nicht andere Items?
+	 * @note können wir einfach das letzte Item removen? Löscht das eventuell nicht andere Items? Welche anderen Items ?
+	 * @note Ist sicher gestellt das getInput_Inventory überhaupt einen Eintrag hat ?
 	 */
 	public void makePlanks(double delta, ArrayList<Items> itemList) {
 		workeTime += delta;
 		if(workeTime >= 12.0) {
-			ArrayList<Items> inventory = this.getInput_Inventory();
-			inventory.remove(inventory.size() - 1);
-			this.setInput_Inventory(inventory);
-			inventory = this.getOutput_Inventory();
-			itemList.add(Items.createItem("Plank", this.position));
-			inventory.add(itemList.get(itemList.size() - 1));
-			this.setOutput_Inventory(inventory);
+			ArrayList<Items> inventoryIn = this.getInput_Inventory();
+			ArrayList<Items> inventoryOut = this.getOutput_Inventory();
+			
+			inventoryIn.remove(inventoryIn.size() - 1);
+			Items newCreation = Items.createItem("Plank", this.position);
+			newCreation.setInInventory(true);
+			itemList.add(newCreation);
+			inventoryOut.add(newCreation);
+			
+			this.setInput_Inventory(inventoryIn);
+			this.setOutput_Inventory(inventoryOut);
 			
 			workeTime = 0.0;
 		}

@@ -98,4 +98,12 @@ public class Vector2D {
 		}
 		return true;
 	}
+	/**
+	 * @brief gibt true zurück wenn x und y gleich sind
+	 * @param b
+	 * @return
+	 */
+	public boolean same(Vector2D b) {
+		return (b.x == this.x) ? ((b.y == this.y) ? true:false) : false;
+	}
 }

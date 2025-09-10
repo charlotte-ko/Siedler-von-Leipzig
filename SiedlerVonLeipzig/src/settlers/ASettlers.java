@@ -129,25 +129,27 @@ public abstract class ASettlers{
 				this.setItem(true, target);
 				target.setHeld(true);
 				target.setTargeted(false);
-				if(target.isInInventory());//takeFromBuilding();
+				if(target.isInInventory())takeFromBuilding(target.getPosition(),buildingList,target);
+				target.setInInventory(false);
 				break;
 			case GO_PICKUP_RIGHT:
 				this.setItem(false, target);
 				target.setHeld(true);
 				target.setTargeted(false);
-				if(target.isInInventory());//takeFromBuilding();
+				if(target.isInInventory())takeFromBuilding(target.getPosition(),buildingList,target);
+				target.setInInventory(false);
 				break;
 			case GO_BRING_LEFT:
 				this.getItem(true);
 				target.setHeld(false);
 				target.setTargeted(false);
-				//giveBuilding();
+				giveBuilding(target,buildingList);
 				break;
 			case GO_BRING_RIGHT:
 				this.getItem(false);
 				target.setHeld(false);
 				target.setTargeted(false);
-				//giveBuilding();
+				giveBuilding(target,buildingList);
 				break;
 			case GO_FREE://tut nix
 				break;
@@ -158,6 +160,21 @@ public abstract class ASettlers{
 	
 	protected abstract void update_img(double delta);
 	
+	private void takeFromBuilding(Vector2D position,ArrayList<Buildings> buildingList,Items target) {
+		Buildings b = Buildings.findBuilding(target.getPosition(), buildingList);
+		if(b == null)return;
+		ArrayList<Items> inventar = b.getOutput_Inventory();
+		inventar.remove(target);
+		b.setOutput_Inventory(inventar);
+	}
+	
+	private void giveBuilding(Items target,ArrayList<Buildings>buildingList) {
+		Buildings b = Buildings.findBuilding(target.getPosition(), buildingList);
+		if(b == null)return;
+		ArrayList<Items> inventar = b.getInput_Inventory();
+		inventar.add(target);
+		b.setInput_Inventory(inventar);
+	}
 	
 	/**
 	 * @brief berechnet und bewegt die Siedler zu seinem Ziel
