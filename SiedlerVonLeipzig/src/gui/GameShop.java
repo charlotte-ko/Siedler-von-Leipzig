@@ -2,12 +2,15 @@ package gui;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionAdapter;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
@@ -33,6 +36,11 @@ public class GameShop extends BaseGUI {
 	
 	ImageIcon logC = createIcon("Log.png", 40, 40);
 	ImageIcon plankC = createIcon("Plank.png", 40, 40);
+	ImageIcon houseC = createIcon("House.png", 80, 80);
+	
+	public boolean active = false;
+	private Container glassPane = (Container) getGlassPane();
+	JLabel clickable;
 	
 	public GameShop() {
 		super("Shop");
@@ -47,6 +55,18 @@ public class GameShop extends BaseGUI {
 		
 		this.add(menubar, BorderLayout.NORTH);
 		this.add(chartLayout());
+		glassPane.setLayout(null);
+		
+		addMouseMotionListener(new MouseMotionAdapter() {
+			
+			@Override
+			public void mouseMoved(MouseEvent e) {
+				if(active && clickable != null) {
+					clickable.setLocation(e.getX() - 15, e.getY() - 15);
+					glassPane.repaint();
+				}
+			} 
+		});
 		
 		this.setVisible(true);
 	}
@@ -88,19 +108,28 @@ public class GameShop extends BaseGUI {
 			}
 		}
 		
+		setButtons(leftbuttons);
+		
 		JLabel[] rightlabels = {label5, label6};
 		JButton[] rightbuttons = {axe ,saw};
 		
-		for(int i = 0; i < 2; i++) {
+		index = 0;
+		index2 = 0;
+		for(int i = 0; i < 4; i++) {
 			g.gridx = 1;
 			g.gridy = i;
 			g.weighty = 1.0;
 			g.insets = new Insets(0, 100, 0, 100);
 			if(i%2 == 0) {
-				container.add(rightbuttons[i], g);
+				container.add(rightbuttons[index], g);
+				index++;
 			}
-			else { container.add(rightlabels[i], g); }
+			else { 
+				container.add(rightlabels[index2], g); 
+				index2++;
+			}
 		}
+		setButtons(rightbuttons);
 		return container;
 	}
 
@@ -152,5 +181,38 @@ public class GameShop extends BaseGUI {
 		topBar.setPreferredSize(new Dimension(500, 55));
 		
 		return topBar;
+	}
+	
+	private void setButtons(JButton[] buttons) {
+		for(JButton b : buttons) {
+			b.setPreferredSize(new Dimension(80,80));
+			b.setBackground(brown);
+			b.setOpaque(true);
+			b.setBorderPainted(false);
+			b.setFocusable(false); 			
+		}
+		
+		house.addActionListener(e -> presenter.onClick(houseC));
+	}
+
+	public void attach(ImageIcon icon) {
+		
+		if(clickable != null) {
+			glassPane.remove(clickable);
+		}
+		clickable = new JLabel(icon);
+		clickable.setSize(icon.getIconWidth(), icon.getIconHeight());
+		
+		glassPane.setLayout(null);
+		glassPane.add(clickable);
+		glassPane.setVisible(true);
+	}
+	
+	public void detach() {
+		if(clickable != null) {
+			glassPane.remove(clickable);
+			glassPane.setVisible(false);
+			clickable = null;
+		}
 	}
 }
