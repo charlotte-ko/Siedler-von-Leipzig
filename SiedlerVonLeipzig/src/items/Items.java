@@ -13,7 +13,9 @@ public abstract class Items {
 		protected Vector2D position;
 		//protected Vector2D start_pos;
 		
-		protected boolean held; //gibt an, ob ein Item im Inventar eines Siedlers ist
+		protected boolean held; //gibt an, ob ein Item im Inventar eines Siedlers oder InputInventar eines Gebäudes ist
+		protected boolean targeted;	//wenn es als Ziel an ein Siedler übergeben wurde
+		protected boolean inInventory;//wenn es in einem Hous ist (output inventar)
 		
 		protected String name;
 		
@@ -21,6 +23,8 @@ public abstract class Items {
 		
 		public Items(Vector2D pos) {
 			this.held = false;
+			this.targeted = false;
+			this.inInventory = false;
 			position = pos;
 			
 		}
@@ -35,20 +39,28 @@ public abstract class Items {
 			case "Log": return new Log(pos);
 			case "Plank": return new Plank(pos);
 			case "Tree": return new Tree(pos);
+			case "Nothing":return new Nothing(pos);
 			default: throw new IllegalArgumentException("Unexpected Value: " + item);
 			}
 		}
 		
-		//Wir müssen noch anpassen, dass wir nur Items aus output Inventaren nehmen (sonst nehmen wir aus eigenem)
+		/**
+		 * @brief sucht das nähstgelegene Item, ignoriert alle nicht benutzbaren Items
+		 * @param current_pos
+		 * @param ItemList
+		 * @param target
+		 * @return Item oder null wenn es nichts findet
+		 */
 		public static Items closestItem(Vector2D current_pos, ArrayList<Items> ItemList, String target) {
 			
 			float min_distance = Float.POSITIVE_INFINITY;
 			Items finalItem = null;
 		
 			for(Items item : ItemList) {
-				if(!item.getName().equals(target) && !item.isHeld()) {
+				if(!item.getName().equals(target) && !item.isHeld() && !item.isTargeted()) {
 					continue;
 				}
+				
 				float distance = current_pos.getDistance(item.getPosition());
 				if(distance < min_distance) {
 					min_distance = distance;
@@ -71,6 +83,22 @@ public abstract class Items {
 		
 		public void setHeld(boolean held) {
 			this.held = held;
+		}
+		
+		public boolean isTargeted() {
+			return targeted;
+		}
+		
+		public void setTargeted(boolean targeted) {
+			this.targeted = targeted;
+		}
+		
+		public boolean isInInventory() {
+			return inInventory;
+		}
+		
+		public void setInInventory(boolean inInventory) {
+			this.inInventory = inInventory;
 		}
 		
 		public String getName() {

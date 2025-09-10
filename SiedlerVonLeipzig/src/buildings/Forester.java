@@ -45,6 +45,7 @@ public class Forester extends Buildings {
 	 */
 	public void plantTree(ASettlers worker, Vector2D plantPos) {
 		if(this.getOutput_Inventory().isEmpty())return;
+		
 		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, this.getOutput_Inventory().get(this.getOutput_Inventory().size()-1));
 		worker.giveSettlerTask(plantPos, SettlersAktion.GO_BRING_RIGHT, null);
 		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_FREE, null);
@@ -71,6 +72,7 @@ public class Forester extends Buildings {
 			passtime += Delta;
 			if(passtime >= 6.0) {
 				this.output_inventory.add(new Tree(this.getPosition()));
+				this.output_inventory.get(this.output_inventory.size()-1).setInInventory(true);
 				passtime = 0.0;
 			}
 		}

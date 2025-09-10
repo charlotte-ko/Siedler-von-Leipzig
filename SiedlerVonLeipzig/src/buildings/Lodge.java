@@ -78,12 +78,12 @@ public class Lodge extends Buildings{
 	 * @param BuildingsList
 	 * @param ItemList
 	 * @note bin mir grad nicht sicher ob man mit getAxe noch was machen muss, oder ob das im nächsten Frame nen Log mit dem Bre sucht
+	 * @note e.v muss das input_inventar direkt in das output_inventar überführt werden
 	 */
 	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
 		
 		//Diesen Teil eventuell auslagern
 		if(!hasEmployee) {
-			
 			this.employee = this.findEmployee(settlerList, SettlersJobs.JOB_LUMBERJACK);
 			
 			if(employee == null) {
