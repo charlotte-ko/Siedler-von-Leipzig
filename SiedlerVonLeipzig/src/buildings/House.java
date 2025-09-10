@@ -33,7 +33,9 @@ public class House extends Buildings {
 	 */
 	public House(Vector2D pos) {
 		super("House", 10, pos);
+		this.name = "House";
 		img = houseImg1;
+		
 	}
 	
 	/**

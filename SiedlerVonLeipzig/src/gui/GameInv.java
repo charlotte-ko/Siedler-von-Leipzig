@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 
+import presenter.InventoryPresenter;
+
 public class GameInv extends BaseGUI {
 	
 	ImageIcon log = createIcon("Log.png", 40,40);
@@ -36,7 +38,7 @@ public class GameInv extends BaseGUI {
 	ImageIcon lumberjack = createSettlerIcon("Lumberjack_1.png", 40, 40);
 	ImageIcon sawyer = createSettlerIcon("Sawyer_1.png", 40, 40);
 	
-	int[] counter = presenter.getCounter();
+	int[] counter;
 	
 	InventoryPresenter presenter;
 	
@@ -50,17 +52,18 @@ public class GameInv extends BaseGUI {
 		this.getContentPane().setBackground(brown);
 		this.setLayout(new GridBagLayout());
 		
-		setLayout();
-		
-		this.setVisible(true);
 	}
 	
 	public void setPresenter(InventoryPresenter presenter) {
 		this.presenter = presenter;
+		presenter.getCounter();
+		setCounter();
+		setLayout();
+		this.setVisible(true);
 	}
 	
-	public void setCounter(int[] inventoryCounter) {
-		this.counter = inventoryCounter;
+	public void setCounter() {
+		this.counter = presenter.getCounter();
 	}
 	
 	private void setLayout() {
@@ -154,7 +157,8 @@ public class GameInv extends BaseGUI {
 		//vielleicht später noch farbe ändern
 		
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 5));
-		
+		panel.add(new JLabel(image));
+		panel.add(new JLabel("" + counter));
 		return panel;
 	}
 }

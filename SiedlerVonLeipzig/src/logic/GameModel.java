@@ -87,8 +87,12 @@ public class GameModel {
 	 */
 	public int[] inventarCounter() {
 		int[] count = new int[14];
+		
+		for(int i = 0; i < 14; i ++) {
+			count[i] = 0;
+		}
 		for(Items i : itemList) {
-			switch(i.getClass().toString()) {
+			switch(i.getName()) {
 				case "Log": count[0]++;break;
 				case "Plank": count[1]++;break;
 				case "Tree": count[2]++;break;
@@ -98,7 +102,7 @@ public class GameModel {
 			}
 		}
 		for(Buildings b : buildingList) {
-			switch(b.getClass().toString()) {
+			switch(b.getName()) {
 				case "Forester": count[6]++;break;
 				case "House": count[7]++;break;
 				case "Sawmill": count[8]++;break;

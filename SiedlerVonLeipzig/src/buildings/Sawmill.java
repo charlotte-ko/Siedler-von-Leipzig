@@ -33,6 +33,7 @@ public class Sawmill extends Buildings {
 	public Sawmill(Vector2D pos) {
 		super("Sawmill", 10, pos); 
 		this.hasEmployee = false;
+		this.name = "Sawmill";
 		img = sawmillImg1;
 	}
 

@@ -2,6 +2,7 @@ package presenter;
 
 import gui.Exit;
 import gui.Game;
+import gui.GameInv;
 import gui.GameShop;
 import logic.GameModel;
 import logic.Vector2D;
@@ -27,6 +28,12 @@ public class GamePresenter {
 		GameShop shop = new GameShop();
 		ShopPresenter presenter = new ShopPresenter(model, shop, this, view);
 		
+		presenter.start();
+	}
+	
+	public void openInventory() {
+		GameInv inventory = new GameInv();
+		InventoryPresenter presenter = new InventoryPresenter(inventory, model);
 		presenter.start();
 	}
 	

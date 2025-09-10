@@ -16,7 +16,6 @@ import logic.Vector2D;
 
 public abstract class Buildings {
 	
-	protected final String name;
 	protected Vector2D position;
 	protected ArrayList<Items> input_inventory = new ArrayList<>(); 
 	protected ArrayList<Items> output_inventory = new ArrayList<>();
@@ -25,6 +24,7 @@ public abstract class Buildings {
 	protected ASettlers employee;
 	protected boolean hasEmployee;
 	protected BufferedImage img;
+	protected String name;
 	
 	public void draw(Graphics2D g2, int tileSize,Vector2D camPos) {
 		//eins nach oben eins nach links
@@ -185,5 +185,9 @@ public abstract class Buildings {
 			}
 		}
 		return null;
+	}
+	
+	public  String getName() {
+		return this.name;
 	}
 }

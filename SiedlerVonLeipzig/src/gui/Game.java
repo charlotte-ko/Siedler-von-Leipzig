@@ -152,7 +152,7 @@ public class Game extends BaseGUI {
 		}
 	
 		shop.addActionListener(e -> presenter.openShop());
-		inventory.addActionListener(e -> new GameInv());
+		inventory.addActionListener(e -> presenter.openInventory());
 		
 		delete.addActionListener(e -> presenter.toggleHammer());
 		end.addActionListener(e -> presenter.openExit());

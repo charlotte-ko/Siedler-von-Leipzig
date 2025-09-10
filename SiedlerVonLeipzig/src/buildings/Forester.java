@@ -35,6 +35,7 @@ public class Forester extends Buildings {
 	public Forester(Vector2D pos) {
 		super("Forester", 10, pos);
 		this.hasEmployee = false;
+		this.name = "Forester";
 		img = foresterImg1;
 	}
 	
