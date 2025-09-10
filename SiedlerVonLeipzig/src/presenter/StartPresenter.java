@@ -35,4 +35,8 @@ public class StartPresenter {
 		GamePresenter gPresenter = new GamePresenter(model,gView);
 		gPresenter.start();
 	}
+	
+	public void end() {
+		System.exit(0);
+	}
 }

@@ -25,7 +25,7 @@ import presenter.GamePresenter;
 public class Game extends BaseGUI {
 	
 	private ImageIcon hammerIcon = createIcon("Hammer.png", 40, 40);
-	private boolean hammerActive = false;
+	public boolean hammerActive = false;
 	private JLabel hammerLabel;
 	private Container glassPane = (Container) getGlassPane();
 	
@@ -131,23 +131,14 @@ public class Game extends BaseGUI {
 			b.setFocusable(false); 			//Ich hoffe das macht kein problem
 		}
 	
-		shop.addActionListener(e -> new GameShop());
+		shop.addActionListener(e -> presenter.openShop());
 		inventory.addActionListener(e -> new GameInv());
 		
-		delete.addActionListener(e -> {
-			
-			hammerActive = !hammerActive;
-			
-			if(hammerActive) {
-				attachHammer();
-			}else {
-				removeHammer();
-			}
-		});
+		delete.addActionListener(e -> presenter.toggleHammer());
 		end.addActionListener(e -> new Exit());
 	}
 	
-	private void attachHammer() {
+	public void attachHammer() {
 		
 		if(hammerLabel != null) {
 			glassPane.remove(hammerLabel);
@@ -161,7 +152,7 @@ public class Game extends BaseGUI {
 	    glassPane.setVisible(true);
 	}
 	
-	private void removeHammer() {
+	public void removeHammer() {
 	    if (hammerLabel != null) {
 	        glassPane.remove(hammerLabel);
 	        glassPane.setVisible(false);
