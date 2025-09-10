@@ -1,5 +1,6 @@
 package presenter;
 
+import gui.Exit;
 import gui.Game;
 import gui.GameShop;
 import logic.GameModel;
@@ -26,6 +27,12 @@ public class GamePresenter {
 		GameShop shop = new GameShop();
 		ShopPresenter presenter = new ShopPresenter(model, shop, this, view);
 		
+		presenter.start();
+	}
+	
+	public void openExit() {
+		Exit exit = new Exit();
+		ExitPresenter presenter = new ExitPresenter(exit, model);
 		presenter.start();
 	}
 	

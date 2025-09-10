@@ -155,7 +155,7 @@ public class Game extends BaseGUI {
 		inventory.addActionListener(e -> new GameInv());
 		
 		delete.addActionListener(e -> presenter.toggleHammer());
-		end.addActionListener(e -> new Exit());
+		end.addActionListener(e -> presenter.openExit());
 	}
 	
 	public void attachHammer() {

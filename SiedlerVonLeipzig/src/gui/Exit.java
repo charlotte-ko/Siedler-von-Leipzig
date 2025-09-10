@@ -11,12 +11,16 @@ import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 
+import presenter.ExitPresenter;
+
 public class Exit extends BaseGUI {
 	
 	JButton save = new JButton("Speichern");
 	JButton end = new JButton("Beenden");
 	JButton send = new JButton("Speichern & Beenden");
 
+	ExitPresenter presenter;
+	
 	public Exit() {
 		super("Speichern & Beenden");
 		
@@ -63,6 +67,10 @@ public class Exit extends BaseGUI {
 		end.setPreferredSize(new Dimension(150,60));
 		end.setBackground(lightsalmon);
 		end.setBorderPainted(false);
-		end.addActionListener(e -> System.exit(0));
+		end.addActionListener(e -> presenter.exit());
+	}
+	
+	public void setPresenter(ExitPresenter presenter) {
+		this.presenter = presenter;
 	}
 }
