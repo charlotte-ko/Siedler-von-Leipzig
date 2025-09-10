@@ -131,7 +131,7 @@ public class Game extends BaseGUI {
 			b.setFocusable(false); 			//Ich hoffe das macht kein problem
 		}
 	
-		shop.addActionListener(e -> new GameShop());
+		shop.addActionListener(e -> presenter.openShop());
 		inventory.addActionListener(e -> new GameInv());
 		
 		delete.addActionListener(e -> {

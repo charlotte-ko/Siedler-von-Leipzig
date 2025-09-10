@@ -11,20 +11,28 @@ import java.awt.Insets;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import presenter.ShopPresenter;
+
 public class GameShop extends BaseGUI {
 
-	ImageIcon log = createIcon("Log.png", 40, 40);
-	ImageIcon plank = createIcon("Plank.png", 40, 40);
-	ImageIcon house = createIcon("House.png", 80, 80);
-	ImageIcon forester = createIcon("Forester.png", 80, 80);
-	ImageIcon lodge = createIcon("Lodge.png", 80, 80);
-	ImageIcon sawmill = createIcon("Sawmill.png", 80, 80);
-	ImageIcon axe = createIcon("Axe.png", 40, 40);
-	ImageIcon saw = createIcon("Saw.png", 40, 40);
+	ShopPresenter presenter;
+	
+	JButton log = new JButton(createIcon("Log.png", 40, 40));
+	JButton plank = new JButton(createIcon("Plank.png", 40, 40));
+	JButton house = new JButton(createIcon("House.png", 80, 80));
+	JButton forester = new JButton(createIcon("Forester.png", 80, 80));
+	JButton lodge = new JButton(createIcon("Lodge.png", 80, 80));
+	JButton sawmill = new JButton(createIcon("Sawmill.png", 80, 80));
+	JButton axe = new JButton(createIcon("Axe.png", 40, 40));
+	JButton saw = new JButton(createIcon("Saw.png", 40, 40));
+	
+	ImageIcon logC = createIcon("Log.png", 40, 40);
+	ImageIcon plankC = createIcon("Plank.png", 40, 40);
 	
 	public GameShop() {
 		super("Shop");
@@ -43,42 +51,55 @@ public class GameShop extends BaseGUI {
 		this.setVisible(true);
 	}
 	
+	public void setPresenter(ShopPresenter presenter) {
+		this.presenter = presenter;
+	}
+	
 	private JPanel chartLayout() {
 		
-		JLabel label1 = new JLabel(house);
-		JLabel label2 = createLabel("Haus:", 100, 30);
-		JLabel label3 = new JLabel(forester);
-		JLabel label4 = createLabel("Försterei:", 100, 30);
-		JLabel label5 = new JLabel(lodge);
-		JLabel label6 = createLabel("Lodge:", 100, 30); 
-		JLabel label7 = new JLabel(sawmill);
-		JLabel label8 = createLabel("Sägemühle:", 100, 30);
-		JLabel label9 = new JLabel(axe);
-		JLabel label10 = createLabel("Axt:", 100, 30);
-		JLabel label11 = new JLabel(saw);
-		JLabel label12 = createLabel("Säge:", 100, 30);
+		JLabel label1 = createLabel("Haus:", 100, 30);
+		JLabel label2 = createLabel("Försterei:", 100, 30);
+		JLabel label3 = createLabel("Lodge:", 100, 30); 
+		JLabel label4 = createLabel("Sägemühle:", 100, 30);
+		JLabel label5 = createLabel("Axt:", 100, 30);
+		JLabel label6 = createLabel("Säge:", 100, 30);
 		
 		JPanel container = new JPanel(new GridBagLayout());
 		GridBagConstraints g = new GridBagConstraints();
 		
 		container.setOpaque(false);
 		
-		JLabel[] leftlabels = {label1, label2, label3, label4, label5, label6, label7, label8};
-		for(int i = 0; i < leftlabels.length; i++) {
+		int index = 0;
+		int index2 = 0;
+		JLabel[] leftlabels = {label1, label2, label3, label4};
+		JButton[] leftbuttons = {house, forester, lodge, sawmill};
+		for(int i = 0; i < 8; i++) {
 			g.gridx = 0;
 			g.gridy = i;
 			g.weighty = 1.0;
 			g.insets = new Insets(0, 10, 0, 100);
-			container.add(leftlabels[i], g);
+			if(i%2 == 0) {
+				container.add(leftbuttons[index], g);
+				index++;
+			}
+			else { 
+				container.add(leftlabels[index2], g);
+				index2++;
+			}
 		}
 		
-		JLabel[] rightlabels = {label9, label10, label11, label12};
-		for(int i = 0; i < rightlabels.length; i++) {
+		JLabel[] rightlabels = {label5, label6};
+		JButton[] rightbuttons = {axe ,saw};
+		
+		for(int i = 0; i < 2; i++) {
 			g.gridx = 1;
 			g.gridy = i;
 			g.weighty = 1.0;
 			g.insets = new Insets(0, 100, 0, 100);
-			container.add(rightlabels[i], g);
+			if(i%2 == 0) {
+				container.add(rightbuttons[i], g);
+			}
+			else { container.add(rightlabels[i], g); }
 		}
 		return container;
 	}
@@ -104,10 +125,10 @@ public class GameShop extends BaseGUI {
 		g.insets = new Insets(0,10,0,10);
 		g.fill = GridBagConstraints.BOTH;
 		
-		JLabel label1 = new JLabel(log);
+		JLabel label1 = new JLabel(logC);
 		JLabel label2 = createLabel("Baumstämme:", 100, 30);
 		JLabel label3 = new JLabel("0");
-		JLabel label4 = new JLabel(plank);
+		JLabel label4 = new JLabel(plankC);
 		JLabel label5 = createLabel("Bretter:", 100, 30);
 		JLabel label6 = new JLabel("0");
 		

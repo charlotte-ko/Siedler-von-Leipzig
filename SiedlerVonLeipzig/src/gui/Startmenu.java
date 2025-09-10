@@ -59,7 +59,7 @@ public class Startmenu extends BaseGUI{
 	
 		button1.addActionListener(e -> presenter.buttonStartNewGame());
 		
-		button5.addActionListener(e -> System.exit(0));
+		button5.addActionListener(e -> presenter.end());
 	}
 	
 	

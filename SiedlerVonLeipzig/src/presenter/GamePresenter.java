@@ -1,6 +1,7 @@
 package presenter;
 
 import gui.Game;
+import gui.GameShop;
 import logic.GameModel;
 
 public class GamePresenter {
@@ -19,5 +20,10 @@ public class GamePresenter {
 		view.setVisible(true);
 	}
 	
-	
+	public void openShop() {
+		GameShop shop = new GameShop();
+		ShopPresenter presenter = new ShopPresenter(model, shop);
+		
+		presenter.start();
+	}
 }
