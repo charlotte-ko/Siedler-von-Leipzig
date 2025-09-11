@@ -37,6 +37,7 @@ public class GamePanel extends JPanel implements Runnable{
 	double drawIntervalNanos = 1_000_000_000.0 /FPS;
 	
 	Thread gameThread;
+	Object key;
 	
 	ArrayList<Items> itemList;
 	ArrayList<Buildings> buildingList;
@@ -65,6 +66,7 @@ public class GamePanel extends JPanel implements Runnable{
 		itemList = presenter.model.itemList;
 		buildingList = presenter.model.buildingList;
 		settlerList = presenter.model.settlerList;
+		this.key = presenter.model.key;
 		gameThread = new Thread(this);
 		gameThread.start();
 	}
@@ -145,13 +147,15 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		//Update funktion der Siedler und Gebäude durchgehen
 		//player.update();
-		for(Buildings b : buildingList) {
-			b.update(delta, settlerList, buildingList, itemList);
+		synchronized(key) {
+			for(Buildings b : buildingList) {
+				b.update(delta, settlerList, buildingList, itemList);
+			}
+			for(ASettlers s : settlerList) {
+				s.update(delta, settlerList, buildingList, itemList);
+			}
+			renderSort(itemList,buildingList,settlerList);
 		}
-		for(ASettlers s : settlerList) {
-			s.update(delta, settlerList, buildingList, itemList);
-		}
-		renderSort(itemList,buildingList,settlerList);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -261,4 +265,5 @@ public class GamePanel extends JPanel implements Runnable{
 		}
 
 	}
+	
 }
