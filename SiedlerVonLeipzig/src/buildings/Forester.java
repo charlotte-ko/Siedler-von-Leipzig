@@ -87,8 +87,8 @@ public class Forester extends Buildings{
 			Vector2D plantPos = new Vector2D();
 			float moreRange = 0.0f;
 			do {
-				plantPos = this.getPosition().genPos(3.0f+moreRange);
-				moreRange += 0.2;
+				plantPos = this.getPosition().genPos(4.0f+moreRange);
+				moreRange += 0.01;
 			}while(!plantPos.testPos(BuildingsList, itemList));
 		
 			this.plantTree(employee, plantPos);

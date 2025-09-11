@@ -60,10 +60,16 @@ public class GameModel {
 		ASettlers settler1 = ASettlers.createSettler(new Vector2D(0.0f,0.0f));
 		Items item1 = Items.createItem("Log", new Vector2D(5.0f,0.0f));
 		Buildings building1 = Buildings.createBuilding("Forester", new Vector2D(0.0f,5.0f));
+		Buildings building2 = Buildings.createBuilding("House", new Vector2D(5.0f,5.0f));
+		Buildings building3 = Buildings.createBuilding("Forester", new Vector2D(5.0f,10.0f));
+		
 		settler1.setSpeed(6.0f);
+		
 		settlerList.add(settler1);
 		itemList.add(item1);
 		buildingList.add(building1);
+		buildingList.add(building2);
+		buildingList.add(building3);
 		
 		settler1.giveSettlerTask(item1.getPosition(), SettlersAktion.GO_PICKUP_LEFT, item1);
 		settler1.giveSettlerTask(settler1.getPosition(), SettlersAktion.GO_BRING_LEFT, item1);
