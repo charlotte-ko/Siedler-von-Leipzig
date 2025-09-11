@@ -22,11 +22,23 @@ public class StartPresenter {
 	 * @brief aufgerufen wenn Button1 Start new Game gedrückt wird
 	 */
 	public void buttonStartNewGame() {
+		model.fillMap();
 		view.openNewGame();
 	}
 	
 	public void setPlayerName(String name) {
 		model.playerName = name;
+	}
+	
+	/*
+	 * @brief wird aufgerufen wenn Debug Modus gestartet wird
+	 */
+	public void buttonDebugging() {
+		view.dispose();
+		model.fillMap();
+		Game debug = new Game();
+		GamePresenter gPresenter = new GamePresenter(model, debug);
+		gPresenter.startDebug();
 	}
 	
 	public void makeNewGame() {

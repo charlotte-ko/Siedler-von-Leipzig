@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import items.Items;
+import logic.Purchasable;
 import logic.Vector2D;
 import settlers.ASettlers;
 import settlers.SettlersAktion;
@@ -17,7 +18,8 @@ import settlers.SettlersJobs;
 public class Lodge extends Buildings{
 	private static BufferedImage lodgeImg1;
 	private static BufferedImage lodgeImg2;
-	
+	public static int price = 20;
+	public static String name = "Lodge";
 	static {
 		try {
 			lodgeImg1 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Lodge.png"));
@@ -35,9 +37,8 @@ public class Lodge extends Buildings{
 	 * @param pos
 	 */
 	public Lodge(Vector2D pos) {
-		super("Lodge", 10, pos);
+		super("Lodge", pos);
 		this.hasEmployee = false;
-		this.name = "Lodge";
 		img = lodgeImg1;
 	}
 
@@ -97,5 +98,9 @@ public class Lodge extends Buildings{
 			this.getLogs(employee, ItemList);
 		}
 		else this.getAxe(ItemList);
+	}
+	
+	public static int getPrice() {
+		return price;
 	}
 }

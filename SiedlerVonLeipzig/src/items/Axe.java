@@ -8,6 +8,8 @@ import logic.Vector2D;
 
 public class Axe extends Items {
 	
+	public static int price = 5;
+	
 	public Axe(Vector2D pos) {
 		super(pos);
 		this.name = "Axe";
@@ -16,6 +18,10 @@ public class Axe extends Items {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static int getPrice() {
+		return price;
 	}
 
 }

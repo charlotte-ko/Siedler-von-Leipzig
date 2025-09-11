@@ -22,7 +22,12 @@ public class GamePresenter {
 	}
 
 	public void start() {
-		//model.setupGameField(); Wird bereits über den Konstruktor von GameModel gestartet
+		view.startGameLoop();
+		view.setVisible(true);
+	}
+	
+	public void startDebug() {
+		model.setupDebug();
 		view.startGameLoop();
 		view.setVisible(true);
 	}
@@ -49,8 +54,28 @@ public class GamePresenter {
 	public void savePos(Vector2D pos) {
 		model.Position = pos;
 		if(placeBuilding) {
+			switch(placeBuildingName) {
+			case "House": 
+				model.constructBuilding(placeBuildingName,screenToWorld(pos));
+				break;
+			case "Forester": 
+				model.constructBuilding(placeBuildingName,screenToWorld(pos));
+				break;
+			case "Lodge": 
+				model.constructBuilding(placeBuildingName,screenToWorld(pos));
+				break;
+			case "Sawmill": 
+				model.constructBuilding(placeBuildingName,screenToWorld(pos));
+				break;
+			case "Axe": 
+				model.constructItem(placeBuildingName,screenToWorld(pos));
+				break;
+			case "Saw": 
+				model.constructItem(placeBuildingName,screenToWorld(pos));
+				break;
+			default: model.constructItem(null, pos);
+			}
 			//checken ob kein anderes Building da ist
-			model.constructBuilding(placeBuildingName,screenToWorld(pos));
 			placeBuilding = false;
 		}
 	}
@@ -62,26 +87,16 @@ public class GamePresenter {
 		y += camPos.y;
 		return new Vector2D(x,y);
 	}
-	
-	public void changeMode() {
-		view.placementmode = true;
-		
-	}
-	
-	public void isWaiting() {
-		if(view.placementmode) {
-			waiting = true;
-		}
-	}
  	
 	boolean placeBuilding = false;
 	String placeBuildingName;
-	public void place(String building) {
+	
+	public void place(String placed) {
 		//warten bis geklickt wurde
 		//checken ob abstand passt
 		//model.constructBuilding(building, model.Position);
 		placeBuilding = true;
-		placeBuildingName = building;
+		placeBuildingName = placed;
 	}
 	
 	public void toggleHammer() {

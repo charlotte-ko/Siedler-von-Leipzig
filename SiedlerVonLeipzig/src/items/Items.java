@@ -17,6 +17,8 @@ public abstract class Items {
 		protected boolean targeted;	//wenn es als Ziel an ein Siedler übergeben wurde
 		protected boolean inInventory;//wenn es in einem Hous ist (output inventar)
 		
+		public final int price;
+		
 		protected String name;
 		
 		protected BufferedImage img;
@@ -26,7 +28,7 @@ public abstract class Items {
 			this.targeted = false;
 			this.inInventory = false;
 			position = new Vector2D(pos);
-			
+			this.price = 10;
 		}
 		
 		public static Items createItem(String item, Vector2D pos) {

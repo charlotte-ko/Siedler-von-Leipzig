@@ -9,11 +9,14 @@ import javax.imageio.ImageIO;
 
 import items.Items;
 import settlers.ASettlers;
+import logic.Purchasable;
 import logic.Vector2D;
 
-public class House extends Buildings {
+public class House extends Buildings{
 	private static BufferedImage houseImg1;
 	private static BufferedImage houseImg2;
+	public static int price = 20;
+	public static String name = "House";
 	
 	static {
 		try {
@@ -32,8 +35,7 @@ public class House extends Buildings {
 	 * @param pos
 	 */
 	public House(Vector2D pos) {
-		super("House", 10, pos);
-		this.name = "House";
+		super("House", pos);
 		img = houseImg1;
 		
 	}
@@ -63,5 +65,9 @@ public class House extends Buildings {
 			}
 			
 		}
+	}
+	
+	public static int getPrice() {
+		return price;
 	}
 }

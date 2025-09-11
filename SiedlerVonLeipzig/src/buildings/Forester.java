@@ -9,14 +9,17 @@ import javax.imageio.ImageIO;
 
 import items.Items;
 import items.Tree;
+import logic.Purchasable;
 import logic.Vector2D;
 import settlers.ASettlers;
 import settlers.SettlersAktion;
 import settlers.SettlersJobs;
 
-public class Forester extends Buildings {
+public class Forester extends Buildings{
 	private static BufferedImage foresterImg1;
 	private static BufferedImage foresterImg2;
+	protected static int price = 20;
+	protected static String name = "Forester";
 	
 	static {
 		try {
@@ -33,9 +36,8 @@ public class Forester extends Buildings {
 	 * @param pos
 	 */
 	public Forester(Vector2D pos) {
-		super("Forester", 10, pos);
+		super("Forester", pos);
 		this.hasEmployee = false;
-		this.name = "Forester";
 		img = foresterImg1;
 	}
 	
@@ -91,5 +93,9 @@ public class Forester extends Buildings {
 		
 			this.plantTree(employee, plantPos);
 		}
+	}
+
+	public static int getPrice() {
+		return price;
 	}
  }
