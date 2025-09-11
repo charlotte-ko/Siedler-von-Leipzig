@@ -52,7 +52,7 @@ public class Lodge extends Buildings{
 		Items tree = Items.closestItem(worker.getPosition(), itemList, "Tree");
 		worker.giveSettlerTask(tree.getPosition(), SettlersAktion.GO_PICKUP_LEFT, tree);
 		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, tree);
-		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_MAKE, null);
+		//worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_MAKE, null);
 	}
 	
 	/**
@@ -65,9 +65,12 @@ public class Lodge extends Buildings{
 			return;
 		}
 		else if (this.employee.getJobName().equals(SettlersJobs.JOB_NORMAL)){
+			employee.setJobName(SettlersJobs.JOB_LUMBERJACK);
 			employee.giveSettlerTask(axe.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, axe);
+			//employee.giveSettlerTask(this.getPosition(), SettlersAktion.GO_FREE, null);
 		}
 		else {
+			employee.setJobName(SettlersJobs.JOB_LUMBERJACK);
 			employee.giveSettlerTask(employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, employee.getItem(false));
 			employee.giveSettlerTask(axe.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, axe);
 		}
@@ -93,11 +96,12 @@ public class Lodge extends Buildings{
 			}
 			else this.hasEmployee = true;
 		}
-		
-		if(this.employee.getJobName().equals(SettlersJobs.JOB_LUMBERJACK) && this.getInput_Inventory().size() < 10) {
-			this.getLogs(employee, ItemList);
+		if(!employee.isWorking()) {
+			if(this.employee.getJobName().equals(SettlersJobs.JOB_LUMBERJACK) && this.getInput_Inventory().size() < 10) {
+				this.getLogs(employee, ItemList);
+			}
+			else this.getAxe(ItemList);
 		}
-		else this.getAxe(ItemList);
 	}
 	
 	public static int getPrice() {
