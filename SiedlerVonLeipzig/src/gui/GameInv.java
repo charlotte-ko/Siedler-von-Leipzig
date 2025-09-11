@@ -4,6 +4,7 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -38,6 +39,7 @@ public class GameInv extends BaseGUI {
 	ImageIcon lumberjack = createSettlerIcon("Lumberjack_1.png", 40, 40);
 	ImageIcon sawyer = createSettlerIcon("Sawyer_1.png", 40, 40);
 	
+	Font hehe = new Font("Comic Sans MS", Font.BOLD, 16);
 	int[] counter;
 	
 	InventoryPresenter presenter;
@@ -83,18 +85,37 @@ public class GameInv extends BaseGUI {
 	
 	private void setCategories(GridBagConstraints axis) {
 		
+		JLabel materials = new JLabel("Materialien");
+		JLabel buildings = new JLabel("Gebäude");
+		JLabel settlers = new JLabel("Siedler");
+		
 		axis.gridx = 0;
 		axis.gridwidth = 1;
 		//this.add(Box.createHorizontalGlue(), axis);
 		
+		materials.setFont(hehe);
+		materials.setPreferredSize(new Dimension(300, 100));
+		materials.setBackground(pine);
+		materials.setForeground(foresty);
+		materials.setOpaque(true);
 		axis.gridx = 1;
-		this.add(new JLabel("Materialien"), axis);
+		this.add(materials, axis);
 		
+		buildings.setFont(hehe);
+		buildings.setPreferredSize(new Dimension(500, 500));
+		buildings.setBackground(pine);
+		buildings.setForeground(foresty);
+		buildings.setOpaque(true);
 		axis.gridx = 2;
-		this.add(new JLabel("Gebäude"), axis);
+		this.add(buildings, axis);
 		
+		settlers.setFont(hehe);
+		settlers.setPreferredSize(new Dimension(500, 500));
+		settlers.setBackground(pine);
+		settlers.setForeground(foresty);
+		settlers.setOpaque(true);
 		axis.gridx = 3;
-		this.add(new JLabel("Siedler"), axis);
+		this.add(settlers, axis);
 		
 		axis.gridx = 4;
 		//this.add(Box.createHorizontalGlue(), axis);	
@@ -152,13 +173,21 @@ public class GameInv extends BaseGUI {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(brown);
-		
 		//JLabel num = new JLabel("" + counter);
-		//vielleicht später noch farbe ändern
 		
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 5));
 		panel.add(new JLabel(image));
-		panel.add(new JLabel("" + counter));
+		
+		String counterT = String.valueOf(counter);
+		JLabel counterL = new JLabel(counterT);
+		
+		counterL.setForeground(foresty);
+		counterL.setFont(hehe);
+		
+		panel.setBorder(BorderFactory.createLineBorder(foresty, 3));
+		panel.setBackground(pine);
+		panel.add(counterL);
+	
 		return panel;
 	}
 }

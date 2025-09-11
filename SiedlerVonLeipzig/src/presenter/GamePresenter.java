@@ -19,7 +19,7 @@ public class GamePresenter {
 	}
 
 	public void start() {
-		model.setupGameField();
+		//model.setupGameField(); Wird bereits über den Konstruktor von GameModel gestartet
 		view.startGameLoop();
 		view.setVisible(true);
 	}
