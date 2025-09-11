@@ -74,6 +74,21 @@ public class GameModel {
 		settler1.giveSettlerTask(item1.getPosition(), SettlersAktion.GO_PICKUP_LEFT, item1);
 		settler1.giveSettlerTask(settler1.getPosition(), SettlersAktion.GO_BRING_LEFT, item1);
 	}
+	public void setupGameFieldDebug2() {
+		ArrayList<ASettlers> settlerStart = new ArrayList<>();
+		ArrayList<Items> itemStart = new ArrayList<>();
+		ArrayList<Buildings> buildingStart = new ArrayList<>();
+		
+		settlerStart.add(ASettlers.createSettler(new Vector2D()));
+		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,5.0f)));
+		itemStart.add(Items.createItem("Axe", new Vector2D(5.0f,5.0f)));
+		buildingStart.add(Buildings.createBuilding("Lodge", new Vector2D(5.0f,0.0f)));
+		
+		for(ASettlers s : settlerStart)settlerList.add(s);
+		for(Items i : itemStart)itemList.add(i);
+		for(Buildings b : buildingStart)buildingList.add(b);
+	}
+	
 	public void setupGameField() {
 		setupGameFieldDebug1Settler();
 	}
@@ -83,7 +98,8 @@ public class GameModel {
 		oldList = newList;
 	}
 	public void setupDebug() {
-		setupGameFieldDebug1Settler();
+		setupGameFieldDebug2();
+		//setupGameFieldDebug1Settler();
 		//setupDebugBigTest();
 	}
 	public void setupDebugBigTest() {
