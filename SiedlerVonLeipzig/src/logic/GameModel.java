@@ -13,8 +13,11 @@ public class GameModel {
 	public ArrayList<Buildings> buildingList = new ArrayList<>();
 	public ArrayList<ASettlers> settlerList = new ArrayList<>();
 	
+	final public Object key = new Object();
+	
 	public String playerName;
 	public Vector2D Position;
+	
 	
 	GameModel(){
 		this.setupGameField();
@@ -26,7 +29,7 @@ public class GameModel {
 	 * @param position
 	 */
 	public void constructBuilding(String buildingName,Vector2D position) {
-		synchronized(buildingList){buildingList.add(Buildings.createBuilding(buildingName, position));}
+		synchronized(key){buildingList.add(Buildings.createBuilding(buildingName, position));}
 	}
 	/**
 	 * @brief erstellt Item auf Spielfeld
@@ -34,14 +37,14 @@ public class GameModel {
 	 * @param position
 	 */
 	public void contructItem(String itemName,Vector2D position) {
-		synchronized(itemList) {itemList.add(Items.createItem(itemName, position));}
+		synchronized(key) {itemList.add(Items.createItem(itemName, position));}
 	}
 	/**
 	 * @brief erstellt Settler auf Spielfeld
 	 * @param position
 	 */
 	public void contructSettler(Vector2D position) {
-		synchronized(settlerList) {settlerList.add(ASettlers.createSettler(position));}
+		synchronized(key) {settlerList.add(ASettlers.createSettler(position));}
 	}
 	
 	public void setupGameField() {
@@ -122,4 +125,5 @@ public class GameModel {
 		}
 		return count;
 	}
+	
 }
