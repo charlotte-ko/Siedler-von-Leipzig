@@ -59,6 +59,10 @@ public class GameModel {
 		synchronized(key) {settlerList.add(ASettlers.createSettler(position));}
 	}
 	
+	public <T> void changeList(ArrayList<T> oldList, ArrayList<T> newList) {
+		oldList = newList;
+	}
+	
 	public void setupGameField() {
 		//prepare
 		
@@ -138,7 +142,23 @@ public class GameModel {
 		return count;
 	}
 	
-	protected void fillMap() {
+	public void fillMap() {
 		priceMap.put("Forester", Forester.getPrice());
+		priceMap.put("House", House.getPrice());
+		priceMap.put("Lodge", Lodge.getPrice());
+		priceMap.put("Sawmill", Sawmill.getPrice());
+		priceMap.put("Axe", Axe.getPrice());
+		priceMap.put("Saw", Saw.getPrice());
+		
+	}
+	
+	public int getPrice(String purchase) {
+		
+		if(priceMap.containsKey(purchase)) {
+			return priceMap.get(purchase);
+			
+		}else {
+			return 1000000;
+		}
 	}
 }

@@ -19,5 +19,9 @@ public class Saw extends Items {
 			e.printStackTrace();
 		}
 	}
+	
+	public static int getPrice() {
+		return price;
+	}
 
 }

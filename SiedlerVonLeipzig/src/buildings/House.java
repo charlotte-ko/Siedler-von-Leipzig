@@ -12,7 +12,7 @@ import settlers.ASettlers;
 import logic.Purchasable;
 import logic.Vector2D;
 
-public class House extends Buildings implements Purchasable{
+public class House extends Buildings{
 	private static BufferedImage houseImg1;
 	private static BufferedImage houseImg2;
 	public static int price = 20;
@@ -67,8 +67,7 @@ public class House extends Buildings implements Purchasable{
 		}
 	}
 	
-	@Override
-	public int getPrice() {
+	public static int getPrice() {
 		return price;
 	}
 }

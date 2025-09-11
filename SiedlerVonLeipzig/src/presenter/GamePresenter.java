@@ -71,7 +71,6 @@ public class GamePresenter {
 			default: model.constructItem(null, pos);
 			}
 			//checken ob kein anderes Building da ist
-			model.constructBuilding(placeBuildingName,screenToWorld(pos));
 			placeBuilding = false;
 		}
 	}
