@@ -8,6 +8,8 @@ import logic.Vector2D;
 
 public class Saw extends Items {
 	
+	public static int price = 5;
+	
 	public Saw(Vector2D pos) {
 		super(pos);
 		this.name = "Saw";

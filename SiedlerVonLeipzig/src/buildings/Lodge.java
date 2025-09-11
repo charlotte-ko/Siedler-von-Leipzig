@@ -17,7 +17,7 @@ import settlers.SettlersJobs;
 public class Lodge extends Buildings{
 	private static BufferedImage lodgeImg1;
 	private static BufferedImage lodgeImg2;
-	
+	public static int price = 20;
 	static {
 		try {
 			lodgeImg1 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Lodge.png"));
@@ -35,9 +35,10 @@ public class Lodge extends Buildings{
 	 * @param pos
 	 */
 	public Lodge(Vector2D pos) {
-		super("Lodge", 10, pos);
+		super("Lodge", pos);
 		this.hasEmployee = false;
 		this.name = "Lodge";
+		this.price = 20;
 		img = lodgeImg1;
 	}
 

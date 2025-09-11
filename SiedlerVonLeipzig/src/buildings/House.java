@@ -14,6 +14,7 @@ import logic.Vector2D;
 public class House extends Buildings {
 	private static BufferedImage houseImg1;
 	private static BufferedImage houseImg2;
+	public static int price = 20;
 	
 	static {
 		try {
@@ -32,8 +33,9 @@ public class House extends Buildings {
 	 * @param pos
 	 */
 	public House(Vector2D pos) {
-		super("House", 10, pos);
+		super("House", pos);
 		this.name = "House";
+		this.price = 20;
 		img = houseImg1;
 		
 	}

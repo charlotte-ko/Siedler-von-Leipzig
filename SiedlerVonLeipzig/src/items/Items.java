@@ -17,6 +17,8 @@ public abstract class Items {
 		protected boolean targeted;	//wenn es als Ziel an ein Siedler übergeben wurde
 		protected boolean inInventory;//wenn es in einem Hous ist (output inventar)
 		
+		public final int price;
+		
 		protected String name;
 		
 		protected BufferedImage img;
@@ -25,6 +27,7 @@ public abstract class Items {
 			this.held = false;
 			this.targeted = false;
 			this.inInventory = false;
+			this.price = 10;
 			position = pos;
 			
 		}

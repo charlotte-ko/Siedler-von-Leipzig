@@ -25,6 +25,7 @@ public class GameShop extends BaseGUI {
 
 	ShopPresenter presenter;
 	
+	int[] currency = {0, 0};
 	JButton log = new JButton(createIcon("Log.png", 40, 40));
 	JButton plank = new JButton(createIcon("Plank.png", 40, 40));
 	JButton house = new JButton(createIcon("House.png", 80, 80));
@@ -48,6 +49,7 @@ public class GameShop extends BaseGUI {
 	public GameShop() {
 		super("Shop");
 		
+		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setSize(new Dimension(500, 550));
 		this.setLocationRelativeTo(null);
@@ -67,6 +69,11 @@ public class GameShop extends BaseGUI {
 				}
 			} 
 		});*/
+	}
+	
+	public void setPresenter(ShopPresenter presenter) {
+		this.presenter = presenter;
+		currency = presenter.getCurrency();
 		
 
 		JPanel menubar = createTopBar();
@@ -74,10 +81,6 @@ public class GameShop extends BaseGUI {
 		this.add(menubar, BorderLayout.NORTH);
 		this.add(chartLayout());
 		this.setVisible(true);
-	}
-	
-	public void setPresenter(ShopPresenter presenter) {
-		this.presenter = presenter;
 	}
 	
 	private JPanel chartLayout() {
@@ -156,10 +159,10 @@ public class GameShop extends BaseGUI {
 		
 		JLabel label1 = new JLabel(logC);
 		JLabel label2 = createLabel("Baumstämme:", 100, 30);
-		JLabel label3 = new JLabel("0");
+		JLabel label3 = new JLabel(String.valueOf(currency[0]));
 		JLabel label4 = new JLabel(plankC);
 		JLabel label5 = createLabel("Bretter:", 100, 30);
-		JLabel label6 = new JLabel("0");
+		JLabel label6 = new JLabel(String.valueOf(currency[1]));
 		
 		JLabel[] labels = {label1, label2, label3, label4, label5, label6};
 		
@@ -193,6 +196,11 @@ public class GameShop extends BaseGUI {
 		}
 		
 		house.addActionListener(e -> presenter.onClick("House"));
+		forester.addActionListener(e -> presenter.onClick("Forester"));
+		lodge.addActionListener(e -> presenter.onClick("Lodge"));
+		sawmill.addActionListener(e -> presenter.onClick("Sawmill"));
+		axe.addActionListener(e -> presenter.onClick("Axe"));
+		saw.addActionListener(e -> presenter.onClick("Saw"));
 	}
 	/*
 	public void attach() {

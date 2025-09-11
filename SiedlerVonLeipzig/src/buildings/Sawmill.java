@@ -16,7 +16,7 @@ import logic.Vector2D;
 public class Sawmill extends Buildings {
 	private static BufferedImage sawmillImg1;
 	private static BufferedImage sawmillImg2;
-	
+	public static int price = 20;
 	static {
 		try {
 			sawmillImg1 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Sawmill.png"));
@@ -31,9 +31,10 @@ public class Sawmill extends Buildings {
 	 * @param pos
 	 */
 	public Sawmill(Vector2D pos) {
-		super("Sawmill", 10, pos); 
+		super("Sawmill", pos); 
 		this.hasEmployee = false;
 		this.name = "Sawmill";
+		this.price = 20;
 		img = sawmillImg1;
 	}
 

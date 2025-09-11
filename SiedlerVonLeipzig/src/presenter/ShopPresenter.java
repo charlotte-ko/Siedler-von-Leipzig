@@ -28,11 +28,18 @@ public class ShopPresenter {
 		view.setVisible(true);
 	}
 	
-	public void onClick(String building) {
+
+	public int[] getCurrency() {
+		int[] currency = {model.inventarCounter()[0], model.inventarCounter()[1]};
+		return currency;
+	}
+	
+	public void onClick(String placed) {
 		
+		if(placed == "House" && model.getPrice(null))
 		view.dispose();
-		System.out.println(building);
-		presenter.place(building);
+		System.out.println(placed);
+		presenter.place(placed);
 		/*
 		presenter.changeMode();
 		

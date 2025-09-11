@@ -17,6 +17,7 @@ import settlers.SettlersJobs;
 public class Forester extends Buildings {
 	private static BufferedImage foresterImg1;
 	private static BufferedImage foresterImg2;
+	public static int price = 20;
 	
 	static {
 		try {
@@ -33,9 +34,10 @@ public class Forester extends Buildings {
 	 * @param pos
 	 */
 	public Forester(Vector2D pos) {
-		super("Forester", 10, pos);
+		super("Forester", pos);
 		this.hasEmployee = false;
 		this.name = "Forester";
+		this.price = 20;
 		img = foresterImg1;
 	}
 	

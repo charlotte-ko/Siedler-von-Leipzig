@@ -1,8 +1,14 @@
 package logic;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import buildings.Buildings;
+import buildings.Forester;
+import buildings.House;
+import buildings.Lodge;
+import buildings.Sawmill;
 import items.*;
 import settlers.ASettlers;
 import settlers.SettlersAktion;
@@ -18,6 +24,10 @@ public class GameModel {
 	public String playerName;
 	public Vector2D Position;
 	
+<<<<<<< Updated upstream
+=======
+	private Map<String, Integer> priceMap = new HashMap<>();
+>>>>>>> Stashed changes
 	
 	GameModel(){
 		this.setupGameField();
@@ -36,8 +46,13 @@ public class GameModel {
 	 * @param itemName
 	 * @param position
 	 */
+<<<<<<< Updated upstream
 	public void contructItem(String itemName,Vector2D position) {
 		synchronized(key) {itemList.add(Items.createItem(itemName, position));}
+=======
+	public void constructItem(String itemName,Vector2D position) {
+		synchronized(itemList) {itemList.add(Items.createItem(itemName, position));}
+>>>>>>> Stashed changes
 	}
 	/**
 	 * @brief erstellt Settler auf Spielfeld
@@ -126,4 +141,12 @@ public class GameModel {
 		return count;
 	}
 	
+<<<<<<< Updated upstream
+=======
+	public int getPrice(String object) {
+		if() {
+			
+		}
+	}
+>>>>>>> Stashed changes
 }
