@@ -12,6 +12,9 @@ public class GamePresenter {
 	public Game view;
 	public boolean waiting;
 	
+	private Vector2D camPos;
+	private int tileSize;
+	
 	GamePresenter(GameModel model, Game view){
 		this.model = model;
 		this.view = view;
@@ -45,6 +48,19 @@ public class GamePresenter {
 	
 	public void savePos(Vector2D pos) {
 		model.Position = pos;
+		if(placeBuilding) {
+			//checken ob kein anderes Building da ist
+			model.constructBuilding(placeBuildingName,screenToWorld(pos));
+			placeBuilding = false;
+		}
+	}
+	
+	private Vector2D screenToWorld(Vector2D mouse) {
+		float x = mouse.x / (float)tileSize;
+		float y = mouse.y / (float)tileSize;
+		x += camPos.x;
+		y += camPos.y;
+		return new Vector2D(x,y);
 	}
 	
 	public void changeMode() {
@@ -58,9 +74,14 @@ public class GamePresenter {
 		}
 	}
  	
+	boolean placeBuilding = false;
+	String placeBuildingName;
 	public void place(String building) {
-		
-		model.constructBuilding(building, model.Position);
+		//warten bis geklickt wurde
+		//checken ob abstand passt
+		//model.constructBuilding(building, model.Position);
+		placeBuilding = true;
+		placeBuildingName = building;
 	}
 	
 	public void toggleHammer() {
@@ -74,5 +95,10 @@ public class GamePresenter {
 					view.removeHammer();
 				}
 			}
+	}
+	
+	public void giveCamera(Vector2D camPos,int tileSize) {
+		this.camPos = camPos;
+		this.tileSize = tileSize;
 	}
 }

@@ -31,6 +31,7 @@ public class ShopPresenter {
 	public void onClick(String building) {
 		
 		view.dispose();
+		System.out.println(building);
 		presenter.place(building);
 		/*
 		presenter.changeMode();
