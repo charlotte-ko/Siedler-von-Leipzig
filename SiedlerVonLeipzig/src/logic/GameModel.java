@@ -76,8 +76,11 @@ public class GameModel {
 	public <T> void changeList(ArrayList<T> oldList, ArrayList<T> newList) {
 		oldList = newList;
 	}
-
 	public void setupDebug() {
+		setupGameFieldDebug1Settler();
+		//setupDebugBigTest();
+	}
+	public void setupDebugBigTest() {
 		//prepare
 		
 		//System.out.println("Aufruf von: " + java.util.Arrays.toString(Thread.currentThread().getStackTrace())); -> ganz nützliche Ausgabe, bitte drin lassen fürs debugging
