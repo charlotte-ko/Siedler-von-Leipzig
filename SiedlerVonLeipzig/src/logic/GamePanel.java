@@ -140,6 +140,7 @@ public class GamePanel extends JPanel implements Runnable{
 	public void update(double delta) {
 		zoomManager();
 		cameraManager(delta);
+		presenter.giveCamera(camPos,tileSize);
 		updateBackGroundImg(delta);
 		
 		//Update funktion der Siedler und Gebäude durchgehen
