@@ -15,7 +15,7 @@ import settlers.ASettlers;
 import settlers.SettlersAktion;
 import settlers.SettlersJobs;
 
-public class Forester extends Buildings implements Purchasable{
+public class Forester extends Buildings{
 	private static BufferedImage foresterImg1;
 	private static BufferedImage foresterImg2;
 	protected static int price = 20;
@@ -90,8 +90,7 @@ public class Forester extends Buildings implements Purchasable{
 		this.plantTree(employee, plantPos);
 	}
 
-	@Override
-	public int getPrice() {
+	public static int getPrice() {
 		return price;
 	}
  }

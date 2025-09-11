@@ -22,6 +22,7 @@ public class StartPresenter {
 	 * @brief aufgerufen wenn Button1 Start new Game gedrückt wird
 	 */
 	public void buttonStartNewGame() {
+		model.fillMap();
 		view.openNewGame();
 	}
 	

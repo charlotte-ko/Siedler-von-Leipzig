@@ -15,7 +15,7 @@ import settlers.ASettlers;
 import settlers.SettlersAktion;
 import settlers.SettlersJobs;
 
-public class Lodge extends Buildings implements Purchasable{
+public class Lodge extends Buildings{
 	private static BufferedImage lodgeImg1;
 	private static BufferedImage lodgeImg2;
 	public static int price = 20;
@@ -100,8 +100,7 @@ public class Lodge extends Buildings implements Purchasable{
 		else this.getAxe(ItemList);
 	}
 	
-	@Override
-	public int getPrice() {
+	public static int getPrice() {
 		return price;
 	}
 }

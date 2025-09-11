@@ -52,7 +52,17 @@ public class GameModel {
 		synchronized(key) {settlerList.add(ASettlers.createSettler(position));}
 	}
 	
+//Diese Methode brauchen wir wahrscheinlich nicht
+	public <T> void changeList(ArrayList<T> oldList, ArrayList<T> newList) {
+		oldList = newList;
+	}
+	
+	public void setupGameField() {
+		
+	}
+
 	public void setupDebug() {
+
 		//prepare
 		
 		//System.out.println("Aufruf von: " + java.util.Arrays.toString(Thread.currentThread().getStackTrace())); -> ganz nützliche Ausgabe, bitte drin lassen fürs debugging
@@ -129,5 +139,25 @@ public class GameModel {
 			}
 		}
 		return count;
+	}
+	
+	public void fillMap() {
+		priceMap.put("Forester", Forester.getPrice());
+		priceMap.put("House", House.getPrice());
+		priceMap.put("Lodge", Lodge.getPrice());
+		priceMap.put("Sawmill", Sawmill.getPrice());
+		priceMap.put("Axe", Axe.getPrice());
+		priceMap.put("Saw", Saw.getPrice());
+		
+	}
+	
+	public int getPrice(String purchase) {
+		
+		if(priceMap.containsKey(purchase)) {
+			return priceMap.get(purchase);
+			
+		}else {
+			return 1000000;
+		}
 	}
 }

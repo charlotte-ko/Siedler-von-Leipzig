@@ -125,4 +125,8 @@ public class Sawmill extends Buildings {
 		}
 		else getSaw(itemList);
 	}
+	
+	public static int getPrice() {
+		return price;
+	}
 }
