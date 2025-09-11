@@ -48,7 +48,7 @@ public class GamePresenter {
 	}
 	
 	public void changeMode() {
-		view.placementmode = !view.placementmode;
+		view.placementmode = true;
 		
 	}
 	

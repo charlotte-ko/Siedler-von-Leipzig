@@ -59,12 +59,9 @@ public class Game extends BaseGUI {
 				
 				presenter.savePos(new Vector2D(x,y));
 				presenter.waiting = false;
+				System.out.println("x:" + x + "y" +y);
 			}
 		});
-		
-		if(placementmode) {
-			
-		}
 		
 		addMouseMotionListener(new MouseMotionAdapter() {
 			

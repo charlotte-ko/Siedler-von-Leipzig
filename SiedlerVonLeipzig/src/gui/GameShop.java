@@ -57,7 +57,7 @@ public class GameShop extends BaseGUI {
 
 		setButtons(leftbuttons);
 		setButtons(rightbuttons);
-		
+		/*
 		addMouseMotionListener(new MouseMotionAdapter() {
 			
 			@Override
@@ -66,7 +66,7 @@ public class GameShop extends BaseGUI {
 					clickable.setLocation(e.getX() - 15, e.getY() - 15);
 				}
 			} 
-		});
+		});*/
 		
 
 		JPanel menubar = createTopBar();

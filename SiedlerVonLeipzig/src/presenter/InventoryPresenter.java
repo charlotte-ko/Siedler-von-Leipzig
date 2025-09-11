@@ -21,6 +21,10 @@ public class InventoryPresenter {
 	public int[] getCounter() {
 		
 		int[] counter = model.inventarCounter();
+		for(int i = 0; i < model.buildingList.size(); i++) {
+			System.out.println("" + model.buildingList.get(i).getPosition().x + "," + model.buildingList.get(i).getPosition().y);
+		}
+		
 		return counter;
 	}
 }

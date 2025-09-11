@@ -31,13 +31,16 @@ public class ShopPresenter {
 	public void onClick(String building) {
 		
 		view.dispose();
+		presenter.place(building);
+		/*
 		presenter.changeMode();
 		
 		while(game.placementmode) {
 			if(!presenter.waiting) {
 				presenter.place(building);
+				game.placementmode = false;
 			}
-		}
+		}*/
 	}
 		/*
 		if(view.active) {

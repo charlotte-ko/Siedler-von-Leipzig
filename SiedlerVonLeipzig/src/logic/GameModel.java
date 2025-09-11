@@ -88,7 +88,7 @@ public class GameModel {
 	public int[] inventarCounter() {
 		int[] count = new int[14];
 		
-		for(int i = 0; i < 14; i ++) {
+		for(int i = 0; i < 13; i ++) {
 			count[i] = 0;
 		}
 		for(Items i : itemList) {
