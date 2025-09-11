@@ -9,6 +9,11 @@ import items.Items;
 public class Vector2D {
 	public float x,y;
 	
+	public Vector2D(Vector2D old) {
+		this.x = old.x;
+		this.y = old.y;
+	}
+	
 	public Vector2D(float startX,float startY){
 		this.x = startX;
 		this.y = startY;

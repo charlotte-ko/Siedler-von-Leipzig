@@ -61,7 +61,7 @@ public class Settler extends ASettlers{
 	
 	Settler(Vector2D position){
 		this.setSpeed(0.4f);
-		this.setPosition(position);
+		this.setPosition(new Vector2D(position));
 		this.setIsWorking(false);
 		this.setJobName(SettlersJobs.JOB_NORMAL);
 		img = settlerNormalImg[0];

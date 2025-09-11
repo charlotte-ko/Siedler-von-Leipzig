@@ -25,7 +25,7 @@ public abstract class Items {
 			this.held = false;
 			this.targeted = false;
 			this.inInventory = false;
-			position = pos;
+			position = new Vector2D(pos);
 			
 		}
 		
