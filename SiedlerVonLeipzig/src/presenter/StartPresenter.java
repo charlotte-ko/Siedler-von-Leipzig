@@ -35,6 +35,7 @@ public class StartPresenter {
 	 */
 	public void buttonDebugging() {
 		view.dispose();
+		model.fillMap();
 		Game debug = new Game();
 		GamePresenter gPresenter = new GamePresenter(model, debug);
 		gPresenter.startDebug();
