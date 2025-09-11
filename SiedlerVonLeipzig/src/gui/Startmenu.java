@@ -58,7 +58,7 @@ public class Startmenu extends BaseGUI{
 		}
 	
 		button1.addActionListener(e -> presenter.buttonStartNewGame());
-		
+		button3.addActionListener(e -> presenter.buttonDebugging());
 		button5.addActionListener(e -> presenter.end());
 	}
 	
@@ -156,6 +156,11 @@ public class Startmenu extends BaseGUI{
 		
 		NewFrame.setVisible(true);
 		
+	}
+	
+	public void openDebugging() {
+		this.dispose();
+		presenter.buttonDebugging();
 	}
 	
 	private void NewGameLayout(Container e, JLabel name, JTextField field, JButton confirm) {

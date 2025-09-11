@@ -30,6 +30,16 @@ public class StartPresenter {
 		model.playerName = name;
 	}
 	
+	/*
+	 * @brief wird aufgerufen wenn Debug Modus gestartet wird
+	 */
+	public void buttonDebugging() {
+		view.dispose();
+		Game debug = new Game();
+		GamePresenter gPresenter = new GamePresenter(model, debug);
+		gPresenter.startDebug();
+	}
+	
 	public void makeNewGame() {
 		view.dispose();
 		Game gView = new Game();
