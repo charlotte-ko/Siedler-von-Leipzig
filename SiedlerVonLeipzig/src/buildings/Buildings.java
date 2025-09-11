@@ -19,7 +19,6 @@ public abstract class Buildings {
 	protected Vector2D position;
 	protected ArrayList<Items> input_inventory = new ArrayList<>(); 
 	protected ArrayList<Items> output_inventory = new ArrayList<>();
-	public int price; //Ich weiß nicht mehr ob das in die GUI reinkommt oder hier
 	
 	protected ASettlers employee;
 	protected boolean hasEmployee;

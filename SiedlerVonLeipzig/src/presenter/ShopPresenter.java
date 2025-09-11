@@ -36,7 +36,7 @@ public class ShopPresenter {
 	
 	public void onClick(String placed) {
 		
-		if(placed == "House" && model.getPrice(null))
+		//if(placed == "House" && model.getPrice(null))
 		view.dispose();
 		System.out.println(placed);
 		presenter.place(placed);
