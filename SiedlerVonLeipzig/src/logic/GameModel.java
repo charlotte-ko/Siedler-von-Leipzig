@@ -27,13 +27,6 @@ public class GameModel {
 
 	private Map<String, Integer> priceMap = new HashMap<>();
 	
-	
-
-	
-	GameModel(){
-		this.setupGameField();
-	}
-	
 	/**
 	 * @brief erstellt Gebäude auf dem Spielfeld
 	 * @param buildingName
@@ -59,7 +52,7 @@ public class GameModel {
 		synchronized(key) {settlerList.add(ASettlers.createSettler(position));}
 	}
 	
-	public void setupGameField() {
+	public void setupDebug() {
 		//prepare
 		
 		//System.out.println("Aufruf von: " + java.util.Arrays.toString(Thread.currentThread().getStackTrace())); -> ganz nützliche Ausgabe, bitte drin lassen fürs debugging
@@ -136,9 +129,5 @@ public class GameModel {
 			}
 		}
 		return count;
-	}
-	
-	protected void fillMap() {
-		priceMap.put("Forester", Forester.getPrice());
 	}
 }
