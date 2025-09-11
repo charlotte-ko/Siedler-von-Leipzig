@@ -150,6 +150,7 @@ public class GamePanel extends JPanel implements Runnable{
 		for(ASettlers s : settlerList) {
 			s.update(delta, settlerList, buildingList, itemList);
 		}
+		renderSort(itemList,buildingList,settlerList);
 	}
 	
 	public void paintComponent(Graphics g) {
@@ -171,16 +172,34 @@ public class GamePanel extends JPanel implements Runnable{
 		
 		//hintergrund zeichnen
 		this.drawbackGround(g2, tileSize, camPos, 1);
-		for(Items i : itemListSnap) {
-			i.draw(g2,tileSize,camPos);
-		}
-		for(ASettlers s: settlerListSnap) {
-			s.draw(g2,tileSize,camPos);
-		}
-		for(Buildings b : buildingListSnap) {
+		
+		int i = 0,j = 0, k = 0;
+		for(int count = itemListSnap.size()+buildingListSnap.size()+settlerListSnap.size(); count > 0;count--){
+			float bPos = Float.POSITIVE_INFINITY;
+			float sPos = Float.POSITIVE_INFINITY;
+			float iPos = Float.POSITIVE_INFINITY;
 			
-			b.draw(g2,tileSize,camPos);
+			if(i < buildingListSnap.size())bPos = buildingListSnap.get(i).getPosition().y;
+			if(j < settlerListSnap.size())sPos = settlerListSnap.get(j).getPosition().y;
+			if(k < itemListSnap.size())iPos = itemListSnap.get(k).getPosition().y;
+			
+			int m = (bPos<=sPos) ? ((bPos<=iPos) ? (0):(2)) : ((sPos<=iPos)?(1):(2));
+			switch(m) {
+				case 0:
+					buildingListSnap.get(i).draw(g2, tileSize, camPos);
+					i++;
+					break;
+				case 1:
+					settlerListSnap.get(j).draw(g2, tileSize, camPos);
+					j++;
+					break;
+				case 2:
+					itemListSnap.get(k).draw(g2, tileSize, camPos);
+					k++;
+					break;
+			}
 		}
+		
 	}
 	private void loadBackgroundImg() {
 		try {
@@ -210,5 +229,35 @@ public class GamePanel extends JPanel implements Runnable{
 				g2.drawImage(this.backgroundImg, posX, posY, tileSize,tileSize,null);
 			}
 		}
+	}
+	
+	/**
+	 * @brief Sortiert alle Listen nach render reinfolge
+	 * @param itemList
+	 * @param buildingList
+	 * @param settlerList
+	 * @note Insertion Sort 5-line version nach Jon Bentley, Programming Pearls
+	 */
+	private void renderSort(ArrayList<Items>itemList,ArrayList<Buildings>buildingList,ArrayList<ASettlers>settlerList) {
+		int i,j;
+		for (i = 1; i < itemList.size(); i++) {
+		    Items x = itemList.get(i);
+		    for (j = i; j > 0 && itemList.get(j-1).getPosition().y > x.getPosition().y; j--)
+		        itemList.set(j, itemList.get(j-1));
+		    itemList.set(j, x);
+		}
+		for (i = 1; i < buildingList.size(); i++) {
+		    Buildings x = buildingList.get(i);
+		    for (j = i; j > 0 && buildingList.get(j-1).getPosition().y > x.getPosition().y; j--)
+		    	buildingList.set(j, buildingList.get(j-1));
+		    buildingList.set(j, x);
+		}
+		for (i = 1; i < settlerList.size(); i++) {
+		    ASettlers x = settlerList.get(i);
+		    for (j = i; j > 0 && settlerList.get(j-1).getPosition().y > x.getPosition().y; j--)
+		    	settlerList.set(j, settlerList.get(j-1));
+		    settlerList.set(j, x);
+		}
+
 	}
 }
