@@ -120,7 +120,7 @@ public abstract class ASettlers{
 			this.working = false;
 			return;
 		}
-	
+		this.working = true;
 		if(!move(delta,buildingList))return;
 		
 		Items target = this.taskTarget.pollFirst();
@@ -140,16 +140,16 @@ public abstract class ASettlers{
 				target.setInInventory(false);
 				break;
 			case GO_BRING_LEFT:
-				this.getItem(true);
 				target.setHeld(false);
 				target.setTargeted(false);
 				giveBuilding(target,buildingList);
+				this.setItem(true, null);
 				break;
 			case GO_BRING_RIGHT:
-				this.getItem(false);
 				target.setHeld(false);
 				target.setTargeted(false);
 				giveBuilding(target,buildingList);
+				this.setItem(false, null);
 				break;
 			case GO_FREE://tut nix
 				break;

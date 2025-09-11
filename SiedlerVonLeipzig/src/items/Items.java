@@ -27,9 +27,8 @@ public abstract class Items {
 			this.held = false;
 			this.targeted = false;
 			this.inInventory = false;
+			position = new Vector2D(pos);
 			this.price = 10;
-			position = pos;
-			
 		}
 		
 		public static Items createItem(String item, Vector2D pos) {

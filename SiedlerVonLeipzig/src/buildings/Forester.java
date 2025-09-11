@@ -49,8 +49,9 @@ public class Forester extends Buildings{
 	public void plantTree(ASettlers worker, Vector2D plantPos) {
 		if(this.getOutput_Inventory().isEmpty())return;
 		
-		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, this.getOutput_Inventory().get(this.getOutput_Inventory().size()-1));
-		worker.giveSettlerTask(plantPos, SettlersAktion.GO_BRING_RIGHT, null);
+		Items target = this.getOutput_Inventory().get(this.getOutput_Inventory().size()-1);
+		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, target);
+		worker.giveSettlerTask(plantPos, SettlersAktion.GO_BRING_RIGHT, target);
 		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_FREE, null);
 	}
 	
@@ -61,7 +62,7 @@ public class Forester extends Buildings{
 	 * @param BuildingsList
 	 * @param ItemList
 	 */
-	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
+	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList) {
 		
 		if(!hasEmployee) {			
 			this.employee = this.findEmployee(settlerList, SettlersJobs.JOB_GARDENER);
@@ -72,22 +73,26 @@ public class Forester extends Buildings{
 		}
 
 		if(this.getOutput_Inventory().size() < 10) {
-			passtime += Delta;
+			passtime += delta;
 			if(passtime >= 6.0) {
-				this.output_inventory.add(new Tree(this.getPosition()));
-				this.output_inventory.get(this.output_inventory.size()-1).setInInventory(true);
+				Items newTree = Items.createItem("Tree", this.position);
+				newTree.setInInventory(true);
+				itemList.add(newTree);
+				this.output_inventory.add(newTree);
 				passtime = 0.0;
 			}
 		}
 		
-		Vector2D plantPos = new Vector2D();
-		float moreRange = 0.0f;
-		do {
-			plantPos = this.getPosition().genPos(5.0f+moreRange);
-			moreRange += 0.2;
-		}while(!plantPos.testPos(BuildingsList, ItemList));
+		if(!employee.isWorking()) {
+			Vector2D plantPos = new Vector2D();
+			float moreRange = 0.0f;
+			do {
+				plantPos = this.getPosition().genPos(3.0f+moreRange);
+				moreRange += 0.2;
+			}while(!plantPos.testPos(BuildingsList, itemList));
 		
-		this.plantTree(employee, plantPos);
+			this.plantTree(employee, plantPos);
+		}
 	}
 
 	public static int getPrice() {

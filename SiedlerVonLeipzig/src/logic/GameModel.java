@@ -51,18 +51,33 @@ public class GameModel {
 	public void contructSettler(Vector2D position) {
 		synchronized(key) {settlerList.add(ASettlers.createSettler(position));}
 	}
+
+	/**
+	 * Test ob Siedler:
+	 * 1.) ein Log holen und bringen können
+	 */
+	public void setupGameFieldDebug1Settler() {
+		ASettlers settler1 = ASettlers.createSettler(new Vector2D(0.0f,0.0f));
+		Items item1 = Items.createItem("Log", new Vector2D(5.0f,0.0f));
+		Buildings building1 = Buildings.createBuilding("Forester", new Vector2D(0.0f,5.0f));
+		settler1.setSpeed(6.0f);
+		settlerList.add(settler1);
+		itemList.add(item1);
+		buildingList.add(building1);
+		
+		settler1.giveSettlerTask(item1.getPosition(), SettlersAktion.GO_PICKUP_LEFT, item1);
+		settler1.giveSettlerTask(settler1.getPosition(), SettlersAktion.GO_BRING_LEFT, item1);
+	}
+	public void setupGameField() {
+		setupGameFieldDebug1Settler();
+	}
 	
 //Diese Methode brauchen wir wahrscheinlich nicht
 	public <T> void changeList(ArrayList<T> oldList, ArrayList<T> newList) {
 		oldList = newList;
 	}
-	
-	public void setupGameField() {
-		
-	}
 
 	public void setupDebug() {
-
 		//prepare
 		
 		//System.out.println("Aufruf von: " + java.util.Arrays.toString(Thread.currentThread().getStackTrace())); -> ganz nützliche Ausgabe, bitte drin lassen fürs debugging

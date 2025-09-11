@@ -171,9 +171,11 @@ public class GamePanel extends JPanel implements Runnable{
 		ArrayList<Items> itemListSnap;
 		ArrayList<Buildings> buildingListSnap;
 		ArrayList<ASettlers> settlerListSnap;
-		synchronized(itemList) {itemListSnap = new ArrayList<>(itemList);}
-		synchronized(buildingList) {buildingListSnap = new ArrayList<>(buildingList);}
-		synchronized(settlerList) {settlerListSnap = new ArrayList<>(settlerList);}
+		synchronized(key) {
+			itemListSnap = new ArrayList<>(itemList);
+			buildingListSnap = new ArrayList<>(buildingList);
+			settlerListSnap = new ArrayList<>(settlerList);
+		}
 		
 		//hintergrund zeichnen
 		this.drawbackGround(g2, tileSize, camPos, 1);
@@ -204,7 +206,6 @@ public class GamePanel extends JPanel implements Runnable{
 					break;
 			}
 		}
-		
 	}
 	private void loadBackgroundImg() {
 		try {
