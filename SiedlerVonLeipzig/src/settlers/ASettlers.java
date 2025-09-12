@@ -125,7 +125,8 @@ public abstract class ASettlers{
 			return;
 		}
 		this.working = true;
-		if(!move(delta,buildingList))return;
+		Vector2D targetPosition = move(delta,buildingList);
+		if(targetPosition == null)return;
 		
 		Items target = this.taskTarget.pollFirst();
 		switch(this.task.pollFirst()) {
@@ -144,13 +145,13 @@ public abstract class ASettlers{
 			case GO_BRING_LEFT:
 				target.setHeld(false);
 				target.setTargeted(false);
-				giveBuilding(target,buildingList);
+				giveBuilding(targetPosition,target,buildingList);
 				this.setItem(true, null);
 				break;
 			case GO_BRING_RIGHT:
 				target.setHeld(false);
 				target.setTargeted(false);
-				giveBuilding(target,buildingList);
+				giveBuilding(targetPosition,target,buildingList);
 				this.setItem(false, null);
 				break;
 			case GO_FREE://tut nix
@@ -170,8 +171,8 @@ public abstract class ASettlers{
 		b.setOutput_Inventory(inventar);
 	}
 	
-	private void giveBuilding(Items target,ArrayList<Buildings>buildingList) {
-		Buildings b = Buildings.findBuilding(target.getPosition(), buildingList);
+	private void giveBuilding(Vector2D position,Items target,ArrayList<Buildings>buildingList) {
+		Buildings b = Buildings.findBuilding(position, buildingList);
 		if(b == null)return;
 		ArrayList<Items> inventar = b.getInput_Inventory();
 		inventar.add(target);
@@ -184,11 +185,10 @@ public abstract class ASettlers{
 	 * @param buildingList
 	 * @return true = angekommen, false = noch nicht da
 	 */
-	private boolean move(double delta,ArrayList<Buildings> buildingList) {
+	private Vector2D move(double delta,ArrayList<Buildings> buildingList) {
 		Vector2D targetPosition = this.taskWay.peekFirst();
 		if(this.position.getDistance(targetPosition) < 0.1f) {
-			this.taskWay.pollFirst();
-			return true;
+			return this.taskWay.pollFirst();
 		}
 		
 		walk((float)delta,targetPosition);
@@ -196,7 +196,7 @@ public abstract class ASettlers{
 		//items mit bewegen
 		if(this.leftHand != null)this.leftHand.setPosition(this.getPosition());
 		if(this.rightHand != null)this.rightHand.setPosition(this.getPosition());
-		return false;
+		return null;
 	}
 	
 	/**
