@@ -280,7 +280,7 @@ public abstract class Buildings {
 	 */
 	public void deconstruct(ArrayList<Buildings> buildingsList) {
 		
-		if(this.isContructed) {
+		if(this.isContructed && !(this instanceof House)) {
 			this.employee.getTask().clear();
 			this.employee.getTaskTarget().clear();
 			this.employee.getTaskWay().clear();
@@ -296,8 +296,9 @@ public abstract class Buildings {
 			for(Items i : this.output_inventory) {
 				i.setInInventory(false);
 			}
-			buildingsList.remove(this);
 		}
+		buildingsList.remove(this);
+		
 		return;
 	}
 }
