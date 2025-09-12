@@ -64,7 +64,7 @@ public class ShopPresenter {
 			view.dispose();
 			presenter.toggleShop(placed);
 			presenter.place(placed);
-			updateList(model.itemList, placed, price);	
+			//updateList(model.itemList, placed, price);	
 		}
 	}
 	
@@ -83,7 +83,7 @@ public class ShopPresenter {
 	}
 		
 		
-	private void updateList(ArrayList<Items> List, String purchase, int price) {
+	/*private void updateList(ArrayList<Items> List, String purchase, int price) {
 		
 		Iterator<Items> index = List.iterator();
 		String wanted = chooseCurrency(purchase);
@@ -101,7 +101,7 @@ public class ShopPresenter {
 				price--;
 			}
 		}
-	}
+	}*/
 		
 		/*
 		presenter.changeMode();
