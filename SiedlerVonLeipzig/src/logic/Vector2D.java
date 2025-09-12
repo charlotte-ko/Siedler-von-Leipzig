@@ -82,7 +82,7 @@ public class Vector2D {
 		Vector2D centre = this;
 		Random rnd = new Random();
 		
-		Vector2D temporary = new Vector2D(centre.x + (rnd.nextFloat() * radius), centre.y);
+		Vector2D temporary = new Vector2D(centre.x + ((rnd.nextFloat() %1.0f) * radius), centre.y);
 		int angle = rnd.nextInt(360);
 	
 		float newX = (float) (temporary.x * Math.cos(angle) - temporary.y * Math.sin(angle));

@@ -267,7 +267,10 @@ public abstract class Buildings {
 				img = noWorkerImg;
 				return false;
 			}
-			else this.hasEmployee = true;
+			else{
+				this.employee.setEmployed(true);
+				this.hasEmployee = true;
+			}
 		}
 		return true;
 	}
