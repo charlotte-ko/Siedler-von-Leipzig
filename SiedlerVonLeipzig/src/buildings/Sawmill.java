@@ -70,13 +70,12 @@ public class Sawmill extends Buildings {
 	public void getLogs(ArrayList<Items> itemList, ArrayList<ASettlers> settlerList) {
 		ASettlers worker = this.closestSettler(settlerList);//Zeitarbeiter
 		
-		Items log = Items.closestItem(this.getPosition(), itemList, "Log");
+		if(worker == null)return;
+		Items log = Items.closestItem(worker.getPosition(), itemList, "Log");
+		if(log == null)return;
 		
-		if(log != null && worker != null) {
-			worker.giveSettlerTask(log.getPosition(), SettlersAktion.GO_PICKUP_LEFT, log);
-			worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, log);
-		}
-		else return;
+		worker.giveSettlerTask(log.getPosition(), SettlersAktion.GO_PICKUP_LEFT, log);
+		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, log);
 	}
 	
 	/**
@@ -86,15 +85,14 @@ public class Sawmill extends Buildings {
 	 */
 	protected void getSaw(ArrayList<Items> ItemList) {
 		Items saw = Items.closestItem(employee.getPosition(), ItemList, "Saw");
-		if (saw == null){
-			return;
-		}
-		if(!employee.isWorking()) {
-			if (this.employee.getJobName().equals(SettlersJobs.JOB_NORMAL)){
-				employee.giveSettlerTask(saw.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, saw);
-			}else {
-				employee.giveSettlerTask(employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, employee.getItem(false));
-			}
+		if (saw == null)return;
+		
+		if (this.employee.getJobName().equals(SettlersJobs.JOB_NORMAL)){
+			employee.giveSettlerTask(saw.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, saw);
+			employee.setJobName(SettlersJobs.JOB_SAWYER);
+			employee.giveSettlerTask(this.position, SettlersAktion.GO_FREE, null);
+		}else {
+			employee.giveSettlerTask(employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, employee.getItem(false));
 		}
 	}
 	
@@ -105,25 +103,23 @@ public class Sawmill extends Buildings {
 	 * @note der zeitliche Aspekt fehlt hier noch, Marie und ich wissen nicht genau wie wir das einbauen sollen
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList){
+		if(this.updateConstruction(delta, settlerList, BuildingsList, itemList, this.price, "Log")){
+			img = this.sawmillImg1;
+		}else {return;}
 		
-		if(!hasEmployee) {
-			
-			this.employee = this.findEmployee(settlerList, SettlersJobs.JOB_LUMBERJACK);
-			
-			if(employee == null) {
-				return;
-			}
-			else this.hasEmployee = true;
-		}
-
+		if(!this.hireEmployee(settlerList, this.sawmillImg2))return;
+		
+		
 		if(this.input_inventory.size() < 10) {
 			getLogs(itemList, settlerList);
 		}
-		//prüfe ob siedler im Gebäude ist
-		if(this.employee.getJobName().equals(SettlersJobs.JOB_SAWYER) && this.output_inventory.size() < 10 && this.input_inventory.size() > 0) {
-			makePlanks(delta, itemList);
+		if(this.employee.isWorking())return;
+		if(!this.employee.getJobName().equals(SettlersJobs.JOB_SAWYER))getSaw(itemList);
+		else {
+			if(this.output_inventory.size() < 10 && this.input_inventory.size() > 0) {
+				makePlanks(delta, itemList);
+			}
 		}
-		else getSaw(itemList);
 	}
 	
 	public static int getPrice() {

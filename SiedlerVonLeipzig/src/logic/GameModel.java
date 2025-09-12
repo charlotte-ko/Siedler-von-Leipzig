@@ -85,16 +85,19 @@ public class GameModel {
 		
 		settlerStart.add(ASettlers.createSettler(new Vector2D()));
 		settlerStart.add(ASettlers.createSettler(new Vector2D()));
-		for(int i = 0; i < 50;i++) {
+		for(int i = 0; i < 100;i++) {
 			itemStart.add(Items.createItem("Log", new Vector2D(-1.0f,i/4.0f)));
 		}
 		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,1.0f)));
 		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,2.0f)));
 		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,3.0f)));
 		itemStart.add(Items.createItem("Axe", new Vector2D(5.0f,5.0f)));
+		itemStart.add(Items.createItem("Saw", new Vector2D(6.0f,5.0f)));
 		buildingStart.add(Buildings.createBuilding("Lodge", new Vector2D(5.0f,0.0f)));
-		//buildingStart.add(Buildings.createBuilding("House", new Vector2D(-5.0f,-5.0f)));
-		//buildingStart.get(1).isContructed = true;
+		buildingStart.add(Buildings.createBuilding("House", new Vector2D(-5.0f,-5.0f)));
+		buildingStart.add(Buildings.createBuilding("Forester", new Vector2D(-8.0f,-8.0f)));
+		buildingStart.add(Buildings.createBuilding("Sawmill", new Vector2D(0.0f,-8.0f)));
+		buildingStart.get(1).isContructed = true;
 		settlerStart.get(0).setSpeed(6.0f);
 		settlerStart.get(1).setSpeed(6.0f);
 		
