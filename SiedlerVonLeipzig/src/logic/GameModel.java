@@ -84,16 +84,19 @@ public class GameModel {
 		ArrayList<Buildings> buildingStart = new ArrayList<>();
 		
 		settlerStart.add(ASettlers.createSettler(new Vector2D()));
-		for(int i = 0; i < 30;i++) {
-			itemStart.add(Items.createItem("Log", new Vector2D(-1.0f,i/2.0f)));
+		settlerStart.add(ASettlers.createSettler(new Vector2D()));
+		for(int i = 0; i < 50;i++) {
+			itemStart.add(Items.createItem("Log", new Vector2D(-1.0f,i/4.0f)));
 		}
 		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,1.0f)));
 		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,2.0f)));
 		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,3.0f)));
 		itemStart.add(Items.createItem("Axe", new Vector2D(5.0f,5.0f)));
 		buildingStart.add(Buildings.createBuilding("Lodge", new Vector2D(5.0f,0.0f)));
-		//buildingStart.get(0).isContructed = true;
+		//buildingStart.add(Buildings.createBuilding("House", new Vector2D(-5.0f,-5.0f)));
+		//buildingStart.get(1).isContructed = true;
 		settlerStart.get(0).setSpeed(6.0f);
+		settlerStart.get(1).setSpeed(6.0f);
 		
 		for(ASettlers s : settlerStart)settlerList.add(s);
 		for(Items i : itemStart)itemList.add(i);
