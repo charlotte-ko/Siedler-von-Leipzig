@@ -61,6 +61,9 @@ public class Game extends BaseGUI {
 				
 				presenter.savePos(new Vector2D(x,y));
 				presenter.waiting = false;
+				if(ShopItemActive && ShopItemLabel != null) {
+					removeShopItem();
+				}
 				System.out.println("x:" + x + "y" +y);
 			}
 		});
@@ -195,7 +198,7 @@ public class Game extends BaseGUI {
 		glassPane.setVisible(true);
 	}
 	
-	public void removeShopItem(String item) {
+	public void removeShopItem() {
 		
 		if(ShopItemLabel != null) {
 			glassPane.remove(ShopItemLabel);

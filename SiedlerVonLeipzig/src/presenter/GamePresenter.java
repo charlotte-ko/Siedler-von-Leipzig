@@ -119,8 +119,6 @@ public class GamePresenter {
 		if(view.ShopItemActive) {
 			view.attachShopItem(purchase);
 			
-		}else {
-			view.removeShopItem(purchase);
 		}
 	}
 	
