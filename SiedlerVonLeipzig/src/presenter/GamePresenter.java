@@ -112,6 +112,15 @@ public class GamePresenter {
 			}
 	}
 	
+	public void toggleDeconstruction(Vector2D pos) {
+		model.deconstructBuilding(screenToWorld(pos));
+		System.out.println(screenToWorld(pos).x + " X " + screenToWorld(pos).y + " Y");
+	}
+	
+	public Vector2D giveModelPos() {
+		return model.Position;
+	}
+	
 	public void toggleShop(String purchase) {
 		
 		view.ShopItemActive = !view.ShopItemActive;

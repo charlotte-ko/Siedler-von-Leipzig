@@ -260,9 +260,12 @@ public abstract class Buildings {
 	/**
 	 * @brief entfernt Angestellten, legt alle Items in Inventaren ab und löscht Gebäude aus Liste
 	 */
-	protected void deconstruct(ArrayList<Buildings> buildingsList) {
+	public void deconstruct(ArrayList<Buildings> buildingsList) {
 		
 		if(this.isContructed) {
+			this.employee.getTask().clear();
+			this.employee.getTaskTarget().clear();
+			this.employee.getTaskWay().clear();
 			this.employee.giveSettlerTask(this.employee.getPosition(), SettlersAktion.GO_BRING_LEFT, this.employee.getItem(true));
 			this.employee.giveSettlerTask(this.employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, this.employee.getItem(false));
 			this.employee.setEmployed(false);
