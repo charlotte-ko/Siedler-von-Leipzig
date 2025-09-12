@@ -105,6 +105,30 @@ public abstract class ASettlers{
 		this.working = working;
 	}
 	
+	public Deque<Vector2D> getTaskWay() {
+		return taskWay;
+	}
+
+	public void setTaskWay(Deque<Vector2D> taskWay) {
+		this.taskWay = taskWay;
+	}
+
+	public Deque<SettlersAktion> getTask() {
+		return task;
+	}
+
+	public void setTask(Deque<SettlersAktion> task) {
+		this.task = task;
+	}
+
+	public Deque<Items> getTaskTarget() {
+		return taskTarget;
+	}
+
+	public void setTaskTarget(Deque<Items> taskTarget) {
+		this.taskTarget = taskTarget;
+	}
+
 	public void giveSettlerTask(Vector2D punkt, SettlersAktion aufgabe, Items target) {
 		this.working = true;
 		this.taskWay.addLast(new Vector2D(punkt));
