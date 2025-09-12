@@ -56,6 +56,9 @@ public class House extends Buildings{
 	 * @note zeitlicher Aspekt fehlt noch
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList){
+		if(this.updateConstruction(delta, settlerList, BuildingsList, itemList, this.price, "Log")){
+			img = this.houseImg1;
+		}else {return;}
 		
 		while(this.counter < 10) {
 			spawntime += delta;

@@ -103,6 +103,14 @@ public class Lodge extends Buildings{
 		}
 		
 		this.getLogs(employee, ItemList);
+		if(this.input_inventory.size() > 0) {
+			Items i = this.input_inventory.get(0);
+			this.input_inventory.remove(0);
+			i.setInInventoryIn(false);
+			i.setInInventory(true);
+			this.output_inventory.add(i);
+		}
+		
 	}
 	
 	public static int getPrice() {
