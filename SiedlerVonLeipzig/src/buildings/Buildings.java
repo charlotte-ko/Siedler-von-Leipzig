@@ -214,7 +214,7 @@ public abstract class Buildings {
 		img = this.contructionImg;
 		
 		//check ob materialen im inventar vorhanden sind
-		if(this.getInput_Inventory().size() > 0) {
+		if(this.getInput_Inventory().size() >= price) {
 			isContructed = true;
 			return true;
 		}
