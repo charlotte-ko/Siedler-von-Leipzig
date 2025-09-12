@@ -112,6 +112,18 @@ public class GamePresenter {
 			}
 	}
 	
+	public void toggleShop(String purchase) {
+		
+		view.ShopItemActive = !view.ShopItemActive;
+		
+		if(view.ShopItemActive) {
+			view.attachShopItem(purchase);
+			
+		}else {
+			view.removeShopItem(purchase);
+		}
+	}
+	
 	public void giveCamera(Vector2D camPos,int tileSize) {
 		this.camPos = camPos;
 		this.tileSize = tileSize;
