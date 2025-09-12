@@ -40,6 +40,12 @@ public class ShopPresenter {
 		return currency;
 	}
 	
+	public int givePrice(String item) {
+		
+		int price = model.getPrice(item);
+		return price;
+	}
+	
 	public void onClick(String placed) {
 		
 		int price = model.getPrice(placed);
