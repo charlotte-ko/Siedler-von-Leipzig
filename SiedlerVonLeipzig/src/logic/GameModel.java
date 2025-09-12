@@ -52,6 +52,13 @@ public class GameModel {
 		synchronized(key) {settlerList.add(ASettlers.createSettler(position));}
 	}
 
+	public void deconstructBuilding(Vector2D pos) {
+		Buildings target = Buildings.findBuildingAprox(pos, buildingList, 1.0f);
+		if(target != null) {
+			synchronized(key) {target.deconstruct(buildingList);}
+		}
+	}
+	
 	/**
 	 * Test ob Siedler:
 	 * 1.) ein Log holen und bringen können

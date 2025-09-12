@@ -66,6 +66,12 @@ public class Game extends BaseGUI {
 					System.out.println("Mannnnnn");
 					removeShopItem();
 				}
+				
+				if(hammerActive && hammerLabel != null) {
+					Vector2D modelPos = presenter.giveModelPos();
+					
+					presenter.toggleDeconstruction(modelPos);
+				}
 				System.out.println("x:" + x + "y" +y);
 			}
 		});
