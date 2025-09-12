@@ -15,7 +15,8 @@ public abstract class Items {
 		
 		protected boolean held; //gibt an, ob ein Item im Inventar eines Siedlers oder InputInventar eines Gebäudes ist
 		protected boolean targeted;	//wenn es als Ziel an ein Siedler übergeben wurde
-		protected boolean inInventory;//wenn es in einem Hous ist (output inventar)
+		protected boolean inInventory;//wenn es in einem Building ist (output inventar)
+		protected boolean inInventoryIn;//wenn es in einem Building ist (input inventar)
 		
 		public final int price;
 		
@@ -59,7 +60,7 @@ public abstract class Items {
 			Items finalItem = null;
 		
 			for(Items item : ItemList) {
-				if(!item.getName().equals(target) || item.isHeld() || item.isTargeted()) {
+				if(!item.getName().equals(target) || item.isHeld() || item.isTargeted() || item.isInInventoryIn()) {
 					continue;
 				}
 				
@@ -101,6 +102,14 @@ public abstract class Items {
 		
 		public void setInInventory(boolean inInventory) {
 			this.inInventory = inInventory;
+		}
+		
+		public boolean isInInventoryIn() {
+			return inInventoryIn;
+		}
+		
+		public void setInInventoryIn(boolean inInventoryIn) {
+			this.inInventoryIn = inInventoryIn;
 		}
 		
 		public String getName() {

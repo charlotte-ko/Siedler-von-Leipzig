@@ -106,6 +106,7 @@ public abstract class ASettlers{
 	}
 	
 	public void giveSettlerTask(Vector2D punkt, SettlersAktion aufgabe, Items target) {
+		this.working = true;
 		this.taskWay.addLast(new Vector2D(punkt));
 		this.task.addLast(aufgabe);
 		if(target == null) {
@@ -175,6 +176,7 @@ public abstract class ASettlers{
 		Buildings b = Buildings.findBuilding(position, buildingList);
 		if(b == null)return;
 		ArrayList<Items> inventar = b.getInput_Inventory();
+		target.setInInventoryIn(true);
 		inventar.add(target);
 		b.setInput_Inventory(inventar);
 	}

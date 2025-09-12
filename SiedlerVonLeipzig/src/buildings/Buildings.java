@@ -219,8 +219,9 @@ public abstract class Buildings {
 		if(this.getInput_Inventory().size() >= price) {
 			isContructed = true;
 			for(int i = 0; i < this.input_inventory.size();i++) {
-				Items.dellItemFromList(this.input_inventory.remove(i), itemList);
+				Items.dellItemFromList(this.input_inventory.get(i), itemList);
 			}
+			this.setInput_Inventory(new ArrayList<Items>());
 			return true;
 		}
 		
