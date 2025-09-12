@@ -56,6 +56,7 @@ public class ShopPresenter {
 		}else {
 			
 			view.dispose();
+			presenter.toggleShop(placed);
 			presenter.place(placed);
 			updateList(model.itemList, placed, price);	
 		}

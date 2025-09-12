@@ -29,6 +29,8 @@ public class Game extends BaseGUI {
 	private ImageIcon hammerIcon = createIcon("Hammer.png", 40, 40);
 	public boolean hammerActive = false;
 	private JLabel hammerLabel;
+	public boolean ShopItemActive = false;
+	private JLabel ShopItemLabel;
 	private Container glassPane = (Container) getGlassPane();
 	
 	//Alle Buttons
@@ -59,6 +61,9 @@ public class Game extends BaseGUI {
 				
 				presenter.savePos(new Vector2D(x,y));
 				presenter.waiting = false;
+				if(ShopItemActive && ShopItemLabel != null) {
+					removeShopItem();
+				}
 				System.out.println("x:" + x + "y" +y);
 			}
 		});
@@ -69,6 +74,9 @@ public class Game extends BaseGUI {
 			public void mouseMoved(MouseEvent e) {
 				if(hammerActive && hammerLabel != null) {
 					hammerLabel.setLocation(e.getX() - 15, e.getY() - 15);
+				}
+				if(ShopItemActive && ShopItemLabel != null) {
+					ShopItemLabel.setLocation(e.getX() -15,  e.getY() - 15);
 				}
 			}
 		});
@@ -175,5 +183,27 @@ public class Game extends BaseGUI {
 	        glassPane.setVisible(false);
 	        hammerLabel = null;
 	    }
+	}
+	
+	public void attachShopItem(String item) {
+		
+		if(ShopItemLabel != null) {
+			glassPane.remove(ShopItemLabel);
+		}
+		ImageIcon icon = createIcon(item + ".png", 60, 60);
+		ShopItemLabel = new JLabel(icon);
+		ShopItemLabel.setSize(icon.getIconWidth(), icon.getIconHeight());
+		glassPane.setLayout(null);
+		glassPane.add(ShopItemLabel);
+		glassPane.setVisible(true);
+	}
+	
+	public void removeShopItem() {
+		
+		if(ShopItemLabel != null) {
+			glassPane.remove(ShopItemLabel);
+			glassPane.setVisible(false);
+			ShopItemLabel = null;
+		}
 	}
 }
