@@ -99,7 +99,7 @@ public abstract class Buildings {
 	}
 	
 	/**
-	 * @brief sucht nächsten Settler mit passenden Job
+	 * @brief sucht nächsten Settler mit passendem Job
 	 * @param settlerList
 	 * @param job (gesuchter)
 	 * @return Settler mit Job, oder null
@@ -219,8 +219,9 @@ public abstract class Buildings {
 		if(this.getInput_Inventory().size() >= price) {
 			isContructed = true;
 			for(int i = 0; i < this.input_inventory.size();i++) {
-				Items.dellItemFromList(this.input_inventory.remove(i), itemList);
+				Items.dellItemFromList(this.input_inventory.get(i), itemList);
 			}
+			this.setInput_Inventory(new ArrayList<Items>());
 			return true;
 		}
 		
@@ -254,5 +255,28 @@ public abstract class Buildings {
 			else this.hasEmployee = true;
 		}
 		return true;
+	}
+	
+	/**
+	 * @brief entfernt Angestellten, legt alle Items in Inventaren ab und löscht Gebäude aus Liste
+	 */
+	protected void deconstruct(ArrayList<Buildings> buildingsList) {
+		
+		if(this.isContructed) {
+			this.employee.giveSettlerTask(this.employee.getPosition(), SettlersAktion.GO_BRING_LEFT, this.employee.getItem(true));
+			this.employee.giveSettlerTask(this.employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, this.employee.getItem(false));
+			this.employee.setEmployed(false);
+			this.employee.setJobName(SettlersJobs.JOB_NORMAL);
+			
+			for(Items i : this.input_inventory) {
+				i.setInInventoryIn(false);
+			}
+			
+			for(Items i : this.output_inventory) {
+				i.setInInventory(false);
+			}
+			buildingsList.remove(this);
+		}
+		return;
 	}
 }
