@@ -123,8 +123,10 @@ public class GamePresenter {
 	
 	public void toggleShop(String purchase) {
 		
-		view.ShopItemActive = !view.ShopItemActive;
-		
+		view.ShopItemActive = true;
+		if(!view.ShopItemActive) {
+			System.out.println("Kaputt");
+		}
 		if(view.ShopItemActive) {
 			view.attachShopItem(purchase);
 			
