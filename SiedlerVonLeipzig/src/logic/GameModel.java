@@ -92,7 +92,8 @@ public class GameModel {
 		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,3.0f)));
 		itemStart.add(Items.createItem("Axe", new Vector2D(5.0f,5.0f)));
 		buildingStart.add(Buildings.createBuilding("Lodge", new Vector2D(5.0f,0.0f)));
-		//buildingStart.get(0).isContructed = true;
+		buildingStart.add(Buildings.createBuilding("House", new Vector2D(-5.0f,-5.0f)));
+		buildingStart.get(1).isContructed = true;
 		settlerStart.get(0).setSpeed(6.0f);
 		
 		for(ASettlers s : settlerStart)settlerList.add(s);
