@@ -59,6 +59,7 @@ public class GameModel {
 	public void setupGameFieldDebug1Settler() {
 		ASettlers settler1 = ASettlers.createSettler(new Vector2D(0.0f,0.0f));
 		Items item1 = Items.createItem("Log", new Vector2D(5.0f,0.0f));
+		Items item2 = Items.createItem("Axe", new Vector2D(10.0f,0.0f));
 		Buildings building1 = Buildings.createBuilding("Forester", new Vector2D(0.0f,5.0f));
 		Buildings building2 = Buildings.createBuilding("House", new Vector2D(5.0f,5.0f));
 		Buildings building3 = Buildings.createBuilding("Forester", new Vector2D(5.0f,10.0f));
@@ -67,12 +68,15 @@ public class GameModel {
 		
 		settlerList.add(settler1);
 		itemList.add(item1);
+		itemList.add(item2);
 		buildingList.add(building1);
 		buildingList.add(building2);
 		buildingList.add(building3);
 		
 		settler1.giveSettlerTask(item1.getPosition(), SettlersAktion.GO_PICKUP_LEFT, item1);
 		settler1.giveSettlerTask(settler1.getPosition(), SettlersAktion.GO_BRING_LEFT, item1);
+		settler1.giveSettlerTask(item2.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, item2);
+		settler1.giveSettlerTask(settler1.getPosition(), SettlersAktion.GO_BRING_RIGHT, item2);
 	}
 	public void setupGameFieldDebug2() {
 		ArrayList<ASettlers> settlerStart = new ArrayList<>();
@@ -80,15 +84,36 @@ public class GameModel {
 		ArrayList<Buildings> buildingStart = new ArrayList<>();
 		
 		settlerStart.add(ASettlers.createSettler(new Vector2D()));
-		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,5.0f)));
+		for(int i = 0; i < 30;i++) {
+			itemStart.add(Items.createItem("Log", new Vector2D(-1.0f,i/2.0f)));
+		}
+		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,1.0f)));
+		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,2.0f)));
+		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,3.0f)));
 		itemStart.add(Items.createItem("Axe", new Vector2D(5.0f,5.0f)));
 		buildingStart.add(Buildings.createBuilding("Lodge", new Vector2D(5.0f,0.0f)));
+		//buildingStart.get(0).isContructed = true;
+		settlerStart.get(0).setSpeed(6.0f);
 		
 		for(ASettlers s : settlerStart)settlerList.add(s);
 		for(Items i : itemStart)itemList.add(i);
 		for(Buildings b : buildingStart)buildingList.add(b);
 	}
-	
+	public void setupGameFieldDebug3() {
+		ArrayList<ASettlers> settlerStart = new ArrayList<>();
+		ArrayList<Items> itemStart = new ArrayList<>();
+		ArrayList<Buildings> buildingStart = new ArrayList<>();
+		
+		settlerStart.add(ASettlers.createSettler(new Vector2D()));
+		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,5.0f)));
+		itemStart.add(Items.createItem("Axe", new Vector2D(5.0f,5.0f)));
+		settlerStart.get(0).setSpeed(6.0f);
+		
+		
+		for(ASettlers s : settlerStart)settlerList.add(s);
+		for(Items i : itemStart)itemList.add(i);
+		for(Buildings b : buildingStart)buildingList.add(b);
+	}	
 	public void setupGameField() {
 		setupGameFieldDebug1Settler();
 	}

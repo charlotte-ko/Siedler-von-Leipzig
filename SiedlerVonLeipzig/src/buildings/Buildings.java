@@ -11,10 +11,20 @@ import javax.imageio.ImageIO;
 import items.Items;
 import settlers.ASettlers;
 import settlers.Settler;
+import settlers.SettlersAktion;
 import settlers.SettlersJobs;
 import logic.Vector2D;
 
 public abstract class Buildings {
+	protected static BufferedImage contructionImg;
+	static {
+		try {
+			contructionImg = ImageIO.read(Buildings.class.getResourceAsStream("/resources/ConstructionBuilding.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	
 	protected Vector2D position;
 	protected ArrayList<Items> input_inventory = new ArrayList<>(); 
@@ -24,6 +34,7 @@ public abstract class Buildings {
 	protected boolean hasEmployee;
 	protected BufferedImage img;
 	protected String name;
+	
 	
 	public void draw(Graphics2D g2, int tileSize,Vector2D camPos) {
 		//eins nach oben eins nach links
@@ -46,6 +57,7 @@ public abstract class Buildings {
 	public Buildings(String name, Vector2D pos) {
 		this.name = name;	
 		this.position = pos;
+		this.hasEmployee = false;
 	}
 	
 	/**
@@ -187,5 +199,55 @@ public abstract class Buildings {
 	
 	public  String getName() {
 		return this.name;
+	}
+	
+	public boolean isContructed = false;
+	private int orderedForConstruction = 0;
+	/**
+	 * @brief baut gebäude auf
+	 * @param delta
+	 * @return
+	 */
+	protected boolean updateConstruction(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList,int price,String priceName) {
+		if(isContructed)return true;
+		
+		img = this.contructionImg;
+		
+		//check ob materialen im inventar vorhanden sind
+		if(this.getInput_Inventory().size() > 0) {
+			isContructed = true;
+			return true;
+		}
+		
+		//order mehr items
+		while(orderedForConstruction < price) {
+			ASettlers s = this.findEmployee(settlerList, SettlersJobs.JOB_NORMAL);
+			if(s == null)break;
+			Items i = Items.closestItem(s.getPosition(), itemList, priceName);
+			if(i == null)break;
+			s.giveSettlerTask(i.getPosition(), SettlersAktion.GO_PICKUP_LEFT, i);
+			s.giveSettlerTask(this.position, SettlersAktion.GO_BRING_LEFT, i);
+			orderedForConstruction++;
+		}
+		return false;
+	}
+	/**
+	 * @brief stellt Passenden Siedler ein
+	 * @param settlerList
+	 * @param job	der gesucht wird
+	 * @param noWorkerImg	Image welche angezeigt werden soll wenn kein passender Siedler da ist
+	 * @return true falls has Employee == true
+	 */
+	protected boolean hireEmployee(ArrayList<ASettlers> settlerList,BufferedImage noWorkerImg) {
+		if(!hasEmployee) {
+			this.employee = this.findEmployee(settlerList, SettlersJobs.JOB_NORMAL);
+			
+			if(employee == null) {
+				img = noWorkerImg;
+				return false;
+			}
+			else this.hasEmployee = true;
+		}
+		return true;
 	}
 }
