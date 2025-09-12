@@ -63,14 +63,14 @@ public class Forester extends Buildings{
 	 * @param ItemList
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList) {
+		if(this.updateConstruction(delta, settlerList, BuildingsList, itemList, this.price, "Log")){
+			img = this.foresterImg1;
+		}else {return;}
 		
-		if(!hasEmployee) {			
-			this.employee = this.findEmployee(settlerList, SettlersJobs.JOB_GARDENER);
-			if(employee == null) return;
-			else this.hasEmployee = true;
-			this.employee.setEmployed(true);
+		if(!this.hireEmployee(settlerList, this.foresterImg2))return;
+		if(!this.employee.getJobName().equals(SettlersJobs.JOB_GARDENER))
 			this.employee.setJobName(SettlersJobs.JOB_GARDENER);
-		}
+
 
 		if(this.getOutput_Inventory().size() < 10) {
 			passtime += delta;
