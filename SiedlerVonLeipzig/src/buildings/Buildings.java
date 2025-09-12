@@ -198,6 +198,21 @@ public abstract class Buildings {
 		}
 		return null;
 	}
+	/**
+	 * @brief findet Building welches ungefähr an der position ist
+	 * @param position
+	 * @param buildingList
+	 * @param eps 				erlaubte abweichung
+	 * @return
+	 */
+	public static Buildings findBuildingAprox(Vector2D position, ArrayList<Buildings> buildingList,float eps) {
+		for(Buildings b : buildingList) {
+		    if(Math.abs(b.getPosition().x - position.x) <= eps && Math.abs(b.getPosition().y - position.y) <= eps) {
+		    	return b;
+		    }
+		}
+		return null;
+	}
 	
 	public  String getName() {
 		return this.name;
