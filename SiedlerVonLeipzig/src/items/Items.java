@@ -59,7 +59,7 @@ public abstract class Items {
 			Items finalItem = null;
 		
 			for(Items item : ItemList) {
-				if(!item.getName().equals(target) && !item.isHeld() && !item.isTargeted()) {
+				if(!item.getName().equals(target) || item.isHeld() || item.isTargeted()) {
 					continue;
 				}
 				

@@ -29,16 +29,12 @@ public class Lodge extends Buildings{
 		}
 	}
 	
-	protected ASettlers employee;
-	protected boolean hasEmployee;
-	
 	/**
 	 * @brief Konstruktor für Lodge, lagert Logs
 	 * @param pos
 	 */
 	public Lodge(Vector2D pos) {
 		super("Lodge", pos);
-		this.hasEmployee = false;
 		img = lodgeImg1;
 	}
 
@@ -46,13 +42,20 @@ public class Lodge extends Buildings{
 	 * @brief beschafft nächsten Tree vom Settler aus und macht daraus Log
 	 * @param worker
 	 * @param itemList
-	 * @note GO_MAKE ist noch nicht geschrieben
 	 */
 	public void getLogs(ASettlers worker, ArrayList<Items> itemList) {
-		Items tree = Items.closestItem(worker.getPosition(), itemList, "Tree");
-		worker.giveSettlerTask(tree.getPosition(), SettlersAktion.GO_PICKUP_LEFT, tree);
-		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, tree);
-		//worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_MAKE, null);
+		Items settlerHand = worker.getItem(true);
+		if(!settlerHand.getName().equals("Tree")) {
+			Items tree = Items.closestItem(worker.getPosition(), itemList, "Tree");
+			if(tree == null)return;
+			worker.giveSettlerTask(tree.getPosition(), SettlersAktion.GO_PICKUP_LEFT, tree);
+			return;
+		}
+		Items.dellItemFromList(settlerHand, itemList);
+		Items newLog = Items.createItem("Log", worker.getPosition());
+		itemList.add(newLog);
+		worker.setItem(true, newLog);
+		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, worker.getItem(true));
 	}
 	
 	/**
@@ -85,23 +88,21 @@ public class Lodge extends Buildings{
 	 * @note bin mir grad nicht sicher ob man mit getAxe noch was machen muss, oder ob das im nächsten Frame nen Log mit dem Bre sucht
 	 * @note e.v muss das input_inventar direkt in das output_inventar überführt werden
 	 */
-	public void update(double Delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
+	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
+		if(this.updateConstruction(delta, settlerList, BuildingsList, ItemList, this.price, "Log")){
+			img = this.lodgeImg1;
+		}else {return;}
 		
-		//Diesen Teil eventuell auslagern
-		if(!hasEmployee) {
-			this.employee = this.findEmployee(settlerList, SettlersJobs.JOB_LUMBERJACK);
-			
-			if(employee == null) {
-				return;
-			}
-			else this.hasEmployee = true;
+		if(!this.hireEmployee(settlerList, this.lodgeImg2))return;
+		
+		if(employee.isWorking())return;
+		
+		if(!this.employee.getJobName().equals(SettlersJobs.JOB_LUMBERJACK)) {
+			this.getAxe(ItemList);
+			return;
 		}
-		if(!employee.isWorking()) {
-			if(this.employee.getJobName().equals(SettlersJobs.JOB_LUMBERJACK) && this.getInput_Inventory().size() < 10) {
-				this.getLogs(employee, ItemList);
-			}
-			else this.getAxe(ItemList);
-		}
+		
+		this.getLogs(employee, ItemList);
 	}
 	
 	public static int getPrice() {

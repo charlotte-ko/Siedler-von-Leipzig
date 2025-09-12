@@ -52,6 +52,8 @@ public abstract class ASettlers{
 		}
 	}
 	public void setItem(boolean leftHand,Items tem) {
+		if(tem == null) tem = Items.createItem("Nothing", this.getPosition());
+		tem.setHeld(true);
 		if(leftHand) {
 			this.leftHand = tem;
 		}else {
@@ -77,6 +79,8 @@ public abstract class ASettlers{
 	 */
 	public static ASettlers createSettler(Vector2D position) {
 		ASettlers newSettler = new Settler(position);
+		newSettler.setItem(true, null);
+		newSettler.setItem(false, null);
 		return newSettler;
 	}
 
@@ -102,7 +106,7 @@ public abstract class ASettlers{
 	}
 	
 	public void giveSettlerTask(Vector2D punkt, SettlersAktion aufgabe, Items target) {
-		this.taskWay.addLast(punkt);
+		this.taskWay.addLast(new Vector2D(punkt));
 		this.task.addLast(aufgabe);
 		if(target == null) {
 			//dummy item wechseln
@@ -127,14 +131,12 @@ public abstract class ASettlers{
 		switch(this.task.pollFirst()) {
 			case GO_PICKUP_LEFT:
 				this.setItem(true, target);
-				target.setHeld(true);
 				target.setTargeted(false);
 				if(target.isInInventory())takeFromBuilding(target.getPosition(),buildingList,target);
 				target.setInInventory(false);
 				break;
 			case GO_PICKUP_RIGHT:
 				this.setItem(false, target);
-				target.setHeld(true);
 				target.setTargeted(false);
 				if(target.isInInventory())takeFromBuilding(target.getPosition(),buildingList,target);
 				target.setInInventory(false);
@@ -184,7 +186,7 @@ public abstract class ASettlers{
 	 */
 	private boolean move(double delta,ArrayList<Buildings> buildingList) {
 		Vector2D targetPosition = this.taskWay.peekFirst();
-		if(this.position.getDistance(targetPosition) < 1.0f) {
+		if(this.position.getDistance(targetPosition) < 0.1f) {
 			this.taskWay.pollFirst();
 			return true;
 		}

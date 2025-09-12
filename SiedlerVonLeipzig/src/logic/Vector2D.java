@@ -108,7 +108,8 @@ public class Vector2D {
 	 * @param b
 	 * @return
 	 */
-	public boolean same(Vector2D b) {
-		return (b.x == this.x) ? ((b.y == this.y) ? true:false) : false;
+	public boolean same(Vector2D o) {
+	    return o != null && x == o.x && y == o.y;
 	}
+
 }
