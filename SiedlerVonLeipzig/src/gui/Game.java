@@ -61,7 +61,9 @@ public class Game extends BaseGUI {
 				
 				presenter.savePos(new Vector2D(x,y));
 				presenter.waiting = false;
+				
 				if(ShopItemActive && ShopItemLabel != null) {
+					System.out.println("Mannnnnn");
 					removeShopItem();
 				}
 				System.out.println("x:" + x + "y" +y);
@@ -190,11 +192,13 @@ public class Game extends BaseGUI {
 		if(ShopItemLabel != null) {
 			glassPane.remove(ShopItemLabel);
 		}
+		//ShopItemActive = true;
 		ImageIcon icon = createIcon(item + ".png", 60, 60);
 		ShopItemLabel = new JLabel(icon);
 		ShopItemLabel.setSize(icon.getIconWidth(), icon.getIconHeight());
 		glassPane.setLayout(null);
 		glassPane.add(ShopItemLabel);
+		System.out.println("Hi");
 		glassPane.setVisible(true);
 	}
 	
@@ -203,6 +207,7 @@ public class Game extends BaseGUI {
 		if(ShopItemLabel != null) {
 			glassPane.remove(ShopItemLabel);
 			glassPane.setVisible(false);
+			ShopItemActive = false;
 			ShopItemLabel = null;
 		}
 	}
