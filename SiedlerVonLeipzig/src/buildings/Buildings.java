@@ -17,9 +17,11 @@ import logic.Vector2D;
 
 public abstract class Buildings {
 	protected static BufferedImage contructionImg;
+	protected static BufferedImage contructionImg2;
 	static {
 		try {
 			contructionImg = ImageIO.read(Buildings.class.getResourceAsStream("/resources/ConstructionBuilding.png"));
+			contructionImg2 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Plot.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -211,11 +213,14 @@ public abstract class Buildings {
 	protected boolean updateConstruction(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList,int price,String priceName) {
 		if(isContructed)return true;
 		
-		img = this.contructionImg;
+		img = this.contructionImg2;
 		
 		//check ob materialen im inventar vorhanden sind
 		if(this.getInput_Inventory().size() >= price) {
 			isContructed = true;
+			for(int i = 0; i < this.input_inventory.size();i++) {
+				Items.dellItemFromList(this.input_inventory.remove(i), itemList);
+			}
 			return true;
 		}
 		
