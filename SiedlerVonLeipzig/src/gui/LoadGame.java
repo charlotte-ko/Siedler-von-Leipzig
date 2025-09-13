@@ -14,7 +14,7 @@ public class LoadGame extends BaseGUI {
 
 	LoadPresenter presenter;
 	
-	ArrayList<String> userData = presenter.getUserData();
+	ArrayList<String> userData = new ArrayList<>();
 	
 	public LoadGame() {
 		super("Speicherdaten");
@@ -29,6 +29,7 @@ public class LoadGame extends BaseGUI {
 
 	public void setPresenter(LoadPresenter presenter) {
 		this.presenter = presenter;
+		userData = presenter.getUserData();
 		this.setButtons();
 	}
 	
