@@ -21,4 +21,8 @@ public class Iron extends Items{
 		this.name = "Iron";
 		img = ironImg;
 	}
+	@Override
+	public void reloadImg() {
+		img = ironImg;
+	}
 }

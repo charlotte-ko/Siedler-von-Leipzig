@@ -31,4 +31,9 @@ public class Hammer extends Items {
 	public static String getPriceType() {
 		return priceType;
 	}
+
+	@Override
+	public void reloadImg() {
+		img = hammerImg;
+	}
 }

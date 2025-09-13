@@ -33,7 +33,7 @@ public abstract class ASettlers implements java.io.Serializable{
 	private Deque<SettlersAktion> task = new ArrayDeque<>();	//aufgabe
 	protected Deque<Items> taskTarget = new ArrayDeque<>();
 	
-	protected BufferedImage img;
+	protected transient BufferedImage img;
 	protected boolean isGoingUp; //nur für die animation
 	
 

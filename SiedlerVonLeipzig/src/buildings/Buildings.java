@@ -36,7 +36,7 @@ public abstract class Buildings implements java.io.Serializable{
 	
 	protected ASettlers employee;
 	protected boolean hasEmployee;
-	protected BufferedImage img;
+	protected transient BufferedImage img;
 	protected String name;
 	
 	

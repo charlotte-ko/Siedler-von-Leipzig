@@ -21,4 +21,8 @@ public class Plank extends Items{
 		this.name = "Plank";
 		img = plankImg;
 	}
+	@Override
+	public void reloadImg() {
+		img = plankImg;
+	}
 }

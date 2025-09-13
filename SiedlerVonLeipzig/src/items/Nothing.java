@@ -21,4 +21,8 @@ public class Nothing extends Items{
 		this.name = "Nothing";
 		img = nothingImg;
 	}
+	@Override
+	public void reloadImg() {
+		img = nothingImg;
+	}
 }
