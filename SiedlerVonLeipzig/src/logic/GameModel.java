@@ -257,8 +257,8 @@ public class GameModel {
 		priceMap.put("House", House.getPrice());
 		priceMap.put("Lodge", Lodge.getPrice());
 		priceMap.put("Sawmill", Sawmill.getPrice());
-		priceMap.put("Axe", Axe.getPrice());
-		priceMap.put("Saw", Saw.getPrice());
+		priceMap.put("Forge", Forge.getPrice());
+		priceMap.put("Mine", Mine.getPrice());
 		
 	}
 	

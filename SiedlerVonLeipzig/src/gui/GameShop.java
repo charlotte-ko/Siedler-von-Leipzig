@@ -33,11 +33,11 @@ public class GameShop extends BaseGUI {
 	JButton forester = new JButton(createIcon("Forester.png", 80, 80));
 	JButton lodge = new JButton(createIcon("Lodge.png", 80, 80));
 	JButton sawmill = new JButton(createIcon("Sawmill.png", 80, 80));
-	JButton axe = new JButton(createIcon("Axe.png", 40, 40));
-	JButton saw = new JButton(createIcon("Saw.png", 40, 40));
+	JButton forge = new JButton(createIcon("Forge.png", 80, 80));
+	JButton mine = new JButton(createIcon("Mine.png", 80, 80));
 	
 	JButton[] leftbuttons = {house, forester, lodge, sawmill};
-	JButton[] rightbuttons = {axe ,saw};
+	JButton[] rightbuttons = {forge ,mine};
 	
 	ImageIcon logC = createIcon("Log.png", 40, 40);
 	ImageIcon plankC = createIcon("Plank.png", 40, 40);
@@ -90,8 +90,8 @@ public class GameShop extends BaseGUI {
 		JLabel price2 = createLabel("Preis: " + presenter.givePrice("Forester") + " Logs", 20, 20);
 		JLabel price3 = createLabel("Preis: " + presenter.givePrice("Lodge") + " Logs", 20, 20);
 		JLabel price4 = createLabel("Preis: " + presenter.givePrice("Sawmill") + " Logs", 20, 20);
-		JLabel price5 = createLabel("Preis: " + presenter.givePrice("Axe") + " Logs", 20, 20);
-		JLabel price6 = createLabel("Preis: " + presenter.givePrice("Saw") + " Logs", 20, 20);
+		JLabel price5 = createLabel("Preis: " + presenter.givePrice("Schmiede") + " Logs", 20, 20);
+		JLabel price6 = createLabel("Preis: " + presenter.givePrice("Miene") + " Logs", 20, 20);
 		
 		JLabel[] prices = {price1, price2, price3, price4, price5, price6};
 		
@@ -99,8 +99,8 @@ public class GameShop extends BaseGUI {
 		JLabel label2 = createLabel("Försterei:", 100, 30);
 		JLabel label3 = createLabel("Lodge:", 100, 30); 
 		JLabel label4 = createLabel("Sägemühle:", 100, 30);
-		JLabel label5 = createLabel("Axt:", 100, 30);
-		JLabel label6 = createLabel("Säge:", 100, 30);
+		JLabel label5 = createLabel("Schmiede:", 100, 30);
+		JLabel label6 = createLabel("Miene:", 100, 30);
 		
 		JLabel[] leftlabels = {label1, label2, label3, label4};
 		JLabel[] rightlabels = {label5, label6};
@@ -304,8 +304,8 @@ public class GameShop extends BaseGUI {
 		forester.addActionListener(e -> presenter.onClick("Forester"));
 		lodge.addActionListener(e -> presenter.onClick("Lodge"));
 		sawmill.addActionListener(e -> presenter.onClick("Sawmill"));
-		axe.addActionListener(e -> presenter.onClick("Axe"));
-		saw.addActionListener(e -> presenter.onClick("Saw"));
+		forge.addActionListener(e -> presenter.onClick("Axe"));
+		mine.addActionListener(e -> presenter.onClick("Saw"));
 	}
 	/*
 	public void attach() {
