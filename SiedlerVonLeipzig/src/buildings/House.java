@@ -59,7 +59,7 @@ public class House extends Buildings{
 			img = this.houseImg1;
 		}else {return;}
 		
-		while(this.counter < 10) {
+		if(this.counter < 10) {
 			spawntime += delta;
 			if(spawntime >= 20.0) {
 				makeSettlers(settlerList);
