@@ -57,9 +57,7 @@ public class LoadGame extends BaseGUI {
 			this.add(b);
 			
 			
-			b.addActionListener(e -> {presenter.loadUserData(b.getText());
-			presenter.openSavedGame();
-			});
+			b.addActionListener(e -> presenter.loadUserData(b.getText()));
 		}
 	}
 }

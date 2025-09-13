@@ -39,15 +39,11 @@ public class LoadPresenter {
 	}
 	
 	public void loadUserData(String name) {
-		model.loadGame(name);
-	}
-	
-	public void openSavedGame() {
 		view.dispose();
 		model.fillMap();
 		Game save = new Game();
 		GamePresenter gPresenter = new GamePresenter(model, save);
-		gPresenter.start();
+		gPresenter.startSave(name);
 	}
 	
 	public void start() {
