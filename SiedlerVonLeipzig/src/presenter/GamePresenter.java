@@ -76,11 +76,11 @@ public class GamePresenter {
 			case "Sawmill": 
 				model.constructBuilding(placeBuildingName,screenToWorld(pos));
 				break;
-			case "Axe": 
-				model.constructItem(placeBuildingName,screenToWorld(pos));
+			case "Forge": 
+				model.constructBuilding(placeBuildingName,screenToWorld(pos));
 				break;
-			case "Saw": 
-				model.constructItem(placeBuildingName,screenToWorld(pos));
+			case "Mine": 
+				model.constructBuilding(placeBuildingName,screenToWorld(pos));
 				break;
 			default: model.constructItem(null, pos);
 			}

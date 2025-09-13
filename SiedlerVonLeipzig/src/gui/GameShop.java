@@ -304,8 +304,8 @@ public class GameShop extends BaseGUI {
 		forester.addActionListener(e -> presenter.onClick("Forester"));
 		lodge.addActionListener(e -> presenter.onClick("Lodge"));
 		sawmill.addActionListener(e -> presenter.onClick("Sawmill"));
-		forge.addActionListener(e -> presenter.onClick("Axe"));
-		mine.addActionListener(e -> presenter.onClick("Saw"));
+		forge.addActionListener(e -> presenter.onClick("Forge"));
+		mine.addActionListener(e -> presenter.onClick("Mine"));
 	}
 	/*
 	public void attach() {
