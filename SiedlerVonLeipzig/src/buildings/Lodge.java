@@ -18,6 +18,7 @@ public class Lodge extends Buildings{
 	private static BufferedImage lodgeImg1;
 	private static BufferedImage lodgeImg2;
 	public static int price = 20;
+	public static String priceType = "Log";
 	public static String name = "Lodge";
 	static {
 		try {
@@ -57,10 +58,7 @@ public class Lodge extends Buildings{
 		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, worker.getItem(true));
 	}
 	
-	/**
-	 * @brief gibt employee nächste Axe, falls schon ein Item getragen wird lässt er es fallen
-	 * @param ItemList
-	 */
+	/*Kann eigentlich weg (nur zur sicherheit noch da)		
 	protected void getAxe(ArrayList<Items> ItemList) {
 		Items axe = Items.closestItem(employee.getPosition(), ItemList, "Axe");
 		if (axe == null){
@@ -77,6 +75,7 @@ public class Lodge extends Buildings{
 			employee.giveSettlerTask(axe.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, axe);
 		}
 	}
+	*/
 	
 	/**
 	 * @brief Updatemethode, überprüft ob es employee gibt und "stellt ein" wenn nicht, beschafft Log wenn Inventar leer
@@ -88,18 +87,7 @@ public class Lodge extends Buildings{
 	 * @note e.v muss das input_inventar direkt in das output_inventar überführt werden
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
-		if(this.updateConstruction(delta, settlerList, BuildingsList, ItemList, this.price, "Log")){
-			img = this.lodgeImg1;
-		}else {return;}
-		
-		if(!this.hireEmployee(settlerList, this.lodgeImg2))return;
-		
-		if(employee.isWorking())return;
-		
-		if(!this.employee.getJobName().equals(SettlersJobs.JOB_LUMBERJACK)) {
-			this.getAxe(ItemList);
-			return;
-		}
+		if(!this.updatStartCheck(delta, settlerList, ItemList, BuildingsList, price, priceType, lodgeImg1, lodgeImg2, SettlersJobs.JOB_LUMBERJACK, "Axe"))return;
 		
 		this.getLogs(employee, ItemList);
 		if(this.input_inventory.size() > 0) {

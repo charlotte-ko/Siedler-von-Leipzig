@@ -18,6 +18,7 @@ public class Forester extends Buildings{
 	private static BufferedImage foresterImg1;
 	private static BufferedImage foresterImg2;
 	protected static int price = 20;
+	protected static String priceType = "Log";
 	protected static String name = "Forester";
 	
 	static {
@@ -62,16 +63,8 @@ public class Forester extends Buildings{
 	 * @param ItemList
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList) {
-		if(this.updateConstruction(delta, settlerList, BuildingsList, itemList, this.price, "Log")){
-			img = this.foresterImg1;
-		}else {return;}
 		
-		if(!this.hireEmployee(settlerList, this.foresterImg2))return;
-		if(!this.employee.getJobName().equals(SettlersJobs.JOB_GARDENER))
-			this.employee.setJobName(SettlersJobs.JOB_GARDENER);
-
-
-		if(this.getOutput_Inventory().size() < 10) {
+		if(this.getOutput_Inventory().size() < 10 && this.isContructed) {
 			passtime += delta;
 			if(passtime >= 6.0) {
 				Items newTree = Items.createItem("Tree", this.position);
@@ -81,17 +74,17 @@ public class Forester extends Buildings{
 				passtime = 0.0;
 			}
 		}
+
+		if(!this.updatStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, foresterImg1, foresterImg2, SettlersJobs.JOB_GARDENER, null))return;
+
+		Vector2D plantPos = new Vector2D();
+		float moreRange = 0.0f;
+		do {
+			plantPos = this.getPosition().genPos(1.0f+moreRange);
+			moreRange += 0.01;
+		}while(!plantPos.testPos(BuildingsList, itemList));
 		
-		if(!employee.isWorking()) {
-			Vector2D plantPos = new Vector2D();
-			float moreRange = 0.0f;
-			do {
-				plantPos = this.getPosition().genPos(4.0f+moreRange);
-				moreRange += 0.01;
-			}while(!plantPos.testPos(BuildingsList, itemList));
-		
-			this.plantTree(employee, plantPos);
-		}
+		this.plantTree(employee, plantPos);
 	}
 
 	public static int getPrice() {

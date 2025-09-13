@@ -105,42 +105,31 @@ public abstract class ASettlers implements java.io.Serializable{
 	protected void setIsWorking(boolean working) {
 		this.working = working;
 	}
-	
-	public Deque<Vector2D> getTaskWay() {
-		return taskWay;
-	}
 
-	public void setTaskWay(Deque<Vector2D> taskWay) {
-		this.taskWay = taskWay;
-	}
-
-	public Deque<SettlersAktion> getTask() {
-		return task;
-	}
-
-	public void setTask(Deque<SettlersAktion> task) {
-		this.task = task;
-	}
-
-	public Deque<Items> getTaskTarget() {
-		return taskTarget;
-	}
-
-	public void setTaskTarget(Deque<Items> taskTarget) {
-		this.taskTarget = taskTarget;
-	}
-
+	/**
+	 * @brief gibt Siedler eine Aufgabe die in den deque gespeichert werden
+	 * @param punkt		Wo hingegangen werden soll
+	 * @param aufgabe	Was gemacht werden soll
+	 * @param target	Welches Item beinflusst wird
+	 * @note bei target==null wird ein dummy item hinzugefühgt
+	 * @note target wird auf Targeted = true gesetzt
+	 */
 	public void giveSettlerTask(Vector2D punkt, SettlersAktion aufgabe, Items target) {
 		this.working = true;
 		this.taskWay.addLast(new Vector2D(punkt));
 		this.task.addLast(aufgabe);
 		if(target == null) {
-			//dummy item wechseln
 			this.taskTarget.addLast(Items.createItem("Nothing", new Vector2D()));
 		}else{
 			target.setTargeted(true);
 			this.taskTarget.addLast(target);
 		}
+	}
+	public void dellAllTask() {
+		this.task.clear();
+		this.taskTarget.clear();
+		this.taskWay.clear();
+		this.working = false;
 	}
 	
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> buildingList, ArrayList<Items> itemList) {

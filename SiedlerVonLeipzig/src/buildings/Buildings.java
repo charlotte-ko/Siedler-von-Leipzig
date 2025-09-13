@@ -46,7 +46,6 @@ public abstract class Buildings implements java.io.Serializable{
 		int posY = (int)((position.y-camPos.y)*tileSize) - tileSize*2;
 		
 		//gebäude nimmt 4 tiles ein
-		
 		g2.drawImage(img, posX, posY, tileSize*4,tileSize*4,null);
 	}
 	
@@ -76,6 +75,7 @@ public abstract class Buildings implements java.io.Serializable{
 		case "Forester" : return new Forester(pos);
 		case "Lodge" : return new Lodge(pos);
 		case "Sawmill" : return new Sawmill(pos);
+		case "Mine" : return new Mine(pos);
 		default: throw new IllegalArgumentException("Unexpected Value: " + building);
 		}
 	}
@@ -278,14 +278,80 @@ public abstract class Buildings implements java.io.Serializable{
 	}
 	
 	/**
+	 * @brief sucht passendes Werkzeug und übergibt den Beruf dem Employee
+	 * @param itemList
+	 * @param itemType	welches item Benötigt wird
+	 * @param job		job den der Employee bekommen soll
+	 * @note hat der Employee schon ein Job, so tut er sein Werkzeug auf den Boden.
+	 * @note wird kein Item benötigt wird einfach null übergeben
+	 */
+	protected void getJobItemAndJob(ArrayList<Items> itemList,String itemType,SettlersJobs job) {
+		if(employee == null)return;
+		
+		Items tem;
+		if(itemType == null) {
+			tem = Items.createItem("Nothing", employee.getPosition());
+		}else {
+			tem = Items.closestItem(employee.getPosition(), itemList, itemType);
+		}
+		
+		if (tem == null)return;
+		
+		if (this.employee.getJobName().equals(SettlersJobs.JOB_NORMAL)){
+			employee.setJobName(job);
+			employee.giveSettlerTask(tem.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, tem);
+		}
+		else {
+			employee.setJobName(job);
+			employee.giveSettlerTask(employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, employee.getItem(false));
+			employee.giveSettlerTask(tem.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, tem);
+		}
+	}
+	
+	
+	/**
+	 * @brief checkt die Standart Sachen für ein Gebäude (employee,job)
+	 * @param delta
+	 * @param settlerList
+	 * @param itemList
+	 * @param buildingList
+	 * @param price				zum Bauen
+	 * @param priceType			was benötigt wird zum Bauen
+	 * @param constructed		Bild welches nach dem Bauen angezeigt werden soll
+	 * @param waiting			Bild wenn Haus wartet
+	 * @param job				Job vom employee
+	 * @param jobItem			Item welches der Employee benötigt (kann auch null sein)
+	 * @return true falls Gebäude aufgebaut ist ein Employee hat der richtigen Job und
+	 * Item hatt und gerade nicht arbeitet.
+	 */
+	protected boolean updatStartCheck(double delta,ArrayList<ASettlers>settlerList,
+			ArrayList<Items>itemList,ArrayList<Buildings>buildingList,int price,
+			String priceType,BufferedImage constructed,BufferedImage waiting,
+			SettlersJobs job, String jobItem) {
+		
+		if(this.updateConstruction(delta, settlerList, buildingList, itemList, price, priceType)){
+			img = constructed;
+		}else {return false;}
+		
+		if(!this.hireEmployee(settlerList, waiting))return false;
+		
+		if(employee.isWorking())return false;
+		
+		if(!this.employee.getJobName().equals(job)) {
+			this.getJobItemAndJob(itemList, jobItem, job);
+			return false;
+		}
+		return true;
+	}
+	
+	/**
 	 * @brief entfernt Angestellten, legt alle Items in Inventaren ab und löscht Gebäude aus Liste
+	 * @note House muss noch abgefangen werden
 	 */
 	public void deconstruct(ArrayList<Buildings> buildingsList) {
 		
 		if(this.isContructed && !(this instanceof House)) {
-			this.employee.getTask().clear();
-			this.employee.getTaskTarget().clear();
-			this.employee.getTaskWay().clear();
+			this.employee.dellAllTask();
 			this.employee.giveSettlerTask(this.employee.getPosition(), SettlersAktion.GO_BRING_LEFT, this.employee.getItem(true));
 			this.employee.giveSettlerTask(this.employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, this.employee.getItem(false));
 			this.employee.setEmployed(false);
