@@ -28,6 +28,7 @@ public class Sawmill extends Buildings {
 		}
 	}
 	private double workeTime = 0.0;
+	private double logTime = 0.0;
 	/**
 	 * @brief Konstruktor für Sawmill, zersägt Logs und erstellt Planks
 	 * @param pos
@@ -35,6 +36,7 @@ public class Sawmill extends Buildings {
 	public Sawmill(Vector2D pos) {
 		super("Sawmill", pos); 
 		this.hasEmployee = false;
+		this.isContructed = false;
 		img = sawmillImg1;
 	}
 
@@ -104,16 +106,24 @@ public class Sawmill extends Buildings {
 	 * @note der zeitliche Aspekt fehlt hier noch, Marie und ich wissen nicht genau wie wir das einbauen sollen
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList){
-		if(this.input_inventory.size() < 10) {
-			getLogs(itemList, settlerList);
-		}
+		/*if(this.input_inventory.size() < 10 && this.isContructed) {
+			logTime += delta;
+			if(logTime > 10.0 && this.input_inventory.size() < 5) {
+				getLogs(itemList, settlerList);
+				logTime = 0.0;
+			}
+			if(logTime > 30.0 && this.input_inventory.size() < 5) {
+				getLogs(itemList, settlerList);
+				logTime = 0.0;
+			}
+		}*/
 		
 		if(!this.updatStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, sawmillImg1, sawmillImg2, SettlersJobs.JOB_SAWYER, "Saw"));
 		
-		
+		/*
 		if(this.output_inventory.size() < 10 && this.input_inventory.size() > 0) {
 			makePlanks(delta, itemList);
-		}
+		}*/
 	}
 	
 	public static int getPrice() {

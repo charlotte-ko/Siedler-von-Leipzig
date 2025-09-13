@@ -140,10 +140,10 @@ public class GameModel {
 		itemStart.add(Items.createItem("Nothing", new Vector2D(0.0f,9.0f)));
 		
 		buildingStart.add(Buildings.createBuilding("Forester", new Vector2D(4.0f,4.0f)));
-		buildingStart.add(Buildings.createBuilding("Forge", new Vector2D(4.0f,7.0f)));
+		//buildingStart.add(Buildings.createBuilding("Forge", new Vector2D(4.0f,7.0f)));
 		buildingStart.add(Buildings.createBuilding("House", new Vector2D(4.0f,10.0f)));
 		buildingStart.add(Buildings.createBuilding("Lodge", new Vector2D(4.0f,13.0f)));
-		buildingStart.add(Buildings.createBuilding("Mine", new Vector2D(4.0f,16.0f)));
+		//buildingStart.add(Buildings.createBuilding("Mine", new Vector2D(4.0f,16.0f)));
 		buildingStart.add(Buildings.createBuilding("Sawmill", new Vector2D(4.0f,19.0f)));
 		
 		for(int i = 0; i < 20;i++) {

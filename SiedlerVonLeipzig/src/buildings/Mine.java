@@ -36,7 +36,7 @@ public class Mine extends Buildings{
 	
 	@Override
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList,ArrayList<Items> itemList) {
-		this.updatStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, mineImg, mineImg, SettlersJobs.JOB_MINER, "Pickaxe");
+		if(!this.updatStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, mineImg, mineImg, SettlersJobs.JOB_MINER, "Pickaxe"))return;
 		passedTime += delta;
 		if(passedTime >= 12.0 && this.output_inventory.size() <= 10) {
 			Items tem = Items.createItem("Iron", this.position);

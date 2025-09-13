@@ -51,7 +51,7 @@ public class Forge extends Buildings{
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList,ArrayList<Items> itemList) {
 		if(this.isContructed)this.getIron(settlerList, itemList);
 		
-		this.updatStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, forgeImg, forgeImg, SettlersJobs.JOB_SMITH, "Hammer");
+		if(!this.updatStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, forgeImg, forgeImg, SettlersJobs.JOB_SMITH, "Hammer"))return;
 		
 		passedTime += delta;
 		if(passedTime >= 12.0 && this.output_inventory.size() <= 10 && this.input_inventory.size() > 0) {
