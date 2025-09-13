@@ -16,7 +16,7 @@ import logic.Vector2D;
 public class Sawmill extends Buildings {
 	private static BufferedImage sawmillImg1;
 	private static BufferedImage sawmillImg2;
-	public static int price = 20;
+	public static int price = 10;
 	public static String priceType = "Log";
 	public static String name = "Sawmill";
 	static {
@@ -106,7 +106,7 @@ public class Sawmill extends Buildings {
 	 * @note der zeitliche Aspekt fehlt hier noch, Marie und ich wissen nicht genau wie wir das einbauen sollen
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList){
-		/*if(this.input_inventory.size() < 10 && this.isContructed) {
+		if(this.input_inventory.size() < 10 && this.isContructed) {
 			logTime += delta;
 			if(logTime > 10.0 && this.input_inventory.size() < 5) {
 				getLogs(itemList, settlerList);
@@ -116,14 +116,15 @@ public class Sawmill extends Buildings {
 				getLogs(itemList, settlerList);
 				logTime = 0.0;
 			}
-		}*/
+		}
 		
-		if(!this.updatStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, sawmillImg1, sawmillImg2, SettlersJobs.JOB_SAWYER, "Saw"));
+		if(!this.updatStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, sawmillImg1, sawmillImg2, SettlersJobs.JOB_SAWYER, "Saw"))return;
 		
-		/*
+	
+		
 		if(this.output_inventory.size() < 10 && this.input_inventory.size() > 0) {
 			makePlanks(delta, itemList);
-		}*/
+		}
 	}
 	
 	public static int getPrice() {
