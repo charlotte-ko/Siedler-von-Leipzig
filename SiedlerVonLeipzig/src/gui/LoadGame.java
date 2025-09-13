@@ -6,6 +6,7 @@ import java.awt.GridBagLayout;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JPanel;
 
 import presenter.LoadPresenter;
 import presenter.StartPresenter;
@@ -30,14 +31,19 @@ public class LoadGame extends BaseGUI {
 	public void setPresenter(LoadPresenter presenter) {
 		this.presenter = presenter;
 		userData = presenter.getUserData();
-		this.setButtons();
+		JPanel buttons = setButtons();
+		buttons.setSize(new Dimension(700, 700));
+		this.add(buttons);
 	}
 	
-	public void setButtons() {
+	public JPanel setButtons() {
 		
+		JPanel buttons = new JPanel();
 		for(String u : userData) {
 			JButton name = new JButton(u);
-			this.add(name);
+			name.setSize(new Dimension(200, 200));
+			buttons.add(name);
 		}
+		return buttons;
 	}
 }
