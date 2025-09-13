@@ -28,16 +28,22 @@ public class GameInv extends BaseGUI {
 	ImageIcon axe = createIcon("Axe.png", 40, 40);
 	ImageIcon hammer = createIcon("Hammer.png", 40, 40);
 	ImageIcon saw = createIcon("Saw.png", 40, 40);
+	ImageIcon pickaxe = createIcon("Pickaxe.png", 40, 40);
+	ImageIcon iron = createIcon("Iron.png", 40, 40);
 	
 	ImageIcon forester = createIcon("Forester.png", 60, 60);
 	ImageIcon house = createIcon("House.png", 60, 60);
 	ImageIcon lodge = createIcon("Lodge.png", 60, 60);
 	ImageIcon sawmill = createIcon("Sawmill.png", 60, 60);
+	ImageIcon mine = createIcon("Mine.png", 60, 60);
+	ImageIcon forge = createIcon("Forge.png", 60, 60);
 	
 	ImageIcon gardener = createSettlerIcon("Gardener_1.png", 40, 40);
 	ImageIcon normal = createSettlerIcon("Normal_1.png", 40, 40);
 	ImageIcon lumberjack = createSettlerIcon("Lumberjack_1.png", 40, 40);
 	ImageIcon sawyer = createSettlerIcon("Sawyer_1.png", 40, 40);
+	ImageIcon miner = createSettlerIcon("Miner_1.png", 40, 40);
+	ImageIcon smith = createSettlerIcon("Smith_1.png", 40, 40);
 	
 	Font hehe = new Font("Comic Sans MS", Font.BOLD, 16);
 	int[] counter;
@@ -130,43 +136,60 @@ public class GameInv extends BaseGUI {
 		this.add(combine(plank, counter[1]), axis);
 		
 		axis.gridy = 3;
-		this.add(combine(tree, counter[2]), axis);
+		this.add(combine(iron, counter[2]), axis);
 		
 		axis.gridy = 4;
-		this.add(combine(axe, counter[3]), axis);
+		this.add(combine(tree, counter[3]), axis);
 		
 		axis.gridy = 5;
-		this.add(combine(hammer, counter[4]), axis);
+		this.add(combine(axe, counter[4]), axis);
 		
 		axis.gridy = 6;
-		this.add(combine(saw, counter[5]), axis);
+		this.add(combine(hammer, counter[5]), axis);
+		
+		axis.gridy = 7;
+		this.add(combine(saw, counter[6]), axis);
+		
+		axis.gridy = 8;
+		this.add(combine(pickaxe, counter[7]), axis);
 		
 		axis.gridx = 2;
-		axis.gridy = 1;
-		this.add(combine(forester, counter[6]), axis);
-		
 		axis.gridy = 2;
-		this.add(combine(house, counter[7]), axis);
+		this.add(combine(house, counter[8]), axis);
 		
 		axis.gridy = 3;
-		this.add(combine(sawmill, counter[8]), axis);
+		this.add(combine(forester, counter[9]), axis);
 		
 		axis.gridy = 4;
-		this.add(combine(lodge, counter[9]), axis);
+		this.add(combine(sawmill, counter[10]), axis);
+		
+		axis.gridy = 5;
+		this.add(combine(lodge, counter[11]), axis);
+		
+		axis.gridy = 6;
+		this.add(combine(forge, counter[12]), axis);
+		
+		axis.gridy = 7;
+		this.add(combine(mine, counter[13]), axis);
 		
 		axis.gridx = 3;
-		axis.gridy = 1;
-		this.add(combine(normal, counter[10]), axis);
-		
 		axis.gridy = 2;
-		this.add(combine(gardener, counter[11]), axis);
+		this.add(combine(normal, counter[14]), axis);
 		
 		axis.gridy = 3;
-		this.add(combine(lumberjack, counter[12]), axis);
+		this.add(combine(gardener, counter[15]), axis);
 		
 		axis.gridy = 4;
-		this.add(combine(sawyer, counter[13]), axis);
+		this.add(combine(sawyer, counter[16]), axis);
 		
+		axis.gridy = 5;
+		this.add(combine(lumberjack, counter[17]), axis);
+		
+		axis.gridy = 6;
+		this.add(combine(smith, counter[18]), axis);
+		
+		axis.gridy = 7;
+		this.add(combine(miner, counter[19]), axis);
 	}
 	
 	private JPanel combine(ImageIcon image, int counter) {

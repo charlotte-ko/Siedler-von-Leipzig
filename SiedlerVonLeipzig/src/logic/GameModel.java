@@ -220,35 +220,41 @@ public class GameModel {
 	 * @note überlänge aufgrund von switch case
 	 */
 	public int[] inventarCounter() {
-		int[] count = new int[14];
+		int[] count = new int[20];
 		
-		for(int i = 0; i < 13; i ++) {
+		for(int i = 0; i < 19; i ++) {
 			count[i] = 0;
 		}
 		for(Items i : itemList) {
 			switch(i.getName()) {
 				case "Log": count[0]++;break;
 				case "Plank": count[1]++;break;
-				case "Tree": count[2]++;break;
-				case "Axe": count[3]++;break;
-				case "Hammer": count[4]++;break;
-				case "Saw": count[5]++;break;
+				case "Iron": count[2]++;break;
+				case "Tree": count[3]++;break;
+				case "Axe": count[4]++;break;
+				case "Hammer": count[5]++;break;
+				case "Saw": count[6]++;break;
+				case "Pickaxe": count[7]++;break;
 			}
 		}
 		for(Buildings b : buildingList) {
 			switch(b.getName()) {
-				case "Forester": count[6]++;break;
-				case "House": count[7]++;break;
-				case "Sawmill": count[8]++;break;
-				case "Lodge": count[9]++;break;
+				case "House": count[8]++;break;
+				case "Forester": count[9]++;break;
+				case "Sawmill": count[10]++;break;
+				case "Lodge": count[11]++;break;
+				case "Forge": count[12]++;break;
+				case "Mine": count[13]++;break;
 			}
 		}
 		for(ASettlers s : settlerList) {
 			switch(s.getJobName()) {
-				case JOB_NORMAL: count[10]++;break;
-				case JOB_GARDENER: count[11]++;break;
-				case JOB_LUMBERJACK: count[12]++;break;
-				case JOB_SAWYER: count[13]++;break;
+				case JOB_NORMAL: count[14]++;break;
+				case JOB_GARDENER: count[15]++;break;
+				case JOB_SAWYER: count[16]++;break;
+				case JOB_LUMBERJACK: count[17]++;break;
+				case JOB_SMITH: count[18]++;break;
+				case JOB_MINER: count[19]++;break;
 			}
 		}
 		return count;
