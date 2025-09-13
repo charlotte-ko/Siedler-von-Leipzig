@@ -22,11 +22,15 @@ public class ExitPresenter {
 		view.setVisible(true);
 	}
 	
-	public void speichern(String PlayerName) {
-		model.saveGame(PlayerName);
+	public void speichern() {
+		model.saveGame(model.playerName);
 		view.dispose();
 	}
 
+	public void sexit() {
+		model.saveGame(model.playerName);
+		System.exit(0);
+	}
 	
 	public void exit() {
 		System.exit(0);

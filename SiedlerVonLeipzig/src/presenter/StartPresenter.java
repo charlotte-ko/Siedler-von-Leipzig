@@ -1,6 +1,7 @@
 package presenter;
 
 import gui.Game;
+import gui.LoadGame;
 import gui.Startmenu;
 import logic.GameModel;
 
@@ -28,6 +29,13 @@ public class StartPresenter {
 	
 	public void setPlayerName(String name) {
 		model.playerName = name;
+		model.userData.add(name);
+	}
+	
+	public void buttonLoad() {
+		LoadGame gview = new LoadGame();
+		LoadPresenter gpresenter = new LoadPresenter(model, gview);
+		gpresenter.openLoad();
 	}
 	
 	/*
