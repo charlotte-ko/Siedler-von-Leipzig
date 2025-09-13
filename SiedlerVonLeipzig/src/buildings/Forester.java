@@ -80,7 +80,8 @@ public class Forester extends Buildings{
 		Vector2D plantPos = new Vector2D();
 		float moreRange = 0.0f;
 		do {
-			plantPos = this.getPosition().genPos(1.0f+moreRange);
+			//plantPos = this.getPosition().genPos(1.0f+moreRange);
+			plantPos = this.getPosition().genPosInCircle(2.0f+moreRange);
 			moreRange += 0.01;
 		}while(!plantPos.testPos(BuildingsList, itemList));
 		

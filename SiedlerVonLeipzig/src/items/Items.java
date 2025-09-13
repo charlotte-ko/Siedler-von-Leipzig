@@ -56,7 +56,7 @@ public abstract class Items implements java.io.Serializable{
 			Items finalItem = null;
 		
 			for(Items item : ItemList) {
-				if(!item.getName().equals(target) || item.isHeld() || item.isTargeted() || item.isInInventory()) {
+				if(!item.getName().equals(target) || item.isHeld() || item.isTargeted() || item.isInInventoryIn()) {
 					continue;
 				}
 				

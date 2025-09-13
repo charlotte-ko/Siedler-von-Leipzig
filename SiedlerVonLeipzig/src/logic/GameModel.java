@@ -124,11 +124,36 @@ public class GameModel {
 		ArrayList<Items> itemStart = new ArrayList<>();
 		ArrayList<Buildings> buildingStart = new ArrayList<>();
 		
-		settlerStart.add(ASettlers.createSettler(new Vector2D()));
-		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,5.0f)));
-		itemStart.add(Items.createItem("Axe", new Vector2D(5.0f,5.0f)));
-		settlerStart.get(0).setSpeed(6.0f);
+		for(int i = 0; i < 6;i++) {
+			settlerStart.add(ASettlers.createSettler(new Vector2D()));
+			settlerStart.get(i).setSpeed(5.0f);
+		}
 		
+		itemStart.add(Items.createItem("Axe", new Vector2D(0.0f,1.0f)));
+		itemStart.add(Items.createItem("Saw", new Vector2D(0.0f,2.0f)));
+		itemStart.add(Items.createItem("Hammer", new Vector2D(0.0f,3.0f)));
+		itemStart.add(Items.createItem("Pickaxe", new Vector2D(0.0f,4.0f)));
+		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,5.0f)));
+		itemStart.add(Items.createItem("Log", new Vector2D(0.0f,6.0f)));
+		itemStart.add(Items.createItem("Plank", new Vector2D(0.0f,7.0f)));
+		itemStart.add(Items.createItem("Iron", new Vector2D(0.0f,8.0f)));
+		itemStart.add(Items.createItem("Nothing", new Vector2D(0.0f,9.0f)));
+		
+		buildingStart.add(Buildings.createBuilding("Forester", new Vector2D(4.0f,4.0f)));
+		buildingStart.add(Buildings.createBuilding("Forge", new Vector2D(4.0f,7.0f)));
+		buildingStart.add(Buildings.createBuilding("House", new Vector2D(4.0f,10.0f)));
+		buildingStart.add(Buildings.createBuilding("Lodge", new Vector2D(4.0f,13.0f)));
+		buildingStart.add(Buildings.createBuilding("Mine", new Vector2D(4.0f,16.0f)));
+		buildingStart.add(Buildings.createBuilding("Sawmill", new Vector2D(4.0f,19.0f)));
+		
+		for(int i = 0; i < 20;i++) {
+			for(int j = 0; j < 20;j++) {
+				itemStart.add(Items.createItem("Log", new Vector2D(-i,-j)));
+			}
+		}
+		for(int i = 0;i < 20;i++) {
+			itemStart.add(Items.createItem("Plank", new Vector2D(-i-20,-20)));
+		}
 		
 		for(ASettlers s : settlerStart)settlerList.add(s);
 		for(Items i : itemStart)itemList.add(i);
@@ -143,7 +168,8 @@ public class GameModel {
 		oldList = newList;
 	}
 	public void setupDebug() {
-		setupGameFieldDebug2();
+		setupGameFieldDebug3();
+		//setupGameFieldDebug2();
 		//setupGameFieldDebug1Settler();
 		//setupDebugBigTest();
 	}
