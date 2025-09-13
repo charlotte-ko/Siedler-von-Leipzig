@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -31,19 +32,15 @@ public class LoadGame extends BaseGUI {
 	public void setPresenter(LoadPresenter presenter) {
 		this.presenter = presenter;
 		userData = presenter.getUserData();
-		JPanel buttons = setButtons();
-		buttons.setSize(new Dimension(700, 700));
-		this.add(buttons);
+		this.setButtons();
 	}
 	
-	public JPanel setButtons() {
+	public void setButtons() {
 		
-		JPanel buttons = new JPanel();
 		for(String u : userData) {
 			JButton name = new JButton(u);
-			name.setSize(new Dimension(200, 200));
-			buttons.add(name);
+			name.setSize(new Dimension(100, 50));
+			this.add(name);
 		}
-		return buttons;
 	}
 }

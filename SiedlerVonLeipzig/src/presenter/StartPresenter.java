@@ -35,7 +35,7 @@ public class StartPresenter {
 	public void buttonLoad() {
 		LoadGame gview = new LoadGame();
 		LoadPresenter gpresenter = new LoadPresenter(model, gview);
-		gpresenter.openLoad();
+		gpresenter.start();
 	}
 	
 	/*
