@@ -280,6 +280,7 @@ public class GameModel {
 				settlerList.addAll(s.settlers);
 				itemList.clear();
 				itemList.addAll(s.items);
+				
 			}
 		} catch (IOException | ClassNotFoundException e) {
 			e.printStackTrace();
