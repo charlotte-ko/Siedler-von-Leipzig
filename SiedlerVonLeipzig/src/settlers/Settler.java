@@ -90,7 +90,7 @@ public class Settler extends ASettlers{
 
 	
 	Settler(Vector2D position){
-		this.setSpeed(0.4f);
+		this.setSpeed(5.0f);
 		this.setPosition(new Vector2D(position));
 		this.setIsWorking(false);
 		this.setJobName(SettlersJobs.JOB_NORMAL);
