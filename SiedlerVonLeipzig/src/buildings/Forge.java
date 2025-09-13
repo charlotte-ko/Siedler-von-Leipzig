@@ -71,7 +71,7 @@ public class Forge extends Buildings{
 			nextTool %= 4;
 			passedTime = 0.0;
 			this.employee.giveSettlerTask(getPosition().add(new Vector2D(1.0f,1.0f)), SettlersAktion.GO_FREE, null);
-			this.employee.giveSettlerTask(position, SettlersAktion.GO_FREE, null);
+			this.employee.giveSettlerTask(getPosition().add(new Vector2D(-0.1f,-0.1f)), SettlersAktion.GO_FREE, null);
 		}
 	}
 	
