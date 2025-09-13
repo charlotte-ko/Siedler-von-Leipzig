@@ -59,6 +59,7 @@ public class Exit extends BaseGUI {
 		save.setPreferredSize(new Dimension(150, 60));
 		save.setBackground(lightsalmon);
 		save.setBorderPainted(false);
+		save.addActionListener(e -> presenter.speichern(presenter.getCurrentPlayer()));
 		
 		send.setPreferredSize(new Dimension(150, 60));
 		send.setBackground(lightsalmon);
