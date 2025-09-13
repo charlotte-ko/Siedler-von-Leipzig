@@ -23,7 +23,6 @@ public class Tree extends Items {
 	public Tree(Vector2D pos) {
 		super(pos);
 		this.name = "Tree";
-		//image muss in GUI auf die Position gesetzt werden
 		this.img = treeImg;
 	}
 	

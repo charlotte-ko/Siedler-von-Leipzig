@@ -17,6 +17,7 @@ public class Sawmill extends Buildings {
 	private static BufferedImage sawmillImg1;
 	private static BufferedImage sawmillImg2;
 	public static int price = 20;
+	public static String priceType = "Log";
 	public static String name = "Sawmill";
 	static {
 		try {
@@ -103,22 +104,15 @@ public class Sawmill extends Buildings {
 	 * @note der zeitliche Aspekt fehlt hier noch, Marie und ich wissen nicht genau wie wir das einbauen sollen
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList){
-		if(this.updateConstruction(delta, settlerList, BuildingsList, itemList, this.price, "Log")){
-			img = this.sawmillImg1;
-		}else {return;}
-		
-		if(!this.hireEmployee(settlerList, this.sawmillImg2))return;
-		
-		
 		if(this.input_inventory.size() < 10) {
 			getLogs(itemList, settlerList);
 		}
-		if(this.employee.isWorking())return;
-		if(!this.employee.getJobName().equals(SettlersJobs.JOB_SAWYER))getSaw(itemList);
-		else {
-			if(this.output_inventory.size() < 10 && this.input_inventory.size() > 0) {
-				makePlanks(delta, itemList);
-			}
+		
+		if(!this.updatStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, sawmillImg1, sawmillImg2, SettlersJobs.JOB_SAWYER, "Saw"));
+		
+		
+		if(this.output_inventory.size() < 10 && this.input_inventory.size() > 0) {
+			makePlanks(delta, itemList);
 		}
 	}
 	

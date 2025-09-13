@@ -97,10 +97,10 @@ public class Vector2D implements java.io.Serializable{
 	public boolean testPos(ArrayList<Buildings> BuildingList, ArrayList<Items> ItemList) {
 		
 		for(Buildings b : BuildingList) {
-			if(this.getDistance(b.getPosition()) < 2.0f) {return false;}
+			if(this.getDistance(b.getPosition()) < 1.0f) {return false;}
 		}
 		for(Items i : ItemList) {
-			if(this.getDistance(i.getPosition()) < 2.0f) {return false;}
+			if(this.getDistance(i.getPosition()) < 0.5f) {return false;}
 		}
 		return true;
 	}
