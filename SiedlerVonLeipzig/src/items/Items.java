@@ -20,8 +20,6 @@ public abstract class Items implements java.io.Serializable{
 		protected boolean inInventory;//wenn es in einem Building ist (output inventar)
 		protected boolean inInventoryIn;//wenn es in einem Building ist (input inventar)
 		
-		public final int price;
-		
 		protected String name;
 		
 		protected BufferedImage img;
@@ -31,7 +29,6 @@ public abstract class Items implements java.io.Serializable{
 			this.targeted = false;
 			this.inInventory = false;
 			position = new Vector2D(pos);
-			this.price = 10;
 		}
 		
 		public static Items createItem(String item, Vector2D pos) {
@@ -145,4 +142,5 @@ public abstract class Items implements java.io.Serializable{
 			
 			g2.drawImage(img, posX, posY, tileSize/2,tileSize/2,null);
 		}
+		
 }
