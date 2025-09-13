@@ -61,6 +61,7 @@ public abstract class Buildings implements java.io.Serializable{
 		this.name = name;	
 		this.position = pos;
 		this.hasEmployee = false;
+		this.isContructed = false;
 	}
 	
 	/**

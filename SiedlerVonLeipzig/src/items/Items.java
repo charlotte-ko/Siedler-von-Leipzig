@@ -134,8 +134,18 @@ public abstract class Items implements java.io.Serializable{
 		
 		public void draw(Graphics2D g2,int tileSize,Vector2D camPos) {
 			//0.5 groß
-			int posX = (int)((position.x)*(float)tileSize) - (int)((camPos.x)*(float)tileSize) +(tileSize/2);
-			int posY = (int)((position.y)*(float)tileSize) - (int)((camPos.y)*(float)tileSize) +(tileSize/2);
+			float offsetX = 0;
+			float offsetY = 0;
+			if(this.isInInventory()) {
+				offsetX = 0.6f;
+				offsetY = 0.6f;
+			}
+			if(this.isInInventoryIn()) {
+				offsetX = -0.6f;
+				offsetY = 0.6f;
+			}
+			int posX = (int)((position.x+offsetX)*(float)tileSize) - (int)((camPos.x)*(float)tileSize) +(tileSize/2);
+			int posY = (int)((position.y+offsetY)*(float)tileSize) - (int)((camPos.y)*(float)tileSize) +(tileSize/2);
 			
 			g2.drawImage(img, posX, posY, tileSize/2,tileSize/2,null);
 		}

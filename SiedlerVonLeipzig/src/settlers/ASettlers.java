@@ -132,11 +132,21 @@ public abstract class ASettlers implements java.io.Serializable{
 		this.working = false;
 	}
 	
+	
+	private void dance(double delta) {
+		Vector2D danceStep = new Vector2D(this.getPosition());
+		danceStep = danceStep.genPosInCircle(1.0f);
+		walk(delta,danceStep);
+	}
+	
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> buildingList, ArrayList<Items> itemList) {
 		update_img(delta);
 		
 		if(this.task.isEmpty()) {
 			this.working = false;
+			if(!this.employed) {
+				dance(delta);
+			}
 			return;
 		}
 		this.working = true;
