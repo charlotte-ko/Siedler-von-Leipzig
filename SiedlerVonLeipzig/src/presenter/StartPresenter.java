@@ -36,6 +36,7 @@ public class StartPresenter {
 		LoadGame gview = new LoadGame();
 		LoadPresenter gpresenter = new LoadPresenter(model, gview);
 		gpresenter.start();
+		view.dispose();
 	}
 	
 	/*

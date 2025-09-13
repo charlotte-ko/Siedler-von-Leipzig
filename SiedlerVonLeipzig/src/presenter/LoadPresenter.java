@@ -3,6 +3,7 @@ package presenter;
 import java.io.File;
 import java.util.ArrayList;
 
+import gui.Game;
 import gui.LoadGame;
 import logic.GameModel;
 
@@ -35,6 +36,18 @@ public class LoadPresenter {
 			return model.userData;
 		}
 		return null;
+	}
+	
+	public void loadUserData(String name) {
+		model.loadGame(name);
+	}
+	
+	public void openSavedGame() {
+		view.dispose();
+		model.fillMap();
+		Game save = new Game();
+		GamePresenter gPresenter = new GamePresenter(model, save);
+		gPresenter.start();
 	}
 	
 	public void start() {

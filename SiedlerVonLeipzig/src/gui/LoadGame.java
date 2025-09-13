@@ -42,6 +42,7 @@ public class LoadGame extends BaseGUI {
 			JButton name = new JButton(userData.get(i));
 			buttons[i] = name;
 		}
+		
 		return buttons;
 	}
 	
@@ -55,7 +56,10 @@ public class LoadGame extends BaseGUI {
 			b.setBorderPainted(false);
 			this.add(b);
 			
-			b.addActionListener(e -> presenter.getUserData());
+			
+			b.addActionListener(e -> {presenter.loadUserData(b.getText());
+			presenter.openSavedGame();
+			});
 		}
 	}
 }
