@@ -16,7 +16,8 @@ import buildings.Buildings;
 import items.Items;
 
 
-public abstract class ASettlers{
+public abstract class ASettlers implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
 	private Vector2D position;
 	private float speed;
 	protected boolean working;
