@@ -22,6 +22,13 @@ public class GamePresenter {
 	}
 
 	public void start() {
+		model.setupDebug();
+		view.startGameLoop();
+		view.setVisible(true);
+	}
+	
+	public void startSave(String name) {
+		model.loadGame(name);
 		view.startGameLoop();
 		view.setVisible(true);
 	}

@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagLayout;
@@ -17,7 +18,7 @@ public class LoadGame extends BaseGUI {
 	
 	ArrayList<String> userData = new ArrayList<>();
 	
-	public LoadGame() {
+ 	public LoadGame() {
 		super("Speicherdaten");
 		
 
@@ -25,25 +26,38 @@ public class LoadGame extends BaseGUI {
 		this.setSize(new Dimension(700, 700));
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setBackground(brown);
-		this.setLayout(new FlowLayout());
+		this.setLayout(new GridBagLayout());
 	}
 
 	public void setPresenter(LoadPresenter presenter) {
 		this.presenter = presenter;
 		userData = presenter.getUserData();
-		JPanel buttons = setButtons();
-		buttons.setSize(new Dimension(700, 700));
-		this.add(buttons);
+		this.setButtons();
 	}
 	
-	public JPanel setButtons() {
+	public JButton[] getButtons() {
+		JButton[] buttons = new JButton[userData.size()];
 		
-		JPanel buttons = new JPanel();
-		for(String u : userData) {
-			JButton name = new JButton(u);
-			name.setSize(new Dimension(200, 200));
-			buttons.add(name);
+		for(int i = 0; i < userData.size(); i++) {
+			JButton name = new JButton(userData.get(i));
+			buttons[i] = name;
 		}
+		
 		return buttons;
+	}
+	
+	public void setButtons() {
+		JButton[] buttons = getButtons();
+		
+		for(JButton b : buttons) {
+			b.setBackground(lightsalmon);
+			b.setForeground(brown);
+			b.setOpaque(true);
+			b.setBorderPainted(false);
+			this.add(b);
+			
+			
+			b.addActionListener(e -> presenter.loadUserData(b.getText()));
+		}
 	}
 }

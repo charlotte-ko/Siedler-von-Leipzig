@@ -148,7 +148,7 @@ public class Startmenu extends BaseGUI{
 		});
 		*/
 		confirm.addActionListener(e -> {
-			presenter.setPlayerName(player_name);
+			presenter.setPlayerName(field_name.getText());
 			NewFrame.dispose();
 			presenter.makeNewGame();
 		});
@@ -156,7 +156,6 @@ public class Startmenu extends BaseGUI{
 		NewGameLayout(NewFrame, name, field_name, confirm);
 		
 		NewFrame.setVisible(true);
-		
 	}
 	
 	public void openDebugging() {

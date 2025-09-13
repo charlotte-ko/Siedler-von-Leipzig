@@ -16,6 +16,4 @@ public class SaveState implements Serializable {
     public SaveState(ArrayList<Buildings> b, ArrayList<ASettlers> s, ArrayList<Items> i) {
         this.buildings = b; this.settlers = s; this.items = i;
     }
-    
-    
 }

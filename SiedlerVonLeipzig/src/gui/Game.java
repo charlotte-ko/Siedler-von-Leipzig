@@ -199,7 +199,7 @@ public class Game extends BaseGUI {
 			glassPane.remove(ShopItemLabel);
 		}
 		//ShopItemActive = true;
-		ImageIcon icon = createIcon(item + ".png", 60, 60);
+		ImageIcon icon = createIcon(item + ".png", 240, 240);
 		ShopItemLabel = new JLabel(icon);
 		ShopItemLabel.setSize(icon.getIconWidth(), icon.getIconHeight());
 		glassPane.setLayout(null);
