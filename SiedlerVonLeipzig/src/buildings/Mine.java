@@ -41,6 +41,7 @@ public class Mine extends Buildings{
 		if(passedTime >= 12.0 && this.output_inventory.size() <= 10) {
 			Items tem = Items.createItem("Iron", this.position);
 			tem.setInInventory(true);
+			itemList.add(tem);
 			this.output_inventory.add(tem);
 			passedTime = 0.0;
 		}

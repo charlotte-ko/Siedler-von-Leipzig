@@ -132,10 +132,12 @@ public abstract class ASettlers implements java.io.Serializable{
 		this.working = false;
 	}
 	
-	
+	private Vector2D danceStep = null;
 	private void dance(double delta) {
-		Vector2D danceStep = new Vector2D(this.getPosition());
-		danceStep = danceStep.genPosInCircle(1.0f);
+		if(danceStep == null || danceStep.getDistance(position) < 0.5) {
+			danceStep = new Vector2D(this.getPosition());
+			danceStep = danceStep.genPosInCircle(2.0f);
+		}
 		walk(delta,danceStep);
 	}
 	
