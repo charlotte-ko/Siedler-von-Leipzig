@@ -9,7 +9,6 @@ import java.util.ArrayList;
 import javax.imageio.ImageIO;
 
 import items.Items;
-import logic.Purchasable;
 import logic.Vector2D;
 import settlers.ASettlers;
 import settlers.SettlersAktion;

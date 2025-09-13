@@ -35,19 +35,21 @@ public class GamePresenter {
 	public void openShop() {
 		GameShop shop = new GameShop();
 		ShopPresenter presenter = new ShopPresenter(model, shop, this, view);
-		
+		disableMouseIcon();
 		presenter.start();
 	}
 	
 	public void openInventory() {
 		GameInv inventory = new GameInv();
 		InventoryPresenter presenter = new InventoryPresenter(inventory, model);
+		disableMouseIcon();
 		presenter.start();
 	}
 	
 	public void openExit() {
 		Exit exit = new Exit();
 		ExitPresenter presenter = new ExitPresenter(exit, model);
+		disableMouseIcon();
 		presenter.start();
 	}
 	
@@ -101,6 +103,8 @@ public class GamePresenter {
 	
 	public void toggleHammer() {
 		 {
+				view.ShopItemActive = false;
+				view.removeShopItem();
 				
 				view.hammerActive = !view.hammerActive;
 				
@@ -110,6 +114,18 @@ public class GamePresenter {
 					view.removeHammer();
 				}
 			}
+	}
+	
+	private void disableMouseIcon() {
+		
+		if(view.hammerActive || view.ShopItemActive) {
+			
+			view.ShopItemActive = false;
+			view.hammerActive = false;
+			
+			view.removeHammer();
+			view.removeShopItem();
+		}
 	}
 	
 	public void toggleDeconstruction(Vector2D pos) {
