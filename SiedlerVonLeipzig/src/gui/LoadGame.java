@@ -18,7 +18,7 @@ public class LoadGame extends BaseGUI {
 	
 	ArrayList<String> userData = new ArrayList<>();
 	
-	public LoadGame() {
+ 	public LoadGame() {
 		super("Speicherdaten");
 		
 
@@ -26,7 +26,7 @@ public class LoadGame extends BaseGUI {
 		this.setSize(new Dimension(700, 700));
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setBackground(brown);
-		this.setLayout(new FlowLayout());
+		this.setLayout(new GridBagLayout());
 	}
 
 	public void setPresenter(LoadPresenter presenter) {
@@ -35,12 +35,27 @@ public class LoadGame extends BaseGUI {
 		this.setButtons();
 	}
 	
-	public void setButtons() {
+	public JButton[] getButtons() {
+		JButton[] buttons = new JButton[userData.size()];
 		
-		for(String u : userData) {
-			JButton name = new JButton(u);
-			name.setSize(new Dimension(100, 50));
-			this.add(name);
+		for(int i = 0; i < userData.size(); i++) {
+			JButton name = new JButton(userData.get(i));
+			buttons[i] = name;
+		}
+		return buttons;
+	}
+	
+	public void setButtons() {
+		JButton[] buttons = getButtons();
+		
+		for(JButton b : buttons) {
+			b.setBackground(lightsalmon);
+			b.setForeground(brown);
+			b.setOpaque(true);
+			b.setBorderPainted(false);
+			this.add(b);
+			
+			b.addActionListener(e -> presenter.getUserData());
 		}
 	}
 }
