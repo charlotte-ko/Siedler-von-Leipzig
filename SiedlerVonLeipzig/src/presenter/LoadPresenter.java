@@ -43,6 +43,7 @@ public class LoadPresenter {
 		model.fillMap();
 		Game save = new Game();
 		GamePresenter gPresenter = new GamePresenter(model, save);
+		model.playerName = name;
 		gPresenter.startSave(name);
 	}
 	
