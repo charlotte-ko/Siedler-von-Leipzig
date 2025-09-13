@@ -33,4 +33,9 @@ public class Saw extends Items {
 		return priceType;
 	}
 
+	@Override
+	public void reloadImg() {
+		img = sawImg;
+	}
+
 }

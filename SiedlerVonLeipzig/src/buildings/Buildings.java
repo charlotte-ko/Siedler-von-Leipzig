@@ -36,7 +36,7 @@ public abstract class Buildings implements java.io.Serializable{
 	
 	protected ASettlers employee;
 	protected boolean hasEmployee;
-	protected BufferedImage img;
+	protected transient BufferedImage img;
 	protected String name;
 	
 	
@@ -76,6 +76,7 @@ public abstract class Buildings implements java.io.Serializable{
 		case "Lodge" : return new Lodge(pos);
 		case "Sawmill" : return new Sawmill(pos);
 		case "Mine" : return new Mine(pos);
+		case "Forge" : return new Forge(pos);
 		default: throw new IllegalArgumentException("Unexpected Value: " + building);
 		}
 	}
@@ -306,6 +307,7 @@ public abstract class Buildings implements java.io.Serializable{
 			employee.giveSettlerTask(employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, employee.getItem(false));
 			employee.giveSettlerTask(tem.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, tem);
 		}
+		employee.giveSettlerTask(position, SettlersAktion.GO_FREE, null);
 	}
 	
 	

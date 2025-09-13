@@ -94,6 +94,19 @@ public class Vector2D implements java.io.Serializable{
 		return finalPoint;
 	}
 	
+	private static final java.util.Random RNG = new java.util.Random();
+	
+	public Vector2D genPosInCircle(float radius) {
+		double theta = 2*Math.PI*RNG.nextDouble();
+		double r = radius * RNG.nextDouble();
+		
+		
+		return new Vector2D((float)(this.x + r*Math.cos(theta)),
+				(float)(this.y + r*Math.sin(theta)));
+	}
+
+	
+	
 	public boolean testPos(ArrayList<Buildings> BuildingList, ArrayList<Items> ItemList) {
 		
 		for(Buildings b : BuildingList) {

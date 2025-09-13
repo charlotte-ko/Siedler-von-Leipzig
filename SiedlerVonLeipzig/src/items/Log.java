@@ -22,4 +22,9 @@ public class Log extends Items {
 		this.name = "Log";
 		img = logImg;
 	}
+
+	@Override
+	public void reloadImg() {
+		img = logImg;
+	}
 }

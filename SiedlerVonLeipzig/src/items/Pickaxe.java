@@ -19,5 +19,9 @@ public class Pickaxe extends Items{
 		this.name = "Pickaxe";
 		img = pickaxeImg;
 	}
+	@Override
+	public void reloadImg() {
+		img = pickaxeImg;
+	}
 }
 

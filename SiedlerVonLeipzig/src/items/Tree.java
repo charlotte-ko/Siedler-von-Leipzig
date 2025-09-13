@@ -63,6 +63,11 @@ public class Tree extends Items {
 		}
 		
 	}
+
+	@Override
+	public void reloadImg() {
+		img = treeImg;
+	}
 }
 
 

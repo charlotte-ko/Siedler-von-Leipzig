@@ -17,7 +17,7 @@ public abstract class Items implements java.io.Serializable{
 		protected boolean inInventoryIn;//wenn es in einem Building ist (input inventar)
 		
 		protected String name;
-		protected BufferedImage img;
+		protected transient BufferedImage img;
 		
 		public Items(Vector2D pos) {
 			this.held = false;
@@ -56,7 +56,7 @@ public abstract class Items implements java.io.Serializable{
 			Items finalItem = null;
 		
 			for(Items item : ItemList) {
-				if(!item.getName().equals(target) || item.isHeld() || item.isTargeted() || item.isInInventory()) {
+				if(!item.getName().equals(target) || item.isHeld() || item.isTargeted() || item.isInInventoryIn()) {
 					continue;
 				}
 				
@@ -140,4 +140,5 @@ public abstract class Items implements java.io.Serializable{
 			g2.drawImage(img, posX, posY, tileSize/2,tileSize/2,null);
 		}
 		
+		public abstract void reloadImg();
 }

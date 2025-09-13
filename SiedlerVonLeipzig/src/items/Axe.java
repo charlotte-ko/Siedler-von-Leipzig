@@ -33,4 +33,9 @@ public class Axe extends Items {
 		return priceType;
 	}
 
+	@Override
+	public void reloadImg() {
+		img = axeImg;
+	}
+
 }
