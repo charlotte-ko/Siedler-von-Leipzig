@@ -148,9 +148,11 @@ public class Startmenu extends BaseGUI{
 		});
 		*/
 		confirm.addActionListener(e -> {
-			presenter.setPlayerName(field_name.getText());
-			NewFrame.dispose();
-			presenter.makeNewGame();
+			if(!(field_name.getText().isEmpty())) {
+				presenter.setPlayerName(field_name.getText());
+				NewFrame.dispose();
+				presenter.makeNewGame();
+			}
 		});
 		
 		NewGameLayout(NewFrame, name, field_name, confirm);
