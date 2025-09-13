@@ -55,7 +55,7 @@ public class GameInv extends BaseGUI {
 		super("Inventar");
 		
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setSize(new Dimension(700, 700));
+		this.setSize(new Dimension(900, 700));
 		this.setLocationRelativeTo(null);
 		this.getContentPane().setBackground(brown);
 		this.setLayout(new GridBagLayout());
@@ -77,11 +77,11 @@ public class GameInv extends BaseGUI {
 	private void setLayout() {
 		
 		GridBagConstraints axis = new GridBagConstraints();
-		axis.insets = new Insets(20,60,20,60);
+		axis.insets = new Insets(20,50,10,50);
 		axis.fill = GridBagConstraints.HORIZONTAL;
 		
 		axis.gridy = 0;
-		axis.ipady = 10;
+		axis.ipady = 5;
 		setCategories(axis);
 		
 		axis.gridy = 1;
@@ -96,7 +96,7 @@ public class GameInv extends BaseGUI {
 		JLabel settlers = new JLabel("Siedler");
 		
 		axis.gridx = 0;
-		axis.gridwidth = 1;
+		axis.gridwidth = 2;
 		//this.add(Box.createHorizontalGlue(), axis);
 		
 		materials.setFont(hehe);
@@ -112,7 +112,8 @@ public class GameInv extends BaseGUI {
 		buildings.setBackground(pine);
 		buildings.setForeground(foresty);
 		buildings.setOpaque(true);
-		axis.gridx = 2;
+		axis.gridwidth = 1;
+		axis.gridx = 3;
 		this.add(buildings, axis);
 		
 		settlers.setFont(hehe);
@@ -120,10 +121,10 @@ public class GameInv extends BaseGUI {
 		settlers.setBackground(pine);
 		settlers.setForeground(foresty);
 		settlers.setOpaque(true);
-		axis.gridx = 3;
+		axis.gridx = 4;
 		this.add(settlers, axis);
 		
-		axis.gridx = 4;
+		//axis.gridx = 4;
 		//this.add(Box.createHorizontalGlue(), axis);	
 	}
 	
@@ -141,54 +142,55 @@ public class GameInv extends BaseGUI {
 		axis.gridy = 4;
 		this.add(combine(tree, counter[3]), axis);
 		
-		axis.gridy = 5;
+		axis.gridx = 2;
+		axis.gridy = 1;
 		this.add(combine(axe, counter[4]), axis);
 		
-		axis.gridy = 6;
+		axis.gridy = 2;
 		this.add(combine(hammer, counter[5]), axis);
 		
-		axis.gridy = 7;
+		axis.gridy = 3;
 		this.add(combine(saw, counter[6]), axis);
 		
-		axis.gridy = 8;
+		axis.gridy = 4;
 		this.add(combine(pickaxe, counter[7]), axis);
 		
-		axis.gridx = 2;
-		axis.gridy = 2;
+		axis.gridx = 3;
+		axis.gridy = 1;
 		this.add(combine(house, counter[8]), axis);
 		
-		axis.gridy = 3;
+		axis.gridy = 2;
 		this.add(combine(forester, counter[9]), axis);
 		
-		axis.gridy = 4;
+		axis.gridy = 3;
 		this.add(combine(sawmill, counter[10]), axis);
 		
-		axis.gridy = 5;
+		axis.gridy = 4;
 		this.add(combine(lodge, counter[11]), axis);
 		
-		axis.gridy = 6;
+		axis.gridy = 5;
 		this.add(combine(forge, counter[12]), axis);
 		
-		axis.gridy = 7;
+		axis.gridy = 6;
 		this.add(combine(mine, counter[13]), axis);
 		
-		axis.gridx = 3;
-		axis.gridy = 2;
+		axis.gridx = 4;
+		axis.gridy = 1;
 		this.add(combine(normal, counter[14]), axis);
 		
-		axis.gridy = 3;
+		axis.gridy = 2;
 		this.add(combine(gardener, counter[15]), axis);
 		
-		axis.gridy = 4;
+		axis.gridy = 3;
 		this.add(combine(sawyer, counter[16]), axis);
 		
-		axis.gridy = 5;
+		axis.gridy = 4;
 		this.add(combine(lumberjack, counter[17]), axis);
 		
-		axis.gridy = 6;
+		axis.gridy = 5;
 		this.add(combine(smith, counter[18]), axis);
 		
-		axis.gridy = 7;
+		axis.gridy = 6;
 		this.add(combine(miner, counter[19]), axis);
 	}
 	
