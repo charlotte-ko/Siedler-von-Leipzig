@@ -138,7 +138,10 @@ public abstract class ASettlers implements java.io.Serializable{
 			danceStep = new Vector2D(this.getPosition());
 			danceStep = danceStep.genPosInCircle(2.0f);
 		}
+		float bufferSpeed = this.speed;
+		this.speed = 0.5f;
 		walk(delta,danceStep);
+		this.speed = bufferSpeed;
 	}
 	
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> buildingList, ArrayList<Items> itemList) {
