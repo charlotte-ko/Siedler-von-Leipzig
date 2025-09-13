@@ -38,6 +38,7 @@ public abstract class Items implements java.io.Serializable{
 				case "Tree": return new Tree(pos);
 				case "Nothing":return new Nothing(pos);
 				case "Iron":return new Iron(pos);
+				case "Pickaxe":return new Pickaxe(pos);
 			default: throw new IllegalArgumentException("Unexpected Value: " + item);
 			}
 		}
