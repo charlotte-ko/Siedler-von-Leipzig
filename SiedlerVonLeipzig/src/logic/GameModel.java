@@ -11,8 +11,10 @@ import java.util.Map;
 
 import buildings.Buildings;
 import buildings.Forester;
+import buildings.Forge;
 import buildings.House;
 import buildings.Lodge;
+import buildings.Mine;
 import buildings.Sawmill;
 import items.*;
 import settlers.ASettlers;

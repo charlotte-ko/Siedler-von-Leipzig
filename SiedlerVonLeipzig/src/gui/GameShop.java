@@ -90,8 +90,8 @@ public class GameShop extends BaseGUI {
 		JLabel price2 = createLabel("Preis: " + presenter.givePrice("Forester") + " Logs", 20, 20);
 		JLabel price3 = createLabel("Preis: " + presenter.givePrice("Lodge") + " Logs", 20, 20);
 		JLabel price4 = createLabel("Preis: " + presenter.givePrice("Sawmill") + " Logs", 20, 20);
-		JLabel price5 = createLabel("Preis: " + presenter.givePrice("Schmiede") + " Logs", 20, 20);
-		JLabel price6 = createLabel("Preis: " + presenter.givePrice("Miene") + " Logs", 20, 20);
+		JLabel price5 = createLabel("Preis: " + presenter.givePrice("Forge") + " Logs", 20, 20);
+		JLabel price6 = createLabel("Preis: " + presenter.givePrice("Mine") + " Logs", 20, 20);
 		
 		JLabel[] prices = {price1, price2, price3, price4, price5, price6};
 		
