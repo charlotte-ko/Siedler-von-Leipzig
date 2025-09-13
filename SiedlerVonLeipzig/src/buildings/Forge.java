@@ -71,5 +71,9 @@ public class Forge extends Buildings{
 			passedTime = 0.0;
 		}
 	}
+	
+	public static int getPrice() {
+		return price;
+	}
 
 }

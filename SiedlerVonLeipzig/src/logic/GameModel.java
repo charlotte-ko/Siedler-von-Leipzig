@@ -11,8 +11,10 @@ import java.util.Map;
 
 import buildings.Buildings;
 import buildings.Forester;
+import buildings.Forge;
 import buildings.House;
 import buildings.Lodge;
+import buildings.Mine;
 import buildings.Sawmill;
 import items.*;
 import settlers.ASettlers;
@@ -257,8 +259,8 @@ public class GameModel {
 		priceMap.put("House", House.getPrice());
 		priceMap.put("Lodge", Lodge.getPrice());
 		priceMap.put("Sawmill", Sawmill.getPrice());
-		priceMap.put("Axe", Axe.getPrice());
-		priceMap.put("Saw", Saw.getPrice());
+		priceMap.put("Forge", Forge.getPrice());
+		priceMap.put("Mine", Mine.getPrice());
 		
 	}
 	
