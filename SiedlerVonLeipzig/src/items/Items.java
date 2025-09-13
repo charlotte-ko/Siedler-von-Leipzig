@@ -7,41 +7,37 @@ import java.util.ArrayList;
 import logic.Vector2D;
 
 public abstract class Items implements java.io.Serializable{
-	
-		//protected static ArrayList<Items> Itemlist = new ArrayList<Items>(); //vielleicht eher in main
-		
 		private static final long serialVersionUID = 1L;
-
-		protected Vector2D position;
-		//protected Vector2D start_pos;
 		
-		protected boolean held; //gibt an, ob ein Item im Inventar eines Siedlers oder InputInventar eines Gebäudes ist
+		protected Vector2D position;
+		
+		protected boolean held; //gibt an, ob ein Item im Inventar eines Siedlers ist
 		protected boolean targeted;	//wenn es als Ziel an ein Siedler übergeben wurde
 		protected boolean inInventory;//wenn es in einem Building ist (output inventar)
 		protected boolean inInventoryIn;//wenn es in einem Building ist (input inventar)
 		
 		protected String name;
-		
 		protected BufferedImage img;
 		
 		public Items(Vector2D pos) {
 			this.held = false;
 			this.targeted = false;
 			this.inInventory = false;
+			this.inInventoryIn = false;
 			position = new Vector2D(pos);
 		}
 		
 		public static Items createItem(String item, Vector2D pos) {
 			
 			switch(item) {
-			
-			case "Hammer": return new Hammer(pos); //vielleicht position als paramter
-			case "Saw": return new Saw(pos); //Axe
-			case "Axe": return new Axe(pos);
-			case "Log": return new Log(pos);
-			case "Plank": return new Plank(pos);
-			case "Tree": return new Tree(pos);
-			case "Nothing":return new Nothing(pos);
+				case "Hammer": return new Hammer(pos);
+				case "Saw": return new Saw(pos);
+				case "Axe": return new Axe(pos);
+				case "Log": return new Log(pos);
+				case "Plank": return new Plank(pos);
+				case "Tree": return new Tree(pos);
+				case "Nothing":return new Nothing(pos);
+				case "Iron":return new Iron(pos);
 			default: throw new IllegalArgumentException("Unexpected Value: " + item);
 			}
 		}
@@ -59,7 +55,7 @@ public abstract class Items implements java.io.Serializable{
 			Items finalItem = null;
 		
 			for(Items item : ItemList) {
-				if(!item.getName().equals(target) || item.isHeld() || item.isTargeted() || item.isInInventoryIn()) {
+				if(!item.getName().equals(target) || item.isHeld() || item.isTargeted() || item.isInInventory()) {
 					continue;
 				}
 				
