@@ -14,8 +14,22 @@ public class ExitPresenter {
 		view.setPresenter(this);
 	}
 	
+	public String getCurrentPlayer() {
+		return model.playerName;
+	}
+	
 	public void start() {
 		view.setVisible(true);
+	}
+	
+	public void speichern() {
+		model.saveGame(model.playerName);
+		view.dispose();
+	}
+
+	public void sexit() {
+		model.saveGame(model.playerName);
+		System.exit(0);
 	}
 	
 	public void exit() {

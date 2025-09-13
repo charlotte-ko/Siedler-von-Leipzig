@@ -58,6 +58,7 @@ public class Startmenu extends BaseGUI{
 		}
 	
 		button1.addActionListener(e -> presenter.buttonStartNewGame());
+		button2.addActionListener(e -> presenter.buttonLoad());
 		button3.addActionListener(e -> presenter.buttonDebugging());
 		button5.addActionListener(e -> presenter.end());
 	}

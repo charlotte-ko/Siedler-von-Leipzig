@@ -24,6 +24,8 @@ public class GameModel {
 	public ArrayList<Buildings> buildingList = new ArrayList<>();
 	public ArrayList<ASettlers> settlerList = new ArrayList<>();
 	
+	public ArrayList<String> userData = new ArrayList<>();
+	
 	final public Object key = new Object();
 	
 	public String playerName;
@@ -264,6 +266,7 @@ public class GameModel {
 			e.printStackTrace();
 		}
 	}
+	
 	public void loadGame(String saveFileName) {
 		Path p = Path.of("../save/"+saveFileName+".bin");
 		
