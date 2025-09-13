@@ -9,7 +9,6 @@ import javax.imageio.ImageIO;
 
 import items.Items;
 import settlers.ASettlers;
-import logic.Purchasable;
 import logic.Vector2D;
 
 public class House extends Buildings{
