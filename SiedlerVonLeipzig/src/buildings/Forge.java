@@ -65,6 +65,7 @@ public class Forge extends Buildings{
 				default:tem = Items.createItem("Hammer", position);break;
 			}
 			tem.setInInventory(true);
+			itemList.add(tem);
 			this.output_inventory.add(tem);
 			nextTool++;
 			nextTool %= 4;
