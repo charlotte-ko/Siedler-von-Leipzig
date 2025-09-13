@@ -1,5 +1,10 @@
 package logic;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -235,7 +240,46 @@ public class GameModel {
 			return priceMap.get(purchase);
 			
 		}else {
-			return 1000000;
+			return 1000000;//wie wäre es mit naf oder so ?
+		}
+	}
+	
+	public void saveGame(String saveFileName) {
+		Path p = Path.of("../save/"+ saveFileName +".bin");
+		
+		try {
+			if (p.getParent() != null) Files.createDirectories(p.getParent());
+			
+			ObjectOutputStream oos = new ObjectOutputStream(Files.newOutputStream(p));
+			
+			ArrayList<Buildings> b; ArrayList<ASettlers> s; ArrayList<Items> i;
+	        synchronized (key) {
+	            b = new ArrayList<>(buildingList);
+	            s = new ArrayList<>(settlerList);
+	            i = new ArrayList<>(itemList);
+	        }
+			oos.writeObject(new SaveState(b,s,i));
+			
+		}catch(IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public void loadGame(String saveFileName) {
+		Path p = Path.of("../save/"+saveFileName+".bin");
+		
+		if(!Files.exists(p))return;
+		try (ObjectInputStream ois = new ObjectInputStream(Files.newInputStream(p))) {
+			SaveState s = (SaveState) ois.readObject();
+			synchronized (key) {
+				buildingList.clear();
+				buildingList.addAll(s.buildings);
+				settlerList.clear();
+				settlerList.addAll(s.settlers);
+				itemList.clear();
+				itemList.addAll(s.items);
+			}
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
 		}
 	}
 }

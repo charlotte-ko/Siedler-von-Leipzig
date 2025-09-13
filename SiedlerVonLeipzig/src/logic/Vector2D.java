@@ -6,7 +6,8 @@ import java.util.Random;
 import buildings.Buildings;
 import items.Items;
 
-public class Vector2D {
+public class Vector2D implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
 	public float x,y;
 	
 	public Vector2D(Vector2D old) {

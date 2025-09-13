@@ -6,10 +6,12 @@ import java.util.ArrayList;
 
 import logic.Vector2D;
 
-public abstract class Items {
+public abstract class Items implements java.io.Serializable{
 	
 		//protected static ArrayList<Items> Itemlist = new ArrayList<Items>(); //vielleicht eher in main
 		
+		private static final long serialVersionUID = 1L;
+
 		protected Vector2D position;
 		//protected Vector2D start_pos;
 		

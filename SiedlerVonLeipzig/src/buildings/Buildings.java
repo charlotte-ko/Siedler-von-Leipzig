@@ -15,7 +15,9 @@ import settlers.SettlersAktion;
 import settlers.SettlersJobs;
 import logic.Vector2D;
 
-public abstract class Buildings {
+public abstract class Buildings implements java.io.Serializable{
+	private static final long serialVersionUID = 1L;
+	
 	protected static BufferedImage contructionImg;
 	protected static BufferedImage contructionImg2;
 	static {
