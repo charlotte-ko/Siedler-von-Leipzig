@@ -46,12 +46,8 @@ public class GameModel {
 	 * @param position
 	 */
 	public void constructBuilding(String buildingName,Vector2D position) {
-		
-		if(position.testPos(buildingList, itemList, 3.0f)) {
 			
-			synchronized(key){buildingList.add(Buildings.createBuilding(buildingName, position));}
-		}
-		
+		synchronized(key){buildingList.add(Buildings.createBuilding(buildingName, position));}
 	}
 	
 	/**
@@ -80,6 +76,16 @@ public class GameModel {
 		
 		if(target != null) {
 			synchronized(key) {target.deconstruct(buildingList);}
+		}
+	}
+	
+	public boolean testAvailabelSpace(Vector2D Position) {
+		
+		if(Position.testPos(buildingList, itemList, 2.0f)) {
+			return true;
+			
+		}else {
+			return false;
 		}
 	}
 	
