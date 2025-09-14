@@ -68,10 +68,10 @@ public class ShopPresenter {
 		
 		int[] availableCurrency = getCurrency();
 		
-		if(type == "Planks" && price > availableCurrency[1] ) {
+		if(type == "Plank" && price > availableCurrency[1] ) {
 			return;
 			
-		}else if(type == "Logs" && price > availableCurrency[0]) {
+		}else if(type == "Log" && price > availableCurrency[0]) {
 			return;
 			
 		}else {
