@@ -27,7 +27,7 @@ public class ExitPresenter {
 		view.dispose();
 	}
 
-	public void sexit() {
+	public void saveExit() {
 		model.saveGame(model.playerName);
 		System.exit(0);
 	}
@@ -36,3 +36,4 @@ public class ExitPresenter {
 		System.exit(0);
 	}
 }
+
