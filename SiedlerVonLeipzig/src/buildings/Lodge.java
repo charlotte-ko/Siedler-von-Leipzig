@@ -15,7 +15,7 @@ import settlers.SettlersJobs;
 public class Lodge extends Buildings{
 	
 	protected static int price = 20;
-	protected static String priceType = "Logs";
+	protected static String priceType = "Log";
 	private static String name = "Lodge";
 	
 	private static BufferedImage lodgeImg1;

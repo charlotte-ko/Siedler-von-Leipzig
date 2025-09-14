@@ -16,7 +16,7 @@ import settlers.SettlersJobs;
 public class Mine extends Buildings{
 	
 	protected static int price = 7;
-	protected static String priceType = "Planks";
+	protected static String priceType = "Plank";
 	private static String name = "Mine";
 	
 	private double passedTime = 0.0;

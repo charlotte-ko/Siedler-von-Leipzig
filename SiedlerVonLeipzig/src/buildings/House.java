@@ -15,7 +15,7 @@ public class House extends Buildings{
 	
 	protected static int price = 20;
 	private static String name = "House";
-	protected static String priceType = "Planks"; 
+	protected static String priceType = "Plank"; 
 	
 	private double spawntime = 0.0;
 	private int counter = 0;
@@ -58,7 +58,7 @@ public class House extends Buildings{
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList){
 		
-		if(this.updateConstruction(delta, settlerList, BuildingsList, itemList, price, "Log")){
+		if(this.updateConstruction(delta, settlerList, BuildingsList, itemList, price, priceType)){
 			img = houseImg1;
 			
 		}else {return;}

@@ -74,12 +74,12 @@ public class GameShop extends BaseGUI {
 	
 	private JPanel chartLayout() {
 		
-		JLabel price1 = createLabel("Preis: " + presenter.givePrice("House") + " " + presenter.giveCurrency("House"), 20, 20);
-		JLabel price2 = createLabel("Preis: " + presenter.givePrice("Forester") + " " + presenter.giveCurrency("Forester"), 20, 20);
-		JLabel price3 = createLabel("Preis: " + presenter.givePrice("Lodge") + " " + presenter.giveCurrency("Lodge"), 20, 20);
-		JLabel price4 = createLabel("Preis: " + presenter.givePrice("Sawmill") + " " + presenter.giveCurrency("Sawmill"), 20, 20);
-		JLabel price5 = createLabel("Preis: " + presenter.givePrice("Forge") + " " + presenter.giveCurrency("Forge"), 20, 20);
-		JLabel price6 = createLabel("Preis: " + presenter.givePrice("Mine") + " " + presenter.giveCurrency("Mine"), 20, 20);
+		JLabel price1 = createLabel("Preis: " + presenter.givePrice("House") + " " + presenter.giveCurrency("House") + "s", 20, 20);
+		JLabel price2 = createLabel("Preis: " + presenter.givePrice("Forester") + " " + presenter.giveCurrency("Forester") + "s", 20, 20);
+		JLabel price3 = createLabel("Preis: " + presenter.givePrice("Lodge") + " " + presenter.giveCurrency("Lodge") + "s", 20, 20);
+		JLabel price4 = createLabel("Preis: " + presenter.givePrice("Sawmill") + " " + presenter.giveCurrency("Sawmill") + "s", 20, 20);
+		JLabel price5 = createLabel("Preis: " + presenter.givePrice("Forge") + " " + presenter.giveCurrency("Forge") + "s", 20, 20);
+		JLabel price6 = createLabel("Preis: " + presenter.givePrice("Mine") + " " + presenter.giveCurrency("Mine") + "s", 20, 20);
 		
 		JLabel[] prices = {price1, price2, price3, price4, price5, price6};
 		
