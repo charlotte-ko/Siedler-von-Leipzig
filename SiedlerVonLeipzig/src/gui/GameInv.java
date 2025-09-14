@@ -1,7 +1,5 @@
 package gui;
 
-import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
@@ -10,13 +8,10 @@ import java.awt.GridBagLayout;
 import java.awt.Insets;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.SwingConstants;
 
 import presenter.InventoryPresenter;
 
@@ -45,33 +40,24 @@ public class GameInv extends BaseGUI {
 	ImageIcon miner = createSettlerIcon("Miner_1.png", 40, 40);
 	ImageIcon smith = createSettlerIcon("Smith_1.png", 40, 40);
 	
-	Font hehe = new Font("Comic Sans MS", Font.BOLD, 16);
 	int[] counter;
 	
 	InventoryPresenter presenter;
 	
-	
 	public GameInv() {
+		
 		super("Inventar");
 		
+		this.setWindowBase(this, 900, 800, null, brown);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setSize(new Dimension(900, 700));
-		this.setLocationRelativeTo(null);
-		this.getContentPane().setBackground(brown);
 		this.setLayout(new GridBagLayout());
-		
 	}
 	
 	public void setPresenter(InventoryPresenter presenter) {
 		this.presenter = presenter;
-		presenter.getCounter();
-		setCounter();
+		this.counter = presenter.getCounter();
 		setLayout();
 		this.setVisible(true);
-	}
-	
-	public void setCounter() {
-		this.counter = presenter.getCounter();
 	}
 	
 	private void setLayout() {
@@ -92,12 +78,16 @@ public class GameInv extends BaseGUI {
 	private void setCategories(GridBagConstraints axis) {
 		
 		JLabel materials = new JLabel("Materialien");
+		materials.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		JLabel buildings = new JLabel("Gebäude");
+		buildings.setHorizontalAlignment(SwingConstants.CENTER);
+		
 		JLabel settlers = new JLabel("Siedler");
+		settlers.setHorizontalAlignment(SwingConstants.CENTER);
 		
 		axis.gridx = 0;
 		axis.gridwidth = 2;
-		//this.add(Box.createHorizontalGlue(), axis);
 		
 		materials.setFont(hehe);
 		materials.setPreferredSize(new Dimension(300, 100));
@@ -122,10 +112,7 @@ public class GameInv extends BaseGUI {
 		settlers.setForeground(foresty);
 		settlers.setOpaque(true);
 		axis.gridx = 4;
-		this.add(settlers, axis);
-		
-		//axis.gridx = 4;
-		//this.add(Box.createHorizontalGlue(), axis);	
+		this.add(settlers, axis);	
 	}
 	
 	private void setImages(GridBagConstraints axis) {
@@ -198,7 +185,6 @@ public class GameInv extends BaseGUI {
 		
 		JPanel panel = new JPanel();
 		panel.setBackground(brown);
-		//JLabel num = new JLabel("" + counter);
 		
 		panel.setLayout(new FlowLayout(FlowLayout.LEFT, 15, 5));
 		panel.add(new JLabel(image));

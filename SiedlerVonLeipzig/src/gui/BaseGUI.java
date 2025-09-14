@@ -22,6 +22,7 @@ public abstract class BaseGUI extends JFrame {
 	protected final static Color lightsalmon = new Color(205, 129, 98);
 	
 	protected final static Font big = new Font("Arial", Font.BOLD, 16);
+	protected final static Font hehe = new Font("Comic Sans MS", Font.BOLD, 16);
 	
 	public BaseGUI(String title) {
 		super(title);

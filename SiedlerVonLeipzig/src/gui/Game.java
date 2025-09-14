@@ -1,22 +1,17 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Insets;
-import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
-import java.net.URL;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -29,20 +24,20 @@ public class Game extends BaseGUI {
 	private ImageIcon hammerIcon = createIcon("Hammer.png", 40, 40);
 	public boolean hammerActive = false;
 	private JLabel hammerLabel;
+	
 	public boolean ShopItemActive = false;
 	private JLabel ShopItemLabel;
+	
 	private Container glassPane = (Container) getGlassPane();
 	
-	//Alle Buttons
 	JButton shop = new JButton(createIcon("Coin.png", 40, 40));
 	JButton delete = new JButton(createIcon("Hammer.png", 40, 40));
 	JButton inventory = new JButton(createIcon("Bag.png", 40, 40));
 	JButton end = new JButton(createIcon("Cross.png", 40, 40));
 	
 	JButton[] buttons = {shop, delete, inventory, end};
-	GamePresenter presenter;
 	
-	public boolean placementmode = false;
+	GamePresenter presenter;
 
 	public Game() {
 		
@@ -55,7 +50,7 @@ public class Game extends BaseGUI {
 		addMouseListener(new MouseAdapter() {
 			
 			@Override
-			public void mouseClicked(MouseEvent e ) {
+			public void mouseClicked(MouseEvent e) {
 				float x = e.getX();
 				float y = e.getY();
 				
@@ -63,7 +58,6 @@ public class Game extends BaseGUI {
 				presenter.waiting = false;
 				
 				if(ShopItemActive && ShopItemLabel != null) {
-					System.out.println("Mannnnnn");
 					removeShopItem();
 				}
 				
@@ -72,7 +66,6 @@ public class Game extends BaseGUI {
 					
 					presenter.toggleDeconstruction(modelPos);
 				}
-				System.out.println("x:" + x + "y" +y);
 			}
 		});
 		
@@ -89,18 +82,14 @@ public class Game extends BaseGUI {
 			}
 		});
 		
-		//Einzelnen Komponenten
 		JPanel field = createField();
 		JPanel menubar = createMenuBar();
-		
-
-		
+	
 		this.add(field, BorderLayout.CENTER);
 		this.add(menubar, BorderLayout.SOUTH);
 		
 		this.setVisible(true);
 		
-		//gibt den focus wieder dem field
 		addWindowFocusListener(new java.awt.event.WindowAdapter() {
             @Override public void windowGainedFocus(java.awt.event.WindowEvent e) {
                 field.requestFocusInWindow();
@@ -156,7 +145,7 @@ public class Game extends BaseGUI {
 			b.setBackground(lightsalmon);
 			b.setOpaque(true);
 			b.setBorderPainted(false);
-			b.setFocusable(false); 			//Ich hoffe das macht kein problem
+			b.setFocusable(false);
 		}
 	
 		shop.addActionListener(e -> presenter.openShop());
@@ -193,13 +182,12 @@ public class Game extends BaseGUI {
 		if(ShopItemLabel != null) {
 			glassPane.remove(ShopItemLabel);
 		}
-		//ShopItemActive = true;
+
 		ImageIcon icon = createIcon(item + ".png", 60, 60);
 		ShopItemLabel = new JLabel(icon);
 		ShopItemLabel.setSize(icon.getIconWidth(), icon.getIconHeight());
 		glassPane.setLayout(null);
 		glassPane.add(ShopItemLabel);
-		System.out.println("Hi");
 		glassPane.setVisible(true);
 	}
 	
