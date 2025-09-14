@@ -79,6 +79,11 @@ public class GameModel {
 		}
 	}
 	
+	/**
+	 * @brief testet ob Gebäude in der Nähe sind
+	 * @param Position
+	 * @return
+	 */
 	public boolean testAvailabelSpace(Vector2D Position) {
 		
 		if(Position.testPos(buildingList, itemList, 2.0f)) {
@@ -90,58 +95,10 @@ public class GameModel {
 	}
 	
 	/**
-	 * Test ob Siedler:
-	 * 1.) ein Log holen und bringen können
+	 * @brief setup für den Debug Modus, hier werden die Fähigkeiten der Siedlerinnen durch strategische Platzierung
+	 * der Items und Gebäude aufs Äußerste beansprucht
 	 */
-	public void setupGameFieldDebug1Settler() {
-		ASettlers settler1 = ASettlers.createSettler(new Vector2D(0.0f,0.0f));
-		Items item1 = Items.createItem("Log", new Vector2D(5.0f,0.0f));
-		Items item2 = Items.createItem("Axe", new Vector2D(10.0f,0.0f));
-		Buildings building1 = Buildings.createBuilding("Forester", new Vector2D(0.0f,5.0f));
-		Buildings building2 = Buildings.createBuilding("House", new Vector2D(5.0f,5.0f));
-		Buildings building3 = Buildings.createBuilding("Forester", new Vector2D(5.0f,10.0f));
-		
-		settler1.setSpeed(6.0f);
-		
-		settlerList.add(settler1);
-		itemList.add(item1);
-		itemList.add(item2);
-		buildingList.add(building1);
-		buildingList.add(building2);
-		buildingList.add(building3);
-		
-		settler1.giveSettlerTask(item1.getPosition(), SettlersAktion.GO_PICKUP_LEFT, item1);
-		settler1.giveSettlerTask(settler1.getPosition(), SettlersAktion.GO_BRING_LEFT, item1);
-		settler1.giveSettlerTask(item2.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, item2);
-		settler1.giveSettlerTask(settler1.getPosition(), SettlersAktion.GO_BRING_RIGHT, item2);
-	}
-	public void setupGameFieldDebug2() {
-		ArrayList<ASettlers> settlerStart = new ArrayList<>();
-		ArrayList<Items> itemStart = new ArrayList<>();
-		ArrayList<Buildings> buildingStart = new ArrayList<>();
-		
-		settlerStart.add(ASettlers.createSettler(new Vector2D()));
-		settlerStart.add(ASettlers.createSettler(new Vector2D()));
-		for(int i = 0; i < 100;i++) {
-			itemStart.add(Items.createItem("Log", new Vector2D(-1.0f,i/4.0f)));
-		}
-		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,1.0f)));
-		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,2.0f)));
-		itemStart.add(Items.createItem("Tree", new Vector2D(0.0f,3.0f)));
-		itemStart.add(Items.createItem("Axe", new Vector2D(5.0f,5.0f)));
-		itemStart.add(Items.createItem("Saw", new Vector2D(6.0f,5.0f)));
-		buildingStart.add(Buildings.createBuilding("Lodge", new Vector2D(5.0f,0.0f)));
-		buildingStart.add(Buildings.createBuilding("House", new Vector2D(-5.0f,-5.0f)));
-		buildingStart.add(Buildings.createBuilding("Forester", new Vector2D(-8.0f,-8.0f)));
-		buildingStart.add(Buildings.createBuilding("Sawmill", new Vector2D(0.0f,-8.0f)));
-		buildingStart.get(1).isConstructed = true;
-		settlerStart.get(0).setSpeed(6.0f);
-		settlerStart.get(1).setSpeed(6.0f);
-		
-		for(ASettlers s : settlerStart)settlerList.add(s);
-		for(Items i : itemStart)itemList.add(i);
-		for(Buildings b : buildingStart)buildingList.add(b);
-	}
+	
 	public void setupGameFieldDebug3() {
 		ArrayList<ASettlers> settlerStart = new ArrayList<>();
 		ArrayList<Items> itemStart = new ArrayList<>();
@@ -182,8 +139,11 @@ public class GameModel {
 		for(Items i : itemStart)itemList.add(i);
 		for(Buildings b : buildingStart)buildingList.add(b);
 	}	
+	
+	/**
+	 * @brief Methode platziert Items und Häuser auf dem Spielfeld um ein normales Spiel zu starten
+	 */
 	public void setupGameField() {
-		//setupGameFieldDebug1Settler();
 		ArrayList<Items> itemStart = new ArrayList<>();
 		ArrayList<Buildings> buildingStart = new ArrayList<>();
 		
@@ -211,47 +171,6 @@ public class GameModel {
 	public void setupDebug() {
 		this.debugMode = true;
 		setupGameFieldDebug3();
-		//setupGameFieldDebug2();
-		//setupGameFieldDebug1Settler();
-		//setupDebugBigTest();
-	}
-	public void setupDebugBigTest() {
-		//prepare
-		
-		//System.out.println("Aufruf von: " + java.util.Arrays.toString(Thread.currentThread().getStackTrace())); -> ganz nützliche Ausgabe, bitte drin lassen fürs debugging
-		
-				for(int i = 0; i < 10;i++) {
-					for(int j = 0; j < 10;j++) {
-						itemList.add(Items.createItem("Axe", new Vector2D(i,j)));
-						itemList.add(Items.createItem("Hammer", new Vector2D(i+10,j)));
-						itemList.add(Items.createItem("Log", new Vector2D(i,j+10)));
-						//itemList.add(Items.createItem("Nothing", new Vector2D(i*2,j*2)));
-						itemList.add(Items.createItem("Plank", new Vector2D(i+10,j+10)));
-						itemList.add(Items.createItem("Saw", new Vector2D(i+20,j)));
-						itemList.add(Items.createItem("Tree", new Vector2D(i+20,j+10)));
-					}
-				}
-				settlerList.add(ASettlers.createSettler(new Vector2D()));
-				settlerList.get(0).giveSettlerTask(new Vector2D(200,200), SettlersAktion.GO_FREE, null);
-				settlerList.add(ASettlers.createSettler(new Vector2D()));
-				settlerList.get(1).setJobName(SettlersJobs.JOB_SAWYER);
-				settlerList.get(1).giveSettlerTask(new Vector2D(-200,-200), SettlersAktion.GO_FREE, null);
-				
-				buildingList.add(Buildings.createBuilding("Forester",new Vector2D(0.0f,0.0f)));
-				buildingList.add(Buildings.createBuilding("Forester",new Vector2D(3.0f,0.0f)));
-				buildingList.add(Buildings.createBuilding("Forester",new Vector2D(-3.0f,0.0f)));
-				
-				buildingList.add(Buildings.createBuilding("Sawmill",new Vector2D(0.0f,2.5f)));
-				buildingList.add(Buildings.createBuilding("Sawmill",new Vector2D(3.0f,2.5f)));
-				buildingList.add(Buildings.createBuilding("Sawmill",new Vector2D(-3.0f,2.5f)));
-				
-				buildingList.add(Buildings.createBuilding("Lodge",new Vector2D(0.0f,-2.5f)));
-				buildingList.add(Buildings.createBuilding("Lodge",new Vector2D(3.0f,-2.5f)));
-				buildingList.add(Buildings.createBuilding("Lodge",new Vector2D(-3.0f,-2.5f)));
-				
-				buildingList.add(Buildings.createBuilding("House",new Vector2D(0.0f,5.0f)));
-				buildingList.add(Buildings.createBuilding("House",new Vector2D(3.0f,5.0f)));
-				buildingList.add(Buildings.createBuilding("House",new Vector2D(-3.0f,5.0f)));
 	}
 	
 	/**
