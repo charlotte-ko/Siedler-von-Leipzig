@@ -128,6 +128,11 @@ public class GamePresenter {
 		}
 	}
 	
+	public boolean keepPosition(Vector2D pos) {
+		
+		return model.testAvailabelSpace(screenToWorld(pos));
+	}
+	
 	/**
 	 * @brief rechnet die Mausposition in geeignete floats um
 	 * @param mouse

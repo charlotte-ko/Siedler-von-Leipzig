@@ -54,18 +54,23 @@ public class Game extends BaseGUI {
 				float x = e.getX();
 				float y = e.getY();
 				
-				presenter.savePos(new Vector2D(x,y));
-				presenter.waiting = false;
-				
-				if(ShopItemActive && ShopItemLabel != null) {
-					removeShopItem();
-				}
-				
 				if(hammerActive && hammerLabel != null) {
 					Vector2D modelPos = presenter.giveModelPos();
 					
 					presenter.toggleDeconstruction(modelPos);
 				}
+				
+				Vector2D clickPosition = new Vector2D(x,y);
+				
+				if(presenter.keepPosition(clickPosition)) {
+					
+					presenter.savePos(new Vector2D(x,y));
+					presenter.waiting = false;
+					
+					if(ShopItemActive && ShopItemLabel != null) {
+						removeShopItem();
+					}
+				}	
 			}
 		});
 		
