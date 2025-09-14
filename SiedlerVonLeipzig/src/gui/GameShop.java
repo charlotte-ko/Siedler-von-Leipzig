@@ -1,19 +1,13 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseMotionAdapter;
+
 
 import javax.swing.BorderFactory;
-import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -40,9 +34,9 @@ public class GameShop extends BaseGUI {
 	JButton[] leftbuttons = {house, forester, lodge, sawmill};
 	JButton[] rightbuttons = {forge ,mine};
 	
-	ImageIcon logC = createIcon("Log.png", 40, 40);
-	ImageIcon plankC = createIcon("Plank.png", 40, 40);
-	ImageIcon houseC = createIcon("House.png", 80, 80);
+	ImageIcon LogIcon = createIcon("Log.png", 40, 40);
+	ImageIcon PlankIcon = createIcon("Plank.png", 40, 40);
+	ImageIcon HouseIcon = createIcon("House.png", 80, 80);
 	
 	public boolean active = false;
 
@@ -52,7 +46,7 @@ public class GameShop extends BaseGUI {
 		
 		super("Shop");
 		
-		this.setWindowBase(this, 600, 600, null, brown);
+		this.setWindowBase(this, 700, 650, null, brown);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 	
@@ -90,90 +84,91 @@ public class GameShop extends BaseGUI {
 		JLabel label5 = createLabel("Schmiede:", 100, 30);
 		JLabel label6 = createLabel("Miene:", 100, 30);
 		
-		JLabel[] leftlabels = {label1, label2, label3, label4};
-		JLabel[] rightlabels = {label5, label6};
+		JPanel subContainer = new JPanel();
 		
-		JPanel subContainer1 = new JPanel();
-		subContainer1.setLayout(new GridBagLayout());
-		subContainer1.setOpaque(false);
+		subContainer.setLayout(new GridBagLayout());
+		subContainer.setOpaque(false);
+		
 		GridBagConstraints grid = new GridBagConstraints();
-		grid.insets = new Insets(0, 20, 0, 20);
+		//grid.insets = new Insets(0, 20, 0, 20);
+		grid.insets = new Insets(0, 10, 0, 50);
 		grid.fill = GridBagConstraints.HORIZONTAL;
 		
 		grid.weightx = 1;
 		grid.gridx = 0;
-		grid.weighty = 0;
-		//grid.weightx = 0.2;
-		int index1 = 0;
-		int index2 = 0;
-		for( int i = 0; i < 8; i++) {
-			grid.gridy = i;
-			grid.ipady = 10;
-			grid.insets = new Insets(0, 10, 0, 50);
-			if(i%2 == 0) {
-				subContainer1.add(leftbuttons[index1], grid);
-				//grid.insets = new Insets(0, 20, 0, 20);
-				index1++;
-			}
-			else {
-				subContainer1.add(leftlabels[index2], grid);
-				//grid.insets = new Insets(0, 20, 0, 20);
-				index2++;
-			}
-			
-		}
-		index1 = 0;
-		index2 = 0;
 		
+		grid.weighty = 0;
+		grid.ipady = 10;
+		
+		grid.gridy = 0;
+		subContainer.add(house, grid);
+		
+		grid.gridy = 1;
+		subContainer.add(label1, grid);
+		
+		grid.gridy = 2;
+		subContainer.add(forester, grid);
+		
+		grid.gridy = 3;
+		subContainer.add(label2, grid);
+		
+		grid.gridy = 4;
+		subContainer.add(lodge, grid);
+		
+		grid.gridy = 5;
+		subContainer.add(label3, grid);
+		
+		grid.gridy = 6;
+		subContainer.add(sawmill, grid);
+		
+		grid.gridy = 7;
+		subContainer.add(label4, grid);
+	
+		grid.gridx = 2;
+		grid.gridy = 0;
+		subContainer.add(forge, grid);
+		
+		grid.gridy = 1;
+		subContainer.add(label5, grid);
+		
+		grid.gridy = 2;
+		subContainer.add(mine, grid);
+		
+		grid.gridy = 3;
+		subContainer.add(label6, grid);
+		
+		int index1 = 0;
 		grid.gridx = 1;
+		
 		for( int i = 0; i < 4; i++) {
+			
 			grid.gridy = 2*i;
 			prices[index1].setPreferredSize(new Dimension(100, 30));
 			prices[index1].setBackground(brown);
 			prices[index1].setForeground(lightsalmon);
-			subContainer1.add(prices[index1], grid);
+			subContainer.add(prices[index1], grid);
 			index1++;
-		
-		}
-		
-
-		
-		index1 = 0;
-		for(int i = 0; i < 4; i++) {
-			grid.gridx = 2;
-			grid.gridy = i;
-			grid.weighty = 1.0;
-			grid.insets = new Insets(0, 10, 0, 50);
-			//grid.insets = new Insets(5, 50, 5, 20);
-			if(i%2 == 0) {
-				subContainer1.add(rightbuttons[index1], grid);
-				//grid.insets = new Insets(0, 20, 0, 20);
-				index1++;
-			}
-			else { 
-				subContainer1.add(rightlabels[index2], grid); 
-				//grid.insets = new Insets(0, 20, 0, 20);
-				index2++;
-			}
 		}
 		
 		index1 = 4;
 		grid.gridx = 3;
+		
 		for( int i = 0; i < 2; i++) {
+			
 			grid.gridy = 2*i;
 			prices[index1].setPreferredSize(new Dimension(100, 30));
 			prices[index1].setBackground(brown);
 			prices[index1].setForeground(lightsalmon);
-			subContainer1.add(prices[index1], grid);
+			subContainer.add(prices[index1], grid);
 			index1++;
-		
-		}
-		
-		return subContainer1;
+			
+		}return subContainer;
 	}
 	
 	private JLabel createLabel(String name, int width, int height) {
+		
 		JLabel label = new JLabel(name, SwingConstants.CENTER);
+		
 		label.setPreferredSize(new Dimension(width, height));
 		label.setOpaque(true);
 		label.setBackground(pine);
@@ -185,27 +180,27 @@ public class GameShop extends BaseGUI {
 	private JPanel createTopBar() {
 		
 		JPanel topBar = new JPanel(new GridBagLayout());
-		GridBagConstraints g = new GridBagConstraints();
+		GridBagConstraints grid = new GridBagConstraints();
 		
 		JPanel container = new JPanel(new GridBagLayout());
 		container.setOpaque(false);
 		
-		g.insets = new Insets(0,10,0,10);
-		g.fill = GridBagConstraints.BOTH;
+		grid.insets = new Insets(0,10,0,10);
+		grid.fill = GridBagConstraints.BOTH;
 		
-		JLabel label1 = new JLabel(logC);
+		JLabel label1 = new JLabel(LogIcon);
 		JLabel label2 = createLabel("Baumstämme:", 100, 30);
 		JLabel label3 = new JLabel(String.valueOf(currency[0]));
-		JLabel label4 = new JLabel(plankC);
+		JLabel label4 = new JLabel(PlankIcon);
 		JLabel label5 = createLabel("Bretter:", 100, 30);
 		JLabel label6 = new JLabel(String.valueOf(currency[1]));
 		
 		JLabel[] labels = {label1, label2, label3, label4, label5, label6};
 		
 		for(int i = 0; i < labels.length; i++) {
-			g.gridx = i;
-			g.weightx = 1.0;
-			container.add(labels[i], g);
+			grid.gridx = i;
+			grid.weightx = 1.0;
+			container.add(labels[i], grid);
 		}
 	
 		GridBagConstraints center = new GridBagConstraints();
