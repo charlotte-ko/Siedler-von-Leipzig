@@ -8,34 +8,31 @@ import javax.imageio.ImageIO;
 import logic.Vector2D;
 
 public class Saw extends Items {
+	
+	private static String name = "Saw";
 	static BufferedImage sawImg;
+	
 	static {
 		try {
+			
 			sawImg = ImageIO.read(Items.class.getResourceAsStream("/resources/Saw.png"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
-	public static int price = 5;
-	public static String priceType = "Log";
-	
+	/**
+	 * @brief Konstruktor für Saw
+	 * @param pos
+	 */
 	public Saw(Vector2D pos) {
-		super(pos);
-		this.name = "Saw";
+		super(name, pos);
 		img = sawImg;
 	}
 	
-	public static int getPrice() {
-		return price;
-	}
-	public static String getPriceType() {
-		return priceType;
-	}
-
 	@Override
 	public void reloadImg() {
 		img = sawImg;
 	}
-
 }

@@ -8,30 +8,29 @@ import javax.imageio.ImageIO;
 import logic.Vector2D;
 
 public class Hammer extends Items {
+	
+	private static String name = "Hammer";
+	
 	static BufferedImage hammerImg;
 	static {
 		try {
+			
 			hammerImg = ImageIO.read(Items.class.getResourceAsStream("/resources/Hammer.png"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
-	public static int price = 5;
-	public static String priceType = "Log";
 	
+	/**
+	 * @brief Konstruktor für Hammer
+	 * @param pos
+	 */
 	public Hammer(Vector2D pos) {
-		super(pos);
-		this.name = "Hammer";
+		super(name, pos);
 		img = hammerImg;
 	}
 	
-	public static int getPrice() {
-		return price;
-	}
-	public static String getPriceType() {
-		return priceType;
-	}
-
 	@Override
 	public void reloadImg() {
 		img = hammerImg;

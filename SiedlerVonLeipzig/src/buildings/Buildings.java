@@ -105,7 +105,7 @@ public abstract class Buildings implements java.io.Serializable{
 		for(ASettlers s : settlerList) {
 			
 			float distance = this.getPosition().getDistance(s.getPosition());
-			if(!s.getEmployed() && !s.isWorking() && distance <= min_distance) {
+			if(!s.isEmployed() && !s.isWorking() && distance <= min_distance) {
 				closest = s;
 			}
 			

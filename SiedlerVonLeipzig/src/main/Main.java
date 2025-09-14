@@ -1,8 +1,9 @@
-package logic;
+package main;
 
 import java.util.ArrayList;
 import javax.swing.JFrame;
 import gui.Startmenu;
+import logic.GameModel;
 import presenter.StartPresenter;
 
 class Main {
