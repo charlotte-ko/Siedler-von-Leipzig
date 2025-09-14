@@ -17,20 +17,10 @@ public class Axe extends Items {
 		}
 	}
 	
-	public static int price = 5;
-	public static String priceType = "Log";
-	
 	public Axe(Vector2D pos) {
 		super(pos);
 		this.name = "Axe";
 		img = axeImg;
-	}
-	
-	public static int getPrice() {
-		return price;
-	}
-	public static String getPriceType() {
-		return priceType;
 	}
 
 	@Override

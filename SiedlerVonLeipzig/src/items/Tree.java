@@ -51,6 +51,11 @@ public class Tree extends Items {
 		return false;
 	}
 	
+	/**
+	 * @brief zeichnet Bäume
+	 * @note in einem inventar oder oder bei einem Siedler werden sie klein gezeichnet
+	 * Stehen sie alleine werden sie tileSize größe gezeichnet
+	 */
 	public void draw(Graphics2D g2,int tileSize,Vector2D camPos) {
 		//normal
 		int posX = (int)((position.x)*(float)tileSize) - (int)((camPos.x)*(float)tileSize);

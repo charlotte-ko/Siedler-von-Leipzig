@@ -18,6 +18,7 @@ import items.Items;
 
 public abstract class ASettlers implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
+	
 	private Vector2D position;
 	private float speed;
 	protected boolean working;
@@ -29,13 +30,14 @@ public abstract class ASettlers implements java.io.Serializable{
 	private Items leftHand;
 	
 	//Aufgabenspeicher (deque besser als stack)
-	private Deque<Vector2D> taskWay = new ArrayDeque<>(); //Weg zur Aufgabe
+	private Deque<Vector2D> taskWay = new ArrayDeque<>(); 		//Weg zur Aufgabe
 	private Deque<SettlersAktion> task = new ArrayDeque<>();	//aufgabe
-	protected Deque<Items> taskTarget = new ArrayDeque<>();
+	protected Deque<Items> taskTarget = new ArrayDeque<>();		//item welches betroffen ist
 	
 	protected transient BufferedImage img;
-	protected boolean isGoingUp; //nur für die animation
+	protected boolean isGoingUp; //animations markierung
 	
+	private Vector2D danceStep = null;
 
 	public SettlersJobs getJobName() {
 		return this.jobName;
@@ -52,6 +54,13 @@ public abstract class ASettlers implements java.io.Serializable{
 			return this.rightHand;
 		}
 	}
+	
+	/**
+	 * @brief gibt dem Siedler direkt etwas in die Hand
+	 * @param leftHand true = left, false = right
+	 * @param tem
+	 * @note bei null wird ein dummy Item ("Nothing") eingefügt
+	 */
 	public void setItem(boolean leftHand,Items tem) {
 		if(tem == null) tem = Items.createItem("Nothing", this.getPosition());
 		tem.setHeld(true);
@@ -73,15 +82,15 @@ public abstract class ASettlers implements java.io.Serializable{
 	
 	/**
 	 * @brief Factory Methode zum Erstellen von Siedlern, welche direkt in die globale settlerList gespeichert werden.
-	 * @param settlerList
 	 * @param position
-	 * @return erstelltes Objekt wird zurückgegeben (steht aber auch in der liste)
-	 * @note Es wird nur ein Settler erstellt. Job muss direkt oder indirekt vergeben werden.
+	 * @return neuer Siedler
+	 * @note Siedler hatt immer erstmal Normal Job
 	 */
 	public static ASettlers createSettler(Vector2D position) {
 		ASettlers newSettler = new Settler(position);
 		newSettler.setItem(true, null);
 		newSettler.setItem(false, null);
+		newSettler.setJobName(SettlersJobs.JOB_NORMAL);
 		return newSettler;
 	}
 
@@ -125,6 +134,9 @@ public abstract class ASettlers implements java.io.Serializable{
 			this.taskTarget.addLast(target);
 		}
 	}
+	/**
+	 * @brief Löscht alle Aufgaben des Siedlers und setzt in auf nicht arbeitend
+	 */
 	public void dellAllTask() {
 		this.task.clear();
 		this.taskTarget.clear();
@@ -132,7 +144,10 @@ public abstract class ASettlers implements java.io.Serializable{
 		this.working = false;
 	}
 	
-	private Vector2D danceStep = null;
+	/**
+	 * @brief wenn Siederl nichts zu tun haben können sie Tanzen :3
+	 * @param delta
+	 */
 	private void dance(double delta) {
 		if(danceStep == null || danceStep.getDistance(position) < 0.5) {
 			danceStep = new Vector2D(this.getPosition());
@@ -144,6 +159,13 @@ public abstract class ASettlers implements java.io.Serializable{
 		this.speed = bufferSpeed;
 	}
 	
+	/**
+	 * @brief Update Methode der Siedler.
+	 * @param delta
+	 * @param settlerList
+	 * @param buildingList
+	 * @param itemList
+	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> buildingList, ArrayList<Items> itemList) {
 		update_img(delta);
 		
@@ -158,6 +180,15 @@ public abstract class ASettlers implements java.io.Serializable{
 		Vector2D targetPosition = move(delta,buildingList);
 		if(targetPosition == null)return;
 		
+		updateWork(targetPosition,buildingList);
+	}
+	
+	/**
+	 * @brief kümmet sich um die abarbeitung der Aufgabe im update
+	 * @param targetPosition
+	 * @param buildingList
+	 */
+	private void updateWork(Vector2D targetPosition,ArrayList<Buildings> buildingList) {
 		Items target = this.taskTarget.pollFirst();
 		switch(this.task.pollFirst()) {
 			case GO_PICKUP_LEFT:

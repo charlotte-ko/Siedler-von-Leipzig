@@ -88,6 +88,7 @@ public class Settler extends ASettlers{
 	    }
 	}
 
+	private double updateImgTimer = 0.0;
 	
 	Settler(Vector2D position){
 		this.setSpeed(5.0f);
@@ -97,8 +98,12 @@ public class Settler extends ASettlers{
 		img = settlerNormalImg[0];
 	}
 
-	private double updateImgTimer = 0.0;
+	
 	@Override
+	/**
+	 * @brief update die laufanimation und job img
+	 * @note aufgrund von switch sehr lang
+	 */
 	protected void update_img(double delta) {
 		updateImgTimer += delta;
 		updateImgTimer %= 1.5;

@@ -132,10 +132,19 @@ public abstract class Items implements java.io.Serializable{
 			return;
 		}
 		
+		/**
+		 * @brief zeichnet standart Items
+		 * @param g2
+		 * @param tileSize
+		 * @param camPos
+		 * @note sie sind 0.5 tiles groß
+		 * @note Items die im Inventar sind werden etwas verschoben zum besseren erkennen
+		 */
 		public void draw(Graphics2D g2,int tileSize,Vector2D camPos) {
 			//0.5 groß
 			float offsetX = 0;
 			float offsetY = 0;
+			
 			if(this.isInInventory()) {
 				offsetX = 0.6f;
 				offsetY = 0.6f;
@@ -150,5 +159,8 @@ public abstract class Items implements java.io.Serializable{
 			g2.drawImage(img, posX, posY, tileSize/2,tileSize/2,null);
 		}
 		
+		/**
+		 * @brief nötig um das passende Bild zu laden, wenn ein Spielstand geladen wird
+		 */
 		public abstract void reloadImg();
 }

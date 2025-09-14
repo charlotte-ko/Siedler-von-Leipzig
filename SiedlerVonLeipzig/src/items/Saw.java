@@ -17,20 +17,10 @@ public class Saw extends Items {
 		}
 	}
 	
-	public static int price = 5;
-	public static String priceType = "Log";
-	
 	public Saw(Vector2D pos) {
 		super(pos);
 		this.name = "Saw";
 		img = sawImg;
-	}
-	
-	public static int getPrice() {
-		return price;
-	}
-	public static String getPriceType() {
-		return priceType;
 	}
 
 	@Override
