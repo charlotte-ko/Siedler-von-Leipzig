@@ -3,12 +3,10 @@ package items;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.imageio.ImageIO;
 
 import logic.Vector2D;
-import settlers.Settler;
 
 public class Tree extends Items {
 	
