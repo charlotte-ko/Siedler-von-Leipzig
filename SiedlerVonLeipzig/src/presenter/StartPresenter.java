@@ -42,12 +42,9 @@ public class StartPresenter {
 	 */
 	public void buttonLoad() {
 		
-		if(model.getUserData().isEmpty()) return;
-		
 		LoadGame gview = new LoadGame();
 		LoadPresenter gpresenter = new LoadPresenter(model, gview);
 		gpresenter.start();
-		view.dispose();
 	}
 	
 	/**

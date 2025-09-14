@@ -27,6 +27,7 @@ public class GameShop extends BaseGUI {
 	ShopPresenter presenter;
 	
 	int[] currency = {0, 0};
+	
 	JButton log = new JButton(createIcon("Log.png", 40, 40));
 	JButton plank = new JButton(createIcon("Plank.png", 40, 40));
 	JButton house = new JButton(createIcon("House.png", 80, 80));
@@ -44,39 +45,26 @@ public class GameShop extends BaseGUI {
 	ImageIcon houseC = createIcon("House.png", 80, 80);
 	
 	public boolean active = false;
-	private Container glassPane = (Container) getGlassPane();
+
 	JLabel clickable;
 	
 	public GameShop() {
+		
 		super("Shop");
 		
-		
+		this.setWindowBase(this, 600, 600, null, brown);
 		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-		this.setSize(new Dimension(550, 550));
-		this.setLocationRelativeTo(null);
-		this.getContentPane().setBackground(brown);
 		this.setLayout(new BorderLayout());
-		
-
+	
 		setButtons(leftbuttons);
 		setButtons(rightbuttons);
-		/*
-		addMouseMotionListener(new MouseMotionAdapter() {
-			
-			@Override
-			public void mouseMoved(MouseEvent e) {
-				if(active && clickable != null) {
-					clickable.setLocation(e.getX() - 15, e.getY() - 15);
-				}
-			} 
-		});*/
 	}
 	
 	public void setPresenter(ShopPresenter presenter) {
+		
 		this.presenter = presenter;
 		currency = presenter.getCurrency();
-		
-
+	
 		JPanel menubar = createTopBar();
 		
 		this.add(menubar, BorderLayout.NORTH);
@@ -86,12 +74,12 @@ public class GameShop extends BaseGUI {
 	
 	private JPanel chartLayout() {
 		
-		JLabel price1 = createLabel("Preis: " + presenter.givePrice("House") + " Planks", 20, 20);
-		JLabel price2 = createLabel("Preis: " + presenter.givePrice("Forester") + " Logs", 20, 20);
-		JLabel price3 = createLabel("Preis: " + presenter.givePrice("Lodge") + " Logs", 20, 20);
-		JLabel price4 = createLabel("Preis: " + presenter.givePrice("Sawmill") + " Logs", 20, 20);
-		JLabel price5 = createLabel("Preis: " + presenter.givePrice("Forge") + " Logs", 20, 20);
-		JLabel price6 = createLabel("Preis: " + presenter.givePrice("Mine") + " Logs", 20, 20);
+		JLabel price1 = createLabel("Preis: " + presenter.givePrice("House") + " " + presenter.giveCurrency("House"), 20, 20);
+		JLabel price2 = createLabel("Preis: " + presenter.givePrice("Forester") + " " + presenter.giveCurrency("Forester"), 20, 20);
+		JLabel price3 = createLabel("Preis: " + presenter.givePrice("Lodge") + " " + presenter.giveCurrency("Lodge"), 20, 20);
+		JLabel price4 = createLabel("Preis: " + presenter.givePrice("Sawmill") + " " + presenter.giveCurrency("Sawmill"), 20, 20);
+		JLabel price5 = createLabel("Preis: " + presenter.givePrice("Forge") + " " + presenter.giveCurrency("Forge"), 20, 20);
+		JLabel price6 = createLabel("Preis: " + presenter.givePrice("Mine") + " " + presenter.giveCurrency("Mine"), 20, 20);
 		
 		JLabel[] prices = {price1, price2, price3, price4, price5, price6};
 		
@@ -182,65 +170,8 @@ public class GameShop extends BaseGUI {
 		}
 		
 		return subContainer1;
-		/*
-		JPanel container = new JPanel(new GridBagLayout());
-		GridBagConstraints g = new GridBagConstraints();
-		
-		container.setOpaque(false);
-		
-		int index = 0;
-		int index2 = 0;
-		JLabel[] leftlabels = {label1, label2, label3, label4};
-		for(int i = 0; i < 8; i++) {
-			g.gridx = 0;
-			g.gridy = i;
-			g.weighty = 1.0;
-			g.insets = new Insets(0, 10, 0, 50);
-			if(i%2 == 0) {
-				container.add(leftbuttons[index], g);
-				index++;
-			}
-			else { 
-				container.add(leftlabels[index2], g);
-				index2++;
-			}
-		}
-		
-		g.insets = new Insets(0,10,0,50);
-		g.gridx = 1;
-		g.gridy = 0;
-		container.add(new JLabel("" + presenter.givePrice("House")));
-		
-		g.gridy = 2;
-		container.add(new JLabel("" + presenter.givePrice("Forester")));
-		
-		g.gridy = 4;
-		container.add(new JLabel("" + presenter.givePrice("Lodge")));
-		
-		g.gridy = 6;
-		container.add(new JLabel("" + presenter.givePrice("Sawmill")));
-		
-		JLabel[] rightlabels = {label5, label6};
-		
-		index = 0;
-		index2 = 0;
-		for(int i = 0; i < 4; i++) {
-			g.gridx = 2;
-			g.gridy = i;
-			g.weighty = 1.0;
-			g.insets = new Insets(0, 100, 0, 100);
-			if(i%2 == 0) {
-				container.add(rightbuttons[index], g);
-				index++;
-			}
-			else { 
-				container.add(rightlabels[index2], g); 
-				index2++;
-			}
-		}
-		return container;*/
 	}
-
+	
 	private JLabel createLabel(String name, int width, int height) {
 		JLabel label = new JLabel(name, SwingConstants.CENTER);
 		label.setPreferredSize(new Dimension(width, height));
@@ -307,27 +238,4 @@ public class GameShop extends BaseGUI {
 		forge.addActionListener(e -> presenter.onClick("Forge"));
 		mine.addActionListener(e -> presenter.onClick("Mine"));
 	}
-	/*
-	public void attach() {
-		
-		if(clickable != null) {
-			glassPane.remove(clickable);
-		}
-		
-		ImageIcon image = createIcon("House.png", 40,40);
-		clickable = new JLabel(image);
-		clickable.setSize(image.getIconWidth(), image.getIconHeight());
-		
-		glassPane.setLayout(null);
-		glassPane.add(clickable);
-		glassPane.setVisible(true);
-	}
-	
-	public void detach() {
-		if(clickable != null) {
-			glassPane.remove(clickable);
-			glassPane.setVisible(false);
-			clickable = null;
-		}
-	}*/
 }

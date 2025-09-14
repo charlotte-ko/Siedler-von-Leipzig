@@ -15,7 +15,7 @@ import settlers.SettlersJobs;
 public class Forester extends Buildings{
 	
 	protected static int price = 20;
-	protected static String priceType = "Log";
+	protected static String priceType = "Logs";
 	private static String name = "Forester";
 	
 	private static BufferedImage foresterImg1;
@@ -89,12 +89,16 @@ public class Forester extends Buildings{
 			plantPos = this.getPosition().genPosInCircle(3.1f+moreRange);
 			moreRange += 0.1;
 			
-		}while(!plantPos.testPos(BuildingsList, itemList));
+		}while(!plantPos.testPos(BuildingsList, itemList, 2.0f));
 		
 		this.plantTree(employee, plantPos);
 	}
 
 	public static int getPrice() {
 		return price;
+	}
+	
+	public static String getPriceType() {
+		return priceType;
 	}
  }

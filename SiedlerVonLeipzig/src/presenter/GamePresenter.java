@@ -14,6 +14,9 @@ public class GamePresenter {
 	public Game view;
 	public boolean waiting;
 	
+	boolean placeBuilding = false;
+	String placeBuildingName;
+	
 	private Vector2D camPos;
 	private int tileSize;
 	
@@ -25,50 +28,80 @@ public class GamePresenter {
 		view.setPresenter(this);
 		renderer = new Renderer(this);
 	}
-
+	
+	/**
+	 * @brief startet ein neues Spiel
+	 */
 	public void start() {
 		
-		//model.setupDebug();
 		model.setupGameField();
 		renderer.startGameThread();
 		view.setVisible(true);
 	}
 	
+	/**
+	 * @brief lädt vorhandenen Spielstand
+	 * @param name
+	 */
 	public void startSave(String name) {
+		
 		model.loadGame(name);
 		renderer.startGameThread();
 		view.setVisible(true);
 	}
 	
+	/**
+	 * @brief startet den Debug Modus
+	 */
 	public void startDebug() {
+		
 		model.setupDebug();
+		model.playerName = "Debug";
 		renderer.startGameThread();
 		view.setVisible(true);
 	}
 	
+	/**
+	 * @brief öffnet das ShopFenster
+	 */
 	public void openShop() {
+		
 		GameShop shop = new GameShop();
 		ShopPresenter presenter = new ShopPresenter(model, shop, this, view);
 		disableMouseIcon();
 		presenter.start();
 	}
 	
+	/**
+	 * @brief öffnet InventarFenster
+	 */
 	public void openInventory() {
+		
 		GameInv inventory = new GameInv();
 		InventoryPresenter presenter = new InventoryPresenter(inventory, model);
 		disableMouseIcon();
 		presenter.start();
 	}
 	
+	/**
+	 * @brief öffnet das Exit Fenster
+	 */
 	public void openExit() {
+		
 		Exit exit = new Exit();
 		ExitPresenter presenter = new ExitPresenter(exit, model);
 		disableMouseIcon();
 		presenter.start();
 	}
 	
+	/**
+	 * @brief speichert eine Position und platziert dort ein ausgewähltes Gebäude
+	 * @param pos
+	 */
 	public void savePos(Vector2D pos) {
+		
 		model.Position = pos;
+		
 		if(placeBuilding) {
 			switch(placeBuildingName) {
 			case "House": 
@@ -91,11 +124,15 @@ public class GamePresenter {
 				break;
 			default: model.constructItem(null, pos);
 			}
-			//checken ob kein anderes Building da ist
 			placeBuilding = false;
 		}
 	}
 	
+	/**
+	 * @brief rechnet die Mausposition in geeignete floats um
+	 * @param mouse
+	 * @return Vector mit umgerechneten Werten
+	 */
 	private Vector2D screenToWorld(Vector2D mouse) {
 		float x = mouse.x / (float)tileSize;
 		float y = mouse.y / (float)tileSize;
@@ -104,17 +141,19 @@ public class GamePresenter {
 		return new Vector2D(x,y);
 	}
  	
-	boolean placeBuilding = false;
-	String placeBuildingName;
-	
+	/**
+	 * @brief aktiviert den Platzierungsmodus und speichert ausgewähltes Gebäude
+	 * @param placed
+	 */
 	public void place(String placed) {
-		//warten bis geklickt wurde
-		//checken ob abstand passt
-		//model.constructBuilding(building, model.Position);
+		
 		placeBuilding = true;
 		placeBuildingName = placed;
 	}
 	
+	/**
+	 * @brief prüft ob HammerIcon bereits aktiviert und hängt ein Icon an wenn nicht bzw. löst Icon wenn ja
+	 */
 	public void toggleHammer() {
 		 {
 				view.ShopItemActive = false;
@@ -130,10 +169,13 @@ public class GamePresenter {
 			}
 	}
 	
+	/**
+	 * @brief Hängt bereits ein Icon an der Maus, wird dieses nun gelöst
+	 */
 	private void disableMouseIcon() {
 		
 		if(view.hammerActive || view.ShopItemActive) {
-			
+
 			view.ShopItemActive = false;
 			view.hammerActive = false;
 			
@@ -142,28 +184,35 @@ public class GamePresenter {
 		}
 	}
 	
+	/**
+	 * @brief gibt die Positon weiter, an welcher ein Gebäude gelöscht werden soll
+	 * @param pos
+	 */
 	public void toggleDeconstruction(Vector2D pos) {
+		
 		model.deconstructBuilding(screenToWorld(pos));
-		System.out.println(screenToWorld(pos).x + " X " + screenToWorld(pos).y + " Y");
 	}
 	
+	/**
+	 * @return in Model gespeicherte Position
+	 */
 	public Vector2D giveModelPos() {
 		return model.Position;
 	}
 	
+	/**
+	 * @brief fordert GUI auf Icon eines gewählten Gebäudes an die Maus zu binden
+	 * @param purchase
+	 */
 	public void toggleShop(String purchase) {
 		
 		view.ShopItemActive = true;
-		if(!view.ShopItemActive) {
-			System.out.println("Kaputt");
-		}
-		if(view.ShopItemActive) {
-			view.attachShopItem(purchase);
-			
-		}
+		view.attachShopItem(purchase);
+	
 	}
 	
 	public void giveCamera(Vector2D camPos,int tileSize) {
+		
 		this.camPos = camPos;
 		this.tileSize = tileSize;
 	}

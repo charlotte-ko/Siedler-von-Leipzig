@@ -9,6 +9,7 @@ public class ExitPresenter {
 	GameModel model;
 	
 	ExitPresenter(Exit view, GameModel model) {
+		
 		this.view = view;
 		this.model = model;
 		view.setPresenter(this);

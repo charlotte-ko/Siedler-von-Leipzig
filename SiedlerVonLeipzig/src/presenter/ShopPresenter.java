@@ -1,18 +1,9 @@
 package presenter;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-
 import gui.Game;
 import gui.GameShop;
-import items.Items;
-import items.Log;
-import items.Plank;
+
 import logic.GameModel;
-import logic.Vector2D;
 
 public class ShopPresenter {
 
@@ -22,7 +13,8 @@ public class ShopPresenter {
 	GamePresenter presenter;
 	
 	
-	ShopPresenter(GameModel model, GameShop view, GamePresenter presenter, Game game) {
+	public ShopPresenter(GameModel model, GameShop view, GamePresenter presenter, Game game) {
+		
 		this.model = model;
 		this.view = view;
 		this.presenter = presenter;
@@ -34,90 +26,59 @@ public class ShopPresenter {
 		view.setVisible(true);
 	}
 	
-
+	/**
+	 * @brief erstellt ein Feld mit der Anzahl and vorhandenen Zahlungsmaterialien
+	 * @return Feld mit Anzahl der vorhandenen Währungen
+	 */
 	public int[] getCurrency() {
+		
 		int[] currency = {model.inventarCounter()[0], model.inventarCounter()[1]};
 		return currency;
 	}
 	
+	/**
+	 * @param item
+	 * @return Preis eines gewählten Items
+	 */
 	public int givePrice(String item) {
 		
 		int price = model.getPrice(item);
 		return price;
 	}
 	
+	/**
+	 * @param item
+	 * @return Währung eines gewählten Items
+	 */
+	public String giveCurrency(String item) {
+		
+		String type = model.getPriceType(item);
+		return type;
+	}
+	
+	/**
+	 * @brief Wenn ein Item im Shop gewählt wird, wird geprüft, ob genug waren für Zahlung vorhanden sind,
+	 * nur wenn genug Materialien da sind, kann etwas platziert werden
+	 * @param placed
+	 */
 	public void onClick(String placed) {
 		
 		int price = model.getPrice(placed);
+		String type = model.getPriceType(placed);
+		
 		int[] availableCurrency = getCurrency();
 		
-		if(placed == "House" && price > availableCurrency[1] ) {
-			System.out.println("" + price);
+		if(type == "Planks" && price > availableCurrency[1] ) {
 			return;
 			
-		}else if(price > availableCurrency[0]) {
-			System.out.println("" + price);
+		}else if(type == "Logs" && price > availableCurrency[0]) {
 			return;
 			
 		}else {
 			
 			view.dispose();
 			presenter.toggleShop(placed);
-			presenter.place(placed);
-			//updateList(model.itemList, placed, price);	
+			presenter.place(placed);	
 		}
 	}
-	
-	private static String chooseCurrency(String purchase) {
-		
-		String wanted;
-		
-		switch(purchase) {
-		
-		case "House": wanted = "Plank";
-			break;
-		default: wanted = "Log";
-		}
-		
-		return wanted;
-	}
-		
-		
-	/*private void updateList(ArrayList<Items> List, String purchase, int price) {
-		
-		Iterator<Items> index = List.iterator();
-		String wanted = chooseCurrency(purchase);
-		
-		Items target = index.next();
-		
-		while(price != 0 && index.hasNext()) {
-			
-			if(!(target.getName().equals(wanted))) {
-				target = index.next();
-				
-			}else {
-				index.remove();
-				if(index.hasNext()) {target = index.next();}
-				price--;
-			}
-		}
-	}*/
-		
-		/*
-		presenter.changeMode();
-		
-		while(game.placementmode) {
-			if(!presenter.waiting) {
-				presenter.place(building);
-				game.placementmode = false;
-			}
-		}*/
-	
-		/*
-		if(view.active) {
-			view.attach();
-		}
-		else { view.detach(); }
-		view.active = !view.active;
-	}*/
 }

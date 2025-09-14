@@ -53,5 +53,4 @@ public abstract class BaseGUI extends JFrame {
 		
 		return finishedImage;
 	}
-	//protected void setButtonsBase(JButton[] buttonList, )
 }

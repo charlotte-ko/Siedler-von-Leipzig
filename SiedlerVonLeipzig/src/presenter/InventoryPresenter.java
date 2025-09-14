@@ -9,6 +9,7 @@ public class InventoryPresenter {
 	GameModel model;
 	
 	InventoryPresenter(GameInv view, GameModel model) {
+		
 		this.view = view;
 		this.model = model;
 		view.setPresenter(this);
@@ -18,13 +19,13 @@ public class InventoryPresenter {
 		view.setVisible(true);
 	}
 	
+	/**
+	 * @brief lädt die Anzahl aller vorhandenen (für das Spiel relevanten) Objekte in einen Array
+	 * @return Array mit Objektanzahlen
+	 */
 	public int[] getCounter() {
 		
 		int[] counter = model.inventarCounter();
-		for(int i = 0; i < model.buildingList.size(); i++) {
-			System.out.println("" + model.buildingList.get(i).getPosition().x + "," + model.buildingList.get(i).getPosition().y);
-		}
-		
 		return counter;
 	}
 }

@@ -16,7 +16,7 @@ import settlers.SettlersJobs;
 public class Forge extends Buildings{
 	
 	protected static int price = 7;
-	protected static String priceType = "Plank";
+	protected static String priceType = "Planks";
 	private static String name = "Forge";
 	
 	private double passedTime = 0.0;
@@ -97,5 +97,9 @@ public class Forge extends Buildings{
 	
 	public static int getPrice() {
 		return price;
+	}
+	
+	public static String getPriceType() {
+		return priceType;
 	}
 }

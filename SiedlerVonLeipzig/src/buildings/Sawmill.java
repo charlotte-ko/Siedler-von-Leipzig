@@ -15,7 +15,7 @@ import logic.Vector2D;
 public class Sawmill extends Buildings {
 	
 	protected static int price = 10;
-	protected static String priceType = "Log";
+	protected static String priceType = "Logs";
 	private static String name = "Sawmill";
 	
 	private double workeTime = 0.0;
@@ -143,5 +143,9 @@ public class Sawmill extends Buildings {
 	
 	public static int getPrice() {
 		return price;
+	}
+	
+	public static String getPriceType() {
+		return priceType;
 	}
 }

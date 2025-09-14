@@ -15,7 +15,7 @@ public class House extends Buildings{
 	
 	protected static int price = 20;
 	private static String name = "House";
-	protected static String priceType = "Plank"; 
+	protected static String priceType = "Planks"; 
 	
 	private double spawntime = 0.0;
 	private int counter = 0;
@@ -77,5 +77,9 @@ public class House extends Buildings{
 	
 	public static int getPrice() {
 		return price;
+	}
+	
+	public static String getPriceType() {
+		return priceType;
 	}
 }
