@@ -14,59 +14,79 @@ import settlers.SettlersJobs;
 
 
 public class Forge extends Buildings{
-	private static BufferedImage forgeImg;
+	
 	protected static int price = 7;
 	protected static String priceType = "Plank";
-	protected static String name = "Forge";
-
-	static {
-		try {
-			forgeImg = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Forge.png"));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-	}
-	public Forge(Vector2D pos) {
-		super(name,pos);
-		this.hasEmployee = false;
-		img = forgeImg;
-	}
-
-	private void getIron(ArrayList<ASettlers>settlerList,ArrayList<Items>itemList) {
-		if(this.input_inventory.size() >= 10)return;
-		ASettlers worker = this.closestSettler(settlerList);//Zeitarbeiter
-		
-		if(worker == null)return;
-		Items tem = Items.closestItem(worker.getPosition(), itemList, "Iron");
-		if(tem == null)return;
-		
-		worker.giveSettlerTask(tem.getPosition(), SettlersAktion.GO_PICKUP_LEFT, tem);
-		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, tem);
-	}
+	private static String name = "Forge";
 	
 	private double passedTime = 0.0;
 	private int nextTool = 0;
 	
-	@Override
-	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList,ArrayList<Items> itemList) {
-		if(this.isContructed)this.getIron(settlerList, itemList);
+	private static BufferedImage forgeImg;
+	
+
+	static {
+		try {
+			
+			forgeImg = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Forge.png"));
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * @brief Konstruktor für Forge
+	 * @param pos
+	 */
+	public Forge(Vector2D pos) {
+		super(name, pos);
+		img = forgeImg;
+	}
+	
+	/**
+	 * @brief Siedler wird gesucht, um Iron in die Forge zu bringen
+	 * @param settlerList
+	 * @param itemList
+	 */
+	private void getIron(ArrayList<ASettlers>settlerList, ArrayList<Items>itemList) {
 		
-		if(!this.updatStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, forgeImg, forgeImg, SettlersJobs.JOB_SMITH, "Hammer"))return;
+		if(this.input_inventory.size() >= 10) return;
+		ASettlers worker = this.closestSettler(settlerList); //Zeitarbeiter
+		
+		if(worker == null) return;
+		
+		Items target = Items.closestItem(worker.getPosition(), itemList, "Iron");
+		if(target == null) return;
+		
+		worker.giveSettlerTask(target.getPosition(), SettlersAktion.GO_PICKUP_LEFT, target);
+		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, target);
+	}
+	
+	@Override
+	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList) {
+		
+		if(this.isConstructed) this.getIron(settlerList, itemList);
+		
+		if(!this.updateStartCheck(delta, settlerList, itemList, BuildingsList, price, priceType, forgeImg, forgeImg, SettlersJobs.JOB_SMITH, "Hammer")) return;
 		
 		passedTime += delta;
+		
 		if(passedTime >= 12.0 && this.output_inventory.size() <= 10 && this.input_inventory.size() > 0) {
-			Items tem;
-			Items.dellItemFromList(this.input_inventory.remove(0),itemList);
+			Items targetItem;
+			Items.deleteItemFromList(this.input_inventory.remove(0), itemList);
+			
 			switch(nextTool) {
-				case 0:tem = Items.createItem("Axe", position);break;
-				case 1:tem = Items.createItem("Saw", position);break;
-				case 2:tem = Items.createItem("Pickaxe", position);break;
-				case 3:tem = Items.createItem("Hammer", position);break;
-				default:tem = Items.createItem("Hammer", position);break;
+				case 0:targetItem = Items.createItem("Axe", position); break;
+				case 1:targetItem = Items.createItem("Saw", position); break;
+				case 2:targetItem = Items.createItem("Pickaxe", position); break;
+				case 3:targetItem = Items.createItem("Hammer", position); break;
+				default:targetItem = Items.createItem("Hammer", position); break;
 			}
-			tem.setInInventory(true);
-			itemList.add(tem);
-			this.output_inventory.add(tem);
+			
+			targetItem.setInInventoryOutput(true);
+			itemList.add(targetItem);
+			this.output_inventory.add(targetItem);
 			nextTool++;
 			nextTool %= 4;
 			passedTime = 0.0;
@@ -78,5 +98,4 @@ public class Forge extends Buildings{
 	public static int getPrice() {
 		return price;
 	}
-
 }

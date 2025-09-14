@@ -96,7 +96,7 @@ public abstract class Items implements java.io.Serializable{
 			return inInventory;
 		}
 		
-		public void setInInventory(boolean inInventory) {
+		public void setInInventoryOutput(boolean inInventory) {
 			this.inInventory = inInventory;
 		}
 		
@@ -104,7 +104,7 @@ public abstract class Items implements java.io.Serializable{
 			return inInventoryIn;
 		}
 		
-		public void setInInventoryIn(boolean inInventoryIn) {
+		public void setInInventoryInput(boolean inInventoryIn) {
 			this.inInventoryIn = inInventoryIn;
 		}
 		
@@ -121,7 +121,7 @@ public abstract class Items implements java.io.Serializable{
 		 * @param target Item welches gelöscht werden soll
 		 * @param itemList
 		 */
-		public static void dellItemFromList(Items target,ArrayList<Items> itemList) {
+		public static void deleteItemFromList(Items target,ArrayList<Items> itemList) {
 			for(int i = 0; i < itemList.size();i++) {
 				if(target != itemList.get(i)) {
 					continue;

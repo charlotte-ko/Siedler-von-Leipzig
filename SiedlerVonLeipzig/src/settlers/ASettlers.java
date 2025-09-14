@@ -125,7 +125,7 @@ public abstract class ASettlers implements java.io.Serializable{
 			this.taskTarget.addLast(target);
 		}
 	}
-	public void dellAllTask() {
+	public void deleteAllTasks() {
 		this.task.clear();
 		this.taskTarget.clear();
 		this.taskWay.clear();
@@ -164,13 +164,13 @@ public abstract class ASettlers implements java.io.Serializable{
 				this.setItem(true, target);
 				target.setTargeted(false);
 				if(target.isInInventory())takeFromBuilding(target.getPosition(),buildingList,target);
-				target.setInInventory(false);
+				target.setInInventoryOutput(false);
 				break;
 			case GO_PICKUP_RIGHT:
 				this.setItem(false, target);
 				target.setTargeted(false);
 				if(target.isInInventory())takeFromBuilding(target.getPosition(),buildingList,target);
-				target.setInInventory(false);
+				target.setInInventoryOutput(false);
 				break;
 			case GO_BRING_LEFT:
 				target.setHeld(false);
@@ -205,7 +205,7 @@ public abstract class ASettlers implements java.io.Serializable{
 		Buildings b = Buildings.findBuilding(position, buildingList);
 		if(b == null)return;
 		ArrayList<Items> inventar = b.getInput_Inventory();
-		target.setInInventoryIn(true);
+		target.setInInventoryInput(true);
 		inventar.add(target);
 		b.setInput_Inventory(inventar);
 	}

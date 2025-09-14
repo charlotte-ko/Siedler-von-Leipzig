@@ -115,7 +115,7 @@ public class GameModel {
 		buildingStart.add(Buildings.createBuilding("House", new Vector2D(-5.0f,-5.0f)));
 		buildingStart.add(Buildings.createBuilding("Forester", new Vector2D(-8.0f,-8.0f)));
 		buildingStart.add(Buildings.createBuilding("Sawmill", new Vector2D(0.0f,-8.0f)));
-		buildingStart.get(1).isContructed = true;
+		buildingStart.get(1).isConstructed = true;
 		settlerStart.get(0).setSpeed(6.0f);
 		settlerStart.get(1).setSpeed(6.0f);
 		

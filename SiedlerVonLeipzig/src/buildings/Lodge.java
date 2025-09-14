@@ -1,7 +1,5 @@
-
 package buildings;
 
-import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,15 +13,21 @@ import settlers.SettlersAktion;
 import settlers.SettlersJobs;
 
 public class Lodge extends Buildings{
+	
+	protected static int price = 20;
+	public static String priceType = "Log";
+	private static String name = "Lodge";
+	
 	private static BufferedImage lodgeImg1;
 	private static BufferedImage lodgeImg2;
-	public static int price = 20;
-	public static String priceType = "Log";
-	public static String name = "Lodge";
+	
 	static {
+		
 		try {
+			
 			lodgeImg1 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Lodge.png"));
 			lodgeImg2 = ImageIO.read(Buildings.class.getResourceAsStream("/resources/Lodge_!.png"));
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -34,49 +38,36 @@ public class Lodge extends Buildings{
 	 * @param pos
 	 */
 	public Lodge(Vector2D pos) {
-		super("Lodge", pos);
+		super(name, pos);
 		img = lodgeImg1;
 	}
 
 	/**
-	 * @brief beschafft nächsten Tree vom Settler aus und macht daraus Log
+	 * @brief beschaft nächsten Tree vom Settler aus und macht daraus Log
 	 * @param worker
 	 * @param itemList
 	 */
 	public void getLogs(ASettlers worker, ArrayList<Items> itemList) {
+		
 		Items settlerHand = worker.getItem(true);
+		
 		if(!settlerHand.getName().equals("Tree")) {
+			
 			Items tree = Items.closestItem(worker.getPosition(), itemList, "Tree");
-			if(tree == null)return;
+			
+			if(tree == null) return;
+			
 			worker.giveSettlerTask(tree.getPosition(), SettlersAktion.GO_PICKUP_LEFT, tree);
 			return;
 		}
-		Items.dellItemFromList(settlerHand, itemList);
+		
+		Items.deleteItemFromList(settlerHand, itemList);
 		Items newLog = Items.createItem("Log", worker.getPosition());
 		itemList.add(newLog);
 		worker.setItem(true, newLog);
 		worker.giveSettlerTask(this.getPosition(), SettlersAktion.GO_BRING_LEFT, worker.getItem(true));
 	}
-	
-	/*Kann eigentlich weg (nur zur sicherheit noch da)		
-	protected void getAxe(ArrayList<Items> ItemList) {
-		Items axe = Items.closestItem(employee.getPosition(), ItemList, "Axe");
-		if (axe == null){
-			return;
-		}
-		else if (this.employee.getJobName().equals(SettlersJobs.JOB_NORMAL)){
-			employee.setJobName(SettlersJobs.JOB_LUMBERJACK);
-			employee.giveSettlerTask(axe.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, axe);
-			//employee.giveSettlerTask(this.getPosition(), SettlersAktion.GO_FREE, null);
-		}
-		else {
-			employee.setJobName(SettlersJobs.JOB_LUMBERJACK);
-			employee.giveSettlerTask(employee.getPosition(), SettlersAktion.GO_BRING_RIGHT, employee.getItem(false));
-			employee.giveSettlerTask(axe.getPosition(), SettlersAktion.GO_PICKUP_RIGHT, axe);
-		}
-	}
-	*/
-	
+
 	/**
 	 * @brief Updatemethode, überprüft ob es employee gibt und "stellt ein" wenn nicht, beschafft Log wenn Inventar leer
 	 * @param Delta
@@ -87,17 +78,19 @@ public class Lodge extends Buildings{
 	 * @note e.v muss das input_inventar direkt in das output_inventar überführt werden
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> ItemList) {
-		if(!this.updatStartCheck(delta, settlerList, ItemList, BuildingsList, price, priceType, lodgeImg1, lodgeImg2, SettlersJobs.JOB_LUMBERJACK, "Axe"))return;
+		
+		if(!this.updateStartCheck(delta, settlerList, ItemList, BuildingsList, price, priceType, lodgeImg1, lodgeImg2, SettlersJobs.JOB_LUMBERJACK, "Axe")) return;
 		
 		this.getLogs(employee, ItemList);
+		
 		if(this.input_inventory.size() > 0) {
+			
 			Items i = this.input_inventory.get(0);
 			this.input_inventory.remove(0);
-			i.setInInventoryIn(false);
-			i.setInInventory(true);
+			i.setInInventoryInput(false);
+			i.setInInventoryOutput(true);
 			this.output_inventory.add(i);
 		}
-		
 	}
 	
 	public static int getPrice() {
