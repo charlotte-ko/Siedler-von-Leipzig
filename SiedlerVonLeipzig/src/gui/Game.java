@@ -113,15 +113,10 @@ public class Game extends BaseGUI {
 		gPanel.setPresenter(presenter);
 	}
 	
-	GamePanel gPanel;
+	public GamePanel gPanel;
 	private JPanel createField() {
 		gPanel = new GamePanel();
-		//gPanel.startGameThread();
 		return gPanel;
-	}
-	
-	public void startGameLoop() {
-		gPanel.startGameThread();
 	}
 	
 	private JPanel createMenuBar() {

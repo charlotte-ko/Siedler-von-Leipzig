@@ -36,6 +36,8 @@ public class GameModel {
 
 	private Map<String, Integer> priceMap = new HashMap<>();
 	
+	public boolean debugMode = false;
+	
 	/**
 	 * @brief erstellt Gebäude auf dem Spielfeld
 	 * @param buildingName
@@ -170,6 +172,7 @@ public class GameModel {
 		oldList = newList;
 	}
 	public void setupDebug() {
+		this.debugMode = true;
 		setupGameFieldDebug3();
 		//setupGameFieldDebug2();
 		//setupGameFieldDebug1Settler();
