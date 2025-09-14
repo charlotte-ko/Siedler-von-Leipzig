@@ -15,7 +15,15 @@ import settlers.SettlersJobs;
 public class Lodge extends Buildings{
 	
 	protected static int price = 20;
-	public static String priceType = "Log";
+	protected static String priceType = "Log";
+	public static String getPriceType() {
+		return priceType;
+	}
+
+	public static void setPriceType(String priceType) {
+		Lodge.priceType = priceType;
+	}
+
 	private static String name = "Lodge";
 	
 	private static BufferedImage lodgeImg1;
