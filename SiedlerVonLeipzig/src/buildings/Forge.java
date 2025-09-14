@@ -98,4 +98,8 @@ public class Forge extends Buildings{
 	public static int getPrice() {
 		return price;
 	}
+	
+	public static String getPriceType() {
+		return priceType;
+	}
 }

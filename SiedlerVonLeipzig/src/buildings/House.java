@@ -58,7 +58,7 @@ public class House extends Buildings{
 	 */
 	public void update(double delta, ArrayList<ASettlers> settlerList, ArrayList<Buildings> BuildingsList, ArrayList<Items> itemList){
 		
-		if(this.updateConstruction(delta, settlerList, BuildingsList, itemList, price, "Log")){
+		if(this.updateConstruction(delta, settlerList, BuildingsList, itemList, price, priceType)){
 			img = houseImg1;
 			
 		}else {return;}
@@ -77,5 +77,9 @@ public class House extends Buildings{
 	
 	public static int getPrice() {
 		return price;
+	}
+	
+	public static String getPriceType() {
+		return priceType;
 	}
 }

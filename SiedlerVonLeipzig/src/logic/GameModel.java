@@ -36,6 +36,7 @@ public class GameModel {
 	
 
 	private Map<String, Integer> priceMap = new HashMap<>();
+	private Map<String, String> CurrencyMap = new HashMap<>();
 	
 	public boolean debugMode = false;
 	
@@ -45,7 +46,12 @@ public class GameModel {
 	 * @param position
 	 */
 	public void constructBuilding(String buildingName,Vector2D position) {
-		synchronized(key){buildingList.add(Buildings.createBuilding(buildingName, position));}
+		
+		if(position.testPos(buildingList, itemList, 3.0f)) {
+			
+			synchronized(key){buildingList.add(Buildings.createBuilding(buildingName, position));}
+		}
+		
 	}
 	
 	/**
@@ -290,7 +296,7 @@ public class GameModel {
 	}
 	
 	/**
-	 * @brief füllt die PriceMap mit den kaufbaren Items und ihren entsprechenden Preisen
+	 * @brief füllt die PriceMap/CurrencyMap mit den kaufbaren Items und ihren entsprechenden Preisen und Währungen
 	 */
 	public void fillMap() {
 		priceMap.put("Forester", Forester.getPrice());
@@ -300,6 +306,12 @@ public class GameModel {
 		priceMap.put("Forge", Forge.getPrice());
 		priceMap.put("Mine", Mine.getPrice());
 		
+		CurrencyMap.put("Forester", Forester.getPriceType());
+		CurrencyMap.put("House", House.getPriceType());
+		CurrencyMap.put("Lodge", Lodge.getPriceType());
+		CurrencyMap.put("Sawmill", Sawmill.getPriceType());
+		CurrencyMap.put("Forge", Forge.getPriceType());
+		CurrencyMap.put("Mine", Mine.getPriceType());
 	}
 	
 	/**
@@ -314,6 +326,16 @@ public class GameModel {
 			
 		}else {
 			return Integer.MAX_VALUE;
+		}
+	}
+	
+	public String getPriceType(String purchase) {
+		
+		if(CurrencyMap.containsKey(purchase)) {
+			return CurrencyMap.get(purchase);
+			
+		}else {
+			return null;
 		}
 	}
 	

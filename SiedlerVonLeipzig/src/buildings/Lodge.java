@@ -16,14 +16,6 @@ public class Lodge extends Buildings{
 	
 	protected static int price = 20;
 	protected static String priceType = "Log";
-	public static String getPriceType() {
-		return priceType;
-	}
-
-	public static void setPriceType(String priceType) {
-		Lodge.priceType = priceType;
-	}
-
 	private static String name = "Lodge";
 	
 	private static BufferedImage lodgeImg1;
@@ -103,5 +95,9 @@ public class Lodge extends Buildings{
 	
 	public static int getPrice() {
 		return price;
+	}
+	
+	public static String getPriceType() {
+		return priceType;
 	}
 }

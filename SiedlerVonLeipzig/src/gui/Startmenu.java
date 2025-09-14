@@ -1,6 +1,5 @@
 package gui;
 
-import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -28,14 +27,13 @@ public class Startmenu extends BaseGUI{
 	
 	JButton[] buttons = {button1, button2, button3, button4, button5};
 	
-	String player_name; //soll dann key für unser Speichersystem sein, weiß nicht, ob das dann in Main gehört
-	
 	private StartPresenter presenter;
 	
 	public Startmenu() {
+		
 		super("Startmenue");
 		
-		setWindowBase(this,800, 600, null, foresty);
+		setWindowBase(this, 800, 600, null, foresty);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new GridBagLayout());
@@ -43,6 +41,7 @@ public class Startmenu extends BaseGUI{
 		setButtons();
 		ButtonLayout(this);
 	}
+	
 	public void setPresenter(StartPresenter presenter) {
 		this.presenter = presenter;
 	}
@@ -63,7 +62,6 @@ public class Startmenu extends BaseGUI{
 		button5.addActionListener(e -> presenter.end());
 	}
 	
-	
 	private void ButtonLayout(Container e) {
 		
 		GridBagConstraints grid = new GridBagConstraints();
@@ -75,7 +73,6 @@ public class Startmenu extends BaseGUI{
 		grid.gridy = 1;
 		grid.gridwidth = 1;
 		grid.weightx = 0.3;
-		//grid.ipady = 0;
 		e.add(Box.createHorizontalGlue(), grid);
 		
 		grid.gridx = 1;
@@ -122,7 +119,6 @@ public class Startmenu extends BaseGUI{
 		NewFrame.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		NewFrame.setLayout(new GridBagLayout());
 
-		
 		JLabel name = new JLabel("Name:");
 		
 		name.setForeground(pine);
@@ -138,17 +134,10 @@ public class Startmenu extends BaseGUI{
 		confirm.setBackground(pine);
 		confirm.setForeground(foresty);
 		
-		//Bestetigen !!!
-		/*
 		confirm.addActionListener(e -> {
-			player_name = field_name.getText();
-			new Game();
-			NewFrame.dispose();
-			this.dispose();
-		});
-		*/
-		confirm.addActionListener(e -> {
+			
 			if(!(field_name.getText().isEmpty())) {
+				
 				presenter.setPlayerName(field_name.getText());
 				NewFrame.dispose();
 				presenter.makeNewGame();
@@ -156,11 +145,11 @@ public class Startmenu extends BaseGUI{
 		});
 		
 		NewGameLayout(NewFrame, name, field_name, confirm);
-		
 		NewFrame.setVisible(true);
 	}
 	
 	public void openDebugging() {
+		
 		this.dispose();
 		presenter.buttonDebugging();
 	}
@@ -178,8 +167,6 @@ public class Startmenu extends BaseGUI{
 		
 		axis.gridx = 1;
 		axis.weightx = 0.6;
-		//axis.anchor = GridBagConstraints.EAST;
-		//axis.ipady = 10;
 		field.setPreferredSize(new Dimension(100, 30));
 		e.add(field, axis);
 		
@@ -189,13 +176,8 @@ public class Startmenu extends BaseGUI{
 		
 		axis.gridx = 1;
 		axis.gridy = 1;
-		//axis.gridwidth = 2;
 		axis.weightx = 0.6;
 		e.add(confirm, axis);
 	
-	}
-	
-	public String getName() {
-		return this.player_name;
 	}
 }
