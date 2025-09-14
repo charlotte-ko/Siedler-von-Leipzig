@@ -34,6 +34,7 @@ public class Startmenu extends BaseGUI{
 	JButton[] buttons = {button1, button2, button3, button4};
 	
 	private Image background;
+	private ImageIcon logocon = createIcon("Logo.png", 200, 200);
 	
 	private StartPresenter presenter;
 	
@@ -59,12 +60,23 @@ public class Startmenu extends BaseGUI{
 		});
 		
 		getContentPane().setLayout(new GridBagLayout());
+		setLogo();
 		setButtons();
 		ButtonLayout(getContentPane());
 	}
 	
 	public void setPresenter(StartPresenter presenter) {
 		this.presenter = presenter;
+	}
+	
+	private void setLogo() {
+		GridBagConstraints logo = new GridBagConstraints();
+		JLabel logolab = new JLabel(logocon);
+		logo.gridx = 1;
+		logo.gridy = 0;
+		logo.gridwidth = 2;
+		logo.insets = new Insets(20, 0, 20, 0);
+		this.add(logolab, logo);
 	}
 	
 	private Image loadImage(String png) {
