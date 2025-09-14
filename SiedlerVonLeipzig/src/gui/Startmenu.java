@@ -39,7 +39,7 @@ public class Startmenu extends BaseGUI{
 	
 	public Startmenu() {
 		
-		super("Startmenue");
+		super("Startmenu");
 		
 		setWindowBase(this, 800, 600, null, foresty);
 		
