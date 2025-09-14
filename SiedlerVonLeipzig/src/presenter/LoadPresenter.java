@@ -30,10 +30,10 @@ public class LoadPresenter {
 			for(String f : fileNames) {
 				if(f.endsWith(".bin")) {
 					String playerName = f.substring(0, f.length() -4);
-					model.userData.add(playerName);	
+					model.getUserData().add(playerName);	
 				}
 			}
-			return model.userData;
+			return model.getUserData();
 		}
 		return null;
 	}

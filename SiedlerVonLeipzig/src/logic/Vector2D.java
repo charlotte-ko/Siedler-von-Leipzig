@@ -37,6 +37,7 @@ public class Vector2D implements java.io.Serializable{
 	 * @return float mit der Distanz
 	 */
 	public float getDistance(Vector2D b) {
+		
 		return (float) Math.sqrt(Math.pow(b.x-this.x,2)+Math.pow(b.y-this.y,2));
 	}
 	
@@ -46,6 +47,7 @@ public class Vector2D implements java.io.Serializable{
 	 * @return ein Vector2D
 	 */
 	public Vector2D getTwoPointVector(Vector2D b) {
+		
 		Vector2D twoPointVector = new Vector2D(b.x - this.x,b.y - this.y);
 		return twoPointVector;
 	}
@@ -55,74 +57,53 @@ public class Vector2D implements java.io.Serializable{
 	 * @return den einheitsvektor
 	 */
 	public Vector2D normalize() {
+		
 		float len = this.length();
 		return new Vector2D(this.x/len,this.y/len);
 	}
+	
 	/**
 	 * @brief gibt die länge des Vektors an
 	 * @return als float
 	 */
 	public float length() {
+		
 		return (float)Math.abs(Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2)));
 	}
+	
 	/**
 	 * @brief multipliziert Vector mit Scalar
 	 * @param scalar
 	 * @return
 	 */
 	public Vector2D scale(float scalar) {
+		
 		return new Vector2D(this.x*scalar,this.y*scalar);
 	}
+	
 	/**
 	 * @brief einfache Vektor addition
 	 * @param b
 	 * @return
 	 */
 	public Vector2D add(Vector2D b) {
+		
 		return new Vector2D(this.x+b.x,this.y+b.y);
 	} 
 	
-	//bitte checken ob die Methode benutzt wird
-	public static boolean isInRadius(Vector2D point, Vector2D centre, float radius) {
-		
-		if((point.x - centre.x)*(point.x - centre.x) + (point.y - centre.y)*(point.y - centre.y) <= radius*radius) {
-			return true;
-		}
-		return false;
-	}
-	//bitte checken ob die Methode benutzt wird
-	public Vector2D genPos(float radius) {
-		
-		Vector2D centre = this;
-		Random rnd = new Random();
-		
-		Vector2D temporary = new Vector2D(centre.x + ((rnd.nextFloat() %1.0f) * radius), centre.y);
-		int angle = rnd.nextInt(360);
-	
-		float newX = (float) (temporary.x * Math.cos(angle) - temporary.y * Math.sin(angle));
-		float newY = (float) (temporary.x * Math.sin(angle) + temporary.y * Math.cos(angle));
-		
-		Vector2D finalPoint = new Vector2D (newX, newY);
-		
-		return finalPoint;
-	}
-	
 	/**
-	 * @brief generiert einen zufälligen Punkt welcher sich im radius des Vector befindet
+	 * @brief generiert einen zufälligen Punkt welcher sich im radius des Vektors befindet
 	 * @param radius
-	 * @return
-	 * @note Das ist die aktuelle methode für Tree
+	 * @return generierter Punkt
 	 */
 	public Vector2D genPosInCircle(float radius) {
+		
 		double theta = 2*Math.PI*RNG.nextDouble();
-		double r = radius * RNG.nextDouble();
+		double rad = radius * RNG.nextDouble();
 		
-		
-		return new Vector2D((float)(this.x + r*Math.cos(theta)),
-				(float)(this.y + r*Math.sin(theta)));
+		return new Vector2D((float)(this.x + rad*Math.cos(theta)), (float)(this.y + rad*Math.sin(theta)));
 	}
 
-	
 	/**
 	 * @brief checkt ob die Vector position zu nah an Gebäuden oder Items ist
 	 * @param BuildingList
@@ -133,13 +114,14 @@ public class Vector2D implements java.io.Serializable{
 	public boolean testPos(ArrayList<Buildings> BuildingList, ArrayList<Items> ItemList) {
 		
 		for(Buildings b : BuildingList) {
-			if(this.getDistance(b.getPosition()) < 1.0f) {return false;}
+			if(this.getDistance(b.getPosition()) < 2.0f) {return false;}
 		}
 		for(Items i : ItemList) {
-			if(this.getDistance(i.getPosition()) < 0.5f) {return false;}
+			if(this.getDistance(i.getPosition()) < 1.0f) {return false;}
 		}
 		return true;
 	}
+	
 	/**
 	 * @brief checkt ob beide Vectoren gleich sind
 	 * @param b
@@ -148,5 +130,4 @@ public class Vector2D implements java.io.Serializable{
 	public boolean same(Vector2D o) {
 	    return o != null && x == o.x && y == o.y;
 	}
-
 }

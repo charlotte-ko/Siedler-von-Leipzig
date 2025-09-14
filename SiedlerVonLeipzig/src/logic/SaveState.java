@@ -8,7 +8,9 @@ import settlers.ASettlers;
 import items.Items;
 
 public class SaveState implements Serializable {
+	
     private static final long serialVersionUID = 1L;
+    
     public final ArrayList<Buildings> buildings;
     public final ArrayList<ASettlers> settlers;
     public final ArrayList<Items> items;

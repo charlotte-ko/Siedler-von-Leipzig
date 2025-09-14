@@ -6,6 +6,7 @@ import gui.Startmenu;
 import logic.GameModel;
 
 public class StartPresenter {
+	
 	final private GameModel model;
 	final private Startmenu view;
 	
@@ -27,20 +28,30 @@ public class StartPresenter {
 		view.openNewGame();
 	}
 	
+	/**
+	 * @brief speichert den eingebenen Namen
+	 * @param name
+	 */
 	public void setPlayerName(String name) {
 		model.playerName = name;
-		model.userData.add(name);
+		model.getUserData().add(name);
 	}
 	
+	/**
+	 * @brief öffnet Bildschirm mit zu ladenden Spielständen
+	 */
 	public void buttonLoad() {
+		
+		if(model.getUserData().isEmpty()) return;
+		
 		LoadGame gview = new LoadGame();
 		LoadPresenter gpresenter = new LoadPresenter(model, gview);
 		gpresenter.start();
 		view.dispose();
 	}
 	
-	/*
-	 * @brief wird aufgerufen wenn Debug Modus gestartet wird
+	/**
+	 * @brief ruft den Debug Modus auf
 	 */
 	public void buttonDebugging() {
 		view.dispose();
@@ -50,6 +61,9 @@ public class StartPresenter {
 		gPresenter.startDebug();
 	}
 	
+	/**
+	 * @brief startet ein neues Spiel
+	 */
 	public void makeNewGame() {
 		view.dispose();
 		Game gView = new Game();
@@ -57,6 +71,9 @@ public class StartPresenter {
 		gPresenter.start();
 	}
 	
+	/**
+	 * @brief beendet und schließt das Programm
+	 */
 	public void end() {
 		System.exit(0);
 	}

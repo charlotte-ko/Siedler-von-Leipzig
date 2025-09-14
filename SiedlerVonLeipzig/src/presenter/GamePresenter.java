@@ -9,6 +9,7 @@ import logic.Renderer;
 import logic.Vector2D;
 
 public class GamePresenter {
+	
 	public GameModel model;
 	public Game view;
 	public boolean waiting;
@@ -26,7 +27,9 @@ public class GamePresenter {
 	}
 
 	public void start() {
-		model.setupDebug();
+		
+		//model.setupDebug();
+		model.setupGameField();
 		renderer.startGameThread();
 		view.setVisible(true);
 	}

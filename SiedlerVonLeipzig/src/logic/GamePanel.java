@@ -1,7 +1,6 @@
 package logic;
 
 import java.awt.Color;
-import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -15,9 +14,6 @@ import buildings.Buildings;
 import items.Items;
 import presenter.GamePresenter;
 import settlers.ASettlers;
-import settlers.SettlersAktion;
-import settlers.SettlersJobs;
-
 
 public class GamePanel extends JPanel{
 	//Screen settings
@@ -54,21 +50,21 @@ public class GamePanel extends JPanel{
 	
 	static {
 		try {
+			
 			backgroundImg1 = ImageIO.read(GamePanel.class.getResourceAsStream("/resources/Grass_1.png"));
 			backgroundImg2 = ImageIO.read(GamePanel.class.getResourceAsStream("/resources/Grass_2.png"));
-		} catch (IOException e) {
+			
+		}catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 	
 	public GamePanel() {
-		//this.setPreferredSize(new Dimension(screenWidth,screenHeight)); ????
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 	}
-	
 	
 	public void setPresenter(GamePresenter presenter) {
 		this.presenter = presenter;
@@ -104,6 +100,7 @@ public class GamePanel extends JPanel{
 	 * @param delta
 	 */
 	public void cameraManager(double delta) {
+		
 		if(this.keyH.upPressed)camPos.y -= delta * cameraSpeed;
 		if(this.keyH.downPressed)camPos.y += delta * cameraSpeed;
 		if(this.keyH.rightPressed)camPos.x += delta * cameraSpeed;
@@ -114,7 +111,9 @@ public class GamePanel extends JPanel{
 	 * @brief macht kopie um keine Race Condition zu erzeugen
 	 */
 	private void doSnap() {
+		
 		synchronized(key) {
+			
 			itemListSnap = new ArrayList<>(itemList);
 			buildingListSnap = new ArrayList<>(buildingList);
 			settlerListSnap = new ArrayList<>(settlerList);
@@ -127,7 +126,9 @@ public class GamePanel extends JPanel{
 	 * @note Alle listen sind schon sortiert
 	 */
 	private void renderInOrder(Graphics2D g2) {
+		
 		int i = 0,j = 0, k = 0;
+		
 		for(int count = itemListSnap.size()+buildingListSnap.size()+settlerListSnap.size(); count > 0;count--){
 			float bPos = Float.POSITIVE_INFINITY;
 			float sPos = Float.POSITIVE_INFINITY;
@@ -138,6 +139,7 @@ public class GamePanel extends JPanel{
 			if(k < itemListSnap.size())iPos = itemListSnap.get(k).getPosition().y;
 			
 			int m = (bPos<=sPos) ? ((bPos<=iPos) ? (0):(2)) : ((sPos<=iPos)?(1):(2));
+			
 			switch(m) {
 				case 0:
 					buildingListSnap.get(i).draw(g2, tileSize, camPos);
@@ -159,9 +161,10 @@ public class GamePanel extends JPanel{
 	 * @brief Wird durch repaint in Renderer 60 mal pro sec aufgerufen
 	 */
 	public void paintComponent(Graphics g) {
+		
 		super.paintComponent(g);
 		Graphics2D g2 = (Graphics2D)g;
-		//Tile size ermitteln
+		
 		tileSize = (int)((float)Math.min(this.getWidth(), this.getHeight())/(float)grid_zoom);
 		
 		doSnap();
@@ -176,13 +179,15 @@ public class GamePanel extends JPanel{
 	 * @param delta
 	 */
 	public void updateBackGroundImg(double delta) {
+		
 		backgroundTimer += delta;
+		
 		if(backgroundTimer > 0.5) {
 			backgroundImg = backgroundImg1;
 		}else {
 			backgroundImg = backgroundImg2;
-		}
-		backgroundTimer %= 1.0;
+			
+		}backgroundTimer %= 1.0;
 	}
 	
 	/**
@@ -193,8 +198,10 @@ public class GamePanel extends JPanel{
 	 * @param delta
 	 */
 	private void drawBackGround(Graphics2D g2,int tileSize,Vector2D camPos,double delta) {
+		
 		for(int i = -1; i < this.getWidth()/tileSize+2;i++) {
 			for(int j = -1; j < this.getHeight()/tileSize+2;j++) {
+				
 				int posX = (int)((i-camPos.x%1.0)*(float)tileSize);
 				int posY = (int)((j-camPos.y%1.0)*(float)tileSize);
 				g2.drawImage(this.backgroundImg, posX, posY, tileSize,tileSize,null);
