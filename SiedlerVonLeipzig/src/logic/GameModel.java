@@ -72,7 +72,7 @@ public class GameModel {
 	 * @param pos
 	 */
 	public void deconstructBuilding(Vector2D pos) {
-		Buildings target = Buildings.findBuildingAprox(pos, buildingList, 1.0f);
+		Buildings target = Buildings.findBuildingAprox(pos, buildingList, 3.0f);
 		
 		if(target != null) {
 			synchronized(key) {target.deconstruct(buildingList);}

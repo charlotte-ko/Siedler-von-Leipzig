@@ -55,6 +55,7 @@ public class Game extends BaseGUI {
 				float y = e.getY();
 				
 				if(hammerActive && hammerLabel != null) {
+					presenter.savePos(new Vector2D(x,y));
 					Vector2D modelPos = presenter.giveModelPos();
 					
 					presenter.toggleDeconstruction(modelPos);
