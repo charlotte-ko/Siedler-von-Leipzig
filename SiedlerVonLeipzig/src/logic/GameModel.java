@@ -82,7 +82,6 @@ public class GameModel {
 	public boolean testAvailabelSpace(Vector2D Position) {
 		
 		if(Position.testPos(buildingList, itemList, 2.0f)) {
-			System.out.println("yay");
 			return true;
 			
 		}else {
