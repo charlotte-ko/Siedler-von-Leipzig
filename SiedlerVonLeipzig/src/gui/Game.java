@@ -44,7 +44,7 @@ public class Game extends BaseGUI {
 		super("Siedler von Leipzig");
 		
 		setWindowBase(this, 800, 600, null, brown);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 		this.setLayout(new BorderLayout());
 		
 		addMouseListener(new MouseAdapter() {
