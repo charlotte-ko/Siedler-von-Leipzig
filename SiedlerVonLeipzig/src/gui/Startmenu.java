@@ -3,14 +3,21 @@ package gui;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.Insets;
+import java.net.URL;
 
+import javax.imageio.ImageIO;
 import javax.swing.Box;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import presenter.StartPresenter;
@@ -22,28 +29,47 @@ public class Startmenu extends BaseGUI{
 	JButton button1 = new JButton("Neues Spiel");
 	JButton button2 = new JButton("Weiterspielen");
 	JButton button3 = new JButton("Debug Modus");
-	JButton button4 = new JButton("Einstellungen");
-	JButton button5 = new JButton("Beenden");
+	JButton button4 = new JButton("Beenden");
 	
-	JButton[] buttons = {button1, button2, button3, button4, button5};
+	JButton[] buttons = {button1, button2, button3, button4};
+	
+	private Image background;
 	
 	private StartPresenter presenter;
 	
 	public Startmenu() {
 		
-		super("Startmenue");
+		super("Startmenu");
 		
 		setWindowBase(this, 800, 600, null, foresty);
 		
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setLayout(new GridBagLayout());
 		
+		background = loadImage("Background.png");
+		
+		setContentPane(new JPanel() {
+			@Override
+			protected void paintComponent(Graphics g) {
+				super.paintComponent(g);
+				if(background != null) {
+					g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+				}
+			}
+		});
+		
+		getContentPane().setLayout(new GridBagLayout());
 		setButtons();
-		ButtonLayout(this);
+		ButtonLayout(getContentPane());
 	}
 	
 	public void setPresenter(StartPresenter presenter) {
 		this.presenter = presenter;
+	}
+	
+	private Image loadImage(String png) {
+		URL path = this.getClass().getResource("/resources/" + png);
+		return new ImageIcon(path).getImage();
 	}
 	
 	private void setButtons() {
@@ -59,7 +85,7 @@ public class Startmenu extends BaseGUI{
 		button1.addActionListener(e -> presenter.buttonStartNewGame());
 		button2.addActionListener(e -> presenter.buttonLoad());
 		button3.addActionListener(e -> presenter.buttonDebugging());
-		button5.addActionListener(e -> presenter.end());
+		button4.addActionListener(e -> presenter.end());
 	}
 	
 	private void ButtonLayout(Container e) {
@@ -91,9 +117,6 @@ public class Startmenu extends BaseGUI{
 		grid.weightx = 0.5;
 		e.add(button4, grid);
 		
-		grid.gridx = 2;
-		e.add(button5, grid);
-		
 		grid.gridx = 3;
 		grid.gridy = 1;
 		grid.weightx = 0.3;
@@ -122,7 +145,7 @@ public class Startmenu extends BaseGUI{
 		JLabel name = new JLabel("Name:");
 		
 		name.setForeground(pine);
-		name.setFont(new Font("Arial", Font.BOLD, 18 ));
+		name.setFont(new Font("Arial", Font.BOLD, 20));
 		
 		JTextField field_name = new JTextField(20);
 		
