@@ -8,6 +8,7 @@ import items.Items;
 
 public class Vector2D implements java.io.Serializable{
 	private static final long serialVersionUID = 1L;
+	private static final java.util.Random RNG = new java.util.Random();
 	public float x,y;
 	
 	public Vector2D(Vector2D old) {
@@ -62,14 +63,24 @@ public class Vector2D implements java.io.Serializable{
 	public float length() {
 		return (float)Math.abs(Math.sqrt(Math.pow(x, 2)+Math.pow(y, 2)));
 	}
-	
+	/**
+	 * @brief multipliziert Vector mit Scalar
+	 * @param scalar
+	 * @return
+	 */
 	public Vector2D scale(float scalar) {
 		return new Vector2D(this.x*scalar,this.y*scalar);
 	}
+	/**
+	 * @brief einfache Vektor addition
+	 * @param b
+	 * @return
+	 */
 	public Vector2D add(Vector2D b) {
 		return new Vector2D(this.x+b.x,this.y+b.y);
 	} 
 	
+	//bitte checken ob die Methode benutzt wird
 	public static boolean isInRadius(Vector2D point, Vector2D centre, float radius) {
 		
 		if((point.x - centre.x)*(point.x - centre.x) + (point.y - centre.y)*(point.y - centre.y) <= radius*radius) {
@@ -77,7 +88,7 @@ public class Vector2D implements java.io.Serializable{
 		}
 		return false;
 	}
-	
+	//bitte checken ob die Methode benutzt wird
 	public Vector2D genPos(float radius) {
 		
 		Vector2D centre = this;
@@ -94,8 +105,12 @@ public class Vector2D implements java.io.Serializable{
 		return finalPoint;
 	}
 	
-	private static final java.util.Random RNG = new java.util.Random();
-	
+	/**
+	 * @brief generiert einen zufälligen Punkt welcher sich im radius des Vector befindet
+	 * @param radius
+	 * @return
+	 * @note Das ist die aktuelle methode für Tree
+	 */
 	public Vector2D genPosInCircle(float radius) {
 		double theta = 2*Math.PI*RNG.nextDouble();
 		double r = radius * RNG.nextDouble();
@@ -106,7 +121,13 @@ public class Vector2D implements java.io.Serializable{
 	}
 
 	
-	
+	/**
+	 * @brief checkt ob die Vector position zu nah an Gebäuden oder Items ist
+	 * @param BuildingList
+	 * @param ItemList
+	 * @return false falls zu nah
+	 * @note Bitte checkt ob andere Werte besser sind!
+	 */
 	public boolean testPos(ArrayList<Buildings> BuildingList, ArrayList<Items> ItemList) {
 		
 		for(Buildings b : BuildingList) {
@@ -118,9 +139,9 @@ public class Vector2D implements java.io.Serializable{
 		return true;
 	}
 	/**
-	 * @brief gibt true zurück wenn x und y gleich sind
+	 * @brief checkt ob beide Vectoren gleich sind
 	 * @param b
-	 * @return
+	 * @return true falls x und y gleich
 	 */
 	public boolean same(Vector2D o) {
 	    return o != null && x == o.x && y == o.y;

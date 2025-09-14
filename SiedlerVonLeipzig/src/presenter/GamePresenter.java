@@ -5,6 +5,7 @@ import gui.Game;
 import gui.GameInv;
 import gui.GameShop;
 import logic.GameModel;
+import logic.Renderer;
 import logic.Vector2D;
 
 public class GamePresenter {
@@ -15,27 +16,30 @@ public class GamePresenter {
 	private Vector2D camPos;
 	private int tileSize;
 	
+	Renderer renderer;
+	
 	GamePresenter(GameModel model, Game view){
 		this.model = model;
 		this.view = view;
 		view.setPresenter(this);
+		renderer = new Renderer(this);
 	}
 
 	public void start() {
 		model.setupDebug();
-		view.startGameLoop();
+		renderer.startGameThread();
 		view.setVisible(true);
 	}
 	
 	public void startSave(String name) {
 		model.loadGame(name);
-		view.startGameLoop();
+		renderer.startGameThread();
 		view.setVisible(true);
 	}
 	
 	public void startDebug() {
 		model.setupDebug();
-		view.startGameLoop();
+		renderer.startGameThread();
 		view.setVisible(true);
 	}
 	
